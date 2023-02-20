@@ -25,7 +25,7 @@ class SignUpPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
+          height: MediaQuery.of(context).size.height + 50,
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,7 +58,30 @@ class SignUpPage extends StatelessWidget {
                   password(label: "", obscureText: true),
                   confirmPassword(label: "", obscureText: true),
                 ],
-              )
+              ),
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: MaterialButton(
+                      minWidth: double.infinity,
+                      height: 50,
+                      onPressed: () {},
+                      color: const Color.fromARGB(255, 46, 161, 226),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        "Sign up",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ))
             ],
           ),
         ),
@@ -88,7 +111,7 @@ Widget fullname({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 0)
     ],
   );
 }
@@ -106,7 +129,7 @@ Widget surName({label, obscureText = false}) {
       TextField(
         obscureText: obscureText,
         decoration: const InputDecoration(
-            hintText: 'Sur number',
+            hintText: 'Sur name',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -114,7 +137,7 @@ Widget surName({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 0)
     ],
   );
 }
@@ -140,7 +163,7 @@ Widget email({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 0)
     ],
   );
 }
@@ -166,7 +189,7 @@ Widget phone({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 0)
     ],
   );
 }
@@ -192,7 +215,7 @@ Widget dob({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 0)
     ],
   );
 }
@@ -218,7 +241,7 @@ Widget password({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 0)
     ],
   );
 }
@@ -244,7 +267,7 @@ Widget confirmPassword({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 1.3)
     ],
   );
 }
