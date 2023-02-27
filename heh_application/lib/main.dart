@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/login.dart';
-import 'package:heh_application/signup.dart';
+import 'package:heh_application/Login%20page/login.dart';
+import 'package:heh_application/SignUp%20Page/signup.dart';
 
 void main() {
   runApp(const MaterialApp(

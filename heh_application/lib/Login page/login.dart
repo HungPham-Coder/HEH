@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/forgotPass.dart';
-import 'package:heh_application/signup.dart';
+import 'package:heh_application/ForgotPassword%20Page/forgotPass.dart';
+import 'package:heh_application/SignUp%20Page/signup.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,8 +11,12 @@ class LoginPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        title: const Text(
+          "Login",
+          style: TextStyle(fontSize: 23),
+        ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 46, 161, 226),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -20,38 +24,32 @@ class LoginPage extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back,
             size: 25,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
       body: SizedBox(
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height - 100,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Expanded(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Column(
-                  children: const <Widget>[
-                    Text(
-                      "LOGIN",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
+                Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/welcome.jpg"))),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
                     children: <Widget>[
-                      inputPhone(label: ""),
-                      inputPassword(label: "", obscureText: true)
+                      inputPhone(label: "Phone number"),
+                      inputPassword(label: "Password", obscureText: true)
                     ],
                   ),
                 ),
@@ -106,7 +104,7 @@ class LoginPage extends StatelessWidget {
                         "Login",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 18,
+                          fontSize: 22,
                           color: Colors.white,
                         ),
                       ),
@@ -114,7 +112,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -172,7 +170,7 @@ Widget inputPhone({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 20)
     ],
   );
 }
@@ -198,7 +196,7 @@ Widget inputPassword({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 10)
+      const SizedBox(height: 0)
     ],
   );
 }
