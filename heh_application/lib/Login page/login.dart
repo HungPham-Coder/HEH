@@ -28,18 +28,19 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height - 100,
+      body: SingleChildScrollView(
+          child: SizedBox(
+        height: MediaQuery.of(context).size.height - 30,
         width: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height / 3,
+                  height: MediaQuery.of(context).size.height / 4,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/welcome.jpg"))),
@@ -52,6 +53,9 @@ class LoginPage extends StatelessWidget {
                       inputPassword(label: "Password", obscureText: true)
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -77,7 +81,7 @@ class LoginPage extends StatelessWidget {
                       ],
                     )),
                 const SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -112,7 +116,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 15,
                 ),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -140,10 +144,72 @@ class LoginPage extends StatelessWidget {
                       ],
                     )),
               ],
-            ))
+            )),
+            Column(
+              children: <Widget>[
+                Row(children: <Widget>[
+                  Expanded(
+                      child: Container(
+                    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: const Divider(
+                      color: Colors.black,
+                      height: 36,
+                    ),
+                  )),
+                  const Text("Or register using",
+                      style: TextStyle(color: Colors.grey)),
+                  Expanded(
+                      child: Container(
+                    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: const Divider(
+                      color: Colors.black,
+                      height: 36,
+                    ),
+                  )),
+                ]),
+                // const Center(
+                //   child: Text(
+                //     "Or register using",
+                //     style: TextStyle(color: Colors.grey),
+                //   ),
+                // ),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                Center(
+                  child: FloatingActionButton.extended(
+                    onPressed: () {},
+                    icon: Image.asset('assets/icons/google_icon.png',
+                        height: 30, width: 30),
+                    label: const Text('Sign in with Google'),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                  ),
+                ),
+                // ignore: prefer_const_constructors
+                SizedBox(
+                  height: 15,
+                ),
+                Center(
+                  child: FloatingActionButton.extended(
+                    onPressed: () {},
+                    icon: Image.asset('assets/icons/facebook_icon.png',
+                        height: 30, width: 30),
+                    label: const Text('Sign in with Facebook'),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            )
           ],
         ),
-      ),
+      )),
     );
   }
 }
@@ -170,7 +236,7 @@ Widget inputPhone({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 20)
+      const SizedBox(height: 10)
     ],
   );
 }

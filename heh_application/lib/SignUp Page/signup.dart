@@ -17,7 +17,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
@@ -60,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 20,
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
@@ -91,9 +91,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 0,
                       ),
                       Expanded(
                         child: ListTile(
@@ -186,10 +183,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         controller: _date,
                         decoration: const InputDecoration(
                           labelText: "Date of birth: ",
-                          // icon: Icon(
-                          //   Icons.calendar_month,
-                          //   color: Colors.black,
-                          // ),
                         ),
                         onTap: () async {
                           DateTime? pickeddate = await showDatePicker(
@@ -237,7 +230,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                  ))
+                  )),
             ],
           ),
         ),
