@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/ForgotPassword%20Page/forgotPass.dart';
 import 'package:heh_application/Main%20page/navigation_main.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
+import 'package:heh_application/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -184,7 +188,7 @@ class LoginPage extends StatelessWidget {
                 Center(
                   child: FloatingActionButton.extended(
                     heroTag: 'google',
-                    onPressed: () {},
+                    onPressed: () => _signInWithGoogle(context),
                     icon: Image.asset('assets/icons/google_icon.png',
                         height: 30, width: 30),
                     label: const Text('Đăng nhập với Google'),
@@ -199,7 +203,7 @@ class LoginPage extends StatelessWidget {
                 Center(
                   child: FloatingActionButton.extended(
                     heroTag: 'facebook',
-                    onPressed: () {},
+                    onPressed:() => _signInWithFacebook(context),
                     icon: Image.asset('assets/icons/facebook_icon.png',
                         height: 30, width: 30),
                     label: const Text('Đăng nhập với Facebook'),
@@ -216,6 +220,26 @@ class LoginPage extends StatelessWidget {
         ),
       )),
     );
+  }
+
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthBase>(context,listen: false);
+      await auth.signInWithGoogle();
+    }
+    on FirebaseException catch(e) {
+      print(e.message);
+    }
+  }
+
+  Future<void> _signInWithFacebook(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthBase>(context,listen: false);
+      await auth.signInWithFacebook();
+    }
+    on FirebaseException catch(e) {
+      print(e.message);
+    }
   }
 }
 

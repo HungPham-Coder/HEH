@@ -33,32 +33,31 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 115,
             width: 115,
             child: Stack(
-              fit: StackFit.expand,
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none, fit: StackFit.expand,
               children: [
                 const CircleAvatar(
                   backgroundImage: AssetImage("assets/images/profile.jpg"),
                 ),
-                Positioned(
-                  right: -12,
-                  bottom: 0,
-                  child: SizedBox(
-                    height: 46,
-                    width: 46,
-                    child: FlatButton(
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            side: const BorderSide(color: Colors.white)),
-                        color: const Color(0xfff5f6f9),
-                        onPressed: () {},
-                        child: SvgPicture.asset(
-                          "assets/icons/camera.svg",
-                          width: 20,
-                          height: 20,
-                        )),
-                  ),
-                )
+                // Positioned(
+                //   right: -12,
+                //   bottom: 0,
+                //   child: SizedBox(
+                //     height: 46,
+                //     width: 46,
+                //     child: FlatButton(
+                //         padding: EdgeInsets.zero,
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(50),
+                //             side: const BorderSide(color: Colors.white)),
+                //         color: const Color(0xfff5f6f9),
+                //         onPressed: () {},
+                //         child: SvgPicture.asset(
+                //           "assets/icons/camera.svg",
+                //           width: 20,
+                //           height: 20,
+                //         )),
+                //   ),
+                // )
               ],
             ),
           ),
@@ -108,31 +107,31 @@ class ProfileMenu extends StatelessWidget {
     // ignore: duplicate_ignore
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: FlatButton(
-        padding: const EdgeInsets.all(20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: const Color(0XFFF5F6F9),
-        onPressed: press,
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              icon,
-              width: 30,
-              color: const Color.fromARGB(255, 46, 161, 226),
-            ),
-            const SizedBox(
-              width: 20,
-              height: 10,
-            ),
-            Expanded(
-                child: Text(
-              text,
-              style: Theme.of(context).textTheme.bodyText1,
-            )),
-            const Icon(Icons.arrow_forward_ios_rounded),
-          ],
-        ),
-      ),
+      // child: FlatButton(
+      //   padding: const EdgeInsets.all(20),
+      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      //   color: const Color(0XFFF5F6F9),
+      //   onPressed: press,
+      //   child: Row(
+      //     children: [
+      //       SvgPicture.asset(
+      //         icon,
+      //         width: 30,
+      //         color: const Color.fromARGB(255, 46, 161, 226),
+      //       ),
+      //       const SizedBox(
+      //         width: 20,
+      //         height: 10,
+      //       ),
+      //       Expanded(
+      //           child: Text(
+      //         text,
+      //         style: Theme.of(context).textTheme.bodyText1,
+      //       )),
+      //       const Icon(Icons.arrow_forward_ios_rounded),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

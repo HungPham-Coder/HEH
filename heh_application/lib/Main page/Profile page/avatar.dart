@@ -21,32 +21,31 @@ class _AvatarPicState extends State<AvatarPic> {
           height: 115,
           width: 115,
           child: Stack(
-            fit: StackFit.expand,
-            overflow: Overflow.visible,
+            clipBehavior: Clip.none, fit: StackFit.expand,
             children: [
               const CircleAvatar(
                 backgroundImage: AssetImage("assets/images/profile.jpg"),
               ),
-              Positioned(
-                right: -12,
-                bottom: 0,
-                child: SizedBox(
-                  height: 46,
-                  width: 46,
-                  child: FlatButton(
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          side: const BorderSide(color: Colors.white)),
-                      color: const Color(0xfff5f6f9),
-                      onPressed: () {},
-                      child: SvgPicture.asset(
-                        "assets/icons/camera.svg",
-                        width: 20,
-                        height: 20,
-                      )),
-                ),
-              )
+              // Positioned(
+              //   right: -12,
+              //   bottom: 0,
+              //   child: SizedBox(
+              //     height: 46,
+              //     width: 46,
+              //     child: FlatButton(
+              //         padding: EdgeInsets.zero,
+              //         shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(50),
+              //             side: const BorderSide(color: Colors.white)),
+              //         color: const Color(0xfff5f6f9),
+              //         onPressed: () {},
+              //         child: SvgPicture.asset(
+              //           "assets/icons/camera.svg",
+              //           width: 20,
+              //           height: 20,
+              //         )),
+              //   ),
+              // )
             ],
           ),
         )
