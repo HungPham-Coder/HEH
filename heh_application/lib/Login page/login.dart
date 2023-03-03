@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/ForgotPassword%20Page/forgotPass.dart';
+import 'package:heh_application/Main%20page/navigation_main.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,29 +12,31 @@ class LoginPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
-          "Login",
+          "Đăng nhập",
           style: TextStyle(fontSize: 23),
         ),
-        elevation: 0,
+        elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            size: 25,
-            color: Colors.white,
-          ),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        //   icon: const Icon(
+        //     Icons.arrow_back,
+        //     size: 25,
+        //     color: Colors.white,
+        //   ),
+        // ),
       ),
       body: SingleChildScrollView(
           child: SizedBox(
-        height: MediaQuery.of(context).size.height - 30,
-        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
                 child: Column(
@@ -49,8 +52,8 @@ class LoginPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
                     children: <Widget>[
-                      inputPhone(label: "Phone number"),
-                      inputPassword(label: "Password", obscureText: true)
+                      inputPhone(label: "Số điện thoại"),
+                      inputPassword(label: "Mật khẩu", obscureText: true)
                     ],
                   ),
                 ),
@@ -72,7 +75,7 @@ class LoginPage extends StatelessWidget {
                             );
                           },
                           child: const Text(
-                            "Forgot Password?",
+                            "Quên mật khẩu?",
                             style: TextStyle(
                                 color: Color.fromARGB(255, 46, 161, 226),
                                 fontWeight: FontWeight.bold),
@@ -98,14 +101,19 @@ class LoginPage extends StatelessWidget {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Navigation_Bar()));
+                      },
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: const Text(
-                        "Login",
+                        "Đăng nhập",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 22,
@@ -123,7 +131,7 @@ class LoginPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text("Doesn't have account? "),
+                        const Text("Bạn chưa có tài khoản ư? "),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -134,13 +142,14 @@ class LoginPage extends StatelessWidget {
                             );
                           },
                           child: const Text(
-                            "Sign up ",
+                            "Đăng ký ",
                             style: TextStyle(
                                 color: Color.fromARGB(255, 46, 161, 226),
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                         ),
-                        const Text("now!")
+                        const Text("tại đây!")
                       ],
                     )),
               ],
@@ -153,26 +162,20 @@ class LoginPage extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: const Divider(
                       color: Colors.black,
-                      height: 36,
+                      height: 20,
                     ),
                   )),
-                  const Text("Or register using",
+                  const Text("Hoặc sử dụng",
                       style: TextStyle(color: Colors.grey)),
                   Expanded(
                       child: Container(
                     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: const Divider(
                       color: Colors.black,
-                      height: 36,
+                      height: 20,
                     ),
                   )),
                 ]),
-                // const Center(
-                //   child: Text(
-                //     "Or register using",
-                //     style: TextStyle(color: Colors.grey),
-                //   ),
-                // ),
 
                 const SizedBox(
                   height: 10,
@@ -180,10 +183,11 @@ class LoginPage extends StatelessWidget {
 
                 Center(
                   child: FloatingActionButton.extended(
+                    heroTag: 'google',
                     onPressed: () {},
                     icon: Image.asset('assets/icons/google_icon.png',
                         height: 30, width: 30),
-                    label: const Text('Sign in with Google'),
+                    label: const Text('Đăng nhập với Google'),
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
                   ),
@@ -194,10 +198,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 Center(
                   child: FloatingActionButton.extended(
+                    heroTag: 'facebook',
                     onPressed: () {},
                     icon: Image.asset('assets/icons/facebook_icon.png',
                         height: 30, width: 30),
-                    label: const Text('Sign in with Facebook'),
+                    label: const Text('Đăng nhập với Facebook'),
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
                   ),
@@ -222,13 +227,13 @@ Widget inputPhone({label, obscureText = false}) {
       Text(
         label,
         style: const TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
+            fontSize: 17, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
       const SizedBox(height: 5),
       TextField(
         obscureText: obscureText,
         decoration: const InputDecoration(
-            hintText: 'Phone number',
+            hintText: 'Số điện thoại',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -248,13 +253,13 @@ Widget inputPassword({label, obscureText = false}) {
       Text(
         label,
         style: const TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
+            fontSize: 17, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
       const SizedBox(height: 5),
       TextField(
         obscureText: obscureText,
         decoration: const InputDecoration(
-            hintText: 'Password',
+            hintText: 'Mật khẩu',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),

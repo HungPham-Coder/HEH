@@ -21,38 +21,28 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Sign up",
+          "Đăng ký tài khoản",
           style: TextStyle(fontSize: 23),
         ),
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            size: 25,
-            color: Colors.white,
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height + 35,
-          width: double.infinity,
+          height: MediaQuery.of(context).size.height + 110,
+          width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Column(
                 children: <Widget>[
                   const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   Text(
-                    "Create a new account. It's Free!",
-                    style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+                    "Hãy tham gia cùng chúng tôi!",
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                   ),
                 ],
               ),
@@ -60,80 +50,81 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 20,
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ListTile(
-                          title: Row(
-                            children: const <Widget>[
-                              Text(
-                                "First name",
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              Text(
-                                " *",
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            ],
-                          ),
-                          subtitle: TextFormField(
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey)),
-                              hintText: "First name",
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: ListTile(
-                          title: Row(
-                            children: const <Widget>[
-                              Text(
-                                "Last name",
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              Text(
-                                " *",
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            ],
-                          ),
-                          subtitle: TextFormField(
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 10),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey)),
-                              hintText: "Last name",
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
+                  // Row(
+                  //   children: <Widget>[
+                  //     Expanded(
+                  //       child: ListTile(
+                  //         title: Row(
+                  //           children: const <Widget>[
+                  //             Text(
+                  //               "Tên",
+                  //               style: TextStyle(fontSize: 17),
+                  //             ),
+                  //             Text(
+                  //               " *",
+                  //               style: TextStyle(color: Colors.red),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         subtitle: TextFormField(
+                  //           decoration: const InputDecoration(
+                  //             enabledBorder: OutlineInputBorder(
+                  //               borderSide: BorderSide(color: Colors.grey),
+                  //             ),
+                  //             contentPadding: EdgeInsets.symmetric(
+                  //                 vertical: 10, horizontal: 10),
+                  //             border: OutlineInputBorder(
+                  //                 borderSide: BorderSide(color: Colors.grey)),
+                  //             hintText: "Tên",
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: ListTile(
+                  //         title: Row(
+                  //           children: const <Widget>[
+                  //             Text(
+                  //               "Họ",
+                  //               style: TextStyle(fontSize: 17),
+                  //             ),
+                  //             Text(
+                  //               " *",
+                  //               style: TextStyle(color: Colors.red),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         subtitle: TextFormField(
+                  //           decoration: const InputDecoration(
+                  //             enabledBorder: OutlineInputBorder(
+                  //               borderSide: BorderSide(color: Colors.grey),
+                  //             ),
+                  //             contentPadding: EdgeInsets.symmetric(
+                  //                 vertical: 0, horizontal: 10),
+                  //             border: OutlineInputBorder(
+                  //                 borderSide: BorderSide(color: Colors.grey)),
+                  //             hintText: "Họ",
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(
+                  //   height: 5,
+                  // ),
+                  lastName(label: "Họ"),
+                  firstName(label: "Tên"),
                   email(label: "Email"),
-                  phone(label: "Phone number"),
+                  phone(label: "Số điện thoại"),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: const <Widget>[
                           Text(
-                            "Gender ",
+                            "Giới tính ",
                             style: TextStyle(fontSize: 15),
                           ),
                           Text(
@@ -145,7 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          const Text("Male"),
+                          const Text("Nam"),
                           Radio(
                               value: genderGroup.male,
                               groupValue: _value,
@@ -154,7 +145,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   _value = value!;
                                 });
                               }),
-                          const Text("Female"),
+                          const Text("Nữ"),
                           Radio(
                               value: genderGroup.female,
                               groupValue: _value,
@@ -163,7 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   _value = value!;
                                 });
                               }),
-                          const Text("Others"),
+                          const Text("Khác"),
                           Radio(
                               value: genderGroup.others,
                               groupValue: _value,
@@ -182,7 +173,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextField(
                         controller: _date,
                         decoration: const InputDecoration(
-                          labelText: "Date of birth: ",
+                          labelText: "Ngày sinh ",
                         ),
                         onTap: () async {
                           DateTime? pickeddate = await showDatePicker(
@@ -201,15 +192,16 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(
                     height: 15,
                   ),
-                  password(label: "Password", obscureText: true),
-                  confirmPassword(label: "Confirm password", obscureText: true),
+                  password(label: "Mật khẩu", obscureText: true),
+                  confirmPassword(
+                      label: "Xác thực lại mật khẩu", obscureText: true),
                 ],
               ),
               const SizedBox(
                 height: 30,
               ),
               Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  padding: const EdgeInsets.symmetric(horizontal: 70),
                   child: Container(
                     padding: const EdgeInsets.only(top: 0),
                     child: MaterialButton(
@@ -222,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Text(
-                        "Sign up",
+                        "Đăng ký",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
@@ -231,6 +223,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                   )),
+              const SizedBox(
+                height: 30,
+              )
             ],
           ),
         ),
@@ -239,81 +234,78 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 }
 
-// Widget firstName({label, obscureText = false}) {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: <Widget>[
-//       Row(
-//         children: <Widget>[
-//           Text(
-//             label,
-//             style: const TextStyle(
-//                 fontSize: 15,
-//                 fontWeight: FontWeight.w400,
-//                 color: Colors.black87),
-//           ),
-//           const Text(
-//             " *",
-//             style: TextStyle(color: Colors.red),
-//           ),
-//         ],
-//       ),
-//       const SizedBox(height: 5),
-//       TextField(
-//         obscureText: obscureText,
-//         decoration: const InputDecoration(
-//             hintText: 'First name',
-//             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//             enabledBorder: OutlineInputBorder(
-//               borderSide: BorderSide(color: Colors.grey),
-//             ),
-//             border:
-//                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-//       ),
-//       const SizedBox(height: 10)
-//     ],
-//   );
-// }
+Widget firstName({label, obscureText = false}) {
+  return Column(
+    children: <Widget>[
+      Row(
+        children: <Widget>[
+          Text(
+            label,
+            style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: Colors.black87),
+          ),
+          const Text(
+            " *",
+            style: TextStyle(color: Colors.red),
+          ),
+        ],
+      ),
+      const SizedBox(height: 5),
+      TextField(
+        obscureText: obscureText,
+        decoration: const InputDecoration(
+            hintText: 'Tên',
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+      ),
+      const SizedBox(height: 10)
+    ],
+  );
+}
 
-// Widget lastName({label, obscureText = false}) {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: <Widget>[
-//       Row(
-//         children: <Widget>[
-//           Text(
-//             label,
-//             style: const TextStyle(
-//                 fontSize: 15,
-//                 fontWeight: FontWeight.w400,
-//                 color: Colors.black87),
-//           ),
-//           const Text(
-//             " *",
-//             style: TextStyle(color: Colors.red),
-//           ),
-//         ],
-//       ),
-//       const SizedBox(height: 5),
-//       TextField(
-//         obscureText: obscureText,
-//         decoration: const InputDecoration(
-//             hintText: 'Last name',
-//             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//             enabledBorder: OutlineInputBorder(
-//               borderSide: BorderSide(color: Colors.grey),
-//             ),
-//             border:
-//                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-//       ),
-//       const SizedBox(height: 10)
-//     ],
-//   );
-// }
+Widget lastName({label, obscureText = false}) {
+  return Column(
+    children: <Widget>[
+      Row(
+        children: <Widget>[
+          Text(
+            label,
+            style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: Colors.black87),
+          ),
+          const Text(
+            " *",
+            style: TextStyle(color: Colors.red),
+          ),
+        ],
+      ),
+      const SizedBox(height: 5),
+      TextField(
+        obscureText: obscureText,
+        decoration: const InputDecoration(
+            hintText: 'Họ',
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+      ),
+      const SizedBox(height: 10)
+    ],
+  );
+}
 
 Widget email({label, obscureText = false}) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Row(
         children: <Widget>[
@@ -349,7 +341,6 @@ Widget email({label, obscureText = false}) {
 
 Widget phone({label, obscureText = false}) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Row(
         children: <Widget>[
@@ -370,7 +361,7 @@ Widget phone({label, obscureText = false}) {
       TextField(
         obscureText: obscureText,
         decoration: const InputDecoration(
-            hintText: 'Phone number',
+            hintText: 'Số điện thoại',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -383,45 +374,8 @@ Widget phone({label, obscureText = false}) {
   );
 }
 
-// Widget dob({label, obscureText = false}) {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: <Widget>[
-//       Row(
-//         children: <Widget>[
-//           Text(
-//             label,
-//             style: const TextStyle(
-//                 fontSize: 15,
-//                 fontWeight: FontWeight.w400,
-//                 color: Colors.black87),
-//           ),
-//           const Text(
-//             " *",
-//             style: TextStyle(color: Colors.red),
-//           ),
-//         ],
-//       ),
-//       const SizedBox(height: 5),
-//       TextField(
-//         obscureText: obscureText,
-//         decoration: const InputDecoration(
-//             hintText: 'DD/MM/YYYY',
-//             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//             enabledBorder: OutlineInputBorder(
-//               borderSide: BorderSide(color: Colors.grey),
-//             ),
-//             border:
-//                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-//       ),
-//       const SizedBox(height: 10)
-//     ],
-//   );
-// }
-
 Widget password({label, obscureText = false}) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Row(
         children: <Widget>[
@@ -442,7 +396,7 @@ Widget password({label, obscureText = false}) {
       TextField(
         obscureText: obscureText,
         decoration: const InputDecoration(
-            hintText: 'Password',
+            hintText: 'Mật khẩu',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -457,7 +411,6 @@ Widget password({label, obscureText = false}) {
 
 Widget confirmPassword({label, obscureText = false}) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Row(
         children: <Widget>[
@@ -478,7 +431,7 @@ Widget confirmPassword({label, obscureText = false}) {
       TextField(
         obscureText: obscureText,
         decoration: const InputDecoration(
-            hintText: 'Confirm Password',
+            hintText: 'Xác thực lại mật khẩu',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -486,7 +439,7 @@ Widget confirmPassword({label, obscureText = false}) {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
-      const SizedBox(height: 1)
+      const SizedBox(height: 0)
     ],
   );
 }

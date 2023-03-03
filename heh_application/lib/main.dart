@@ -5,19 +5,19 @@ import 'package:heh_application/SignUp%20Page/signup.dart';
 void main() {
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomePage(),
+    home: WelcomePage(),
   ));
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          width: double.infinity,
+          width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
@@ -26,13 +26,13 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: const <Widget>[
-                  Text("WELCOME TO HEH",
-                      style: TextStyle(fontSize: 40, fontFamily: 'Roadbrush')),
+                  Text("HEALTH CARE AND HEALING SYSTEM",
+                      style: TextStyle(fontSize: 35, fontFamily: 'Roadbrush')),
                   SizedBox(height: 0),
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height / 3,
+                height: MediaQuery.of(context).size.height / 2,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/images/welcome.jpg"))),
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                         side: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(50)),
                     child: const Text(
-                      "Login",
+                      "Đăng nhập",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
                     child: const Text(
-                      "Sign up",
+                      "Tạo tài khoản",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
