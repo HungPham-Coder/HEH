@@ -6,16 +6,20 @@ abstract class AuthBase {
   Stream<User?> authStateChanges();
   Future<User> signInWithGoogle();
   Future<User> signInWithFacebook();
-  Future<void> signOut ();
+  Future<void> signOut();
 }
-class Auth implements AuthBase {
-  @override User? get currenUser => FirebaseAuth.instance.currentUser;
 
-  @override Stream<User?> authStateChanges () => _firebaseAuth.authStateChanges();
+class Auth implements AuthBase {
+  // ignore: override_on_non_overriding_member
+  @override
+  User? get currenUser => FirebaseAuth.instance.currentUser;
+
+  @override
+  Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
   final _firebaseAuth = FirebaseAuth.instance;
   @override
-  Future<User> signInWithGoogle () async {
+  Future<User> signInWithGoogle() async {
     final googleSignIn = GoogleSignIn();
     //call google sign in method
     final googleUser = await googleSignIn.signIn();
@@ -43,6 +47,7 @@ class Auth implements AuthBase {
       //can not sign in
     }
   }
+
   @override
   Future<User> signInWithFacebook() async {
     final fb = FacebookLogin();
@@ -50,6 +55,7 @@ class Auth implements AuthBase {
       FacebookPermission.publicProfile,
       FacebookPermission.email
     ]);
+    // ignore: avoid_print
     print("responese ${respronse.status}");
     switch (respronse.status) {
       case FacebookLoginStatus.success:
@@ -73,6 +79,7 @@ class Auth implements AuthBase {
         throw UnimplementedError();
     }
   }
+
   @override
   Future<void> signOut() async {
     final googleSignIn = GoogleSignIn();
@@ -81,5 +88,4 @@ class Auth implements AuthBase {
     await facebookLogin.logOut();
     await _firebaseAuth.signOut();
   }
-
 }

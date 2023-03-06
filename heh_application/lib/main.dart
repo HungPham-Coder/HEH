@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/LandingPage.dart';
-import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -27,8 +26,8 @@ class WelcomePage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Column(
                 children: const <Widget>[
@@ -49,12 +48,12 @@ class WelcomePage extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) {
-                                return Provider<AuthBase>(create: (context) => Auth(),child: LandingPage());
-                              }));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Provider<AuthBase>(
+                            create: (context) => Auth(),
+                            child: const LandingPage());
+                      }));
                     },
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Colors.black),

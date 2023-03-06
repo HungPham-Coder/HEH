@@ -7,7 +7,7 @@
 create database heh;
 create table ROLE (
 	roleID BIGSERIAL NOT NULL PRIMARY KEY,
-	roleName varchar (10) not null 
+	roleName varchar (20) not null 
 );
 create table deposit (
 	depositID BIGSERIAL NOT NULL PRIMARY KEY,
@@ -17,14 +17,14 @@ create table USERS (
 	userID BIGSERIAL NOT NULL PRIMARY KEY,
 	roldID bigint references role (roleID),
 	depositID bigint references deposit (depositID),
-	firstName varchar (50) not null ,
+	firstName varchar (50) not null,
 	lastName varchar (50) not null,
 	gender varchar (10) not null,
-	phone varchar (50) not null ,
+	phone varchar (50) not null,
 	dob date not null,
 	address varchar (50),
 	email varchar (50),
-	password varchar (50) not null ,
+	password varchar (50) not null,
 	bookingStatus bool not null,
 	banStatus bool not null
 );

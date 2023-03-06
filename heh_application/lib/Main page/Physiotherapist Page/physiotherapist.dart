@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/back.dart';
-import 'package:heh_application/Main%20page/Home%20page/knee.dart';
+import 'package:heh_application/Main%20page/Physiotherapist%20Page/advisesession.dart';
+import 'package:heh_application/Main%20page/Physiotherapist%20Page/longtermtreatment.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Physiotherapist extends StatefulWidget {
+  const Physiotherapist({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Physiotherapist> createState() => _PhysiotherapistState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PhysiotherapistState extends State<Physiotherapist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "Trang chủ",
+          "Chuyên viên",
           style: TextStyle(fontSize: 23),
         ),
         elevation: 10,
@@ -27,26 +27,26 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             const SizedBox(height: 30),
-            const Text("Triệu chứng mắc phải của bạn là gì?"),
+            const Text("Bạn đang cần tim đến dịch vụ của chúng tôi?"),
             const SizedBox(height: 20),
-            HomeMenu(
-              icon: "assets/icons/backache.png",
-              text: "Đau lưng",
+            PhysiptherapistMenu(
+              icon: "assets/icons/advise.png",
+              text: "Tư vấn một buổi",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BackachePage()));
+                        builder: (context) => const AdviseSession()));
               },
             ),
-            HomeMenu(
-              icon: "assets/icons/knee.png",
-              text: "Đau khớp gối",
+            PhysiptherapistMenu(
+              icon: "assets/icons/physio.png",
+              text: "Điều trị lâu dài",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const KneePainPage()));
+                        builder: (context) => const LongTermTreatment()));
               },
             ),
           ],
@@ -56,8 +56,8 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HomeMenu extends StatelessWidget {
-  const HomeMenu({
+class PhysiptherapistMenu extends StatelessWidget {
+  const PhysiptherapistMenu({
     Key? key,
     required this.text,
     required this.icon,

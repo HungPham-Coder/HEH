@@ -11,7 +11,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -36,7 +35,7 @@ class LoginPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
           child: SizedBox(
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height - 20,
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -203,7 +202,7 @@ class LoginPage extends StatelessWidget {
                 Center(
                   child: FloatingActionButton.extended(
                     heroTag: 'facebook',
-                    onPressed:() => _signInWithFacebook(context),
+                    onPressed: () => _signInWithFacebook(context),
                     icon: Image.asset('assets/icons/facebook_icon.png',
                         height: 30, width: 30),
                     label: const Text('Đăng nhập với Facebook'),
@@ -224,20 +223,20 @@ class LoginPage extends StatelessWidget {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      final auth = Provider.of<AuthBase>(context,listen: false);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithGoogle();
-    }
-    on FirebaseException catch(e) {
+    } on FirebaseException catch (e) {
+      // ignore: avoid_print
       print(e.message);
     }
   }
 
   Future<void> _signInWithFacebook(BuildContext context) async {
     try {
-      final auth = Provider.of<AuthBase>(context,listen: false);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithFacebook();
-    }
-    on FirebaseException catch(e) {
+    } on FirebaseException catch (e) {
+      // ignore: avoid_print
       print(e.message);
     }
   }

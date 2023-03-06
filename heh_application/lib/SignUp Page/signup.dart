@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+// ignore: camel_case_types
 enum genderGroup { male, female, others }
 
 class SignUpPage extends StatefulWidget {

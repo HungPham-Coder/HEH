@@ -1,24 +1,22 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
+import 'package:heh_application/Main%20page/Home%20page/Favorite.dart';
 
-class FavoritePage extends StatefulWidget {
-  const FavoritePage({Key? key}) : super(key: key);
+class BackachePage extends StatefulWidget {
+  const BackachePage({Key? key}) : super(key: key);
 
   @override
-  State<FavoritePage> createState() => _FavoritePageState();
+  State<BackachePage> createState() => _BackachePageState();
 }
 
-class _FavoritePageState extends State<FavoritePage> {
+class _BackachePageState extends State<BackachePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text(
-          "Bài tập yêu thích",
-          style: TextStyle(fontSize: 20.2),
+          "Đau lưng",
+          style: TextStyle(fontSize: 23),
         ),
         actions: [
           IconButton(
@@ -27,9 +25,11 @@ class _FavoritePageState extends State<FavoritePage> {
               },
               icon: const Icon(Icons.search)),
         ],
+        centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
+      body: Column(children: [TextButton(onPressed: () {}, child: Column())]),
     );
   }
 }
