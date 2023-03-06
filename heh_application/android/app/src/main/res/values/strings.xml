@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HEH</string>
+    <string name="facebook_app_id">868819544196798</string>
+    <string name="fb_login_protocol_scheme">fb868819544196798</string>
+    <string name="facebook_client_token">7b30ae77c06ab3e0469df98ff273abe6</string>
+
+</resources>
