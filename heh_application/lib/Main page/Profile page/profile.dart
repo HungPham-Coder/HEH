@@ -1,7 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../services/auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -11,8 +16,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -91,11 +98,16 @@ class _ProfilePageState extends State<ProfilePage> {
           ProfileMenu(
             icon: "assets/icons/logout.svg",
             text: "Đăng xuất",
-            press: () {},
+            press:() => signout(context),
           ),
         ],
       )),
     );
+  }
+
+  void signout  (BuildContext context) async {
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    await auth.signOut();
   }
 }
 
@@ -108,7 +120,7 @@ class ProfileMenu extends StatelessWidget {
   }) : super(key: key);
 
   final String text, icon;
-  final VoidCallback press;
+  final VoidCallback? press;
 
   @override
   Widget build(BuildContext context) {

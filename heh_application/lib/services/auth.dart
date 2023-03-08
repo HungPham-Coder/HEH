@@ -6,6 +6,7 @@ abstract class AuthBase {
   Stream<User?> authStateChanges();
   Future<User> signInWithGoogle();
   Future<User> signInWithFacebook();
+  Future<User?> signInWithPhoneAndPassword(String phoneNumber, String password);
   Future<void> signOut();
 }
 
@@ -77,6 +78,37 @@ class Auth implements AuthBase {
         );
       default:
         throw UnimplementedError();
+    }
+  }
+
+  Future<User?> signInWithPhoneAndPassword(String phoneNumber, String password) async {
+    UserCredential? userCredential;
+     await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) async{
+
+    },
+        verificationFailed: (FirebaseException e) {
+          if (e.code == 'invalid-phone-number'){
+            print('The provided phone number is not valid ');
+      }
+    },
+        codeSent: (String verificationId, int? resendToken) async{
+          String smsCode = "abc";
+          PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
+          userCredential = await _firebaseAuth.signInWithCredential(credential);
+
+          },
+        codeAutoRetrievalTimeout: (String verificationId) {});
+
+    if (userCredential != null) {
+      return userCredential!.user;
+    }
+    else {
+      throw FirebaseAuthException(
+        code: "ERROR_PHONE_LOGIN_FAIL",
+        message: "Please input again",
+      );
     }
   }
 

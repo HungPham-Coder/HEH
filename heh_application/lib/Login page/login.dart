@@ -3,14 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/ForgotPassword%20Page/forgotPass.dart';
 import 'package:heh_application/Main%20page/navigation_main.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
+import 'package:heh_application/models/login_user.dart';
 import 'package:heh_application/services/auth.dart';
+import 'package:heh_application/services/call_api.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController phoneController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -22,16 +34,6 @@ class LoginPage extends StatelessWidget {
         ),
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   icon: const Icon(
-        //     Icons.arrow_back,
-        //     size: 25,
-        //     color: Colors.white,
-        //   ),
-        // ),
       ),
       body: SingleChildScrollView(
           child: SizedBox(
@@ -55,8 +57,13 @@ class LoginPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
                     children: <Widget>[
-                      inputPhone(label: "Số điện thoại"),
-                      inputPassword(label: "Mật khẩu", obscureText: true)
+                      inputPhone(
+                          label: "Số điện thoại",
+                          phoneController: phoneController),
+                      inputPassword(
+                          label: "Mật khẩu",
+                          obscureText: true,
+                          passwordController: passwordController)
                     ],
                   ),
                 ),
@@ -105,10 +112,8 @@ class LoginPage extends StatelessWidget {
                       minWidth: double.infinity,
                       height: 60,
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Navigation_Bar()));
+                        Login(phoneController.text, passwordController.text, auth);
+
                       },
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,
@@ -220,6 +225,12 @@ class LoginPage extends StatelessWidget {
       )),
     );
   }
+  void Login(String phone, String password,AuthBase authBase)  {
+
+
+     CallAPI().callAPILogin(phone, password,authBase);
+
+  }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
@@ -243,7 +254,10 @@ class LoginPage extends StatelessWidget {
 }
 
 //create text field
-Widget inputPhone({label, obscureText = false}) {
+Widget inputPhone(
+    {label,
+    obscureText = false,
+    required TextEditingController phoneController}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -255,6 +269,7 @@ Widget inputPhone({label, obscureText = false}) {
       const SizedBox(height: 5),
       TextField(
         obscureText: obscureText,
+        controller: phoneController,
         decoration: const InputDecoration(
             hintText: 'Số điện thoại',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -269,7 +284,10 @@ Widget inputPhone({label, obscureText = false}) {
   );
 }
 
-Widget inputPassword({label, obscureText = false}) {
+Widget inputPassword(
+    {label,
+    obscureText = false,
+    required TextEditingController passwordController}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -280,6 +298,7 @@ Widget inputPassword({label, obscureText = false}) {
       ),
       const SizedBox(height: 5),
       TextField(
+        controller: passwordController,
         obscureText: obscureText,
         decoration: const InputDecoration(
             hintText: 'Mật khẩu',

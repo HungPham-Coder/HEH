@@ -200,6 +200,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.2+1"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.5"
   http_parser:
     dependency: transitive
     description:
@@ -385,26 +393,26 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics
-      sha256: "254348b40251c995cf8301ac715486c8cfa0a93b7fdc4dbd495a30f04db1fb44"
+      sha256: e43c38822e7d2facd790fd617ce16b10cc359a4b094d5772e3198904270918ef
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   vector_graphics_codec:
     dependency: transitive
     description:
       name: vector_graphics_codec
-      sha256: "143c290b762646c696c63be5d976bde7379ea892cb6868ddc5a17cbc56e71411"
+      sha256: "4a85a8563405bfe223052a85d6f8bc276ba3a22e12acfa3fd9a7108c67b32076"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   vector_graphics_compiler:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "3190cc26d9ebda686bafb9721bb6a74c6d358700f4fc978a0f2cba6912daff86"
+      sha256: "9e8066d2f18e88f2fb1cf6c8ca567417bdfb0145ac28519dcca3c15d42a10b3e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   vector_math:
     dependency: transitive
     description:

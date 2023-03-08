@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/Main%20page/Home%20page/home.dart';
+import 'package:heh_application/Main%20page/navigation_main.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -17,10 +18,16 @@ class LandingPage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           final User? user = snapshot.data;
           if (user == null) {
+            print('abc');
             return const LoginPage();
+            
+          }
+          else {
+            print('def');
+            return const Navigation_Bar();
           }
 
-          return const HomePage();
+
         }
         return const Center(
           child: CircularProgressIndicator(),
