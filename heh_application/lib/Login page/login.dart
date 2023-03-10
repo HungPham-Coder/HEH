@@ -227,9 +227,12 @@ class _LoginPageState extends State<LoginPage> {
   }
   void Login(String phone, String password,AuthBase authBase)  {
 
-
-     CallAPI().callAPILogin(phone, password,authBase);
-
+    try{
+      CallAPI().callLoginAPI(phone, password,authBase,context);
+    }
+    on Exception catch(e) {
+      print(e.toString());
+    }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
