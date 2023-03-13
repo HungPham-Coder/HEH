@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/models/sign_up_user.dart';
+import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
 
 // ignore: camel_case_types
@@ -12,9 +14,20 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  genderGroup _value = genderGroup.male;
+  genderGroup _genderValue = genderGroup.male;
 
   final TextEditingController _date = TextEditingController();
+  final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastName = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
+
+  Future<void> signUp (SignUpUser signUpUser) async {
+    CallAPI().callRegisterAPI(context, signUpUser);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +42,10 @@ class _SignUpPageState extends State<SignUpPage> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height + 110,
-          width: MediaQuery.of(context).size.width,
+          // height: MediaQuery.of(context).size.height + 110,
+          // width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -140,28 +153,28 @@ class _SignUpPageState extends State<SignUpPage> {
                           const Text("Nam"),
                           Radio(
                               value: genderGroup.male,
-                              groupValue: _value,
+                              groupValue: _genderValue,
                               onChanged: (genderGroup? value) {
                                 setState(() {
-                                  _value = value!;
+                                  _genderValue = value!;
                                 });
                               }),
                           const Text("Nữ"),
                           Radio(
                               value: genderGroup.female,
-                              groupValue: _value,
+                              groupValue: _genderValue,
                               onChanged: (genderGroup? value) {
                                 setState(() {
-                                  _value = value!;
+                                  _genderValue = value!;
                                 });
                               }),
                           const Text("Khác"),
                           Radio(
                               value: genderGroup.others,
-                              groupValue: _value,
+                              groupValue: _genderValue,
                               onChanged: (genderGroup? value) {
                                 setState(() {
-                                  _value = value!;
+                                  _genderValue = value!;
                                 });
                               }),
                         ],
@@ -208,7 +221,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 50,
-                      onPressed: () {},
+                      onPressed: () {
+                        SignUpUser signUpUser = SignUpUser(firstName: _firstName.text, lastName: _lastName.text, phone: _phone.text, password: _password.text, email: _email.text, gender: _genderValue.index, dob: _date.text);
+                        signUp(signUpUser);
+
+                      },
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
@@ -233,214 +250,221 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+  Widget firstName({label, obscureText = false}) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        TextField(
+          obscureText: obscureText,
+          controller: _firstName,
+          decoration: const InputDecoration(
+              hintText: 'Tên',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 10)
+      ],
+    );
+  }
+
+  Widget lastName({label, obscureText = false}) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        TextField(
+          controller: _lastName,
+          obscureText: obscureText,
+          decoration: const InputDecoration(
+              hintText: 'Họ',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 10)
+      ],
+    );
+  }
+
+  Widget email({label, obscureText = false}) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        TextField(
+          controller: _email,
+          obscureText: obscureText,
+          decoration: const InputDecoration(
+              hintText: 'Email',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 10)
+      ],
+    );
+  }
+
+  Widget phone({label, obscureText = false}) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        TextField(
+          controller: _phone,
+          obscureText: obscureText,
+          decoration: const InputDecoration(
+              hintText: 'Số điện thoại',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 10)
+      ],
+    );
+  }
+
+  Widget password({label, obscureText = false}) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        TextField(
+          controller: _password,
+          obscureText: obscureText,
+          decoration: const InputDecoration(
+              hintText: 'Mật khẩu',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 15)
+      ],
+    );
+  }
+
+  Widget confirmPassword({label, obscureText = false}) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        TextField(
+          controller: _confirmPassword,
+          obscureText: obscureText,
+          decoration: const InputDecoration(
+              hintText: 'Xác thực lại mật khẩu',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 0)
+      ],
+    );
+  }
 }
 
-Widget firstName({label, obscureText = false}) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-          ),
-          const Text(
-            " *",
-            style: TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obscureText,
-        decoration: const InputDecoration(
-            hintText: 'Tên',
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      const SizedBox(height: 10)
-    ],
-  );
-}
 
-Widget lastName({label, obscureText = false}) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-          ),
-          const Text(
-            " *",
-            style: TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obscureText,
-        decoration: const InputDecoration(
-            hintText: 'Họ',
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      const SizedBox(height: 10)
-    ],
-  );
-}
-
-Widget email({label, obscureText = false}) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-          ),
-          const Text(
-            " *",
-            style: TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obscureText,
-        decoration: const InputDecoration(
-            hintText: 'Email',
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      const SizedBox(height: 10)
-    ],
-  );
-}
-
-Widget phone({label, obscureText = false}) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-          ),
-          const Text(
-            " *",
-            style: TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obscureText,
-        decoration: const InputDecoration(
-            hintText: 'Số điện thoại',
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      const SizedBox(height: 10)
-    ],
-  );
-}
-
-Widget password({label, obscureText = false}) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-          ),
-          const Text(
-            " *",
-            style: TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obscureText,
-        decoration: const InputDecoration(
-            hintText: 'Mật khẩu',
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      const SizedBox(height: 15)
-    ],
-  );
-}
-
-Widget confirmPassword({label, obscureText = false}) {
-  return Column(
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-          ),
-          const Text(
-            " *",
-            style: TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obscureText,
-        decoration: const InputDecoration(
-            hintText: 'Xác thực lại mật khẩu',
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      const SizedBox(height: 0)
-    ],
-  );
-}

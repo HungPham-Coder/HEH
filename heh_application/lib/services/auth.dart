@@ -8,6 +8,7 @@ abstract class AuthBase {
   Future<User> signInWithFacebook();
   // Future<User?> signInWithPhoneAndPassword(String phoneNumber, String password);
   Future<User> signInWithEmailAndPassword (String username, String password);
+  Future<User> signUpWithEmailAndPassword (String username, String password);
   Future<void> signOut();
 }
 
@@ -20,8 +21,10 @@ class Auth implements AuthBase {
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
   final _firebaseAuth = FirebaseAuth.instance;
+
   @override
   Future<User> signInWithGoogle() async {
+    _firebaseAuth.userChanges();
     final googleSignIn = GoogleSignIn();
     //call google sign in method
     final googleUser = await googleSignIn.signIn();
@@ -114,11 +117,15 @@ class Auth implements AuthBase {
   // }
 
   Future<User> signInWithEmailAndPassword (String username, String password) async {
-     await _firebaseAuth.createUserWithEmailAndPassword(email: username, password: password);
+
     final userCredential = await _firebaseAuth.signInWithCredential(EmailAuthProvider.credential(email: username, password: password));
     return userCredential.user!;
   }
-
+  @override
+  Future<User> signUpWithEmailAndPassword(String username, String password) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: username, password: password);
+    return userCredential.user!;
+  }
   @override
   Future<void> signOut() async {
     final googleSignIn = GoogleSignIn();
@@ -127,4 +134,6 @@ class Auth implements AuthBase {
     await facebookLogin.logOut();
     await _firebaseAuth.signOut();
   }
+
+
 }

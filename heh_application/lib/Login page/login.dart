@@ -222,13 +222,14 @@ class _LoginPageState extends State<LoginPage> {
             )
           ],
         ),
-      )),
+      ),),
     );
   }
   void Login(String phone, String password,AuthBase authBase)  {
 
     try{
-      CallAPI().callLoginAPI(phone, password,authBase,context);
+      LoginUser loginUser = LoginUser(phone: phone, password: password);
+      CallAPI().callLoginAPI(loginUser,context);
     }
     on Exception catch(e) {
       print(e.toString());

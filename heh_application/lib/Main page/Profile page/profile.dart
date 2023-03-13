@@ -108,6 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void signout  (BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     await auth.signOut();
+    Navigator.of(context).pop();
   }
 }
 
