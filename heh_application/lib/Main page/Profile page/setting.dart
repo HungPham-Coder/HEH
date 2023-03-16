@@ -1,7 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -16,16 +14,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "Hồ sơ của bạn",
+          "Cài đặt",
           style: TextStyle(fontSize: 23),
         ),
         centerTitle: true,
@@ -91,21 +87,31 @@ class _ProfilePageState extends State<ProfilePage> {
             press: () {},
           ),
           ProfileMenu(
+            icon: "assets/icons/family.svg",
+            text: "Thành viên gia đình",
+            press: () {},
+          ),
+          ProfileMenu(
             icon: "assets/icons/history.svg",
             text: "Lịch sử giao dịch",
             press: () {},
           ),
           ProfileMenu(
+            icon: "assets/icons/history.svg",
+            text: "Đặt lại mật khẩu",
+            press: () {},
+          ),
+          ProfileMenu(
             icon: "assets/icons/logout.svg",
             text: "Đăng xuất",
-            press:() => signout(context),
+            press: () => signout(context),
           ),
         ],
       )),
     );
   }
 
-  void signout  (BuildContext context) async {
+  void signout(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     await auth.signOut();
     Navigator.of(context).pop();

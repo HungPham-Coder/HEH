@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
-  Future<void> signUp (SignUpUser signUpUser) async {
+  Future<void> signUp(SignUpUser signUpUser) async {
     CallAPI().callRegisterAPI(context, signUpUser);
   }
 
@@ -65,69 +65,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               Column(
                 children: <Widget>[
-                  // Row(
-                  //   children: <Widget>[
-                  //     Expanded(
-                  //       child: ListTile(
-                  //         title: Row(
-                  //           children: const <Widget>[
-                  //             Text(
-                  //               "Tên",
-                  //               style: TextStyle(fontSize: 17),
-                  //             ),
-                  //             Text(
-                  //               " *",
-                  //               style: TextStyle(color: Colors.red),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //         subtitle: TextFormField(
-                  //           decoration: const InputDecoration(
-                  //             enabledBorder: OutlineInputBorder(
-                  //               borderSide: BorderSide(color: Colors.grey),
-                  //             ),
-                  //             contentPadding: EdgeInsets.symmetric(
-                  //                 vertical: 10, horizontal: 10),
-                  //             border: OutlineInputBorder(
-                  //                 borderSide: BorderSide(color: Colors.grey)),
-                  //             hintText: "Tên",
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: ListTile(
-                  //         title: Row(
-                  //           children: const <Widget>[
-                  //             Text(
-                  //               "Họ",
-                  //               style: TextStyle(fontSize: 17),
-                  //             ),
-                  //             Text(
-                  //               " *",
-                  //               style: TextStyle(color: Colors.red),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //         subtitle: TextFormField(
-                  //           decoration: const InputDecoration(
-                  //             enabledBorder: OutlineInputBorder(
-                  //               borderSide: BorderSide(color: Colors.grey),
-                  //             ),
-                  //             contentPadding: EdgeInsets.symmetric(
-                  //                 vertical: 0, horizontal: 10),
-                  //             border: OutlineInputBorder(
-                  //                 borderSide: BorderSide(color: Colors.grey)),
-                  //             hintText: "Họ",
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(
-                  //   height: 5,
-                  // ),
                   lastName(label: "Họ"),
                   firstName(label: "Tên"),
                   email(label: "Email"),
@@ -222,9 +159,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       minWidth: double.infinity,
                       height: 50,
                       onPressed: () {
-                        SignUpUser signUpUser = SignUpUser(firstName: _firstName.text, lastName: _lastName.text, phone: _phone.text, password: _password.text, email: _email.text, gender: _genderValue.index, dob: _date.text);
+                        SignUpUser signUpUser = SignUpUser(
+                            firstName: _firstName.text,
+                            lastName: _lastName.text,
+                            phone: _phone.text,
+                            password: _password.text,
+                            email: _email.text,
+                            gender: _genderValue.index,
+                            dob: _date.text);
                         signUp(signUpUser);
-
                       },
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,
@@ -250,6 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+
   Widget firstName({label, obscureText = false}) {
     return Column(
       children: <Widget>[
@@ -278,8 +222,8 @@ class _SignUpPageState extends State<SignUpPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 10)
       ],
@@ -314,8 +258,8 @@ class _SignUpPageState extends State<SignUpPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 10)
       ],
@@ -350,8 +294,8 @@ class _SignUpPageState extends State<SignUpPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 10)
       ],
@@ -386,8 +330,8 @@ class _SignUpPageState extends State<SignUpPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 10)
       ],
@@ -422,8 +366,8 @@ class _SignUpPageState extends State<SignUpPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 15)
       ],
@@ -458,13 +402,11 @@ class _SignUpPageState extends State<SignUpPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 0)
       ],
     );
   }
 }
-
-

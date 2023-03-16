@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/back.dart';
-import 'package:heh_application/Main%20page/Home%20page/knee.dart';
+import 'package:heh_application/Main%20page/Home%20page/Exercise%20Page/back.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,8 +25,8 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30),
-            const Text("Triệu chứng mắc phải của bạn là gì?"),
+            const SizedBox(height: 20),
+            const Text("Bạn đang gặp vấn đề gì?"),
             const SizedBox(height: 20),
             HomeMenu(
               icon: "assets/icons/backache.png",
@@ -46,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const KneePainPage()));
+                        builder: (context) => const BackachePage()));
               },
             ),
           ],

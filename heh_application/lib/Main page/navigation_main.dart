@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:heh_application/Main%20page/Home%20page/Favorite.dart';
 import 'package:heh_application/Main%20page/Home%20page/home.dart';
 import 'package:heh_application/Main%20page/messenger.dart';
-import 'package:heh_application/Main%20page/Profile%20page/profile.dart';
-import 'package:heh_application/Main%20page/Physiotherapist%20Page/physiotherapist.dart';
+import 'package:heh_application/Main%20page/Profile%20page/setting.dart';
+import 'package:heh_application/Main%20page/Physiotherapist%20MainPage/physiotherapist.dart';
 
 // ignore: camel_case_types
 class Navigation_Bar extends StatefulWidget {
@@ -48,12 +48,14 @@ class _Navigation_BarState extends State<Navigation_Bar> {
                     width: 25, height: 25, color: Colors.white),
                 label: "Chuyên viên"),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.favorite_border),
+                // icon: Image.asset("assets/icons/favorited_white.png",
+                //     width: 25, height: 25),
+                icon: const Icon(Icons.favorite),
                 activeIcon: Image.asset("assets/icons/favorited.png",
                     width: 25, height: 25),
                 label: "Chuyên viên"),
             const BottomNavigationBarItem(
-                icon: Icon(Icons.person_pin_rounded), label: "Hồ sơ"),
+                icon: Icon(Icons.settings), label: "Cài đặt"),
           ]),
     );
   }

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Main%20page/Home%20page/Favorite.dart';
 
-class BackachePage extends StatefulWidget {
-  const BackachePage({Key? key}) : super(key: key);
+class KneePainPage extends StatefulWidget {
+  const KneePainPage({Key? key}) : super(key: key);
 
   @override
-  State<BackachePage> createState() => _BackachePageState();
+  State<KneePainPage> createState() => _KneePainPageState();
 }
 
-class _BackachePageState extends State<BackachePage> {
+class _KneePainPageState extends State<KneePainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Đau lưng",
+          "Đau khớp gối",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -30,6 +30,55 @@ class _BackachePageState extends State<BackachePage> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: Column(children: [TextButton(onPressed: () {}, child: Column())]),
+    );
+  }
+}
+
+class KneeMenu extends StatelessWidget {
+  const KneeMenu({
+    Key? key,
+    required this.text,
+    required this.icon,
+    required this.press,
+  }) : super(key: key);
+
+  final String text, icon;
+  final VoidCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: duplicate_ignore
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: TextButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(const Color(0xfff5f6f9)),
+              padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: const BorderSide(color: Colors.white)),
+              )),
+          onPressed: press,
+          child: Row(
+            children: [
+              Image.asset(
+                icon,
+                width: 60,
+              ),
+              const SizedBox(
+                width: 20,
+                height: 10,
+              ),
+              Expanded(
+                  child: Text(
+                text,
+                style: Theme.of(context).textTheme.titleMedium,
+              )),
+              const Icon(Icons.arrow_forward_sharp),
+            ],
+          )),
     );
   }
 }

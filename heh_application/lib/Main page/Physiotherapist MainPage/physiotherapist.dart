@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Physiotherapist%20Page/advisesession.dart';
-import 'package:heh_application/Main%20page/Physiotherapist%20Page/longtermtreatment.dart';
+import 'package:heh_application/Main%20page/Physiotherapist%20MainPage/advisesession.dart';
+import 'package:heh_application/Main%20page/Physiotherapist%20MainPage/longtermtreatment.dart';
 
 class Physiotherapist extends StatefulWidget {
   const Physiotherapist({Key? key}) : super(key: key);
@@ -26,9 +26,19 @@ class _PhysiotherapistState extends State<Physiotherapist> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             const Text("Bạn đang cần tim đến dịch vụ của chúng tôi?"),
             const SizedBox(height: 20),
+            PhysiptherapistMenu(
+              icon: "assets/icons/advise.png",
+              text: "Chăm sóc khách hàng",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AdviseSession()));
+              },
+            ),
             PhysiptherapistMenu(
               icon: "assets/icons/advise.png",
               text: "Tư vấn một buổi",
