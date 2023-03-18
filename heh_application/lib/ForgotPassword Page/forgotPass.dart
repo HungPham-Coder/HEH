@@ -12,7 +12,7 @@ class ForgotPassword extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Reset your password",
+          "Quên mật khẩu",
           style: TextStyle(fontSize: 23),
         ),
         elevation: 10,
@@ -38,7 +38,7 @@ class ForgotPassword extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  ForgotPass(label: "Enter you phone number"),
+                  ForgotPass(label: "Nhập số điện thoại"),
                 ],
               ),
               Container(
@@ -55,7 +55,7 @@ class ForgotPassword extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: const Text(
-                        "Reset password",
+                        "Đặt lại mật khẩu",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
