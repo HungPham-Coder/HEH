@@ -1,12 +1,23 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:heh_application/services/auth.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+enum ForgotPassPageState {resetPassword,sendOTP}
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({Key? key,  required this.auth}) : super(key: key);
+  final AuthBase auth;
+  @override
+  State<ForgotPassword> createState() => _ForgotPasswordState();
+}
 
-class ForgotPassword extends StatelessWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
-
+class _ForgotPasswordState extends State<ForgotPassword> {
+  final TextEditingController _OTPController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  ForgotPassPageState _OTPResetPasswordState = ForgotPassPageState.sendOTP;
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -29,18 +40,20 @@ class ForgotPassword extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height / 3,
-          width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 80),
+          // height: MediaQuery.of(context).size.height / 3,
+          // width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Column(
-                children: <Widget>[
+              // Column(
+              //   children: <Widget>[
                   ForgotPass(label: "Enter you phone number"),
-                ],
-              ),
+              //   ],
+              // ),
+
+              SizedBox(height: 15,),
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Container(
@@ -48,14 +61,15 @@ class ForgotPassword extends StatelessWidget {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 50,
-                      onPressed: () {},
+                      onPressed: verifyPhoneNumber,
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: const Text(
-                        "Reset password",
+                      child:  Text(
+                        _OTPResetPasswordState == ForgotPassPageState.sendOTP
+                            ?  'SendOTP': 'Reset password' ,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
@@ -70,41 +84,70 @@ class ForgotPassword extends StatelessWidget {
       ),
     );
   }
+
+  Widget ForgotPass({label, obscureText = false}) {
+    return Column(
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        IntlPhoneField(
+          controller: _phoneController,
+          obscureText: obscureText,
+          decoration: const InputDecoration(
+              hintText: 'Phone number',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 20),
+        Visibility(
+          visible: _OTPResetPasswordState == ForgotPassPageState.sendOTP ? false : true,
+          child: TextField(
+            controller: _OTPController,
+            decoration: const InputDecoration(
+              labelText: 'OTP',
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color:  Colors.grey),
+              )
+            ),
+          ),
+        ),
+
+      ],
+    );
+  }
+
+  void verifyPhoneNumber () {
+    print(_phoneController.text);
+    widget.auth.verifyUserPhoneNumber(_phoneController.text);
+    _OTPResetPasswordState = ForgotPassPageState.resetPassword;
+    setState(() {
+
+    });
+  }
+  Future<void> verifyOTPCode () async {
+
+  }
+
 }
 
 // ignore: non_constant_identifier_names
-Widget ForgotPass({label, obscureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-          ),
-          const Text(
-            " *",
-            style: TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obscureText,
-        decoration: const InputDecoration(
-            hintText: 'Phone number',
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
-      ),
-      const SizedBox(height: 0)
-    ],
-  );
-}
+

@@ -1,14 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthBase {
   Stream<User?> authStateChanges();
-  Future<User> signInWithGoogle();
+  Future<User?> signInWithGoogle();
   Future<User> signInWithFacebook();
   // Future<User?> signInWithPhoneAndPassword(String phoneNumber, String password);
   Future<User> signInWithEmailAndPassword (String username, String password);
   Future<User> signUpWithEmailAndPassword (String username, String password);
+  void verifyUserPhoneNumber (String phoneNumber);
   Future<void> signOut();
 }
 
@@ -23,11 +26,11 @@ class Auth implements AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<User> signInWithGoogle() async {
+  Future<User?> signInWithGoogle() async {
     _firebaseAuth.userChanges();
     final googleSignIn = GoogleSignIn();
     //call google sign in method
-    final googleUser = await googleSignIn.signIn();
+    final googleUser = await googleSignIn.signIn().catchError((onError) => print(onError));
     //request sign in from device to google
     if (googleUser != null) {
       final googleAuth = await googleUser.authentication;
@@ -47,10 +50,12 @@ class Auth implements AuthBase {
         //throw exception when idtoken is null
       }
     } else {
+
       throw FirebaseAuthException(
           code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
       //can not sign in
     }
+
   }
 
   @override
@@ -126,6 +131,26 @@ class Auth implements AuthBase {
     final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: username, password: password);
     return userCredential.user!;
   }
+
+  void verifyUserPhoneNumber (String phoneNumber) {
+    _firebaseAuth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _firebaseAuth.signInWithCredential(credential).then(
+                (value) => print('Logged in success'),
+          );
+        },
+        verificationFailed: (FirebaseAuthException e){
+        print(e.message);
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          String receiveID = verificationId;
+        },
+        codeAutoRetrievalTimeout: (verificationId) {
+
+        },);
+  }
+
   @override
   Future<void> signOut() async {
     final googleSignIn = GoogleSignIn();

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:heh_application/ExceptionDialog/show_exception_alert_dialog.dart';
 import 'package:heh_application/ForgotPassword%20Page/forgotPass.dart';
 import 'package:heh_application/Main%20page/navigation_main.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
@@ -80,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
-                                  return const ForgotPassword();
+                                  return  ForgotPassword(auth: auth,);
                                 }),
                               );
                             },
@@ -242,10 +244,11 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithGoogle();
-    } on FirebaseException catch (e) {
-      // ignore: avoid_print
-      print(e.message);
     }
+    on Exception catch (e) {
+      _showSignInError (context, e);
+    }
+
   }
 
   Future<void> _signInWithFacebook(BuildContext context) async {
@@ -256,6 +259,13 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: avoid_print
       print(e.message);
     }
+  }
+
+  void _showSignInError(BuildContext context, Exception e) {
+    if (e is PlatformException && e.code == "ERROR_ABORTED_BY_USER") {
+      return;
+    }
+    showExceptionAlertDialog(context, title: "Sign In failed", exception: e);
   }
 }
 
