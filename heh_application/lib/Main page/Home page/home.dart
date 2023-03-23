@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
           children: [
             const SizedBox(height: 20),
             const Text("Bạn đang gặp vấn đề gì?"),
-            const SizedBox(height: 20),
             HomeMenu(
               icon: "assets/icons/backache.png",
               text: "Đau lưng",

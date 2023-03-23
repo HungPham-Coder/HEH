@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Main%20page/Home%20page/View%20Exercise%20Page/detail.dart';
 
 class ViewExercise extends StatefulWidget {
   const ViewExercise({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class _ViewExerciseState extends State<ViewExercise> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Đau lưng",
+          "Bài tập linh hoạt",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -31,37 +32,34 @@ class _ViewExerciseState extends State<ViewExercise> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30),
-            const Text("Bạn đang gặp vấn đề gì?"),
-            const SizedBox(height: 20),
             DetailMenu(
               icon: "assets/icons/backache.png",
-              text: "Bài tập linh hoạt",
+              text: "Kéo giãn cơ tứ đầu",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewExercise()));
+                        builder: (context) => const ExerciseDetail()));
               },
             ),
             DetailMenu(
               icon: "assets/icons/backache.png",
-              text: "Bài tập mạnh",
+              text: "Kéo giãn cơ gập hông",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewExercise()));
+                        builder: (context) => const ExerciseDetail()));
               },
             ),
             DetailMenu(
               icon: "assets/icons/knee.png",
-              text: "Bài tập tăng tiến",
+              text: "Kéo giãn cơ khép hông ",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewExercise()));
+                        builder: (context) => const ExerciseDetail()));
               },
             ),
           ],
@@ -84,7 +82,6 @@ class DetailMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: duplicate_ignore
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: TextButton(
@@ -106,14 +103,23 @@ class DetailMenu extends StatelessWidget {
               ),
               const SizedBox(
                 width: 20,
-                height: 10,
+                height: 50,
               ),
               Expanded(
                   child: Text(
                 text,
                 style: Theme.of(context).textTheme.titleMedium,
               )),
-              const Icon(Icons.arrow_forward_sharp),
+              Column(
+                children: <Widget>[
+                  IconButton(
+                      onPressed: press,
+                      icon: Image.asset(
+                        "assets/icons/magnifying_glass.png",
+                        color: Colors.black,
+                      )),
+                ],
+              )
             ],
           )),
     );

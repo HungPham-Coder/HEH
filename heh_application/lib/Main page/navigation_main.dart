@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:heh_application/Main%20page/Home%20page/Favorite.dart';
+import 'package:heh_application/Main%20page/Home%20page/favorite.dart';
 import 'package:heh_application/Main%20page/Home%20page/home.dart';
 import 'package:heh_application/Main%20page/messenger.dart';
 import 'package:heh_application/Main%20page/Profile%20page/setting.dart';

@@ -32,9 +32,6 @@ class _BackachePageState extends State<BackachePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30),
-            const Text("Bạn đang gặp vấn đề gì?"),
-            const SizedBox(height: 20),
             BackMenu(
               icon: "assets/icons/backache.png",
               text: "Bài tập linh hoạt",

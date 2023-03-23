@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/Favorite.dart';
+import 'package:heh_application/Main%20page/Home%20page/favorite.dart';
 
 class KneePainPage extends StatefulWidget {
   const KneePainPage({Key? key}) : super(key: key);
