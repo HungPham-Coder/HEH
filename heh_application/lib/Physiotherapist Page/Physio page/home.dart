@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/Exercise%20Page/back.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Exercise%20Page/exercise.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class PhysioHomePage extends StatefulWidget {
+  const PhysioHomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PhysioHomePage> createState() => _PhysioHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PhysioHomePageState extends State<PhysioHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,26 +28,24 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            const Text("Bạn đang gặp vấn đề gì?"),
             HomeMenu(
               icon: "assets/icons/backache.png",
-              text: "Đau lưng",
+              text: "Danh sách bài tập",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BackachePage()));
+                        builder: (context) => const PhysioExercisePage()));
               },
             ),
             HomeMenu(
               icon: "assets/icons/knee.png",
-              text: "Đau khớp gối",
+              text: "Đăng ký lịch tư vấn",
               press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BackachePage()));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const BackachePage()));
               },
             ),
           ],

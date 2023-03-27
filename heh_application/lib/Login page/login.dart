@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/ForgotPassword%20Page/forgotPass.dart';
-import 'package:heh_application/Main%20page/navigation_main.dart';
+import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/models/login_user.dart';
 import 'package:heh_application/services/auth.dart';
@@ -17,7 +17,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController phoneController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
 
   @override

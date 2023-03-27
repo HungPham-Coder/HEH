@@ -1,19 +1,20 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heh_application/Physiotherapist%20Page/Profile%20page/changePass.dart';
+import 'package:heh_application/Physiotherapist%20Page/history.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
+import 'personal.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class SettingPage extends StatefulWidget {
+  const SettingPage({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<SettingPage> createState() => _SettingPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,22 +85,33 @@ class _ProfilePageState extends State<ProfilePage> {
           ProfileMenu(
             icon: "assets/icons/person.svg",
             text: "Tài khoản của bạn",
-            press: () {},
+            press: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PhysioPersonalPage()));
+            },
           ),
-          ProfileMenu(
-            icon: "assets/icons/family.svg",
-            text: "Thành viên gia đình",
-            press: () {},
-          ),
+
           ProfileMenu(
             icon: "assets/icons/history.svg",
             text: "Lịch sử giao dịch",
-            press: () {},
+            press: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PhysioHistoryPage()));
+            },
           ),
           ProfileMenu(
             icon: "assets/icons/history.svg",
             text: "Đặt lại mật khẩu",
-            press: () {},
+            press: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PhysioChangePass()));
+            },
           ),
           ProfileMenu(
             icon: "assets/icons/logout.svg",

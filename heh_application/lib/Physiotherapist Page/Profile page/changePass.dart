@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ChangePassword extends StatefulWidget {
-  const ChangePassword({Key? key}) : super(key: key);
+class PhysioChangePass extends StatefulWidget {
+  const PhysioChangePass({Key? key}) : super(key: key);
 
   @override
-  State<ChangePassword> createState() => _ChangePasswordState();
+  State<PhysioChangePass> createState() => _PhysioChangePassState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
+class _PhysioChangePassState extends State<PhysioChangePass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,38 +35,36 @@ class _ChangePasswordState extends State<ChangePassword> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           height: MediaQuery.of(context).size.height / 3,
-          width: double.infinity,
+          width: MediaQuery.of(context).size.width,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  ForgotPass(label: "Enter you phone number"),
+                  const SizedBox(height: 30),
+                  ForgotPass(label: "Nhập số điện thoại/Email"),
                 ],
               ),
+              const SizedBox(height: 20),
               Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 0),
-                    child: MaterialButton(
-                      minWidth: double.infinity,
-                      height: 50,
-                      onPressed: () {},
-                      color: const Color.fromARGB(255, 46, 161, 226),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Text(
-                        "Reset password",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
+                padding: const EdgeInsets.only(top: 0),
+                child: MaterialButton(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  onPressed: () {},
+                  color: const Color.fromARGB(255, 46, 161, 226),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    "Thay đổi",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
                     ),
-                  ))
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -99,7 +97,7 @@ Widget ForgotPass({label, obscureText = false}) {
       TextField(
         obscureText: obscureText,
         decoration: const InputDecoration(
-            hintText: 'Phone number',
+            hintText: 'Số điện thoại/Email',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),

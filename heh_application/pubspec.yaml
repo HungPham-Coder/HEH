@@ -39,10 +39,10 @@ dependencies:
   intl: ^0.17.0
   flutter_svg: ^2.0.2
   firebase_core: ^2.7.0
-  firebase_auth: 4.2.5
-  google_sign_in: 5.4.4
-  flutter_login_facebook: 1.7.0
-  provider: 6.0.5
+  firebase_auth: ^4.2.5
+  google_sign_in: ^5.4.4
+  flutter_login_facebook: ^1.7.0
+  provider: ^6.0.5
   http: ^0.13.5
   video_player: ^2.6.0
 

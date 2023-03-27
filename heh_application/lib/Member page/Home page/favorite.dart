@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/favorite.dart';
+import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/detail.dart';
 
-class KneePainPage extends StatefulWidget {
-  const KneePainPage({Key? key}) : super(key: key);
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({Key? key}) : super(key: key);
 
   @override
-  State<KneePainPage> createState() => _KneePainPageState();
+  State<FavoritePage> createState() => _FavoritePageState();
 }
 
-class _KneePainPageState extends State<KneePainPage> {
+class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
-          "Đau khớp gối",
+          "Bài tập yêu thích",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -25,17 +26,51 @@ class _KneePainPageState extends State<KneePainPage> {
               },
               icon: const Icon(Icons.search)),
         ],
-        centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
-      body: Column(children: [TextButton(onPressed: () {}, child: Column())]),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            DetailMenu(
+              icon: "assets/icons/backache.png",
+              text: "Kéo giãn cơ tứ đầu",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ExerciseDetail()));
+              },
+            ),
+            DetailMenu(
+              icon: "assets/icons/backache.png",
+              text: "Kéo giãn cơ gập hông",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ExerciseDetail()));
+              },
+            ),
+            DetailMenu(
+              icon: "assets/icons/knee.png",
+              text: "Kéo giãn cơ khép hông ",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ExerciseDetail()));
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class KneeMenu extends StatelessWidget {
-  const KneeMenu({
+class DetailMenu extends StatelessWidget {
+  const DetailMenu({
     Key? key,
     required this.text,
     required this.icon,
@@ -47,7 +82,6 @@ class KneeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: duplicate_ignore
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: TextButton(
@@ -69,14 +103,23 @@ class KneeMenu extends StatelessWidget {
               ),
               const SizedBox(
                 width: 20,
-                height: 10,
+                height: 50,
               ),
               Expanded(
                   child: Text(
                 text,
                 style: Theme.of(context).textTheme.titleMedium,
               )),
-              const Icon(Icons.arrow_forward_sharp),
+              Column(
+                children: <Widget>[
+                  IconButton(
+                      onPressed: press,
+                      icon: Image.asset(
+                        "assets/icons/magnifying_glass.png",
+                        color: Colors.black,
+                      )),
+                ],
+              )
             ],
           )),
     );

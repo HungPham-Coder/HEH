@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Physiotherapist%20MainPage/advisesession.dart';
-import 'package:heh_application/Main%20page/Physiotherapist%20MainPage/longtermtreatment.dart';
+import 'package:heh_application/Member%20page/Physiotherapist%20MainPage/advisesession.dart';
+import 'package:heh_application/Member%20page/Physiotherapist%20MainPage/longtermtreatment.dart';
 
 class Physiotherapist extends StatefulWidget {
   const Physiotherapist({Key? key}) : super(key: key);

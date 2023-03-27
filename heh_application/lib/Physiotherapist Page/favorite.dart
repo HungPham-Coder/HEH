@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/View%20Exercise%20Page/detail.dart';
+import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/detail.dart';
 
-class ViewExercise extends StatefulWidget {
-  const ViewExercise({Key? key}) : super(key: key);
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({Key? key}) : super(key: key);
 
   @override
-  State<ViewExercise> createState() => _ViewExerciseState();
+  State<FavoritePage> createState() => _FavoritePageState();
 }
 
-class _ViewExerciseState extends State<ViewExercise> {
+class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
-          "Bài tập linh hoạt",
+          "Bài tập yêu thích",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -25,7 +26,6 @@ class _ViewExerciseState extends State<ViewExercise> {
               },
               icon: const Icon(Icons.search)),
         ],
-        centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),

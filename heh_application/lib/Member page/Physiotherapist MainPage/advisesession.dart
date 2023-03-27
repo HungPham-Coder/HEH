@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/favorite.dart';
+import 'package:heh_application/Member%20page/Home%20page/favorite.dart';
 
 class AdviseSession extends StatefulWidget {
   const AdviseSession({Key? key}) : super(key: key);

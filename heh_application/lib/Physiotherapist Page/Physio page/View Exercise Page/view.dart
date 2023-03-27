@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/View%20Exercise%20Page/detail.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/detail.dart';
 
-class FavoritePage extends StatefulWidget {
-  const FavoritePage({Key? key}) : super(key: key);
+class ViewExercise extends StatefulWidget {
+  const ViewExercise({Key? key}) : super(key: key);
 
   @override
-  State<FavoritePage> createState() => _FavoritePageState();
+  State<ViewExercise> createState() => _ViewExerciseState();
 }
 
-class _FavoritePageState extends State<FavoritePage> {
+class _ViewExerciseState extends State<ViewExercise> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text(
-          "Bài tập yêu thích",
+          "Bài tập linh hoạt",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -26,6 +25,7 @@ class _FavoritePageState extends State<FavoritePage> {
               },
               icon: const Icon(Icons.search)),
         ],
+        centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
@@ -35,26 +35,6 @@ class _FavoritePageState extends State<FavoritePage> {
             DetailMenu(
               icon: "assets/icons/backache.png",
               text: "Kéo giãn cơ tứ đầu",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
-              },
-            ),
-            DetailMenu(
-              icon: "assets/icons/backache.png",
-              text: "Kéo giãn cơ gập hông",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
-              },
-            ),
-            DetailMenu(
-              icon: "assets/icons/knee.png",
-              text: "Kéo giãn cơ khép hông ",
               press: () {
                 Navigator.push(
                     context,

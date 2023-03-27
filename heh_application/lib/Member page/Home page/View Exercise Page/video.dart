@@ -8,10 +8,7 @@ class Video {
 }
 
 const videos = [
-  Video(
-      name: 'video',
-      url: 'assets/videos/video4.mp4',
-      thumbnail: 'assets/images/profile.jpg'),
+  Video(name: 'video', url: '', thumbnail: 'assets/images/profile.jpg'),
   // Video(
   //     name: 'video2',
   //     url: 'assets/videos/video2.MP4',

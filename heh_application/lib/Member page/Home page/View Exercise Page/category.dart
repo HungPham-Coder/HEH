@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/View%20Exercise%20Page/view.dart';
+import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/view.dart';
 
-class BackachePage extends StatefulWidget {
-  const BackachePage({Key? key}) : super(key: key);
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({Key? key}) : super(key: key);
 
   @override
-  State<BackachePage> createState() => _BackachePageState();
+  State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _BackachePageState extends State<BackachePage> {
+class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,26 +35,6 @@ class _BackachePageState extends State<BackachePage> {
             BackMenu(
               icon: "assets/icons/backache.png",
               text: "Bài tập linh hoạt",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ViewExercise()));
-              },
-            ),
-            BackMenu(
-              icon: "assets/icons/backache.png",
-              text: "Bài tập mạnh",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ViewExercise()));
-              },
-            ),
-            BackMenu(
-              icon: "assets/icons/knee.png",
-              text: "Bài tập tăng tiến",
               press: () {
                 Navigator.push(
                     context,

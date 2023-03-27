@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Main%20page/Home%20page/View%20Exercise%20Page/landscape.dart';
-import 'package:heh_application/Main%20page/Home%20page/View%20Exercise%20Page/video.dart';
-import 'package:heh_application/Main%20page/Home%20page/favorite.dart';
+import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/landscape.dart';
+import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/video.dart';
+import 'package:heh_application/Member%20page/Home%20page/favorite.dart';
 import 'package:video_player/video_player.dart';
 
 class ExerciseDetail extends StatefulWidget {
