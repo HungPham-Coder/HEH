@@ -9,6 +9,7 @@ import 'package:heh_application/services/auth.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   ByteData data =
@@ -37,8 +38,14 @@ class MyHttpOverrides extends HttpOverrides {
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
+
+
+
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context,listen: false);
+
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

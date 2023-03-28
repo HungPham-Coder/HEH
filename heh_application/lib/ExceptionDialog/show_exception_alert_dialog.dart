@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:heh_application/ExceptionDialog/show_alert_dialog.dart';
 
 Future<void> showExceptionAlertDialog(
@@ -22,5 +22,5 @@ String _message (Exception exception){
   else {
     return "Sign In Canceled by User";
   }
-  return exception.toString();
+
 }

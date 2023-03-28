@@ -1,19 +1,35 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:heh_application/services/call_api.dart';
+
+import '../models/sign_up_user.dart';
 
 abstract class AuthBase {
   Stream<User?> authStateChanges();
   Future<User?> signInWithGoogle();
   Future<User> signInWithFacebook();
   // Future<User?> signInWithPhoneAndPassword(String phoneNumber, String password);
+<<<<<<< HEAD
   Future<User> signInWithEmailAndPassword(String username, String password);
   Future<User> signUpWithEmailAndPassword(String username, String password);
   void verifyUserPhoneNumber(String phoneNumber);
+=======
+  // Future<User> signInWithEmailAndPassword (String username, String password);
+  // Future<User> signUpWithEmailAndPassword (String username, String password);
+  void verifyUserPhoneNumber (String phoneNumber);
+  Stream<SignUpUser> loginUserStream(SignUpUser signUpUser) ;
+  Future<bool> checkUserExist(BuildContext context,String email) ;
+>>>>>>> f997a54f9fef571e969cbef18a7f728278bf5045
   Future<void> signOut();
 }
 
 class Auth implements AuthBase {
+  StreamController<SignUpUser> userStreamController = new StreamController<SignUpUser>();
+  Stream<SignUpUser> get userStream => userStreamController.stream;
+  CallAPI _callAPI = CallAPI();
   // ignore: override_on_non_overriding_member
   @override
   User? get currenUser => FirebaseAuth.instance.currentUser;
@@ -118,6 +134,7 @@ class Auth implements AuthBase {
   //   }
   // }
 
+<<<<<<< HEAD
   Future<User> signInWithEmailAndPassword(
       String username, String password) async {
     final userCredential = await _firebaseAuth.signInWithCredential(
@@ -132,6 +149,18 @@ class Auth implements AuthBase {
         email: username, password: password);
     return userCredential.user!;
   }
+=======
+  // Future<User> signInWithEmailAndPassword (String username, String password) async {
+  //
+  //   final userCredential = await _firebaseAuth.signInWithCredential(EmailAuthProvider.credential(email: username, password: password));
+  //   return userCredential.user!;
+  // }
+  // @override
+  // Future<User> signUpWithEmailAndPassword(String username, String password) async {
+  //   final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: username, password: password);
+  //   return userCredential.user!;
+  // }
+>>>>>>> f997a54f9fef571e969cbef18a7f728278bf5045
 
   void verifyUserPhoneNumber(String phoneNumber) {
     _firebaseAuth.verifyPhoneNumber(
@@ -151,6 +180,32 @@ class Auth implements AuthBase {
     );
   }
 
+
+
+  @override
+  Stream<SignUpUser> loginUserStream(SignUpUser signUpUser)  {
+    // TODO: implement testStream
+    userStreamController.sink.add(signUpUser);
+    return userStream;
+  }
+
+
+
+  @override
+  Future<bool> checkUserExist(BuildContext context,String email) async {
+    // TODO: implement checkUserExist
+    SignUpUser? user = await _callAPI.getUserByID(context, email);
+
+    if (user == null) {
+      print("false");
+      return false;
+    }
+    else {
+      print("true");
+      return true;
+    }
+  }
+
   @override
   Future<void> signOut() async {
     final googleSignIn = GoogleSignIn();
@@ -158,5 +213,6 @@ class Auth implements AuthBase {
     final facebookLogin = FacebookLogin();
     await facebookLogin.logOut();
     await _firebaseAuth.signOut();
+    userStreamController.close();
   }
 }
