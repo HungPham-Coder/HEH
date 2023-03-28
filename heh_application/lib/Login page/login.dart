@@ -6,6 +6,7 @@ import 'package:heh_application/ForgotPassword%20Page/forgotPass.dart';
 import 'package:heh_application/Main%20page/navigation_main.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/models/login_user.dart';
+import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
   final TextEditingController phoneController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
@@ -243,7 +252,15 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInWithGoogle();
+      User? user = await auth.signInWithGoogle();
+
+      SignUpUser signUpUser = SignUpUser(firstName: user!.displayName, lastName: 'lastName', phone: '1234567890', password: '123456789', email: user.email, gender: -1, dob: '2023-03-27T16:56:43.443Z');
+      bool checkUserExist = await auth.checkUserExist(context,user.email!);
+      if (checkUserExist == false){
+        print("register");
+
+        await CallAPI().callRegisterAPI(context, signUpUser);
+      }
     }
     on Exception catch (e) {
       _showSignInError (context, e);
@@ -254,7 +271,15 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _signInWithFacebook(BuildContext context) async {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInWithFacebook();
+      User? user = await auth.signInWithFacebook();
+      SignUpUser signUpUser = SignUpUser(firstName: user!.displayName, lastName: 'lastName', phone: '1234567890', password: '123456789', email: user.email, gender: -1, dob: '2023-03-27T16:56:43.443Z');
+      bool checkUserExist = await auth.checkUserExist(context,user.email!);
+      if (checkUserExist == false){
+        print("register");
+
+        await CallAPI().callRegisterAPI(context, signUpUser);
+      }
+
     } on FirebaseException catch (e) {
       // ignore: avoid_print
       print(e.message);

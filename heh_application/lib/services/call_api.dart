@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/models/login_user.dart';
 import 'package:heh_application/models/sign_up_user.dart';
-import 'package:heh_application/services/auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+
 
 import '../Main page/navigation_main.dart';
 
@@ -22,12 +18,12 @@ class CallAPI {
         final headers = {"Accept": "application/json",
           "content-type": "application/json"};
         var response =  await http.post(url,body: body,headers: headers);
-        print(response.statusCode);
+
         if (response.statusCode == 200) {
           // return auth.signInWithEmailAndPassword(loginUser.phone, loginUser.password);
           return Navigator.of(context).push(MaterialPageRoute(
               fullscreenDialog: true,
-            builder: (context) => Navigation_Bar(),
+            builder: (context) => const Navigation_Bar(),
           ));
         }
   }
@@ -44,7 +40,7 @@ class CallAPI {
         "lastName":signUpUser.lastName,
         "address":"",
         "dob":signUpUser.dob,
-        "phoneNumber":signUpUser.phone,
+        "phoneNumber":"signUpUser.phone",
         "gender": gender,
         "bookingStatus":false,
         "banStatus":false,
@@ -54,16 +50,37 @@ class CallAPI {
         "content-type": "application/json"};
       var response = await http.post(url,body: body,headers: headers);
       print(response.statusCode);
+
       if (response.statusCode == 200) {
 
-        return Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+
+        return Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
       }
       else if (response.statusCode == 400) {
 
-        // print('Error: ${user['Failed']}');
         print(response.body);
-        return SignUpPage();
+
+        return const SignUpPage();
       }
+
+  }
+
+  Future<SignUpUser?> getUserByID (BuildContext context,String email) async {
+    var url = Uri.https('localhost:7166','api/User/$email');
+    final headers = {"Accept": "application/json",
+      "content-type": "application/json"};
+    var response = await http.get(url,headers: headers);
+
+
+    if (response.statusCode == 200){
+
+      return SignUpUser.fromJson(json.decode(response.body));
+    }
+    else {
+      print("response body");
+      print(response.statusCode);
+      return null;
+    }
 
   }
 
