@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/view.dart';
+import 'package:heh_application/Member%20page/Exercise%20Page/view.dart';
 
-class PhyioCategoryPage extends StatefulWidget {
-  const PhyioCategoryPage({Key? key}) : super(key: key);
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({Key? key}) : super(key: key);
 
   @override
-  State<PhyioCategoryPage> createState() => _PhyioCategoryPageState();
+  State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _PhyioCategoryPageState extends State<PhyioCategoryPage> {
+class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

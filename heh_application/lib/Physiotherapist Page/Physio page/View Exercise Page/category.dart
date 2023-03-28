@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/detail.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/view.dart';
 
-class ViewExercise extends StatefulWidget {
-  const ViewExercise({Key? key}) : super(key: key);
+class PhysioCategoryPage extends StatefulWidget {
+  const PhysioCategoryPage({Key? key}) : super(key: key);
 
   @override
-  State<ViewExercise> createState() => _ViewExerciseState();
+  State<PhysioCategoryPage> createState() => _PhysioCategoryPageState();
 }
 
-class _ViewExerciseState extends State<ViewExercise> {
+class _PhysioCategoryPageState extends State<PhysioCategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Bài tập linh hoạt",
+          "Đau lưng",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -32,14 +32,14 @@ class _ViewExerciseState extends State<ViewExercise> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            DetailMenu(
+            BackMenu(
               icon: "assets/icons/backache.png",
-              text: "Kéo giãn cơ tứ đầu",
+              text: "Bài tập linh hoạt",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
+                        builder: (context) => const PhysioViewPage()));
               },
             ),
           ],
@@ -49,8 +49,8 @@ class _ViewExerciseState extends State<ViewExercise> {
   }
 }
 
-class DetailMenu extends StatelessWidget {
-  const DetailMenu({
+class BackMenu extends StatelessWidget {
+  const BackMenu({
     Key? key,
     required this.text,
     required this.icon,
@@ -62,6 +62,7 @@ class DetailMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: duplicate_ignore
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: TextButton(
@@ -83,23 +84,14 @@ class DetailMenu extends StatelessWidget {
               ),
               const SizedBox(
                 width: 20,
-                height: 50,
+                height: 10,
               ),
               Expanded(
                   child: Text(
                 text,
                 style: Theme.of(context).textTheme.titleMedium,
               )),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                      onPressed: press,
-                      icon: Image.asset(
-                        "assets/icons/magnifying_glass.png",
-                        color: Colors.black,
-                      )),
-                ],
-              )
+              const Icon(Icons.arrow_forward_sharp),
             ],
           )),
     );

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/view.dart';
+import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
 
-class CategoryPage extends StatefulWidget {
-  const CategoryPage({Key? key}) : super(key: key);
+class ViewExercise extends StatefulWidget {
+  const ViewExercise({Key? key}) : super(key: key);
 
   @override
-  State<CategoryPage> createState() => _CategoryPageState();
+  State<ViewExercise> createState() => _ViewExerciseState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _ViewExerciseState extends State<ViewExercise> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Đau lưng",
+          "Bài tập linh hoạt",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -32,14 +32,14 @@ class _CategoryPageState extends State<CategoryPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            BackMenu(
+            DetailMenu(
               icon: "assets/icons/backache.png",
-              text: "Bài tập linh hoạt",
+              text: "Kéo giãn cơ tứ đầu",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewExercise()));
+                        builder: (context) => const ExerciseDetail()));
               },
             ),
           ],
@@ -49,8 +49,8 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 }
 
-class BackMenu extends StatelessWidget {
-  const BackMenu({
+class DetailMenu extends StatelessWidget {
+  const DetailMenu({
     Key? key,
     required this.text,
     required this.icon,
@@ -62,7 +62,6 @@ class BackMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: duplicate_ignore
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: TextButton(
@@ -84,14 +83,23 @@ class BackMenu extends StatelessWidget {
               ),
               const SizedBox(
                 width: 20,
-                height: 10,
+                height: 50,
               ),
               Expanded(
                   child: Text(
                 text,
                 style: Theme.of(context).textTheme.titleMedium,
               )),
-              const Icon(Icons.arrow_forward_sharp),
+              Column(
+                children: <Widget>[
+                  IconButton(
+                      onPressed: press,
+                      icon: Image.asset(
+                        "assets/icons/magnifying_glass.png",
+                        color: Colors.black,
+                      )),
+                ],
+              )
             ],
           )),
     );

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Video%20setting/landscape.dart';
-
 import 'package:video_player/video_player.dart';
 
-class PhysioExerciseDetail extends StatefulWidget {
-  const PhysioExerciseDetail({Key? key}) : super(key: key);
+class ExerciseDetail extends StatefulWidget {
+  const ExerciseDetail({Key? key}) : super(key: key);
 
   @override
-  State<PhysioExerciseDetail> createState() => _PhysioExerciseDetailState();
+  State<ExerciseDetail> createState() => _ExerciseDetailState();
 }
 
-class _PhysioExerciseDetailState extends State<PhysioExerciseDetail> {
+class _ExerciseDetailState extends State<ExerciseDetail> {
   late VideoPlayerController _vidController;
   // int _currentIndex = 0;
 
@@ -61,35 +60,22 @@ class _PhysioExerciseDetailState extends State<PhysioExerciseDetail> {
     _vidController.addListener(() {
       setState(() {});
     });
-    _vidController.initialize().then((value) {});
+    _vidController.initialize().then((value) {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        // appBar: AppBar(
-        //   title: const Text(
-        //     "Kéo giãn cơ tứ đầu",
-        //     style: TextStyle(fontSize: 23),
-        //   ),
-        //   actions: [
-        //     IconButton(
-        //         onPressed: () {
-        //           MaterialPageRoute(builder: (context) => const FavoritePage());
-        //         },
-        //         icon: Image.asset("assets/icons/favorite_white.png")),
-        //   ],
-        //   elevation: 10,
-        //   backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-        // ),
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
                 toolbarHeight: 45,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [Icon(Icons.report_gmailerrorred, size: 40)],
+                  children: const [Icon(Icons.favorite_border, size: 40)],
                 ),
                 bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(0),

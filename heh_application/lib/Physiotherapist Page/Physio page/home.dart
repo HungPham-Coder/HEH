@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Exercise%20Page/exercise.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Advise%20Page/calendar.dart';
+
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/category.dart';
 
 class PhysioHomePage extends StatefulWidget {
   const PhysioHomePage({Key? key}) : super(key: key);
@@ -29,23 +28,23 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
         child: Column(
           children: [
             HomeMenu(
-              icon: "assets/icons/backache.png",
+              icon: "assets/icons/exercise.png",
               text: "Danh sách bài tập",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PhysioExercisePage()));
+                        builder: (context) => const PhysioCategoryPage()));
               },
             ),
             HomeMenu(
-              icon: "assets/icons/knee.png",
+              icon: "assets/icons/calendar.png",
               text: "Đăng ký lịch tư vấn",
               press: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const BackachePage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PhysioCalendarPage()));
               },
             ),
           ],

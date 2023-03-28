@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-enum ForgotPassPageState {resetPassword,sendOTP}
+
+enum ForgotPassPageState { resetPassword, sendOTP }
+
 class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key,  required this.auth}) : super(key: key);
+  const ForgotPassword({Key? key, required this.auth}) : super(key: key);
   final AuthBase auth;
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -17,7 +19,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   ForgotPassPageState _OTPResetPasswordState = ForgotPassPageState.sendOTP;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -41,20 +42,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 80),
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 80),
           // height: MediaQuery.of(context).size.height / 3,
           // width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-
               // Column(
               //   children: <Widget>[
-                  ForgotPass(label: "Nhập số điện thoại"),
+              ForgotPass(label: "Nhập số điện thoại"),
               //   ],
               // ),
-
-              SizedBox(height: 15,),
+              const SizedBox(height: 15),
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Container(
@@ -68,12 +67,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-
-                      child:  Text(
+                      child: Text(
                         _OTPResetPasswordState == ForgotPassPageState.sendOTP
-                            ?  'SendOTP': 'Đặt lại mật khẩu' ,
-
-                        style: TextStyle(
+                            ? 'SendOTP'
+                            : 'Đặt lại mật khẩu',
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
                           color: Colors.white,
@@ -117,39 +115,35 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 20),
         Visibility(
-          visible: _OTPResetPasswordState == ForgotPassPageState.sendOTP ? false : true,
+          visible: _OTPResetPasswordState == ForgotPassPageState.sendOTP
+              ? false
+              : true,
           child: TextField(
             controller: _OTPController,
             decoration: const InputDecoration(
-              labelText: 'OTP',
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color:  Colors.grey),
-              )
-            ),
+                labelText: 'OTP',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                )),
           ),
         ),
-
       ],
     );
   }
 
-  void verifyPhoneNumber () {
+  void verifyPhoneNumber() {
     print(_phoneController.text);
     widget.auth.verifyUserPhoneNumber(_phoneController.text);
     _OTPResetPasswordState = ForgotPassPageState.resetPassword;
-    setState(() {
-
-    });
-  }
-  Future<void> verifyOTPCode () async {
-
+    setState(() {});
   }
 
+  Future<void> verifyOTPCode() async {}
 }
 
 // ignore: non_constant_identifier_names

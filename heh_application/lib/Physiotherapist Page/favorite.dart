@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Home%20page/View%20Exercise%20Page/detail.dart';
+
+import '../Member page/Exercise Page/detail.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({Key? key}) : super(key: key);

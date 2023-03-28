@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/detail.dart';
 
-class ViewExercise extends StatefulWidget {
-  const ViewExercise({Key? key}) : super(key: key);
+class PhysioViewPage extends StatefulWidget {
+  const PhysioViewPage({Key? key}) : super(key: key);
 
   @override
-  State<ViewExercise> createState() => _ViewExerciseState();
+  State<PhysioViewPage> createState() => _PhysioViewPageState();
 }
 
-class _ViewExerciseState extends State<ViewExercise> {
+class _PhysioViewPageState extends State<PhysioViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +39,7 @@ class _ViewExerciseState extends State<ViewExercise> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
+                        builder: (context) => const PhysioExerciseDetail()));
               },
             ),
           ],
