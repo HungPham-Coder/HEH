@@ -252,21 +252,25 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);
-<<<<<<< HEAD
-      await auth.signInWithGoogle();
-    } on Exception catch (e) {
-      _showSignInError(context, e);
-=======
+
       User? user = await auth.signInWithGoogle();
 
-      SignUpUser signUpUser = SignUpUser(firstName: user!.displayName, lastName: 'lastName', phone: '1234567890', password: '123456789', email: user.email, gender: -1, dob: '2023-03-27T16:56:43.443Z');
-      bool checkUserExist = await auth.checkUserExist(context,user.email!);
-      if (checkUserExist == false){
+      SignUpUser signUpUser = SignUpUser(firstName: user!.displayName,
+          lastName: 'lastName',
+          phone: '1234567890',
+          password: '123456789',
+          email: user.email,
+          gender: -1,
+          dob: '2023-03-27T16:56:43.443Z');
+      bool checkUserExist = await auth.checkUserExist(context, user.email!);
+      if (checkUserExist == false) {
         print("register");
 
         await CallAPI().callRegisterAPI(context, signUpUser);
       }
->>>>>>> f997a54f9fef571e969cbef18a7f728278bf5045
+    }
+    on Exception catch (e) {
+    _showSignInError(context, e);
     }
   }
 

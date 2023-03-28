@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:heh_application/services/call_api.dart';
@@ -12,17 +13,13 @@ abstract class AuthBase {
   Future<User?> signInWithGoogle();
   Future<User> signInWithFacebook();
   // Future<User?> signInWithPhoneAndPassword(String phoneNumber, String password);
-<<<<<<< HEAD
-  Future<User> signInWithEmailAndPassword(String username, String password);
-  Future<User> signUpWithEmailAndPassword(String username, String password);
-  void verifyUserPhoneNumber(String phoneNumber);
-=======
+
   // Future<User> signInWithEmailAndPassword (String username, String password);
   // Future<User> signUpWithEmailAndPassword (String username, String password);
   void verifyUserPhoneNumber (String phoneNumber);
   Stream<SignUpUser> loginUserStream(SignUpUser signUpUser) ;
   Future<bool> checkUserExist(BuildContext context,String email) ;
->>>>>>> f997a54f9fef571e969cbef18a7f728278bf5045
+
   Future<void> signOut();
 }
 
@@ -134,22 +131,7 @@ class Auth implements AuthBase {
   //   }
   // }
 
-<<<<<<< HEAD
-  Future<User> signInWithEmailAndPassword(
-      String username, String password) async {
-    final userCredential = await _firebaseAuth.signInWithCredential(
-        EmailAuthProvider.credential(email: username, password: password));
-    return userCredential.user!;
-  }
 
-  @override
-  Future<User> signUpWithEmailAndPassword(
-      String username, String password) async {
-    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: username, password: password);
-    return userCredential.user!;
-  }
-=======
   // Future<User> signInWithEmailAndPassword (String username, String password) async {
   //
   //   final userCredential = await _firebaseAuth.signInWithCredential(EmailAuthProvider.credential(email: username, password: password));
@@ -160,7 +142,7 @@ class Auth implements AuthBase {
   //   final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: username, password: password);
   //   return userCredential.user!;
   // }
->>>>>>> f997a54f9fef571e969cbef18a7f728278bf5045
+
 
   void verifyUserPhoneNumber(String phoneNumber) {
     _firebaseAuth.verifyPhoneNumber(
