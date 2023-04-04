@@ -5,6 +5,7 @@ import 'package:heh_application/Physiotherapist%20Page/history.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
+import '../../services/stream_test.dart';
 import 'personal.dart';
 
 class SettingPage extends StatefulWidget {
@@ -95,17 +96,18 @@ class _SettingPageState extends State<SettingPage> {
           ProfileMenu(
             icon: "assets/icons/logout.svg",
             text: "Đăng xuất",
-            press: () => signout(context),
+            press:signout,
           ),
         ],
       )),
     );
   }
 
-  void signout(BuildContext context) async {
+  void signout() async {
+    final stream = StreamTest.instance;
     final auth = Provider.of<AuthBase>(context, listen: false);
-    await auth.signOut();
-    Navigator.of(context).pop();
+    await stream.handleLogout();
+    await auth.signOut(context);
   }
 }
 

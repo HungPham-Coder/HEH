@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:heh_application/SignUp%20Page/signupMed.dart';
 import 'package:heh_application/main.dart';
+
+import 'package:heh_application/Login%20page/landing_page.dart';
+
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
@@ -26,8 +30,17 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
-  Future<void> signUp(SignUpUser signUpUser) async {
-    CallAPI().callRegisterAPI(context, signUpUser);
+  Future<Widget?> signUp(SignUpUser signUpUser) async {
+    bool resultStatus = await CallAPI().callRegisterAPI(signUpUser);
+    if (resultStatus){
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) {
+            return const LandingPage();
+          }));
+    }
+    else {
+      return SignUpPage();
+    }
   }
 
   @override
@@ -147,6 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       label: "Xác thực lại mật khẩu", obscureText: true),
                 ],
               ),
+
               Row(
                 children: [
                   Container(
@@ -175,44 +189,91 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                      )),
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: MaterialButton(
-                          height: 50,
-                          onPressed: () {
-                            // SignUpUser signUpUser = SignUpUser(
-                            //     firstName: _firstName.text,
-                            //     lastName: _lastName.text,
-                            //     phone: _phone.text,
-                            //     password: _password.text,
-                            //     email: _email.text,
-                            //     gender: _genderValue.index,
-                            //     dob: _date.text);
-                            // signUp(signUpUser);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SignUpMedicalPage()));
-                          },
-                          color: const Color.fromARGB(255, 46, 161, 226),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Text(
-                            "Tiếp Theo",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
+                      ),
+        ),
+
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 70),
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 0),
+                    child: MaterialButton(
+                      minWidth: double.infinity,
+                      height: 50,
+                      onPressed: () {
+                        bool gender = true;
+                        if (_genderValue.index == 1) {
+                          gender = false;
+                        }
+                        SignUpUser signUpUser = SignUpUser(
+
+                          firstName: _firstName.text,
+                          lastName: _lastName.text,
+                          phone: _phone.text,
+                          password: _password.text,
+                          email: _email.text,
+                          gender: gender,
+                          dob: _date.text,
+                          username: '${_firstName.text}',
+                          image: "null",
+                          address: "b",
+
+                        );
+                        signUp(signUpUser);
+                      },
+                      color: const Color.fromARGB(255, 46, 161, 226),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        "Đăng ký",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.white,
+
                         ),
-                      )),
+                      )))),
+                  // Container(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 0),
+                  //     child: Container(
+                  //       padding: const EdgeInsets.only(top: 20),
+                  //       child: MaterialButton(
+                  //         height: 50,
+                  //         onPressed: () {
+                  //           // SignUpUser signUpUser = SignUpUser(
+                  //           //     firstName: _firstName.text,
+                  //           //     lastName: _lastName.text,
+                  //           //     phone: _phone.text,
+                  //           //     password: _password.text,
+                  //           //     email: _email.text,
+                  //           //     gender: _genderValue.index,
+                  //           //     dob: _date.text);
+                  //           // signUp(signUpUser);
+                  //           Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                   builder: (context) =>
+                  //                       const SignUpMedicalPage()));
+                  //         },
+                  //         color: const Color.fromARGB(255, 46, 161, 226),
+                  //         elevation: 0,
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //         ),
+                  //         child: const Text(
+                  //           "Tiếp Theo",
+                  //           style: TextStyle(
+                  //             fontWeight: FontWeight.w600,
+                  //             fontSize: 18,
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     )),
                 ],
               ),
               const SizedBox(

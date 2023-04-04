@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
 
+import '../../models/sign_up_user.dart';
+import '../../services/stream_test.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -9,8 +12,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    // SignUpUser signUpUser = SignUpUser(firstName: '123',
+    //     lastName: 'abcdef',
+    //     phone: '1236548970',
+    //     password: '123456789',
+    //     email: '',
+    //     gender: false,
+    //     dob: '2023-03-27T16:56:43.443Z', username: '');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Family%20page/signupMed.dart';
 import 'package:heh_application/SignUp%20Page/signupMed.dart';
@@ -47,7 +49,7 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
   final TextEditingController _confirmPassword = TextEditingController();
 
   Future<void> signUp(SignUpUser signUpUser) async {
-    CallAPI().callRegisterAPI(context, signUpUser);
+    await CallAPI().callRegisterAPI( signUpUser);
   }
 
   @override

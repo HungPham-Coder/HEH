@@ -1,20 +1,50 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:heh_application/Member%20page/Home%20page/favorite.dart';
 import 'package:heh_application/Member%20page/Home%20page/home.dart';
 import 'package:heh_application/Member%20page/Profile%20page/setting.dart';
 import 'package:heh_application/Member%20page/Physiotherapist%20MainPage/physiotherapist.dart';
+import 'package:heh_application/models/result_login.dart';
+import 'package:heh_application/services/auth.dart';
+import 'package:heh_application/services/call_api.dart';
+import 'package:heh_application/services/stream_test.dart';
+import 'package:provider/provider.dart';
+
+import '../models/sign_up_user.dart';
 
 // ignore: camel_case_types
 class Navigation_Bar extends StatefulWidget {
-  const Navigation_Bar({Key? key}) : super(key: key);
+   Navigation_Bar({Key? key, }) : super(key: key);
 
   @override
   State<Navigation_Bar> createState() => _Navigation_BarState();
 }
 
 // ignore: camel_case_types
-class _Navigation_BarState extends State<Navigation_Bar> {
+class _Navigation_BarState extends State<Navigation_Bar>  {
+  SignUpUser? signUpUser ;
+
+
+  @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+    // final auth = Provider.of<AuthBase>(context, listen: false);
+    // auth.userSignUpStream.listen((event) {
+    //   print('${event.firstName} navigation sign up 1');
+    // });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+
+    super.dispose();
+
+  }
+
   int pageIndex = 0;
   List<Widget> pageList = <Widget>[
     const HomePage(),
@@ -22,15 +52,23 @@ class _Navigation_BarState extends State<Navigation_Bar> {
     const FavoritePage(),
     const SettingPage(),
   ];
+
+
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+
+
+
+
+
     return Scaffold(
       body: pageList[pageIndex],
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
           fixedColor: Colors.white,
           currentIndex: pageIndex,
-          onTap: (value) {
+          onTap: (value) async {
             setState(() {
               pageIndex = value;
             });

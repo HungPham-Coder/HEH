@@ -1,10 +1,16 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:heh_application/models/result_login.dart';
+import 'package:heh_application/models/role.dart';
 import 'package:heh_application/services/call_api.dart';
+import 'package:heh_application/services/stream_test.dart';
 
 import '../models/sign_up_user.dart';
 
@@ -17,42 +23,65 @@ abstract class AuthBase {
   // Future<User> signInWithEmailAndPassword (String username, String password);
   // Future<User> signUpWithEmailAndPassword (String username, String password);
   void verifyUserPhoneNumber (String phoneNumber);
-  Stream<SignUpUser> loginUserStream(SignUpUser signUpUser) ;
-  Future<bool> checkUserExist(BuildContext context,String email) ;
+  // Future<void> addLoginUserStream(ResultLogin resultLogin) ;
+  // Future<void> addSignUpUserStream(SignUpUser? signUpUser);
+  Future<bool> checkUserExistInPostgre(String email) ;
+  Future<void> checkUserExistInFirebase (SignUpUser signUpUser);
+  Future<SignUpUser> getCurrentUser (String id);
+  // User? get currenUser;
+  // Stream<ResultLogin> get userLoginStream;
+  // Stream<SignUpUser> get userSignUpStream;
+  void dispose ();
 
-  Future<void> signOut();
+  Future<void> signOut(BuildContext context);
 }
 
 class Auth implements AuthBase {
-  StreamController<SignUpUser> userStreamController = new StreamController<SignUpUser>();
-  Stream<SignUpUser> get userStream => userStreamController.stream;
+  // StreamController<ResultLogin> userStreamController = StreamController<
+  //     ResultLogin>.broadcast();
+  // StreamController<SignUpUser> signUpUserStreamController = StreamController<
+  //     SignUpUser>.broadcast();
+  //
+  // @override
+  // Stream<ResultLogin> get userLoginStream => userStreamController.stream;
+  //
+  // Stream<SignUpUser> get userSignUpStream => signUpUserStreamController.stream;
   CallAPI _callAPI = CallAPI();
+
   // ignore: override_on_non_overriding_member
-  @override
-  User? get currenUser => FirebaseAuth.instance.currentUser;
+  // @override
+  // User? get currenUser => FirebaseAuth.instance.currentUser;
 
   @override
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
   final _firebaseAuth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
+  final _cloudStorage = FirebaseStorage.instance;
+
+
 
   @override
-  Future<User?> signInWithGoogle() async {
-    _firebaseAuth.userChanges();
+  Future<User> signInWithGoogle() async {
     final googleSignIn = GoogleSignIn();
     //call google sign in method
-    final googleUser =
-        await googleSignIn.signIn().catchError((onError) => print(onError));
+    final googleUser = await googleSignIn.signIn();
+
     //request sign in from device to google
     if (googleUser != null) {
       final googleAuth = await googleUser.authentication;
+
       //get authentication of google
       if (googleAuth.idToken != null) {
         final userCredential = await _firebaseAuth.signInWithCredential(
+
+
             GoogleAuthProvider.credential(
                 idToken: googleAuth.idToken,
                 accessToken: googleAuth.accessToken));
         // pass idtoken and access token to firebase to sign in with google
+
+
         return userCredential.user!;
         //firebase return google account
       } else {
@@ -62,6 +91,8 @@ class Auth implements AuthBase {
         //throw exception when idtoken is null
       }
     } else {
+      print("User null");
+
       throw FirebaseAuthException(
           code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
       //can not sign in
@@ -150,7 +181,7 @@ class Auth implements AuthBase {
       verificationCompleted: (PhoneAuthCredential credential) async {
         await _firebaseAuth.signInWithCredential(credential).then(
               (value) => print('Logged in success'),
-            );
+        );
       },
       verificationFailed: (FirebaseAuthException e) {
         print(e.message);
@@ -163,20 +194,17 @@ class Auth implements AuthBase {
   }
 
 
-
-  @override
-  Stream<SignUpUser> loginUserStream(SignUpUser signUpUser)  {
-    // TODO: implement testStream
-    userStreamController.sink.add(signUpUser);
-    return userStream;
-  }
-
+  // @override
+  // Future<void> addLoginUserStream(ResultLogin? resultLogin) async  {
+  //   // TODO: implement testStream
+  //   userStreamController.sink.add(resultLogin!);
+  // }
 
 
   @override
-  Future<bool> checkUserExist(BuildContext context,String email) async {
+  Future<bool> checkUserExistInPostgre(String email) async {
     // TODO: implement checkUserExist
-    SignUpUser? user = await _callAPI.getUserByID(context, email);
+    SignUpUser? user = await _callAPI.getUserByEmail(email);
 
     if (user == null) {
       print("false");
@@ -189,12 +217,62 @@ class Auth implements AuthBase {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     final googleSignIn = GoogleSignIn();
     await googleSignIn.signOut();
     final facebookLogin = FacebookLogin();
     await facebookLogin.logOut();
     await _firebaseAuth.signOut();
-    userStreamController.close();
+
+
+    // userStreamController.close();
+    // Navigator.of(context).pop();
   }
+
+  // void dispose() {
+  //   userStreamController.close();
+  // }
+
+  @override
+  Future<void> checkUserExistInFirebase(SignUpUser signUpUser)  async {
+    // TODO: implement checkUserExistInFirebase
+    if (signUpUser != null) {
+      final QuerySnapshot<Map<String, dynamic>> result = await _firestore
+          .collection('user').where('id', isEqualTo: signUpUser.userID).get();
+      final List<DocumentSnapshot> documents = result.docs;
+      if (documents.length == 0) {
+         _firestore.collection('user').doc(signUpUser.userID).set({
+          'nickname': signUpUser.firstName,
+          'photoUrl': '',
+          'id': signUpUser.userID
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  @override
+  Future<SignUpUser> getCurrentUser(String id) async {
+    SignUpUser? signUpUser = await CallAPI().getUserById(id);
+    Role? role = await CallAPI().getUserRole(id);
+    signUpUser!.role = role!.name;
+    print("auth ${signUpUser.role}");
+    print("auth ${signUpUser.firstName}");
+    return signUpUser;
+  }
+
+  // @override
+  // Future<void> addSignUpUserStream(SignUpUser? signUpUser)  async {
+  //   // TODO: implement addSignUpUserStream
+  //    signUpUserStreamController.sink.add(signUpUser!);
+  //   // userSignUpStream.listen((event) {print('${event.firstName} auth');});
+  //
+  // }
+
+
+// TODO: implement userSignUpStream
 }

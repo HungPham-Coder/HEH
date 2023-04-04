@@ -1,20 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Physiotherapist%20MainPage/advisesession.dart';
 import 'package:heh_application/Member%20page/Physiotherapist%20MainPage/longtermtreatment.dart';
+import 'package:heh_application/Member%20page/Physiotherapist%20MainPage/messenger_page.dart';
+import 'package:heh_application/models/result_login.dart';
+import 'package:heh_application/models/sign_up_user.dart';
+import 'package:heh_application/models/chat_model/user_chat.dart';
+import 'package:heh_application/services/auth.dart';
+import 'package:heh_application/services/call_api.dart';
+import 'package:heh_application/services/chat_provider.dart';
+import 'package:heh_application/services/firebase_firestore.dart';
+import 'package:heh_application/services/stream_test.dart';
+import 'package:provider/provider.dart';
 
 class Physiotherapist extends StatefulWidget {
-  const Physiotherapist({Key? key}) : super(key: key);
+  const Physiotherapist({Key? key, this.currentUser,}) : super(key: key);
+  final SignUpUser? currentUser;
+
 
   @override
   State<Physiotherapist> createState() => _PhysiotherapistState();
 }
 
 class _PhysiotherapistState extends State<Physiotherapist> {
+  UserChat? opponentUser;
+
+  Future<void> loadPhysioTherapistAccount() async {
+    final firestoreDatabase =
+        Provider.of<FirebaseFirestoreBase>(context, listen: false);
+    UserChat? userChatResult =
+        await firestoreDatabase.getPhysioUser(physioID: 'physiotherapist');
+    opponentUser = userChatResult;
+  }
+  // Future<void> getSignUpUser () async {
+  //   sharedSignupUser = await CallAPI().getUserById(sharedResultLogin!.userID!);
+  //
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context,listen: false);
+
+    // print("${sharedSignupUser!.firstName} physio");
+    String physioIcon = 'assets/icons/physio.png';
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+
         automaticallyImplyLeading: false,
         title: const Text(
           "Chuyên viên",
@@ -24,44 +63,73 @@ class _PhysiotherapistState extends State<Physiotherapist> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            const Text("Bạn đang cần tim đến dịch vụ của chúng tôi?"),
-            const SizedBox(height: 20),
-            PhysiptherapistMenu(
-              icon: "assets/icons/advise.png",
-              text: "Chăm sóc khách hàng",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AdviseSession()));
-              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  const Text(
+                      "Bạn đang cần tim đến dịch vụ của chúng tôi?"),
+                  const SizedBox(height: 20),
+                  PhysiptherapistMenu(
+                    icon: "assets/icons/advise.png",
+                    text: "Chăm sóc khách hàng",
+                    press: () async {
+                      await loadPhysioTherapistAccount();
+                      await auth.checkUserExistInFirebase(sharedCurrentUser!);
+
+                      Navigator.push(
+                          context, MaterialPageRoute(
+                          builder: (context) {
+
+                            if (sharedCurrentUser?.image == null){
+                              sharedCurrentUser?.setImage = "Không có hình";
+                            }
+
+                      if (sharedCurrentUser != null) {
+
+                              return Provider<ChatProviderBase>(
+                                create: (context) => ChatProvider(),
+                                child: MessengerPage(
+                                    oponentID: opponentUser!.id,
+                                    oponentAvartar: opponentUser!.photoUrl,
+                                    oponentNickName: opponentUser!.nickname,
+                                    userAvatar: sharedCurrentUser!.image,
+                                    currentUserID: sharedCurrentUser!.userID!
+                                ),
+                              );
+
+
+                      } else {
+                        print('null');
+                         return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                        }));
+                    },
+                  ),
+                  PhysiptherapistMenu(
+                    icon: "assets/icons/advise.png",
+                    text: "Tư vấn một buổi",
+                    press: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AdviseSession()));
+                    },
+                  ),
+                  PhysiptherapistMenu(
+                    icon: "assets/icons/physio.png",
+                    text: "Điều trị lâu dài",
+                    press: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LongTermTreatment()));
+                    },
+                  ),
+                ],
+              ),
             ),
-            PhysiptherapistMenu(
-              icon: "assets/icons/advise.png",
-              text: "Tư vấn một buổi",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AdviseSession()));
-              },
-            ),
-            PhysiptherapistMenu(
-              icon: "assets/icons/physio.png",
-              text: "Điều trị lâu dài",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LongTermTreatment()));
-              },
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

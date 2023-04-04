@@ -114,16 +114,16 @@ class _PhysioSettingPageState extends State<PhysioSettingPage> {
           ProfileMenu(
             icon: "assets/icons/logout.svg",
             text: "Đăng xuất",
-            press: () => signout(context),
+            press:  signout,
           ),
         ],
       )),
     );
   }
 
-  void signout(BuildContext context) async {
+  void signout() async {
     final auth = Provider.of<AuthBase>(context, listen: false);
-    await auth.signOut();
+    await auth.signOut(context);
     Navigator.of(context).pop();
   }
 }

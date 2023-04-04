@@ -3,7 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Personal%20page/personal.dart';
 import 'package:heh_application/Member%20page/Profile%20page/changePass.dart';
 import 'package:heh_application/Member%20page/history.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Profile%20Page/Personal%20page/personal.dart';
+
+import 'package:heh_application/services/stream_test.dart';
 
 import 'package:provider/provider.dart';
 
@@ -104,17 +105,18 @@ class _SettingPageState extends State<SettingPage> {
           ProfileMenu(
             icon: "assets/icons/logout.svg",
             text: "Đăng xuất",
-            press: () => signout(context),
+            press: signout,
           ),
         ],
       )),
     );
   }
 
-  void signout(BuildContext context) async {
+  void signout() async {
+    final stream = StreamTest.instance;
     final auth = Provider.of<AuthBase>(context, listen: false);
-    await auth.signOut();
-    Navigator.of(context).pop();
+    await stream.handleLogout();
+    await auth.signOut(context);
   }
 }
 
