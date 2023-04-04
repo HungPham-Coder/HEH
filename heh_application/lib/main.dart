@@ -9,7 +9,6 @@ import 'package:heh_application/services/auth.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   ByteData data =
@@ -38,13 +37,9 @@ class MyHttpOverrides extends HttpOverrides {
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context,listen: false);
-
+    final auth = Provider.of<AuthBase>(context, listen: false);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -58,16 +53,17 @@ class WelcomePage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: const <Widget>[
-                  Text("HEALTH CARE AND HEALING SYSTEM",
-                      style: TextStyle(fontSize: 35, fontFamily: 'Roadbrush')),
-                  SizedBox(height: 0),
+                  SizedBox(height: 30),
+                  Text("ỨNG DỤNG CHĂM SÓC VÀ PHỤC HỒI CHỨC NĂNG",
+                      style: TextStyle(fontSize: 26, fontFamily: 'Roadbrush'),
+                      textAlign: TextAlign.center),
                 ],
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 2,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/images/welcome.jpg"))),
+                        image: AssetImage("assets/images/welcome2.png"))),
               ),
               Column(
                 children: <Widget>[

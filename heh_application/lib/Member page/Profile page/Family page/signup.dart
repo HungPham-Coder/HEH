@@ -1,22 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Member%20page/Profile%20page/Family%20page/signupMed.dart';
 import 'package:heh_application/SignUp%20Page/signupMed.dart';
 import 'package:heh_application/main.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 // ignore: camel_case_types
 enum genderGroup { male, female, others }
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignUpFamilyPage extends StatefulWidget {
+  const SignUpFamilyPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignUpFamilyPage> createState() => _SignUpFamilyPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
   genderGroup _genderValue = genderGroup.male;
+
+  final List<String> _relationships = [
+    "- Chọn -",
+    "Cha",
+    "Mẹ",
+    "Vợ",
+    "Chồng",
+    "Con",
+    "Anh",
+    "Chị",
+    "Em",
+    "Cháu",
+    "Ông nội",
+    "Bà nội",
+    "ông Ngoại",
+    "Bà ngoại"
+  ];
+  String? selectedRelationship = "- Chọn -";
 
   final TextEditingController _date = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
@@ -37,8 +57,8 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Đăng ký tài khoản",
-          style: TextStyle(fontSize: 23),
+          "Đăng ký thành viên gia đình",
+          style: TextStyle(fontSize: 18),
         ),
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
@@ -64,12 +84,15 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 20,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   fullName(label: "Họ và Tên"),
                   email(label: "Email"),
                   phone(label: "Số điện thoại"),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
                         children: const <Widget>[
@@ -117,14 +140,22 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 10),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
+                      Row(
+                        children: const [
+                          Text("Ngày sinh"),
+                          Text(" *", style: TextStyle(color: Colors.red)),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
                       TextField(
-                        controller: _date,
                         decoration: const InputDecoration(
-                          labelText: "Ngày sinh ",
-                        ),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.grey))),
+                        controller: _date,
                         onTap: () async {
                           DateTime? pickeddate = await showDatePicker(
                               context: context,
@@ -140,11 +171,41 @@ class _SignUpPageState extends State<SignUpPage> {
                     ],
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
-                  password(label: "Mật khẩu", obscureText: true),
-                  confirmPassword(
-                      label: "Xác thực lại mật khẩu", obscureText: true),
+                  Row(
+                    children: const [
+                      Text("Ngày sinh"),
+                      Text(" *", style: TextStyle(color: Colors.red)),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 70,
+                    child: SizedBox(
+                      child: DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.grey))),
+                        value: selectedRelationship,
+                        items: _relationships
+                            .map((relationship) => DropdownMenuItem<String>(
+                                value: relationship,
+                                child: Text(
+                                  relationship,
+                                  style: const TextStyle(fontSize: 15),
+                                )))
+                            .toList(),
+                        onChanged: (relationship) => setState(() {
+                          selectedRelationship = relationship;
+                        }),
+                      ),
+                    ),
+                  )
                 ],
               ),
               Row(
@@ -196,7 +257,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const SignUpMedicalPage()));
+                                        const FamilySignUpMedicalPage()));
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,
@@ -329,78 +390,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 10)
-      ],
-    );
-  }
-
-  Widget password({label, obscureText = false}) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Text(
-              label,
-              style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87),
-            ),
-            const Text(
-              " *",
-              style: TextStyle(color: Colors.red),
-            ),
-          ],
-        ),
-        const SizedBox(height: 5),
-        TextField(
-          controller: _password,
-          obscureText: obscureText,
-          decoration: const InputDecoration(
-              hintText: 'Mật khẩu',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey))),
-        ),
-        const SizedBox(height: 15)
-      ],
-    );
-  }
-
-  Widget confirmPassword({label, obscureText = false}) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Text(
-              label,
-              style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87),
-            ),
-            const Text(
-              " *",
-              style: TextStyle(color: Colors.red),
-            ),
-          ],
-        ),
-        const SizedBox(height: 5),
-        TextField(
-          controller: _confirmPassword,
-          obscureText: obscureText,
-          decoration: const InputDecoration(
-              hintText: 'Xác thực lại mật khẩu',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey))),
-        ),
-        const SizedBox(height: 0)
       ],
     );
   }

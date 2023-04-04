@@ -39,32 +39,11 @@ class _SettingPageState extends State<SettingPage> {
             child: Stack(
               clipBehavior: Clip.none,
               fit: StackFit.expand,
+              // ignore: prefer_const_literals_to_create_immutables
               children: [
                 const CircleAvatar(
                   backgroundImage: AssetImage("assets/images/profile.jpg"),
                 ),
-                Positioned(
-                  right: -12,
-                  bottom: 0,
-                  child: SizedBox(
-                    height: 46,
-                    width: 46,
-                    child: TextButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xfff5f6f9)),
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  side: const BorderSide(color: Colors.white)),
-                            )),
-                        onPressed: () {},
-                        child: SvgPicture.asset("assets/icons/camera.svg",
-                            width: 20, height: 20)),
-                  ),
-                )
               ],
             ),
           ),
@@ -84,7 +63,7 @@ class _SettingPageState extends State<SettingPage> {
           // ),
           ProfileMenu(
             icon: "assets/icons/person.svg",
-            text: "Tài khoản của bạn",
+            text: "Thông tin của bạn",
             press: () {
               Navigator.push(
                   context,

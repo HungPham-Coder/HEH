@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heh_application/Member%20page/Profile%20page/Personal%20page/personal.dart';
 import 'package:heh_application/Member%20page/Profile%20page/changePass.dart';
 import 'package:heh_application/Member%20page/history.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Profile%20Page/Personal%20page/personal.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../services/auth.dart';
-import 'family.dart';
-import 'personal.dart';
+import 'Family page/family.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -40,32 +42,12 @@ class _SettingPageState extends State<SettingPage> {
             child: Stack(
               clipBehavior: Clip.none,
               fit: StackFit.expand,
+              // ignore: prefer_const_literals_to_create_immutables
               children: [
                 const CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/profile.jpg"),
+                  backgroundColor: Color.fromARGB(255, 220, 220, 220),
+                  backgroundImage: AssetImage("assets/icons/person.png"),
                 ),
-                Positioned(
-                  right: -12,
-                  bottom: 0,
-                  child: SizedBox(
-                    height: 46,
-                    width: 46,
-                    child: TextButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xfff5f6f9)),
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  side: const BorderSide(color: Colors.white)),
-                            )),
-                        onPressed: () {},
-                        child: SvgPicture.asset("assets/icons/camera.svg",
-                            width: 20, height: 20)),
-                  ),
-                )
               ],
             ),
           ),
@@ -85,7 +67,7 @@ class _SettingPageState extends State<SettingPage> {
           // ),
           ProfileMenu(
             icon: "assets/icons/person.svg",
-            text: "Tài khoản của bạn",
+            text: "Thông tin của bạn",
             press: () {
               Navigator.push(
                   context,

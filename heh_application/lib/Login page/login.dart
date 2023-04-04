@@ -18,14 +18,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -56,11 +48,12 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  const SizedBox(height: 10),
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("assets/images/welcome.jpg"))),
+                            image: AssetImage("assets/images/welcome2.png"))),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -111,14 +104,6 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
                       padding: const EdgeInsets.only(top: 0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: const Border(
-                            bottom: BorderSide(color: Colors.black),
-                            top: BorderSide(color: Colors.black),
-                            left: BorderSide(color: Colors.black),
-                            right: BorderSide(color: Colors.black),
-                          )),
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
@@ -150,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          const Text("Bạn chưa có tài khoản ư? "),
+                          const Text("Bạn chưa có tài khoản ? "),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -255,7 +240,8 @@ class _LoginPageState extends State<LoginPage> {
 
       User? user = await auth.signInWithGoogle();
 
-      SignUpUser signUpUser = SignUpUser(firstName: user!.displayName,
+      SignUpUser signUpUser = SignUpUser(
+          firstName: user!.displayName,
           lastName: 'lastName',
           phone: '1234567890',
           password: '123456789',
@@ -268,9 +254,8 @@ class _LoginPageState extends State<LoginPage> {
 
         await CallAPI().callRegisterAPI(context, signUpUser);
       }
-    }
-    on Exception catch (e) {
-    _showSignInError(context, e);
+    } on Exception catch (e) {
+      _showSignInError(context, e);
     }
   }
 
@@ -278,14 +263,20 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);
       User? user = await auth.signInWithFacebook();
-      SignUpUser signUpUser = SignUpUser(firstName: user!.displayName, lastName: 'lastName', phone: '1234567890', password: '123456789', email: user.email, gender: -1, dob: '2023-03-27T16:56:43.443Z');
-      bool checkUserExist = await auth.checkUserExist(context,user.email!);
-      if (checkUserExist == false){
+      SignUpUser signUpUser = SignUpUser(
+          firstName: user.displayName,
+          lastName: 'lastName',
+          phone: '1234567890',
+          password: '123456789',
+          email: user.email,
+          gender: -1,
+          dob: '2023-03-27T16:56:43.443Z');
+      bool checkUserExist = await auth.checkUserExist(context, user.email!);
+      if (checkUserExist == false) {
         print("register");
 
         await CallAPI().callRegisterAPI(context, signUpUser);
       }
-
     } on FirebaseException catch (e) {
       // ignore: avoid_print
       print(e.message);

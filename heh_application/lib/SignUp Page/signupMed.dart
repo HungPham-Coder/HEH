@@ -1,33 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/SignUp%20Page/signupMed.dart';
+import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/main.dart';
-import 'package:heh_application/models/sign_up_user.dart';
-import 'package:heh_application/services/call_api.dart';
-import 'package:intl/intl.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-// ignore: camel_case_types
-enum genderGroup { male, female, others }
+class Problem {
+  final String name;
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
-
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  Problem({required this.name});
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  genderGroup _genderValue = genderGroup.male;
+class SignUpMedicalPage extends StatefulWidget {
+  const SignUpMedicalPage({Key? key}) : super(key: key);
 
-  final TextEditingController _date = TextEditingController();
-  final TextEditingController _firstName = TextEditingController();
-  final TextEditingController _lastName = TextEditingController();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _confirmPassword = TextEditingController();
+  @override
+  State<SignUpMedicalPage> createState() => _SignUpMedicalPageState();
+}
 
-  Future<void> signUp(SignUpUser signUpUser) async {
-    CallAPI().callRegisterAPI(context, signUpUser);
+class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
+  static final List<Problem> _problems = [
+    Problem(name: "Đau lưng"),
+    Problem(name: "Đau khớp gối"),
+    Problem(name: "Đau khớp gối 1"),
+    Problem(name: "Đau khớp gối 2"),
+    Problem(name: "Đau khớp gối 3"),
+    Problem(name: "Khác"),
+  ];
+  List _selectedProblems = [];
+
+  final bool _visibility = false;
+
+  final _items = _problems
+      .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
+      .toList();
+
+  final _multiSelectKey = GlobalKey<FormFieldState>();
+
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedProblems.add(itemValue);
+      } else {
+        _selectedProblems.remove(itemValue);
+      }
+    });
   }
 
   @override
@@ -37,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Đăng ký tài khoản",
+          "Hồ sơ bệnh án",
           style: TextStyle(fontSize: 23),
         ),
         elevation: 10,
@@ -48,109 +63,111 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
+            children: [
+              const SizedBox(height: 20),
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Hãy tham gia cùng chúng tôi!",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
-                children: <Widget>[
-                  fullName(label: "Họ và Tên"),
-                  email(label: "Email"),
-                  phone(label: "Số điện thoại"),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: const <Widget>[
-                          Text(
-                            "Giới tính ",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          Text(
-                            "*",
-                            style: TextStyle(fontSize: 15, color: Colors.red),
-                          ),
-                        ],
+                  Row(
+                    children: const <Widget>[
+                      Text(
+                        "Anh/Chị đang gặp vấn đề gì?",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          const Text("Nam"),
-                          Radio(
-                              value: genderGroup.male,
-                              groupValue: _genderValue,
-                              onChanged: (genderGroup? value) {
-                                setState(() {
-                                  _genderValue = value!;
-                                });
-                              }),
-                          const Text("Nữ"),
-                          Radio(
-                              value: genderGroup.female,
-                              groupValue: _genderValue,
-                              onChanged: (genderGroup? value) {
-                                setState(() {
-                                  _genderValue = value!;
-                                });
-                              }),
-                          const Text("Khác"),
-                          Radio(
-                              value: genderGroup.others,
-                              groupValue: _genderValue,
-                              onChanged: (genderGroup? value) {
-                                setState(() {
-                                  _genderValue = value!;
-                                });
-                              }),
-                        ],
+                      Text(
+                        " *",
+                        style: TextStyle(color: Colors.red),
                       ),
                     ],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      TextField(
-                        controller: _date,
-                        decoration: const InputDecoration(
-                          labelText: "Ngày sinh ",
+                  const SizedBox(height: 5),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        MultiSelectBottomSheetField(
+                          confirmText: const Text("Chấp nhận",
+                              style: TextStyle(fontSize: 18)),
+                          cancelText: const Text("Hủy",
+                              style: TextStyle(fontSize: 18)),
+                          initialChildSize: 0.4,
+                          title: const Text("Vấn đề của bạn"),
+                          buttonText: const Text(
+                            "Vấn đề của bạn",
+                            style: TextStyle(color: Colors.grey, fontSize: 15),
+                          ),
+                          items: _problems
+                              .map((e) => MultiSelectItem(e, e.name))
+                              .toList(),
+                          listType: MultiSelectListType.CHIP,
+                          searchable: true,
+                          onConfirm: (values) {
+                            setState(() {
+                              _selectedProblems = values;
+                            });
+                          },
+                          chipDisplay: MultiSelectChipDisplay(
+                            onTap: (values) {
+                              setState(() {
+                                _selectedProblems.remove(values);
+                              });
+                            },
+                          ),
                         ),
-                        onTap: () async {
-                          DateTime? pickeddate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1960),
-                              lastDate: DateTime(2030));
-                          if (pickeddate != null) {
-                            _date.text =
-                                DateFormat('yyyy-MM-dd').format(pickeddate);
-                          }
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  const SizedBox(height: 20),
+                  Visibility(
+                    visible: _visibility,
+                    child: problem(label: "Khác"),
                   ),
-                  password(label: "Mật khẩu", obscureText: true),
-                  confirmPassword(
-                      label: "Xác thực lại mật khẩu", obscureText: true),
+                  difficult(label: "Hoạt động khó khăn trong cuộc sống?"),
+                  injury(label: "Anh/Chị đã gặp chấn thương gì?"),
+                  curing(label: "Bệnh lý Anh/Chị đang điều trị kèm theo"),
+                  medicine(label: "Thuốc đang sử dụng hiện tại"),
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: MaterialButton(
+                          height: 50,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUpPage()));
+                          },
+                          color: Colors.grey[400],
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Text(
+                            "Hủy",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )),
+                  Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       child: Container(
                         padding: const EdgeInsets.only(top: 20),
                         child: MaterialButton(
@@ -167,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Text(
-                            "Hủy",
+                            "Bỏ qua",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -195,8 +212,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SignUpMedicalPage()));
+                                    builder: (context) => const WelcomePage()));
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,
@@ -204,7 +220,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Text(
-                            "Tiếp Theo",
+                            "Đăng ký",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -215,9 +231,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       )),
                 ],
               ),
-              const SizedBox(
-                height: 30,
-              )
             ],
           ),
         ),
@@ -225,7 +238,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget fullName({label, obscureText = false}) {
+  Widget problem({label, obscureText = false}) {
     return Column(
       children: <Widget>[
         Row(
@@ -246,9 +259,9 @@ class _SignUpPageState extends State<SignUpPage> {
         const SizedBox(height: 5),
         TextField(
           obscureText: obscureText,
-          controller: _firstName,
+          // controller: _firstName,
           decoration: const InputDecoration(
-              hintText: 'Họ và Tên',
+              hintText: 'Vấn đề',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -261,7 +274,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget email({label, obscureText = false}) {
+  Widget difficult({label, obscureText = false}) {
     return Column(
       children: <Widget>[
         Row(
@@ -281,10 +294,10 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          controller: _email,
+          // controller: _email,
           obscureText: obscureText,
           decoration: const InputDecoration(
-              hintText: 'Email',
+              hintText: 'Hoạt động',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -297,7 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget phone({label, obscureText = false}) {
+  Widget injury({label, obscureText = false}) {
     return Column(
       children: <Widget>[
         Row(
@@ -309,18 +322,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   fontWeight: FontWeight.w400,
                   color: Colors.black87),
             ),
-            const Text(
-              " *",
-              style: TextStyle(color: Colors.red),
-            ),
           ],
         ),
         const SizedBox(height: 5),
         TextField(
-          controller: _phone,
+          // controller: _phone,
           obscureText: obscureText,
           decoration: const InputDecoration(
-              hintText: 'Số điện thoại',
+              hintText: 'Chấn thương',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -333,7 +342,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget password({label, obscureText = false}) {
+  Widget curing({label, obscureText = false}) {
     return Column(
       children: <Widget>[
         Row(
@@ -353,10 +362,10 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          controller: _password,
+          // controller: _password,
           obscureText: obscureText,
           decoration: const InputDecoration(
-              hintText: 'Mật khẩu',
+              hintText: 'Bệnh lý',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -369,7 +378,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget confirmPassword({label, obscureText = false}) {
+  Widget medicine({label, obscureText = false}) {
     return Column(
       children: <Widget>[
         Row(
@@ -389,10 +398,10 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          controller: _confirmPassword,
+          // controller: _confirmPassword,
           obscureText: obscureText,
           decoration: const InputDecoration(
-              hintText: 'Xác thực lại mật khẩu',
+              hintText: 'Thuốc',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),

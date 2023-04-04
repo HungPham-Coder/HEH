@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../services/auth.dart';
 
-import 'personal.dart';
+import 'Personal page/personal.dart';
 
 class PhysioSettingPage extends StatefulWidget {
   const PhysioSettingPage({Key? key}) : super(key: key);
@@ -90,7 +90,7 @@ class _PhysioSettingPageState extends State<PhysioSettingPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const PersonalPage()));
+                      builder: (context) => const PhysioPersonalPage()));
             },
           ),
           ProfileMenu(

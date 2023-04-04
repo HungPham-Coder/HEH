@@ -21,12 +21,13 @@ class LandingPage extends StatelessWidget {
           final User? user = snapshot.data;
           if (user == null) {
             return const LoginPage();
-          } else {
-            return const PhyNavigation_bar();
           }
           // else {
-          //   return const Navigation_Bar();
+          //   return const PhyNavigation_bar();
           // }
+          else {
+            return const Navigation_Bar();
+          }
         }
         return const Center(
           child: CircularProgressIndicator(),
