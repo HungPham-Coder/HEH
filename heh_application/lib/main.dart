@@ -22,7 +22,13 @@ Future<void> main() async {
   SecurityContext.defaultContext
       .setTrustedCertificatesBytes(data.buffer.asUint8List());
   await Firebase.initializeApp();
-  runApp(WelcomePage());
+  runApp(Provider<AuthBase>(
+    create: (context) => Auth(),
+    child: const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: WelcomePage(),
+    ),
+  ));
 }
 
 
@@ -60,9 +66,9 @@ Future<void> main() async {
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
-  static Widget create (BuildContext context){
-    return WelcomePage();
-  }
+  // static Widget create (BuildContext context){
+  //   return WelcomePage();
+  // }
 
   @override
   State<WelcomePage> createState() => _WelcomePageState();

@@ -185,30 +185,30 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Column(
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        Expanded(
-                            child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: const Divider(
-                            color: Colors.black,
-                            height: 20,
-                          ),
-                        )),
-                        const Text("Hoặc sử dụng",
-                            style: TextStyle(color: Colors.grey)),
-                        Expanded(
-                            child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: const Divider(
-                            color: Colors.black,
-                            height: 20,
-                          ),
-                        )),
-                      ]),
+
+
+                      // Row(children: <Widget>[
+                      //   Expanded(
+                      //       child: Container(
+                      //     margin:
+                      //         const EdgeInsets.only(left: 10.0, right: 10.0),
+                      //     child: const Divider(
+                      //       color: Colors.black,
+                      //       height: 20,
+                      //     ),
+                      //   )),
+                      //   const Text("Hoặc sử dụng",
+                      //       style: TextStyle(color: Colors.grey)),
+                      //   Expanded(
+                      //       child: Container(
+                      //     margin:
+                      //         const EdgeInsets.only(left: 10.0, right: 10.0),
+                      //     child: const Divider(
+                      //       color: Colors.black,
+                      //       height: 20,
+                      //     ),
+                      //   )),
+                      // ]),
 
                     // mainAxisAlignment: MainAxisAlignment.start,
                     // children: <Widget>[
@@ -222,120 +222,8 @@ class _LoginPageState extends State<LoginPage> {
                     //             image: AssetImage(
                     //                 "assets/images/welcome.jpg"))),
                     //   ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Column(
-                          children: <Widget>[
-                            inputPhone(
-                                label: "Số điện thoại",
-                                phoneController: phoneController),
-                            inputPassword(
-                                label: "Mật khẩu",
-                                obscureText: true,
-                                passwordController: passwordController)
-                          ],
-                        ),
-                      ),
 
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return ForgotPassword(
-                                        auth: auth,
-                                      );
-                                    }),
-                                  );
-                                },
-                                child: const Text(
-                                  "Quên mật khẩu?",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 46, 161, 226),
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          )),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: const Border(
-                                bottom: BorderSide(color: Colors.black),
-                                top: BorderSide(color: Colors.black),
-                                left: BorderSide(color: Colors.black),
-                                right: BorderSide(color: Colors.black),
-                              )),
-                          child: MaterialButton(
-                            minWidth: double.infinity,
-                            height: 60,
-                            onPressed: () {
-                              Login(
-                                  phoneController.text, passwordController.text,
-                                  auth);
-                            },
-                            color: const Color.fromARGB(255, 46, 161, 226),
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: const Text(
-                              "Đăng nhập",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text("Bạn chưa có tài khoản ư? "),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return const SignUpPage();
-                                    }),
-                                  );
-                                },
-                                child: const Text(
-                                  "Đăng ký ",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 46, 161, 226),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                              ),
-                              const Text("tại đây!")
-                            ],
-                          )),
-                      const SizedBox(
-                        height: 15,
-                      ),
+
                       Column(
                         children: <Widget>[
                           Row(children: <Widget>[
@@ -396,8 +284,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                    ],
-                  ),
+
+
             ],
 
           ),
