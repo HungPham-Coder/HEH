@@ -22,8 +22,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -37,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
     phoneController.dispose();
     passwordController.dispose();
   }
+
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -44,148 +43,141 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          "Đăng nhập",
-          style: TextStyle(fontSize: 23),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            "Đăng nhập",
+            style: TextStyle(fontSize: 23),
+          ),
+          elevation: 10,
+          backgroundColor: const Color.fromARGB(255, 46, 161, 226),
         ),
-        elevation: 10,
-        backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-      ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height - 40,
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+        body: SingleChildScrollView(
+            child: SizedBox(
+          height: MediaQuery.of(context).size.height - 40,
+          width: MediaQuery.of(context).size.width,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
                   child: Column(
-
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  const SizedBox(height: 10),
-                  Container(
-                    height: MediaQuery.of(context).size.height / 4,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/welcome2.png"))),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      children: <Widget>[
-                        inputPhone(
-                            label: "Số điện thoại",
-                            phoneController: phoneController),
-                        inputPassword(
-                            label: "Mật khẩu",
-                            obscureText: true,
-                            passwordController: passwordController)
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return ForgotPassword(
-                                    auth: auth,
-                                  );
-                                }),
-                              );
-                            },
-                            child: const Text(
-                              "Quên mật khẩu?",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 46, 161, 226),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      )),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Container(
-                      padding: const EdgeInsets.only(top: 0),
-                      child: MaterialButton(
-                        minWidth: double.infinity,
-                        height: 60,
-                        onPressed: () {
-                          Login(phoneController.text, passwordController.text,
-                              auth);
-                        },
-                        color: const Color.fromARGB(255, 46, 161, 226),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      const SizedBox(height: 10),
+                      Container(
+                        height: MediaQuery.of(context).size.height / 4,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage("assets/images/welcome2.png"))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: Column(
+                          children: <Widget>[
+                            inputPhone(
+                                label: "Số điện thoại",
+                                phoneController: phoneController),
+                            inputPassword(
+                                label: "Mật khẩu",
+                                obscureText: true,
+                                passwordController: passwordController)
+                          ],
                         ),
-                        child: const Text(
-                          "Đăng nhập",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 22,
-                            color: Colors.white,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return ForgotPassword(
+                                        auth: auth,
+                                      );
+                                    }),
+                                  );
+                                },
+                                child: const Text(
+                                  "Quên mật khẩu?",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 46, 161, 226),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          )),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: Container(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: MaterialButton(
+                            minWidth: double.infinity,
+                            height: 60,
+                            onPressed: () {
+                              Login(phoneController.text,
+                                  passwordController.text, auth);
+                            },
+                            color: const Color.fromARGB(255, 46, 161, 226),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: const Text(
+                              "Đăng nhập",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text("Bạn chưa có tài khoản ? "),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return const SignUpPage();
-                                }),
-                              );
-                            },
-                            child: const Text(
-                              "Đăng ký ",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 46, 161, 226),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                          ),
-                          const Text("tại đây!")
-                        ],
-                      )),
-                  const SizedBox(
-                    height: 15,
-                  ),
-
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Text("Bạn chưa có tài khoản ? "),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const SignUpPage();
+                                    }),
+                                  );
+                                },
+                                child: const Text(
+                                  "Đăng ký ",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 46, 161, 226),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ),
+                              const Text("tại đây!")
+                            ],
+                          )),
+                      const SizedBox(
+                        height: 15,
+                      ),
 
                       // Row(children: <Widget>[
                       //   Expanded(
@@ -210,45 +202,42 @@ class _LoginPageState extends State<LoginPage> {
                       //   )),
                       // ]),
 
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // children: <Widget>[
-                    //   Container(
-                    //     height: MediaQuery
-                    //         .of(context)
-                    //         .size
-                    //         .height / 4,
-                    //     decoration: const BoxDecoration(
-                    //         image: DecorationImage(
-                    //             image: AssetImage(
-                    //                 "assets/images/welcome.jpg"))),
-                    //   ),
-
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      // children: <Widget>[
+                      //   Container(
+                      //     height: MediaQuery
+                      //         .of(context)
+                      //         .size
+                      //         .height / 4,
+                      //     decoration: const BoxDecoration(
+                      //         image: DecorationImage(
+                      //             image: AssetImage(
+                      //                 "assets/images/welcome.jpg"))),
+                      //   ),
 
                       Column(
                         children: <Widget>[
                           Row(children: <Widget>[
                             Expanded(
                                 child: Container(
-                                  margin:
-                                  const EdgeInsets.only(
-                                      left: 10.0, right: 10.0),
-                                  child: const Divider(
-                                    color: Colors.black,
-                                    height: 20,
-                                  ),
-                                )),
+                              margin: const EdgeInsets.only(
+                                  left: 10.0, right: 10.0),
+                              child: const Divider(
+                                color: Colors.black,
+                                height: 20,
+                              ),
+                            )),
                             const Text("Hoặc sử dụng",
                                 style: TextStyle(color: Colors.grey)),
                             Expanded(
                                 child: Container(
-                                  margin:
-                                  const EdgeInsets.only(
-                                      left: 10.0, right: 10.0),
-                                  child: const Divider(
-                                    color: Colors.black,
-                                    height: 20,
-                                  ),
-                                )),
+                              margin: const EdgeInsets.only(
+                                  left: 10.0, right: 10.0),
+                              child: const Divider(
+                                color: Colors.black,
+                                height: 20,
+                              ),
+                            )),
                           ]),
 
                           const SizedBox(
@@ -258,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                           Center(
                             child: FloatingActionButton.extended(
                               heroTag: 'google',
-                              onPressed:() => _signInWithGoogle(),
+                              onPressed: () => _signInWithGoogle(),
                               icon: Image.asset('assets/icons/google_icon.png',
                                   height: 30, width: 30),
                               label: const Text('Đăng nhập với Google'),
@@ -276,7 +265,8 @@ class _LoginPageState extends State<LoginPage> {
                               onPressed: () => _signInWithFacebook(),
                               icon: Image.asset(
                                   'assets/icons/facebook_icon.png',
-                                  height: 30, width: 30),
+                                  height: 30,
+                                  width: 30),
                               label: const Text('Đăng nhập với Facebook'),
                               backgroundColor: Colors.white,
                               foregroundColor: Colors.black,
@@ -284,17 +274,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-
-
-            ],
-
-          ),
-        ),
-      ]),
-
-    )
-          )
-    );
+                    ],
+                  ),
+                ),
+              ]),
+        )));
   }
 
   Future<void> Login(String phone, String password, AuthBase authBase) async {
@@ -302,17 +286,15 @@ class _LoginPageState extends State<LoginPage> {
       final auth = Provider.of<AuthBase>(context, listen: false);
       final stream = StreamTest.instance;
       LoginUser loginUser = LoginUser(phone: phone, password: password);
-      ResultLogin? resultLogin =  await CallAPI().callLoginAPI(loginUser);
+      ResultLogin? resultLogin = await CallAPI().callLoginAPI(loginUser);
       if (resultLogin != null) {
         //add login stream to manage login state
-
 
         //add signup user to manage user object xuyen suot app
         // await  stream.addSignUpStream(signUpUser);
 
         await stream.addLoginStream(resultLogin);
       }
-
     } on Exception catch (e) {
       print(e.toString());
     }
@@ -330,28 +312,24 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       SignUpUser signUpUser = SignUpUser(
-        username:email ,
-          firstName: user!.displayName,
+          username: email,
+          firstName: user.displayName,
           lastName: 'lastName',
           phone: '1234567890',
           password: '123456789',
           email: email,
           gender: true,
           dob: '2023-03-27T16:56:43.443Z');
-      bool checkUserExist = await auth.checkUserExistInPostgre( email);
+      bool checkUserExist = await auth.checkUserExistInPostgre(email);
       if (checkUserExist == false) {
-
         print("register");
 
-         await CallAPI().callRegisterAPI( signUpUser);
-
+        await CallAPI().callRegisterAPI(signUpUser);
 
         // else {
         //   LoginPage();
         // }
-      }
-
-      else {
+      } else {
         print("da registered roi");
       }
 
@@ -359,18 +337,17 @@ class _LoginPageState extends State<LoginPage> {
         userID: email,
         firstName: user.displayName,
         lastName: "google",
-        phoneNumber: user.phoneNumber, );
+        phoneNumber: user.phoneNumber,
+      );
 
       // await  stream.addSignUpStream(signUpUser);
 
       await stream.addLoginStream(resultLogin);
-
-    }
-    on Exception catch (e) {
+    } on Exception catch (e) {
       // _showSignInError(e);
-
     }
   }
+
   Future<void> _signInWithFacebook() async {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);
@@ -386,7 +363,7 @@ class _LoginPageState extends State<LoginPage> {
       SignUpUser signUpUser = SignUpUser(
           username: email,
           firstName: user.displayName,
-          lastName: "facebook" ,
+          lastName: "facebook",
           phone: "123456",
           password: "facebook",
           email: email,
@@ -395,25 +372,21 @@ class _LoginPageState extends State<LoginPage> {
           address: "facebook",
           image: user.photoURL);
 
-      if (checkUserExistInPostgre == false){
-
+      if (checkUserExistInPostgre == false) {
         print("register");
 
-        await CallAPI().callRegisterAPI( signUpUser);
+        await CallAPI().callRegisterAPI(signUpUser);
         // else {
         //   LoginPage();
         // }
-      }
-
-      else {
+      } else {
         print("da registered roi");
       }
       ResultLogin resultLogin = ResultLogin(
-        userID: email,
-        firstName: user.displayName,
-        phoneNumber: user.phoneNumber,
-        lastName: "facebook"
-      );
+          userID: email,
+          firstName: user.displayName,
+          phoneNumber: user.phoneNumber,
+          lastName: "facebook");
 
       // await  stream.addSignUpStream(signUpUser);
 
@@ -432,9 +405,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
 //create text field
-  Widget inputPhone({label,
-    obscureText = false,
-    required TextEditingController phoneController}) {
+  Widget inputPhone(
+      {label,
+      obscureText = false,
+      required TextEditingController phoneController}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -453,17 +427,18 @@ class _LoginPageState extends State<LoginPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 10)
       ],
     );
   }
 
-  Widget inputPassword({label,
-    obscureText = false,
-    required TextEditingController passwordController}) {
+  Widget inputPassword(
+      {label,
+      obscureText = false,
+      required TextEditingController passwordController}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -482,13 +457,11 @@ class _LoginPageState extends State<LoginPage> {
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 0)
       ],
     );
   }
 }
-
-
