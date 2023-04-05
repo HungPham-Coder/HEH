@@ -331,17 +331,19 @@ class _LoginPageState extends State<LoginPage> {
 
       SignUpUser signUpUser = SignUpUser(
         username:email ,
-          firstName: user!.displayName,
+          firstName: user.displayName,
           lastName: 'lastName',
           phone: '1234567890',
           password: '123456789',
           email: email,
           gender: true,
-          dob: '2023-03-27T16:56:43.443Z');
+          dob: '2023-03-27T16:56:43.443Z',
+          address: "abc",
+        image: user.photoURL
+      );
       bool checkUserExist = await auth.checkUserExistInPostgre( email);
-      if (checkUserExist == false) {
 
-        print("register");
+      if (checkUserExist == false) {
 
          await CallAPI().callRegisterAPI( signUpUser);
 
@@ -352,7 +354,6 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       else {
-        print("da registered roi");
       }
 
       ResultLogin resultLogin = ResultLogin(

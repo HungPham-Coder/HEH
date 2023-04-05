@@ -27,7 +27,7 @@ abstract class AuthBase {
   // Future<void> addSignUpUserStream(SignUpUser? signUpUser);
   Future<bool> checkUserExistInPostgre(String email) ;
   Future<void> checkUserExistInFirebase (SignUpUser signUpUser);
-  Future<SignUpUser> getCurrentUser (String id);
+  Future<SignUpUser> getCurrentUser (ResultLogin resultLogin);
   // User? get currenUser;
   // Stream<ResultLogin> get userLoginStream;
   // Stream<SignUpUser> get userSignUpStream;
@@ -256,9 +256,17 @@ class Auth implements AuthBase {
   }
 
   @override
-  Future<SignUpUser> getCurrentUser(String id) async {
-    SignUpUser? signUpUser = await CallAPI().getUserById(id);
-    Role? role = await CallAPI().getUserRole(id);
+  Future<SignUpUser> getCurrentUser(ResultLogin resultLogin) async {
+    SignUpUser? signUpUser ;
+    if (resultLogin.lastName == "google" || resultLogin.lastName == "facebook"){
+      signUpUser = await _callAPI.getUserByEmail(resultLogin!.userID!);
+      print("login google ");
+    }
+    else {
+      signUpUser = await _callAPI.getUserById(resultLogin!.userID!);
+    }
+
+    Role? role = await _callAPI.getUserRole(signUpUser!.userID!);
     signUpUser!.role = role!.name;
     print("auth ${signUpUser.role}");
     print("auth ${signUpUser.firstName}");
