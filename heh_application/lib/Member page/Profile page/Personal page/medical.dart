@@ -26,7 +26,7 @@ class _MedicalPageState extends State<MedicalPage> {
   ];
   List _selectedProblems = [];
 
-  final bool _visibility = false;
+  bool _visibility = false;
 
   final _items = _problems
       .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
@@ -85,13 +85,28 @@ class _MedicalPageState extends State<MedicalPage> {
                           listType: MultiSelectListType.CHIP,
                           searchable: true,
                           onConfirm: (values) {
+
                             setState(() {
+                              print(values.elementAt(1));
+
+
                               _selectedProblems = values;
+                              for (var values in _selectedProblems){
+                                if (values == 'Khác'){
+
+                                  _visibility = true;
+                                }
+                              }
+
+
                             });
                           },
                           chipDisplay: MultiSelectChipDisplay(
                             onTap: (values) {
                               setState(() {
+                                if (values.toString() == "Khác"){
+                                  _visibility = false;
+                                }
                                 _selectedProblems.remove(values);
                               });
                             },
@@ -106,7 +121,7 @@ class _MedicalPageState extends State<MedicalPage> {
                         //           style: TextStyle(color: Colors.black54),
                         //         ))
                         //     : Container(),
-                      ],
+                      ].toList(),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -225,7 +240,7 @@ Widget problem({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 10)
     ],
@@ -261,7 +276,7 @@ Widget difficult({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 10)
     ],
@@ -293,7 +308,7 @@ Widget injury({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 10)
     ],
@@ -329,7 +344,7 @@ Widget curing({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 15)
     ],
@@ -365,7 +380,7 @@ Widget medicine({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 0)
     ],

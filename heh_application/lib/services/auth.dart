@@ -7,11 +7,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:heh_application/models/exercise_model/exercise_detail.dart';
 import 'package:heh_application/models/result_login.dart';
 import 'package:heh_application/models/role.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:heh_application/services/stream_test.dart';
 
+import '../models/exercise_model/exercise.dart';
 import '../models/sign_up_user.dart';
 
 abstract class AuthBase {
@@ -22,16 +24,17 @@ abstract class AuthBase {
 
   // Future<User> signInWithEmailAndPassword (String username, String password);
   // Future<User> signUpWithEmailAndPassword (String username, String password);
-  void verifyUserPhoneNumber (String phoneNumber);
+  void verifyUserPhoneNumber(String phoneNumber);
   // Future<void> addLoginUserStream(ResultLogin resultLogin) ;
   // Future<void> addSignUpUserStream(SignUpUser? signUpUser);
-  Future<bool> checkUserExistInPostgre(String email) ;
-  Future<void> checkUserExistInFirebase (SignUpUser signUpUser);
-  Future<SignUpUser> getCurrentUser (String id);
+  Future<bool> checkUserExistInPostgre(String email);
+  Future<void> checkUserExistInFirebase(SignUpUser signUpUser);
+  Future<SignUpUser> getCurrentUser(ResultLogin resultLogin);
+  Future<List<Exercise>?> getListExerciseByCategoryID(String categoryID, String accessToken);
   // User? get currenUser;
   // Stream<ResultLogin> get userLoginStream;
   // Stream<SignUpUser> get userSignUpStream;
-  void dispose ();
+  void dispose();
 
   Future<void> signOut(BuildContext context);
 }
@@ -59,8 +62,6 @@ class Auth implements AuthBase {
   final _firestore = FirebaseFirestore.instance;
   final _cloudStorage = FirebaseStorage.instance;
 
-
-
   @override
   Future<User> signInWithGoogle() async {
     final googleSignIn = GoogleSignIn();
@@ -74,13 +75,10 @@ class Auth implements AuthBase {
       //get authentication of google
       if (googleAuth.idToken != null) {
         final userCredential = await _firebaseAuth.signInWithCredential(
-
-
             GoogleAuthProvider.credential(
                 idToken: googleAuth.idToken,
                 accessToken: googleAuth.accessToken));
         // pass idtoken and access token to firebase to sign in with google
-
 
         return userCredential.user!;
         //firebase return google account
@@ -162,7 +160,6 @@ class Auth implements AuthBase {
   //   }
   // }
 
-
   // Future<User> signInWithEmailAndPassword (String username, String password) async {
   //
   //   final userCredential = await _firebaseAuth.signInWithCredential(EmailAuthProvider.credential(email: username, password: password));
@@ -174,14 +171,13 @@ class Auth implements AuthBase {
   //   return userCredential.user!;
   // }
 
-
   void verifyUserPhoneNumber(String phoneNumber) {
     _firebaseAuth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
         await _firebaseAuth.signInWithCredential(credential).then(
               (value) => print('Logged in success'),
-        );
+            );
       },
       verificationFailed: (FirebaseAuthException e) {
         print(e.message);
@@ -193,13 +189,11 @@ class Auth implements AuthBase {
     );
   }
 
-
   // @override
   // Future<void> addLoginUserStream(ResultLogin? resultLogin) async  {
   //   // TODO: implement testStream
   //   userStreamController.sink.add(resultLogin!);
   // }
-
 
   @override
   Future<bool> checkUserExistInPostgre(String email) async {
@@ -209,8 +203,7 @@ class Auth implements AuthBase {
     if (user == null) {
       print("false");
       return false;
-    }
-    else {
+    } else {
       print("true");
       return true;
     }
@@ -224,7 +217,6 @@ class Auth implements AuthBase {
     await facebookLogin.logOut();
     await _firebaseAuth.signOut();
 
-
     // userStreamController.close();
     // Navigator.of(context).pop();
   }
@@ -234,14 +226,16 @@ class Auth implements AuthBase {
   // }
 
   @override
-  Future<void> checkUserExistInFirebase(SignUpUser signUpUser)  async {
+  Future<void> checkUserExistInFirebase(SignUpUser signUpUser) async {
     // TODO: implement checkUserExistInFirebase
     if (signUpUser != null) {
       final QuerySnapshot<Map<String, dynamic>> result = await _firestore
-          .collection('user').where('id', isEqualTo: signUpUser.userID).get();
+          .collection('user')
+          .where('id', isEqualTo: signUpUser.userID)
+          .get();
       final List<DocumentSnapshot> documents = result.docs;
       if (documents.length == 0) {
-         _firestore.collection('user').doc(signUpUser.userID).set({
+        _firestore.collection('user').doc(signUpUser.userID).set({
           'nickname': signUpUser.firstName,
           'photoUrl': '',
           'id': signUpUser.userID
@@ -256,13 +250,50 @@ class Auth implements AuthBase {
   }
 
   @override
-  Future<SignUpUser> getCurrentUser(String id) async {
-    SignUpUser? signUpUser = await CallAPI().getUserById(id);
-    Role? role = await CallAPI().getUserRole(id);
-    signUpUser!.role = role!.name;
+  Future<SignUpUser> getCurrentUser(ResultLogin resultLogin) async {
+    SignUpUser? signUpUser;
+    if (resultLogin.lastName == "google" ||
+        resultLogin.lastName == "facebook") {
+      signUpUser = await _callAPI.getUserByEmail(resultLogin.userID!);
+      print("login google ");
+    } else {
+      signUpUser = await _callAPI.getUserById(resultLogin.userID!);
+    }
+
+    Role? role = await _callAPI.getUserRole(signUpUser!.userID!);
+    signUpUser.role = role!.name;
     print("auth ${signUpUser.role}");
     print("auth ${signUpUser.firstName}");
     return signUpUser;
+  }
+
+  @override
+  Future<List<Exercise>?> getListExerciseByCategoryID(String categoryID, String accessToken) async {
+    // TODO: implement getExerciseByCategoryID
+    List<ExerciseDetail1> list =
+        await _callAPI.getExerciseDetailByCategoryID(categoryID);
+    List<ExerciseDetail1> listDupExerciseDetail = [];
+    List<Exercise>? listExercise ;
+     for (var exerciseDetail in list) {
+      var exerciseID = exerciseDetail.exerciseID;
+        int hasAdd = 0;
+        for (var item in listDupExerciseDetail){
+          if (exerciseID == item.exerciseID){
+            hasAdd ++;
+          }
+        }
+        if (hasAdd == 0){
+          listDupExerciseDetail.add(exerciseDetail);
+        }
+    }
+   // await Future.forEach(listDupExerciseDetail,(element) async {
+   //    Exercise? exercise =  await _callAPI.getExerciseById(element!., accessToken);
+   //    listExercise!.add(exercise!);
+   //  });
+     return listExercise;
+
+   
+
   }
 
   // @override
@@ -272,7 +303,6 @@ class Auth implements AuthBase {
   //   // userSignUpStream.listen((event) {print('${event.firstName} auth');});
   //
   // }
-
 
 // TODO: implement userSignUpStream
 }

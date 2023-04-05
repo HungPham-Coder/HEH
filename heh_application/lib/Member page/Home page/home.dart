@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
+import 'package:heh_application/models/exercise_model/category.dart';
+import 'package:heh_application/services/call_api.dart';
 
 import '../../models/sign_up_user.dart';
 import '../../services/stream_test.dart';
@@ -13,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -20,6 +24,8 @@ class _HomePageState extends State<HomePage> {
 
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +50,41 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
+        physics: ScrollPhysics(),
         child: Column(
           children: [
             const SizedBox(height: 20),
             const Text("Bạn đang gặp vấn đề gì?"),
-            HomeMenu(
-              icon: "assets/icons/backache.png",
-              text: "Đau lưng",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CategoryPage()));
-              },
+            FutureBuilder <List<CategoryModel>>(
+              future: CallAPI().getAllCategory(),
+              builder: (context, snapshot)  {
+                if (snapshot.hasData){
+                  return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return HomeMenu(
+                          icon: "assets/icons/backache.png",
+                          text: "${snapshot.data![index].categoryName}",
+                          press: () {
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  CategoryPage(categoryID: snapshot.data![index].categoryID)));
+                          },
+                        );
+
+                      },
+
+                  );
+                }
+                else {
+                  return CircularProgressIndicator();
+                }
+
+              }
             ),
           ],
         ),

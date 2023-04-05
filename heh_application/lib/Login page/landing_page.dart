@@ -33,9 +33,9 @@ class LandingPage extends StatelessWidget {
           return const LoginPage();
         } else {
           sharedResultLogin = snapshot.data;
-          Future<SignUpUser> futureCurrentUser =
-              auth.getCurrentUser(sharedResultLogin!.userID!);
 
+          Future<SignUpUser> futureCurrentUser =
+              auth.getCurrentUser(sharedResultLogin!);
           return FutureBuilder<SignUpUser>(
               future: futureCurrentUser,
               builder: (context, snapshot) {

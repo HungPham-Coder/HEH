@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Member%20page/Profile%20page/Family%20page/medical.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Personal%20page/information.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Personal%20page/medical.dart';
+
 
 class PersonalPage extends StatefulWidget {
   const PersonalPage({Key? key}) : super(key: key);
@@ -33,7 +35,8 @@ class _PersonalPageState extends State<PersonalPage> {
               backgroundColor: const Color.fromARGB(255, 46, 161, 226),
             ),
             body:
-                const TabBarView(children: [InformationPage(), MedicalPage()])),
+             const TabBarView(children: [InformationPage(), MedicalPage()])),
+
       ),
     );
   }
