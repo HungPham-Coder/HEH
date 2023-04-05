@@ -11,17 +11,16 @@ import 'package:provider/provider.dart';
 import '../../models/exercise_model/category.dart';
 
 class CategoryPage extends StatefulWidget {
-   CategoryPage({Key? key,required this.categoryID}) : super(key: key);
+  CategoryPage({Key? key, required this.categoryID}) : super(key: key);
   String categoryID;
   @override
   State<CategoryPage> createState() => _CategoryPageState();
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context,listen: false);
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -44,37 +43,33 @@ class _CategoryPageState extends State<CategoryPage> {
         physics: ScrollPhysics(),
         child: Column(
           children: [
-
-            FutureBuilder <List<Exercise>?>(
-                future: auth.getListExerciseByCategoryID(widget.categoryID, sharedResultLogin!.accessToken!),
-                builder: (context, snapshot)  {
-                  if (snapshot.hasData){
+            FutureBuilder<List<Exercise>?>(
+                future: auth.getListExerciseByCategoryID(
+                    widget.categoryID, sharedResultLogin!.accessToken!),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                       return BackMenu(
+                        return BackMenu(
                           icon: "assets/icons/backache.png",
                           text: "${snapshot.data![index].exerciseName}",
                           press: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ViewExercise()));
+                                    builder: (context) =>
+                                        const ViewExercise()));
                           },
                         );
-
                       },
-
                     );
-                  }
-                  else {
+                  } else {
                     return CircularProgressIndicator();
                   }
-
-                }
-            ),
+                }),
           ],
         ),
       ),

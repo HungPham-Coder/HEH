@@ -21,6 +21,10 @@ class _PersonalPageState extends State<PersonalPage> {
             backgroundColor: Colors.white,
             appBar: AppBar(
               automaticallyImplyLeading: true,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
               title: const Text(
                 "Tài khoản của bạn",
                 style: TextStyle(fontSize: 23),

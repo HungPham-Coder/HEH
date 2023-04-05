@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heh_application/Member%20page/Profile%20page/changePass.dart';
 import 'package:heh_application/Member%20page/history.dart';
+import 'package:heh_application/services/stream_test.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/auth.dart';
@@ -114,7 +115,7 @@ class _PhysioSettingPageState extends State<PhysioSettingPage> {
           ProfileMenu(
             icon: "assets/icons/logout.svg",
             text: "Đăng xuất",
-            press:  signout,
+            press: signout,
           ),
         ],
       )),
@@ -122,9 +123,10 @@ class _PhysioSettingPageState extends State<PhysioSettingPage> {
   }
 
   void signout() async {
+    final stream = StreamTest.instance;
     final auth = Provider.of<AuthBase>(context, listen: false);
+    await stream.handleLogout();
     await auth.signOut(context);
-    Navigator.of(context).pop();
   }
 }
 

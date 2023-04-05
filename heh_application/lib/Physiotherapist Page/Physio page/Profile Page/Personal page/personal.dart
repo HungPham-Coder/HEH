@@ -18,11 +18,17 @@ class _PhysioPersonalPageState extends State<PhysioPersonalPage> {
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              automaticallyImplyLeading: true,
               title: const Text(
                 "Tài khoản của bạn",
                 style: TextStyle(fontSize: 23),
               ),
               bottom: const TabBar(
+                unselectedLabelColor: Colors.black,
                 tabs: [
                   Tab(text: "Thông tin chính"),
                   Tab(text: "Thông tin khác"),

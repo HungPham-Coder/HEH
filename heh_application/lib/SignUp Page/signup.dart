@@ -27,7 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPassword = TextEditingController();
 
   Future<void> signUp(SignUpUser signUpUser) async {
-    CallAPI().callRegisterAPI( signUpUser);
+    CallAPI().callRegisterAPI(signUpUser);
   }
 
   @override
@@ -68,6 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   fullName(label: "Họ và Tên"),
                   email(label: "Email"),
                   phone(label: "Số điện thoại"),
+                  address(label: "Điọ chỉ"),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -196,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                    const SignUpMedicalPage()));
+                                        const SignUpMedicalPage()));
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,
@@ -321,6 +322,42 @@ class _SignUpPageState extends State<SignUpPage> {
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Số điện thoại',
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
+        ),
+        const SizedBox(height: 10)
+      ],
+    );
+  }
+
+  Widget address({label, obscureText = false}) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87),
+            ),
+            const Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        TextField(
+          controller: _phone,
+          obscureText: obscureText,
+          decoration: const InputDecoration(
+              hintText: 'Địa chỉ',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),

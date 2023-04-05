@@ -17,7 +17,7 @@ import '../models/role.dart';
 class CallAPI {
   String link = 'https://taskuatapi.hisoft.vn';
   Future<ResultLogin?> callLoginAPI(LoginUser loginUser) async {
-    var url = Uri.parse('${link}/api/User/Login');
+    var url = Uri.https('localhost:7166', 'api/User/Login');
     final body = jsonEncode(
         {"phoneNumber": loginUser.phone, "password": loginUser.password});
     final headers = {
@@ -45,7 +45,8 @@ class CallAPI {
   }
 
   Future<bool> callRegisterAPI(SignUpUser signUpUser) async {
-    var url = Uri.parse('${link}/api/User/Register');
+    var url = Uri.https('localhost:7166', 'api/User/Register');
+
     final body = jsonEncode({
       "userName": signUpUser.phone,
       "password": signUpUser.password,
@@ -77,8 +78,7 @@ class CallAPI {
   }
 
   Future<SignUpUser?> getUserByEmail(String email) async {
-
-    var url = Uri.parse('${link}/api/User/$email');
+    var url = Uri.https('localhost:7166', 'api/User/$email');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -94,8 +94,7 @@ class CallAPI {
   }
 
   Future<SignUpUser?> getUserById(String id) async {
-
-    var url = Uri.parse('${link}/api/User/getById/$id');
+    var url = Uri.https('localhost:7166', 'api/User/getById/$id');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -113,17 +112,41 @@ class CallAPI {
   }
 
   Future<Role?> getUserRole(String userId) async {
+    var url = Uri.https('localhost:7166', 'api/User/getUserRole/$userId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    print(response.body);
+    if (response.statusCode == 200) {
+      return Role.fromMap(json.decode(response.body));
+    } else {
+      print("${response.statusCode} getUserRole");
+    }
+  }
 
-    var url = Uri.parse('${link}/api/User/getUserRole/$userId');
+  Future<List<ExerciseDetail1>> getExerciseDetailByCategoryID(
+      String categoryId) async {
+    var url =
+        Uri.parse('${link}/api/ExerciseDetail/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
     };
     var response = await http.get(url, headers: headers);
     if (response.statusCode == 200) {
-      return Role.fromMap(json.decode(response.body));
+      Iterable jsonResult = json.decode(response.body);
+      List<ExerciseDetail1> list = List<ExerciseDetail1>.from(
+          jsonResult.map((model) => ExerciseDetail1.fromMap(model)));
+
+      if (list == null) {
+        throw Exception('Exercise Detail List null');
+      } else {
+        return list;
+      }
     } else {
-      print("${response.statusCode} getUserRole");
+      throw Exception('Failed to load exercise detail list');
     }
   }
 
@@ -146,69 +169,5 @@ class CallAPI {
     } else {
       throw Exception('Failed to load categoryList');
     }
-  }
-
-  Future<List<Exercise>> getAllExercise() async {
-    var url = Uri.parse('${link}/api/Exercise');
-    final headers = {
-      "Accept": "application/json",
-      "content-type": "application/json"
-    };
-    var response = await http.get(url, headers: headers);
-    if (response.statusCode == 200) {
-      Iterable jsonResult = json.decode(response.body);
-      List<Exercise> list = List<Exercise>.from(
-          jsonResult.map((model) => Exercise.fromMap(model)));
-      if (list == null) {
-        throw Exception('Exercise List null');
-      } else {
-        return list;
-      }
-    } else {
-      throw Exception('Failed to load exercise list');
-    }
-  }
-
-  Future<List<ExerciseDetail1>> getExerciseDetailByCategoryID(
-      String categoryId) async {
-    var url = Uri.parse('${link}/api/ExerciseDetail/GetByCategoryID/$categoryId');
-    final headers = {
-      "Accept": "application/json",
-      "content-type": "application/json"
-    };
-    var response = await http.get(url, headers: headers);
-    if (response.statusCode == 200) {
-      Iterable jsonResult = json.decode(response.body);
-      List<ExerciseDetail1> list = List<ExerciseDetail1>.from(
-          jsonResult.map((model) => ExerciseDetail1.fromMap(model)));
-
-      if (list == null) {
-        throw Exception('Exercise Detail List null');
-      } else {
-        return list;
-      }
-    } else {
-      throw Exception('Failed to load exercise detail list');
-    }
-  }
-
-  Future<Exercise?> getExerciseById(
-      String id, String accessToken) async {
-
-    var url = Uri.parse('${link}/api/Exercise/${id}');
-
-        final headers = {
-          "Accept": "application/json",
-          "content-type": "application/json",
-          'Authorization': 'Bearer $accessToken',
-        };
-        var response = await http.get(url, headers: headers);
-        print('${response.body} listexercise');
-        if (response.statusCode == 200) {
-          return Exercise.fromMap(json.decode(response.body));
-          print('abc');
-        } else {
-          print("${response.statusCode} getExerciseList");
-        }
   }
 }

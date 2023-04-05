@@ -20,10 +20,11 @@ class _PhyNavigation_barState extends State<PhyNavigation_bar> {
     const PhysioMessenger(),
     const PhysioSettingPage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pageList[pageIndex],
+      body: IndexedStack(index: pageIndex, children: pageList),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
           fixedColor: Colors.white,
@@ -43,12 +44,6 @@ class _PhyNavigation_barState extends State<PhyNavigation_bar> {
                 activeIcon: SvgPicture.asset("assets/icons/message.svg",
                     width: 25, height: 25, color: Colors.white),
                 label: "Tin nhắn"),
-            // BottomNavigationBarItem(
-            //     icon: SvgPicture.asset("assets/icons/favorite.svg",
-            //         width: 25, height: 25),
-            //     activeIcon: Image.asset("assets/icons/favorited.png",
-            //         width: 25, height: 25),
-            //     label: "Chuyên viên"),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Cài đặt"),
           ]),

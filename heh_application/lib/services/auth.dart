@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -11,7 +10,6 @@ import 'package:heh_application/models/exercise_model/exercise_detail.dart';
 import 'package:heh_application/models/result_login.dart';
 import 'package:heh_application/models/role.dart';
 import 'package:heh_application/services/call_api.dart';
-import 'package:heh_application/services/stream_test.dart';
 
 import '../models/exercise_model/exercise.dart';
 import '../models/sign_up_user.dart';
@@ -20,6 +18,8 @@ abstract class AuthBase {
   Stream<User?> authStateChanges();
   Future<User?> signInWithGoogle();
   Future<User> signInWithFacebook();
+  Future<List<Exercise>?> getListExerciseByCategoryID(
+      String categoryID, String accessToken);
   // Future<User?> signInWithPhoneAndPassword(String phoneNumber, String password);
 
   // Future<User> signInWithEmailAndPassword (String username, String password);
@@ -30,7 +30,6 @@ abstract class AuthBase {
   Future<bool> checkUserExistInPostgre(String email);
   Future<void> checkUserExistInFirebase(SignUpUser signUpUser);
   Future<SignUpUser> getCurrentUser(ResultLogin resultLogin);
-  Future<List<Exercise>?> getListExerciseByCategoryID(String categoryID, String accessToken);
   // User? get currenUser;
   // Stream<ResultLogin> get userLoginStream;
   // Stream<SignUpUser> get userSignUpStream;
@@ -268,32 +267,30 @@ class Auth implements AuthBase {
   }
 
   @override
-  Future<List<Exercise>?> getListExerciseByCategoryID(String categoryID, String accessToken) async {
+  Future<List<Exercise>?> getListExerciseByCategoryID(
+      String categoryID, String accessToken) async {
     // TODO: implement getExerciseByCategoryID
     List<ExerciseDetail1> list =
         await _callAPI.getExerciseDetailByCategoryID(categoryID);
     List<ExerciseDetail1> listDupExerciseDetail = [];
-    List<Exercise>? listExercise ;
-     for (var exerciseDetail in list) {
+    List<Exercise>? listExercise;
+    for (var exerciseDetail in list) {
       var exerciseID = exerciseDetail.exerciseID;
-        int hasAdd = 0;
-        for (var item in listDupExerciseDetail){
-          if (exerciseID == item.exerciseID){
-            hasAdd ++;
-          }
+      int hasAdd = 0;
+      for (var item in listDupExerciseDetail) {
+        if (exerciseID == item.exerciseID) {
+          hasAdd++;
         }
-        if (hasAdd == 0){
-          listDupExerciseDetail.add(exerciseDetail);
-        }
+      }
+      if (hasAdd == 0) {
+        listDupExerciseDetail.add(exerciseDetail);
+      }
     }
-   // await Future.forEach(listDupExerciseDetail,(element) async {
-   //    Exercise? exercise =  await _callAPI.getExerciseById(element!., accessToken);
-   //    listExercise!.add(exercise!);
-   //  });
-     return listExercise;
-
-   
-
+    // await Future.forEach(listDupExerciseDetail,(element) async {
+    //    Exercise? exercise =  await _callAPI.getExerciseById(element!., accessToken);
+    //    listExercise!.add(exercise!);
+    //  });
+    return listExercise;
   }
 
   // @override

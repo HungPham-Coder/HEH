@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heh_application/Member%20page/Profile%20page/setting.dart';
+import 'package:heh_application/Physiotherapist%20Page/navigation_main.dart';
 import 'package:intl/intl.dart';
 
 final TextEditingController _date = TextEditingController();
@@ -172,7 +173,8 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SettingPage()));
+                                builder: (context) =>
+                                    const PhyNavigation_bar()));
                       },
                       color: Colors.grey[400],
                       elevation: 0,
@@ -208,7 +210,8 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SettingPage()));
+                                builder: (context) =>
+                                    const PhyNavigation_bar()));
                       },
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,
