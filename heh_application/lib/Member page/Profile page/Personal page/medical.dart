@@ -26,7 +26,7 @@ class _MedicalPageState extends State<MedicalPage> {
   ];
   List _selectedProblems = [];
 
-   bool _visibility = false;
+  bool _visibility = false;
 
   final _items = _problems
       .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
@@ -240,7 +240,7 @@ Widget problem({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 10)
     ],
@@ -276,7 +276,7 @@ Widget difficult({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 10)
     ],
@@ -308,7 +308,7 @@ Widget injury({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 10)
     ],
@@ -344,7 +344,7 @@ Widget curing({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 15)
     ],
@@ -380,7 +380,7 @@ Widget medicine({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 0)
     ],

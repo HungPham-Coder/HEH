@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:heh_application/Physiotherapist%20Page/navigation_main.dart';
-import 'package:heh_application/main.dart';
+
 import 'package:heh_application/models/result_login.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 
