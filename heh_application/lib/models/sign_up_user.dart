@@ -26,6 +26,7 @@ class SignUpUser {
   final String? dob;
   final String? phone;
   final bool? gender;
+  // final String? gender;
 
   SignUpUser(
 
@@ -42,6 +43,7 @@ class SignUpUser {
     required this.email,
     required this.gender,
     required this.dob,
+       // this.
   }) : _role = role, _image = image;
 
   factory SignUpUser.fromMap(Map<String, dynamic> json, String? documentId) {
