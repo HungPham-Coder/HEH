@@ -23,12 +23,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _phone = TextEditingController();
+  final TextEditingController _address = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
-  Future<void> signUp(SignUpUser signUpUser) async {
-    CallAPI().callRegisterAPI(signUpUser);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   fullName(label: "Họ và Tên"),
                   email(label: "Email"),
                   phone(label: "Số điện thoại"),
-                  address(label: "Điọ chỉ"),
+                  address(label: "Địa chỉ"),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -184,20 +182,33 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () {
-                            // SignUpUser signUpUser = SignUpUser(
-                            //     firstName: _firstName.text,
-                            //     lastName: _lastName.text,
-                            //     phone: _phone.text,
-                            //     password: _password.text,
-                            //     email: _email.text,
-                            //     gender: _genderValue.index,
-                            //     dob: _date.text);
-                            // signUp(signUpUser);
+                            bool gender = false;
+                            if (_genderValue.index == 0) {
+                              gender = true;
+                            } else if (_genderValue == 1) {
+                              gender = false;
+                            }
+                            SignUpUser signUpUser = SignUpUser(
+                                firstName: _firstName.text,
+                                lastName: 'last name',
+                                email: _email.text,
+                                phone: _phone.text,
+                                address: _address.text,
+                                gender: gender,
+                                dob: _date.text,
+                                password: _password.text,
+                                image: 'Chua co hinh',
+                                role: 'Member',
+                                username: _phone.text);
+
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SignUpMedicalPage()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUpMedicalPage(
+                                  signUpUser: signUpUser,
+                                ),
+                              ),
+                            );
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,
@@ -354,7 +365,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          controller: _phone,
+          controller: _address,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Địa chỉ',

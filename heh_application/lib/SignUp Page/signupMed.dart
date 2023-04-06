@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/main.dart';
+import 'package:heh_application/models/medical_record.dart';
+import 'package:heh_application/models/sign_up_user.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+
+import '../services/call_api.dart';
 
 class Problem {
   final String name;
@@ -10,13 +14,25 @@ class Problem {
 }
 
 class SignUpMedicalPage extends StatefulWidget {
-  const SignUpMedicalPage({Key? key}) : super(key: key);
-
+   SignUpMedicalPage({Key? key, required this.signUpUser}) : super(key: key);
+  SignUpUser signUpUser;
   @override
   State<SignUpMedicalPage> createState() => _SignUpMedicalPageState();
 }
 
 class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
+
+  final TextEditingController _difficult = TextEditingController();
+  final TextEditingController _injury = TextEditingController();
+  final TextEditingController _curing = TextEditingController();
+  final TextEditingController _medicine = TextEditingController();
+
+
+  Future<void> signUp(SignUpUser signUpUser) async {
+    CallAPI().callRegisterAPI(signUpUser);
+  }
+
+
   static final List<Problem> _problems = [
     Problem(name: "Đau lưng"),
     Problem(name: "Đau khớp gối"),
@@ -33,7 +49,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
       .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
       .toList();
 
-  final _multiSelectKey = GlobalKey<FormFieldState>();
+
 
   void _itemChange(String itemValue, bool isSelected) {
     setState(() {
@@ -110,8 +126,10 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                           listType: MultiSelectListType.CHIP,
                           searchable: true,
                           onConfirm: (values) {
+
                             setState(() {
                               _selectedProblems = values;
+
                             });
                           },
                           chipDisplay: MultiSelectChipDisplay(
@@ -200,16 +218,15 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () {
-                            // SignUpUser signUpUser = SignUpUser(
-                            //     firstName: _firstName.text,
-                            //     lastName: _lastName.text,
-                            //     phone: _phone.text,
-                            //     password: _password.text,
-                            //     email: _email.text,
-                            //     gender: _genderValue.index,
-                            //     dob: _date.text);
-                            // signUp(signUpUser);
+
+                            MedicalRecord medicalRecord = MedicalRecord(
+                                presentIllness: _difficult.text,
+                                pastMedical: _injury.text,
+
+
+                            );
                             Navigator.push(
+
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const WelcomePage()));
@@ -294,7 +311,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          // controller: _email,
+          controller: _difficult,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Hoạt động',
@@ -326,7 +343,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          // controller: _phone,
+          controller: _injury,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Chấn thương',
@@ -362,7 +379,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          // controller: _password,
+          controller: _curing,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Bệnh lý',
@@ -398,7 +415,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
         ),
         const SizedBox(height: 5),
         TextField(
-          // controller: _confirmPassword,
+          controller: _medicine,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Thuốc',

@@ -18,6 +18,8 @@ class Physiotherapist {
         physiotherapistID: json['physiotherapistID'],
         schedulingStatus: json['schedulingStatus'],
         scheduleStatus: json['scheduleStatus'],
-        workingStatus: json['workingStatus']);
+        workingStatus: json['workingStatus'],
+    skill: json['skill'],
+    specialize: json['specialize']);
   }
 }
