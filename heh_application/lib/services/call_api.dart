@@ -170,4 +170,6 @@ class CallAPI {
       throw Exception('Failed to load categoryList');
     }
   }
+
+
 }
