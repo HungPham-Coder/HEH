@@ -14,24 +14,21 @@ class Problem {
 }
 
 class SignUpMedicalPage extends StatefulWidget {
-   SignUpMedicalPage({Key? key, required this.signUpUser}) : super(key: key);
+  SignUpMedicalPage({Key? key, required this.signUpUser}) : super(key: key);
   SignUpUser signUpUser;
   @override
   State<SignUpMedicalPage> createState() => _SignUpMedicalPageState();
 }
 
 class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
-
   final TextEditingController _difficult = TextEditingController();
   final TextEditingController _injury = TextEditingController();
   final TextEditingController _curing = TextEditingController();
   final TextEditingController _medicine = TextEditingController();
 
-
   Future<void> signUp(SignUpUser signUpUser) async {
     CallAPI().callRegisterAPI(signUpUser);
   }
-
 
   static final List<Problem> _problems = [
     Problem(name: "Đau lưng"),
@@ -41,17 +38,23 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
     Problem(name: "Đau khớp gối 3"),
     Problem(name: "Khác"),
   ];
-  List _selectedProblems = [];
+  List<Problem?> _selectedProblems = [];
 
-  final bool _visibility = false;
+  bool _visibility = false;
+  bool checkVisibility() {
+    _selectedProblems.forEach((element) {
+      if (element!.name == "Khác") {
+        _visibility = true;
+      }
+    });
+    return _visibility;
+  }
 
   final _items = _problems
       .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
       .toList();
 
-
-
-  void _itemChange(String itemValue, bool isSelected) {
+  void _itemChange(Problem itemValue, bool isSelected) {
     setState(() {
       if (isSelected) {
         _selectedProblems.add(itemValue);
@@ -109,7 +112,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                     ),
                     child: Column(
                       children: [
-                        MultiSelectBottomSheetField(
+                        MultiSelectBottomSheetField<Problem?>(
                           confirmText: const Text("Chấp nhận",
                               style: TextStyle(fontSize: 18)),
                           cancelText: const Text("Hủy",
@@ -121,25 +124,65 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                             style: TextStyle(color: Colors.grey, fontSize: 15),
                           ),
                           items: _problems
-                              .map((e) => MultiSelectItem(e, e.name))
+                              .map((e) => MultiSelectItem<Problem?>(e, e.name))
                               .toList(),
                           listType: MultiSelectListType.CHIP,
                           searchable: true,
+                          // initialValue: [],
+
                           onConfirm: (values) {
+                            // _itemChange(values, true);
 
                             setState(() {
+                              // if (values == null) {
+                              //   values.add(Problem(name: 'abc'));
+                              //
+                              // }
+
                               _selectedProblems = values;
+                              int counter = 0;
+
+                              _selectedProblems.forEach((element) {
+                                if (element!.name.contains("Khác")){
+
+                                  counter ++;
+
+                                }
+
+                              });
+                              if (counter > 0) {
+                                _visibility = true;
+                              }
+                              else {
+                                _visibility = false;
+                              }
 
                             });
                           },
-                          chipDisplay: MultiSelectChipDisplay(
-                            onTap: (values) {
-                              setState(() {
-                                _selectedProblems.remove(values);
-                              });
-                            },
-                          ),
-                        ),
+                          chipDisplay: MultiSelectChipDisplay(onTap: (values) {
+                            setState(
+                              () {
+
+                                _itemChange(values!, false);
+                                int counter = 0;
+                                _selectedProblems.forEach((element) {
+                                  if (element!.name.contains("Khác")){
+                                    counter ++;
+
+                                  }
+
+                                });
+                                if (counter == 0) {
+                                  _visibility = false;
+                                }
+                                else {
+                                  _visibility = true;
+                                }
+
+                              },
+                            );
+                          }),
+                        )
                       ],
                     ),
                   ),
@@ -191,6 +234,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () {
+                            MedicalRecord medicalRecord = MedicalRecord();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -218,15 +262,15 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () {
-
-                            MedicalRecord medicalRecord = MedicalRecord(
-                                presentIllness: _difficult.text,
-                                pastMedical: _injury.text,
-
-
-                            );
+                            String problem = '';
+                            _selectedProblems.forEach((element) {
+                              problem += '${element!.name},';
+                            });
+                            // MedicalRecord medicalRecord = MedicalRecord(
+                            //
+                            //   problem:
+                            // );
                             Navigator.push(
-
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const WelcomePage()));

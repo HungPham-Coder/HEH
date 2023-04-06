@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage ;
 
 import '../models/chat_model/user_chat.dart';
 
 abstract class FirebaseFirestoreBase {
   Stream<List<SignUpUser>> getAllUser();
   Future<UserChat?>? getPhysioUser({required String physioID});
+  Future<String> getImage(String imageName);
 }
 
 class FirebaseFirestores extends FirebaseFirestoreBase {
   final _firebaseFirestore = FirebaseFirestore.instance;
   final _firestoreService = FirestoreService.instance;
+  final firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
   @override
   Stream<List<SignUpUser>> getAllUser() => _firestoreService.collectionStream(
         path: 'user',
@@ -36,5 +38,13 @@ class FirebaseFirestores extends FirebaseFirestoreBase {
     if (docSnapshot.exists){
       return UserChat.fromMap(docSnapshot.data(), docSnapshot.id);
     }
+  }
+
+  @override
+  Future<String> getImage(String imageName) async {
+    // TODO: implement getImage
+    String downloadUrl = await storage.ref('image/$imageName').getDownloadURL();
+    print(downloadUrl);
+    return downloadUrl;
   }
 }

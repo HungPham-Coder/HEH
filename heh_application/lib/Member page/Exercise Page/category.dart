@@ -61,7 +61,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const ViewExercise()));
+                                         ViewExercise(exerciseID: snapshot.data![index].exerciseID)));
                           },
                         );
                       },

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Video%20setting/landscape.dart';
+import 'package:heh_application/models/exercise_model/exercise_detail.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
-class ExerciseDetail extends StatefulWidget {
-  const ExerciseDetail({Key? key}) : super(key: key);
+import '../../services/firebase_firestore.dart';
 
+class ExerciseDetail extends StatefulWidget {
+   ExerciseDetail({Key? key, this.exerciseDetail1}) : super(key: key);
+  ExerciseDetail1? exerciseDetail1;
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
 }
@@ -67,6 +71,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: CustomScrollView(
@@ -81,9 +86,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     preferredSize: const Size.fromHeight(0),
                     child: Container(
                       color: const Color.fromARGB(255, 46, 161, 226),
-                      child: const Center(
+                      child:  Center(
                           child: Text(
-                        "Kéo giãn cơ tứ đầu",
+                        widget.exerciseDetail1!.detailName!,
                         style: TextStyle(
                           fontSize: 23,
                           color: Colors.white,
@@ -96,12 +101,23 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 backgroundColor: const Color.fromARGB(255, 46, 161, 226),
                 pinned: true,
                 expandedHeight: 200,
-                flexibleSpace: FlexibleSpaceBar(
-                    background: Image.asset(
-                  "assets/images/Exer.png",
-                  width: double.maxFinite,
-                  fit: BoxFit.cover,
-                ))),
+                flexibleSpace: FutureBuilder<String>(
+                  future:FirebaseFirestores().getImage('lung1.png') ,
+                  builder: (context, snapshot)
+                   {
+                     if (snapshot.hasData){
+                       return FlexibleSpaceBar(
+                         //     background: Image.asset(
+                         //   "assets/images/Exer.png",
+                         //   width: double.maxFinite,
+                         //   fit: BoxFit.cover,
+                         // )
+                         background: Image.network(snapshot.data!),
+                       );
+                     }
+                    return CircularProgressIndicator();
+                  }
+                )),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -112,14 +128,14 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const SizedBox(height: 10),
-                        const Center(
+                         Center(
                           child: Text(
                             "Thông tin bài tập",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        const Text(
-                          "Nằm sấp: Sử dụng một cái khăn (hoặc băng thun) gắn 1 đầu khăn vào bàn chân cần kéo giãn và kéo gót chân đến mông của bạn. Giữ khoảng 1 phút, lặp lại 3 lần.",
+                         Text(
+                          widget.exerciseDetail1!.description,
                           style: TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 20),

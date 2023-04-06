@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
+import 'package:heh_application/services/call_api.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/exercise_model/exercise_detail.dart';
+import '../../services/auth.dart';
 
 class ViewExercise extends StatefulWidget {
-  const ViewExercise({Key? key}) : super(key: key);
-
+   ViewExercise({Key? key, required this.exerciseID}) : super(key: key);
+  String exerciseID;
   @override
   State<ViewExercise> createState() => _ViewExerciseState();
 }
 
 class _ViewExerciseState extends State<ViewExercise> {
+
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -19,6 +27,7 @@ class _ViewExerciseState extends State<ViewExercise> {
           style: TextStyle(fontSize: 23),
         ),
         actions: [
+
           IconButton(
               onPressed: () {
                 showSearch(context: context, delegate: MySearchDelegate());
@@ -30,18 +39,35 @@ class _ViewExerciseState extends State<ViewExercise> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
+        physics: ScrollPhysics(),
         child: Column(
           children: [
-            DetailMenu(
-              icon: "assets/icons/backache.png",
-              text: "Kéo giãn cơ tứ đầu",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
-              },
-            ),
+            FutureBuilder<List<ExerciseDetail1>>(
+                future: CallAPI().getListExerciseDetailByExerciseID(widget.exerciseID),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+
+                       return  BackMenu(
+                          icon: "assets/icons/backache.png",
+                          text: snapshot.data![index].detailName!,
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  ExerciseDetail( exerciseDetail1: snapshot.data![index],)));
+                          },
+                        );
+                      },
+                    );
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                }),
           ],
         ),
       ),
