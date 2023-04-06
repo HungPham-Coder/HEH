@@ -59,7 +59,7 @@ class Auth implements AuthBase {
 
   final _firebaseAuth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
-  final _cloudStorage = FirebaseStorage.instance;
+
 
   @override
   Future<User> signInWithGoogle() async {
@@ -270,27 +270,10 @@ class Auth implements AuthBase {
   Future<List<Exercise>?> getListExerciseByCategoryID(
       String categoryID, String accessToken) async {
     // TODO: implement getExerciseByCategoryID
-    List<ExerciseDetail1> list =
-        await _callAPI.getExerciseDetailByCategoryID(categoryID);
-    List<ExerciseDetail1> listDupExerciseDetail = [];
-    List<Exercise>? listExercise;
-    for (var exerciseDetail in list) {
-      var exerciseID = exerciseDetail.exerciseID;
-      int hasAdd = 0;
-      for (var item in listDupExerciseDetail) {
-        if (exerciseID == item.exerciseID) {
-          hasAdd++;
-        }
-      }
-      if (hasAdd == 0) {
-        listDupExerciseDetail.add(exerciseDetail);
-      }
-    }
-    // await Future.forEach(listDupExerciseDetail,(element) async {
-    //    Exercise? exercise =  await _callAPI.getExerciseById(element!., accessToken);
-    //    listExercise!.add(exercise!);
-    //  });
-    return listExercise;
+    List<Exercise> list =
+        await _callAPI.getListExerciseByCategoryID(categoryID);
+
+    return list;
   }
 
   // @override

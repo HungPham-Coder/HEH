@@ -27,7 +27,8 @@ import '../models/role.dart';
 class CallAPI {
   String link = 'https://taskuatapi.hisoft.vn';
   Future<ResultLogin?> callLoginAPI(LoginUser loginUser) async {
-    var url = Uri.https('localhost:7166', 'api/User/Login');
+    var url = Uri.parse('${link}/api/User/Login');
+    // var url = Uri.https('localhost:7166', 'api/User/Login');
     final body = jsonEncode(
         {"phoneNumber": loginUser.phone, "password": loginUser.password});
     final headers = {
@@ -55,7 +56,8 @@ class CallAPI {
   }
 
   Future<bool> callRegisterAPI(SignUpUser signUpUser) async {
-    var url = Uri.https('localhost:7166', 'api/User/Register');
+    var url = Uri.parse('${link}/api/User/Register');
+    // var url = Uri.https('localhost:7166', 'api/User/Register');
 
     final body = jsonEncode({
       "userName": signUpUser.phone,
@@ -88,7 +90,8 @@ class CallAPI {
   }
 
   Future<SignUpUser?> getUserByEmail(String email) async {
-    var url = Uri.https('localhost:7166', 'api/User/$email');
+    var url = Uri.parse('${link}/api/User/$email');
+    // var url = Uri.https('localhost:7166', 'api/User/$email');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -104,7 +107,8 @@ class CallAPI {
   }
 
   Future<SignUpUser?> getUserById(String id) async {
-    var url = Uri.https('localhost:7166', 'api/User/getById/$id');
+    var url = Uri.parse('${link}/api/User/getById/$id');
+    // var url = Uri.https('localhost:7166', 'api/User/getById/$id');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -122,7 +126,8 @@ class CallAPI {
   }
 
   Future<Role?> getUserRole(String userId) async {
-    var url = Uri.https('localhost:7166', 'api/User/getUserRole/$userId');
+    var url = Uri.parse('${link}/api/User/getUserRole/$userId');
+    // var url = Uri.https('localhost:7166', 'api/User/getUserRole/$userId');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -136,11 +141,33 @@ class CallAPI {
     }
   }
 
-  Future<List<ExerciseDetail1>> getExerciseDetailByCategoryID(
-      String categoryId) async {
-    // var url =
-    //     Uri.parse('${link}/api/ExerciseDetail/GetByCategoryID/$categoryId');
-    var url = Uri.https('localhost:7166', 'api/ExerciseDetail/GetByCategoryID/$categoryId');
+  Future<List<Exercise>> getListExerciseByCategoryID(String categoryId) async {
+    var url = Uri.parse('${link}/api/Exercise/GetByCategoryID/$categoryId');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<Exercise> list = List<Exercise>.from(
+          jsonResult.map((model) => Exercise.fromMap(model)));
+
+      if (list == null) {
+        throw Exception('Exercise Detail List null');
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load exercise detail list');
+    }
+  }
+
+  Future<List<ExerciseDetail1>> getListExerciseDetailByExerciseID(
+      String exerciseID) async {
+    var url = Uri.parse('${link}/api/Exercise/GetByCategoryID/$exerciseID');
+    // var url = Uri.https('localhost:7166', 'api/ExerciseDetail/GetByExerciseID/$exerciseID');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -162,8 +189,8 @@ class CallAPI {
   }
 
   Future<List<CategoryModel>> getAllCategory() async {
-    // var url = Uri.parse('${link}/api/Category');
-    var url = Uri.https('localhost:7166', 'api/Category');
+    var url = Uri.parse('${link}/api/Category');
+    // var url = Uri.https('localhost:7166', 'api/Category');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -184,8 +211,8 @@ class CallAPI {
   }
 
   Future<List<BookingDetail>> getAllBookingDetail() async {
-    // var url = Uri.parse('${link}/api/BookingDetail');
-    var url = Uri.https('localhost:7166', 'api/BookingDetail');
+    var url = Uri.parse('${link}/api/BookingDetail');
+    // var url = Uri.https('localhost:7166', 'api/BookingDetail');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -206,8 +233,8 @@ class CallAPI {
   }
 
   Future<List<ExerciseResource>> getAllExerciseResource() async {
-    // var url = Uri.parse('${link}/api/ExerciseResource');
-    var url = Uri.https('localhost:7166', 'api/ExerciseResource');
+    var url = Uri.parse('${link}/api/ExerciseResource');
+    // var url = Uri.https('localhost:7166', 'api/ExerciseResource');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -228,8 +255,8 @@ class CallAPI {
   }
 
   Future<List<FeedbackModel>> getAllFeedback() async {
-    // var url = Uri.parse('${link}/api/Feedback');
-    var url = Uri.https('localhost:7166', 'api/Feedback');
+    var url = Uri.parse('${link}/api/Feedback');
+    // var url = Uri.https('localhost:7166', 'api/Feedback');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -250,8 +277,8 @@ class CallAPI {
   }
 
   Future<List<MedicalRecord>> getAllMedicalRecord() async {
-    // var url = Uri.parse('${link}/api/MedicalRecord');
-    var url = Uri.https('localhost:7166', 'api/MedicalRecord');
+    var url = Uri.parse('${link}/api/MedicalRecord');
+    // var url = Uri.https('localhost:7166', 'api/MedicalRecord');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -272,8 +299,8 @@ class CallAPI {
   }
 
   Future<List<Physiotherapist>> getAllPhysiotherapist() async {
-    // var url = Uri.parse('${link}/api/Physiotherapist');
-    var url = Uri.https('localhost:7166', 'api/Physiotherapist');
+    var url = Uri.parse('${link}/api/Physiotherapist');
+    // var url = Uri.https('localhost:7166', 'api/Physiotherapist');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -294,8 +321,8 @@ class CallAPI {
   }
 
   Future<List<Schedule>> getAllSchedule() async {
-    // var url = Uri.parse('${link}/api/Schedule');
-    var url = Uri.https('localhost:7166', 'api/Schedule');
+    var url = Uri.parse('${link}/api/Schedule');
+    // var url = Uri.https('localhost:7166', 'api/Schedule');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -316,8 +343,8 @@ class CallAPI {
   }
 
   Future<List<Slot>> getAllSlot() async {
-    // var url = Uri.parse('${link}/api/Slot');
-    var url = Uri.https('localhost:7166', 'api/Slot');
+    var url = Uri.parse('${link}/api/Slot');
+    // var url = Uri.https('localhost:7166', 'api/Slot');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -338,8 +365,8 @@ class CallAPI {
   }
 
   Future<List<SubProfile>> getAllSubProfile() async {
-    // var url = Uri.parse('${link}/api/SubProfile');
-    var url = Uri.https('localhost:7166', 'api/SubProfile');
+    var url = Uri.parse('${link}/api/SubProfile');
+    // var url = Uri.https('localhost:7166', 'api/SubProfile');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -360,8 +387,8 @@ class CallAPI {
   }
 
   Future<List<TypeOfSlot>> getAllTypeOfSlot() async {
-    // var url = Uri.parse('${link}/api/TypeOfSlot');
-    var url = Uri.https('localhost:7166', 'api/TypeOfSlot');
+    var url = Uri.parse('${link}/api/TypeOfSlot');
+    // var url = Uri.https('localhost:7166', 'api/TypeOfSlot');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -382,8 +409,8 @@ class CallAPI {
   }
 
   Future<List<UserExercise>> getAllUserExercise() async {
-    // var url = Uri.parse('${link}/api/UserExercise');
-    var url = Uri.https('localhost:7166', 'api/UserExercise');
+    var url = Uri.parse('${link}/api/UserExercise');
+    // var url = Uri.https('localhost:7166', 'api/UserExercise');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"

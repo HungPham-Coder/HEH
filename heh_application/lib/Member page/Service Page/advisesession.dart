@@ -39,7 +39,7 @@ class _AdviseSessionState extends State<AdviseSession> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
+                        builder: (context) =>  ExerciseDetail()));
               },
             ),
             AdviseMenu(
@@ -49,7 +49,7 @@ class _AdviseSessionState extends State<AdviseSession> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
+                        builder: (context) =>  ExerciseDetail()));
               },
             ),
           ],

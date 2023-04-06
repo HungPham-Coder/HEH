@@ -1,7 +1,7 @@
 class Physiotherapist {
   String physiotherapistID;
   String? specialize;
-  String? skill;
+  String? experience;
   int schedulingStatus;
   int scheduleStatus;
   int workingStatus;
@@ -9,7 +9,7 @@ class Physiotherapist {
   Physiotherapist(
       {required this.physiotherapistID,
       this.specialize,
-      this.skill,
+      this.experience,
       required this.schedulingStatus,
       required this.scheduleStatus,
       required this.workingStatus});
@@ -19,7 +19,7 @@ class Physiotherapist {
         schedulingStatus: json['schedulingStatus'],
         scheduleStatus: json['scheduleStatus'],
         workingStatus: json['workingStatus'],
-    skill: json['skill'],
+    experience: json['skill'],
     specialize: json['specialize']);
   }
 }

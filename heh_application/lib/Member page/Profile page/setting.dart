@@ -117,6 +117,7 @@ class _SettingPageState extends State<SettingPage> {
     final auth = Provider.of<AuthBase>(context, listen: false);
     await stream.handleLogout();
     await auth.signOut(context);
+
   }
 }
 
