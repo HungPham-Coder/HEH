@@ -71,8 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                         height: MediaQuery.of(context).size.height / 4,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/welcome2.png"))),
+                                image: NetworkImage(
+                                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2Fwelcome2.png?alt=media&token=e26f1d4f-e548-406c-aa71-65c099663f85"))),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -248,8 +248,10 @@ class _LoginPageState extends State<LoginPage> {
                             child: FloatingActionButton.extended(
                               heroTag: 'google',
                               onPressed: () => _signInWithGoogle(),
-                              icon: Image.asset('assets/icons/google_icon.png',
-                                  height: 30, width: 30),
+                              icon: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fgoogle_icon.png?alt=media&token=6234a131-fc34-4cd6-b596-beba7b1c3a46',
+                                  height: 30,
+                                  width: 30),
                               label: const Text('Đăng nhập với Google'),
                               backgroundColor: Colors.white,
                               foregroundColor: Colors.black,
@@ -263,8 +265,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: FloatingActionButton.extended(
                               heroTag: 'facebook',
                               onPressed: () => _signInWithFacebook(),
-                              icon: Image.asset(
-                                  'assets/icons/facebook_icon.png',
+                              icon: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffacebook_icon.png?alt=media&token=412d4a7e-32b4-49bc-9e94-ff7a294703b3',
                                   height: 30,
                                   width: 30),
                               label: const Text('Đăng nhập với Facebook'),

@@ -64,16 +64,25 @@ class _Navigation_BarState extends State<Navigation_Bar> {
             const BottomNavigationBarItem(
                 icon: Icon(Icons.home), label: "Trang chủ"),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset("assets/icons/physiotherapist.svg",
-                    width: 25, height: 25),
-                activeIcon: SvgPicture.asset("assets/icons/physiotherapist.svg",
-                    width: 25, height: 25, color: Colors.white),
+                icon: SvgPicture.network(
+                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphysiotherapist.svg?alt=media&token=59cf906d-e05a-49a4-910f-f06720527a08",
+                    width: 25,
+                    height: 25),
+                activeIcon: SvgPicture.network(
+                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphysiotherapist.svg?alt=media&token=59cf906d-e05a-49a4-910f-f06720527a08",
+                    width: 25,
+                    height: 25,
+                    color: Colors.white),
                 label: "Dịch vụ"),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset("assets/icons/favorite.svg",
-                    width: 25, height: 25),
-                activeIcon: Image.asset("assets/icons/favorited.png",
-                    width: 25, height: 25),
+                icon: SvgPicture.network(
+                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffavorite.svg?alt=media&token=6cfd2de1-ce36-405d-9622-84935fbc7606",
+                    width: 25,
+                    height: 25),
+                activeIcon: Image.network(
+                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffavorited.png?alt=media&token=43a91ace-f9c8-40dc-a0b1-9fdadbaa00a9",
+                    width: 25,
+                    height: 25),
                 label: "Yêu thích"),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Cài đặt"),

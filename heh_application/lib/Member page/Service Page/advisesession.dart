@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Physio%20choose%20page/physioChoose.dart';
 
 class AdviseSession extends StatefulWidget {
   const AdviseSession({Key? key}) : super(key: key);
@@ -18,13 +19,6 @@ class _AdviseSessionState extends State<AdviseSession> {
           "Tư vấn một buổi",
           style: TextStyle(fontSize: 23),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: MySearchDelegate());
-              },
-              icon: const Icon(Icons.search)),
-        ],
         centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
@@ -33,79 +27,31 @@ class _AdviseSessionState extends State<AdviseSession> {
         child: Column(
           children: [
             AdviseMenu(
-              icon: "assets/icons/backache.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fchoose.png?alt=media&token=48617b51-1b63-4545-9a97-ae26cd6ad585",
               text: "Chọn chuyên viên",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
+                        builder: (context) => const PhysioChoosePage()));
               },
             ),
             AdviseMenu(
-              icon: "assets/icons/backache.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fclock.png?alt=media&token=ea0fb70d-f2eb-460a-b956-7bdd74f90efc",
               text: "Chọn khung giờ",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ExerciseDetail()));
+                        builder: (context) => const PhysioChoosePage()));
               },
             ),
           ],
         ),
       ),
     );
-  }
-}
-
-class MySearchDelegate extends SearchDelegate {
-  List<String> searchResults = ['a', 'b']; //danh sach tim kiem
-  @override
-  List<Widget>? buildActions(BuildContext context) => [
-        IconButton(
-            onPressed: () {
-              if (query.isEmpty) {
-                close(context, null);
-              } else {
-                query = '';
-              }
-            },
-            icon: const Icon(Icons.clear))
-      ];
-
-  @override
-  Widget? buildLeading(BuildContext context) => IconButton(
-      onPressed: () => close(context, null),
-      icon: const Icon(Icons.arrow_back));
-
-  @override
-  Widget buildResults(BuildContext context) => Center(
-        child: Text(query, style: const TextStyle(fontSize: 64)),
-      );
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> suggestions = searchResults.where((searchResult) {
-      final result = searchResult.toLowerCase();
-      final input = query.toLowerCase();
-
-      return result.contains(input);
-    }).toList();
-
-    return ListView.builder(
-        itemCount: suggestions.length,
-        itemBuilder: (context, index) {
-          final suggestion = suggestions[index];
-
-          return ListTile(
-            title: Text(suggestion),
-            onTap: () {
-              query = suggestion;
-              showResults(context);
-            },
-          );
-        });
   }
 }
 
@@ -138,7 +84,7 @@ class AdviseMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 icon,
                 width: 60,
               ),

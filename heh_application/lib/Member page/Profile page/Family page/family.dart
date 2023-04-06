@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Family%20page/personalFam.dart';
@@ -32,7 +30,8 @@ class _FamilyPageState extends State<FamilyPage> {
               ProfileMenu(
                 icon: "assets/icons/person.svg",
                 name: "Phạm Phú Minh Hưng",
-                text: "Tôi - 23 tuổi",
+                relationship: "Tôi - ",
+                text: " 23 tuổi",
                 press: () {
                   Navigator.push(
                       context,
@@ -58,13 +57,14 @@ class _FamilyPageState extends State<FamilyPage> {
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
     Key? key,
+    required this.relationship,
     required this.text,
     required this.name,
     required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String text, icon, name;
+  final String text, icon, name, relationship;
   final VoidCallback? press;
 
   @override
@@ -106,11 +106,21 @@ class ProfileMenu extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Expanded(
-                        child: Text(
-                          text,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              relationship,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              text,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   )),

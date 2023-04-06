@@ -104,7 +104,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 height: MediaQuery.of(context).size.height / 2,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/images/welcome2.png"))),
+                        image: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2Fwelcome2.png?alt=media&token=e26f1d4f-e548-406c-aa71-65c099663f85"))),
               ),
               Column(
                 children: <Widget>[

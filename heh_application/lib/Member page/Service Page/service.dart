@@ -66,7 +66,8 @@ class _PhysiotherapistState extends State<Physiotherapist> {
             const SizedBox(height: 20),
             const Text("Bạn đang cần tim đến dịch vụ của chúng tôi?"),
             PhysiptherapistMenu(
-              icon: "assets/icons/advise.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fadvise.png?alt=media&token=73296749-85c7-415c-9287-eb044d23d6a1",
               text: "Tư vấn một buổi",
               press: () {
                 Navigator.push(
@@ -76,7 +77,8 @@ class _PhysiotherapistState extends State<Physiotherapist> {
               },
             ),
             PhysiptherapistMenu(
-              icon: "assets/icons/physio.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphysio.png?alt=media&token=dcc89b01-2c15-4808-87eb-4a2ecc9667a3",
               text: "Điều trị lâu dài",
               press: () {
                 Navigator.push(
@@ -86,7 +88,8 @@ class _PhysiotherapistState extends State<Physiotherapist> {
               },
             ),
             PhysiptherapistMenu(
-              icon: "assets/icons/advise.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcare.png?alt=media&token=0ce5dd58-bcaf-45a8-b277-05eaad8b89b8",
               text: "Chăm sóc khách hàng",
               press: () async {
                 await loadPhysioTherapistAccount();
@@ -152,7 +155,7 @@ class PhysiptherapistMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 icon,
                 width: 60,
               ),
