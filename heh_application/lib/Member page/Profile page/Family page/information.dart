@@ -126,15 +126,6 @@ class _FamilyInformationPageState extends State<FamilyInformationPage> {
                           _genderValue = value!;
                         });
                       }),
-                  const Text("Khác"),
-                  Radio(
-                      value: genderGroup.others,
-                      groupValue: _genderValue,
-                      onChanged: (genderGroup? value) {
-                        setState(() {
-                          _genderValue = value!;
-                        });
-                      }),
                 ],
               ),
             ],

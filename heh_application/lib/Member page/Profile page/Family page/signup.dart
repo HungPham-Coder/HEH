@@ -49,7 +49,7 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
   final TextEditingController _confirmPassword = TextEditingController();
 
   Future<void> signUp(SignUpUser signUpUser) async {
-    await CallAPI().callRegisterAPI( signUpUser);
+    await CallAPI().callRegisterAPI(signUpUser);
   }
 
   @override
@@ -129,15 +129,6 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
                                   _genderValue = value!;
                                 });
                               }),
-                          const Text("Khác"),
-                          Radio(
-                              value: genderGroup.others,
-                              groupValue: _genderValue,
-                              onChanged: (genderGroup? value) {
-                                setState(() {
-                                  _genderValue = value!;
-                                });
-                              }),
                         ],
                       ),
                     ],
@@ -177,7 +168,7 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
                   ),
                   Row(
                     children: const [
-                      Text("Ngày sinh"),
+                      Text("Mối quan hệ"),
                       Text(" *", style: TextStyle(color: Colors.red)),
                     ],
                   ),
@@ -186,7 +177,7 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: 70,
+                    height: 60,
                     child: SizedBox(
                       child: DropdownButtonFormField<String>(
                         decoration: const InputDecoration(

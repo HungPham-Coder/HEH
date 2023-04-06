@@ -105,15 +105,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                   _genderValue = value!;
                                 });
                               }),
-                          const Text("Khác"),
-                          Radio(
-                              value: genderGroup.others,
-                              groupValue: _genderValue,
-                              onChanged: (genderGroup? value) {
-                                setState(() {
-                                  _genderValue = value!;
-                                });
-                              }),
                         ],
                       ),
                     ],

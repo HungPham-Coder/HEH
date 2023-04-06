@@ -10,9 +10,7 @@ import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/welcome_page.dart';
 import 'package:provider/provider.dart';
 
-
 import 'models/sign_up_user.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +28,6 @@ Future<void> main() async {
     ),
   ));
 }
-
 
 // class MyHttpOverrides extends HttpOverrides {
 //   @override
@@ -75,19 +72,16 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-
   @override
   void dispose() {
-    final auth = Provider.of<AuthBase>(context,listen: false);
+    final auth = Provider.of<AuthBase>(context, listen: false);
     // TODO: implement dispose
     super.dispose();
     auth.dispose();
-
   }
+
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -120,9 +114,8 @@ class _WelcomePageState extends State<WelcomePage> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                            return const LandingPage();
-                          }));
-
+                        return const LandingPage();
+                      }));
                     },
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Colors.black),
@@ -130,7 +123,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     child: const Text(
                       "Đăng nhập",
                       style:
-                      TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -172,5 +165,3 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-
-

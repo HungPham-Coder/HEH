@@ -15,21 +15,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   @override
   void initState() {
     // TODO: implement initState
 
-
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     // SignUpUser signUpUser = SignUpUser(firstName: '123',
     //     lastName: 'abcdef',
     //     phone: '1236548970',
@@ -50,42 +44,38 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Column(
           children: [
             const SizedBox(height: 20),
-            const Text("Bạn đang gặp vấn đề gì?"),
-            FutureBuilder <List<CategoryModel>>(
-              future: CallAPI().getAllCategory(),
-              builder: (context, snapshot)  {
-                if (snapshot.hasData){
-                  return ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.length,
+            const Center(child: Text("Bạn đang gặp vấn đề gì?")),
+            FutureBuilder<List<CategoryModel>>(
+                future: CallAPI().getAllCategory(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return HomeMenu(
                           icon: "assets/icons/backache.png",
                           text: "${snapshot.data![index].categoryName}",
                           press: () {
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  CategoryPage(categoryID: snapshot.data![index].categoryID)));
+                                    builder: (context) => CategoryPage(
+                                        categoryID:
+                                            snapshot.data![index].categoryID)));
                           },
                         );
-
                       },
-
-                  );
-                }
-                else {
-                  return CircularProgressIndicator();
-                }
-
-              }
-            ),
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                }),
           ],
         ),
       ),
