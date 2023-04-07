@@ -4,6 +4,7 @@ import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
 
 import 'package:heh_application/models/exercise_model/exercise.dart';
 import 'package:heh_application/models/exercise_model/exercise_detail.dart';
+import 'package:heh_application/models/exercise_resource.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:provider/provider.dart';
@@ -58,13 +59,24 @@ class _CategoryPageState extends State<CategoryPage> {
                           icon:
                               "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbackache.png?alt=media&token=d725e1f5-c106-41f7-9ee5-ade77c464a54",
                           text: "${snapshot.data![index].exerciseName}",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ExerciseDetail(
-                                        exerciseID:
-                                            snapshot.data![index].exerciseID)));
+                          press: () async {
+                            ExerciseDetail1 exerciseDetail = await CallAPI()
+                                .getExerciseDetailByExerciseID(
+                                    snapshot.data![index].exerciseID);
+                            ExerciseResource exerciseResource = await CallAPI()
+                                .getExerciseResourceByExerciseDetailID(
+                                    exerciseDetail.exerciseDetailID);
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              if (exerciseDetail != null) {
+                                return ExerciseDetail(
+                                  exerciseDetail: exerciseDetail,
+                                  exerciseResource: exerciseResource,
+                                );
+                              } else {
+                                return ExerciseDetail();
+                              }
+                            }));
                           },
                         );
                       },

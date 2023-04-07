@@ -166,9 +166,9 @@ class CallAPI {
     }
   }
 
-  Future<List<ExerciseDetail1>> getListExerciseDetailByExerciseID(
+  Future<ExerciseDetail1> getExerciseDetailByExerciseID(
       String exerciseID) async {
-    var url = Uri.parse('${link}/api/Exercise/GetByCategoryID/$exerciseID');
+    var url = Uri.parse('${link}/api/ExerciseDetail/GetByExerciseID/$exerciseID');
     // var url = Uri.https('localhost:7166', 'api/ExerciseDetail/GetByExerciseID/$exerciseID');
     final headers = {
       "Accept": "application/json",
@@ -176,17 +176,9 @@ class CallAPI {
     };
     var response = await http.get(url, headers: headers);
     if (response.statusCode == 200) {
-      Iterable jsonResult = json.decode(response.body);
-      List<ExerciseDetail1> list = List<ExerciseDetail1>.from(
-          jsonResult.map((model) => ExerciseDetail1.fromMap(model)));
-
-      if (list == null) {
-        throw Exception('Exercise Detail List null');
-      } else {
-        return list;
-      }
+      return ExerciseDetail1.fromMap(json.decode(response.body));
     } else {
-      throw Exception('Failed to load exercise detail list');
+      throw Exception('Failed to load exercise detail ');
     }
   }
 
@@ -253,6 +245,22 @@ class CallAPI {
       }
     } else {
       throw Exception('Failed to load ExerciseResource');
+    }
+  }
+
+  Future<ExerciseResource> getExerciseResourceByExerciseDetailID(
+      String exerciseID) async {
+    var url = Uri.parse('${link}/api/ExerciseResource/GetByExerciseDetailId/$exerciseID');
+    // var url = Uri.https('localhost:7166', 'api/ExerciseDetail/GetByExerciseID/$exerciseID');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      return ExerciseResource.fromMap(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load exercise resource ');
     }
   }
 

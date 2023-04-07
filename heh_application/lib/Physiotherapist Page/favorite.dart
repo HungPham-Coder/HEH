@@ -40,7 +40,7 @@ class _FavoritePageState extends State<FavoritePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  ExerciseDetail(exerciseID: '',)));
+                        builder: (context) =>  ExerciseDetail()));
               },
             ),
             DetailMenu(
@@ -50,7 +50,7 @@ class _FavoritePageState extends State<FavoritePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  ExerciseDetail(exerciseID: '')));
+                        builder: (context) =>  ExerciseDetail()));
               },
             ),
             DetailMenu(
@@ -60,7 +60,7 @@ class _FavoritePageState extends State<FavoritePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  ExerciseDetail(exerciseID: '',)));
+                        builder: (context) =>  ExerciseDetail()));
               },
             ),
           ],

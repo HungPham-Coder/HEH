@@ -44,7 +44,7 @@ class FirebaseFirestores extends FirebaseFirestoreBase {
   @override
   Future<String> getImageUrl(String imageName) async {
     // TODO: implement getImage
-    String downloadUrl = await storage.ref('image/Physio.png').getDownloadURL();
+    String downloadUrl = await storage.ref('image/$imageName').getDownloadURL();
     print(downloadUrl);
     return downloadUrl;
   }
