@@ -55,7 +55,7 @@ class CallAPI {
     }
   }
 
-  Future<bool> callRegisterAPI(SignUpUser signUpUser) async {
+  Future<String> callRegisterAPI(SignUpUser signUpUser) async {
     var url = Uri.parse('${link}/api/User/Register');
     // var url = Uri.https('localhost:7166', 'api/User/Register');
 
@@ -78,14 +78,14 @@ class CallAPI {
       "content-type": "application/json"
     };
     var response = await http.post(url, body: body, headers: headers);
-    print(response.statusCode);
+    print('${response.statusCode} register account');
 
     if (response.statusCode == 200) {
-      return true;
+      return json.decode(response.body);
     } else {
       print(response.body);
 
-      return false;
+      return '';
     }
   }
 
@@ -295,6 +295,38 @@ class CallAPI {
       }
     } else {
       throw Exception('Failed to load MedicalRecord');
+    }
+  }
+  Future<void> createMedicalRecord(MedicalRecord medicalRecord) async {
+    var url = Uri.parse('${link}/api/MedicalRecord/Create');
+    // var url = Uri.https('localhost:7166', 'api/User/Register');
+
+    final body = jsonEncode({
+      "userID": medicalRecord.userID,
+      "categoryID": medicalRecord.categoryID,
+      "subProfileID": medicalRecord.subProfileID,
+      "problem": medicalRecord.problem,
+      "difficult": medicalRecord.difficulty,
+      "injury": medicalRecord.injury,
+      "curing": medicalRecord.curing,
+      "medicine": medicalRecord.medicine,
+      "isDeleted": false,
+    });
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.post(url, body: body, headers: headers);
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      print('medical');
+      print(response.statusCode);
+    } else {
+      print(response.body);
+      print('medical');
+      print(response.statusCode);
     }
   }
 

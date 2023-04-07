@@ -5,6 +5,7 @@ import 'package:heh_application/models/medical_record.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
+import '../Login page/login.dart';
 import '../services/call_api.dart';
 
 class Problem {
@@ -206,7 +207,8 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         padding: const EdgeInsets.only(top: 20),
                         child: MaterialButton(
                           height: 50,
-                          onPressed: () {
+                          onPressed: () async {
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -261,19 +263,28 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         padding: const EdgeInsets.only(top: 20),
                         child: MaterialButton(
                           height: 50,
-                          onPressed: () {
-                            String problem = '';
+                          onPressed: () async {
+                            String problem = ''  ;
                             _selectedProblems.forEach((element) {
                               problem += '${element!.name},';
                             });
-                            // MedicalRecord medicalRecord = MedicalRecord(
-                            //
-                            //   problem:
-                            // );
+
+                            String userID = await CallAPI().callRegisterAPI(widget.signUpUser);
+                            MedicalRecord medicalRecord = MedicalRecord(
+                              subProfileID: null,
+                              userID: userID,
+                              categoryID: '147843e2-f691-4867-b3f6-afccf2338ceb',
+                              problem: problem,
+                              curing: _curing.text,
+                              difficulty: _difficult.text,
+                              injury: _injury.text,
+                              medicine: _medicine.text,
+                            );
+                            await CallAPI().createMedicalRecord(medicalRecord);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const WelcomePage()));
+                                    builder: (context) => const LoginPage()));
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,
