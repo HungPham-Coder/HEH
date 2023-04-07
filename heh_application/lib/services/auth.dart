@@ -30,6 +30,7 @@ abstract class AuthBase {
   Future<bool> checkUserExistInPostgre(String email);
   Future<void> checkUserExistInFirebase(SignUpUser signUpUser);
   Future<SignUpUser> getCurrentUser(ResultLogin resultLogin);
+  Future<void> signInAnonymously ();
   // User? get currenUser;
   // Stream<ResultLogin> get userLoginStream;
   // Stream<SignUpUser> get userSignUpStream;
@@ -274,6 +275,12 @@ class Auth implements AuthBase {
         await _callAPI.getListExerciseByCategoryID(categoryID);
 
     return list;
+  }
+
+  @override
+  Future<void> signInAnonymously() async {
+    // TODO: implement signInAnonymously
+    await _firebaseAuth.signInAnonymously();
   }
 
   // @override

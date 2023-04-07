@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
 import 'package:heh_application/models/exercise_model/category.dart';
 import 'package:heh_application/services/call_api.dart';
+import 'package:heh_application/services/firebase_firestore.dart';
 
 import '../../models/sign_up_user.dart';
 import '../../services/stream_test.dart';
@@ -53,24 +54,29 @@ class _HomePageState extends State<HomePage> {
                 future: CallAPI().getAllCategory(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ListView.builder(
+                    return ListView.builder (
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return HomeMenu(
-                          icon:
-                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbackache.png?alt=media&token=d725e1f5-c106-41f7-9ee5-ade77c464a54",
-                          text: "${snapshot.data![index].categoryName}",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CategoryPage(
-                                        categoryID:
-                                            snapshot.data![index].categoryID)));
-                          },
-                        );
+                      itemBuilder: (context, index)  {
+                        String iconName = "";
+
+                          iconName = "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fknee.png?alt=media&token=47fffdae-d388-4215-aff9-239de7988053";
+
+                             return  HomeMenu(
+                              icon:
+                             iconName,
+                              text: "${snapshot.data![index].categoryName}",
+                              press: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CategoryPage(
+                                            categoryID:
+                                                snapshot.data![index].categoryID)));
+                              },
+                            );
+
                       },
                     );
                   } else {

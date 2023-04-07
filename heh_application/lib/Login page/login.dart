@@ -294,6 +294,7 @@ class _LoginPageState extends State<LoginPage> {
 
         //add signup user to manage user object xuyen suot app
         // await  stream.addSignUpStream(signUpUser);
+        await auth.signInAnonymously();
 
         await stream.addLoginStream(resultLogin);
       }
