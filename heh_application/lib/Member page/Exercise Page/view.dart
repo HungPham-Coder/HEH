@@ -8,14 +8,13 @@ import '../../models/exercise_model/exercise_detail.dart';
 import '../../services/auth.dart';
 
 class ViewExercise extends StatefulWidget {
-   ViewExercise({Key? key, required this.exerciseID}) : super(key: key);
+  ViewExercise({Key? key, required this.exerciseID}) : super(key: key);
   String exerciseID;
   @override
   State<ViewExercise> createState() => _ViewExerciseState();
 }
 
 class _ViewExerciseState extends State<ViewExercise> {
-
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
@@ -27,7 +26,6 @@ class _ViewExerciseState extends State<ViewExercise> {
           style: TextStyle(fontSize: 23),
         ),
         actions: [
-
           IconButton(
               onPressed: () {
                 showSearch(context: context, delegate: MySearchDelegate());
@@ -43,7 +41,8 @@ class _ViewExerciseState extends State<ViewExercise> {
         child: Column(
           children: [
             FutureBuilder<List<ExerciseDetail1>>(
-                future: CallAPI().getListExerciseDetailByExerciseID(widget.exerciseID),
+                future: CallAPI()
+                    .getListExerciseDetailByExerciseID(widget.exerciseID),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
@@ -51,15 +50,18 @@ class _ViewExerciseState extends State<ViewExercise> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-
-                       return  BackMenu(
-                          icon: "assets/icons/backache.png",
+                        return BackMenu(
+                          icon:
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbackache.png?alt=media&token=d725e1f5-c106-41f7-9ee5-ade77c464a54",
                           text: snapshot.data![index].detailName!,
                           press: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  ExerciseDetail( exerciseDetail1: snapshot.data![index],)));
+                                    builder: (context) => ExerciseDetail(
+                                          exerciseDetail1:
+                                              snapshot.data![index],
+                                        )));
                           },
                         );
                       },
@@ -103,7 +105,7 @@ class DetailMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 icon,
                 width: 60,
               ),

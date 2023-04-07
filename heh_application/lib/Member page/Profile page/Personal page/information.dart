@@ -48,8 +48,8 @@ class _InformationPageState extends State<InformationPage> {
                       children: [
                         const CircleAvatar(
                           backgroundColor: Color.fromARGB(255, 220, 220, 220),
-                          backgroundImage:
-                              AssetImage("assets/icons/person.png"),
+                          backgroundImage: NetworkImage(
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
                         ),
                         Positioned(
                           right: -12,
@@ -74,8 +74,8 @@ class _InformationPageState extends State<InformationPage> {
                                                   255, 46, 161, 226))),
                                     )),
                                 onPressed: () async {},
-                                child: SvgPicture.asset(
-                                  "assets/icons/camera.svg",
+                                child: SvgPicture.network(
+                                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcamera.svg?alt=media&token=afa6a202-304e-45af-8df5-870126316135",
                                   width: 20,
                                   height: 20,
                                 )),

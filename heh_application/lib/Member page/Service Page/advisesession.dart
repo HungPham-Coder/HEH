@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Physio%20choose%20page/physioChoose.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/chooseClock.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/physioChoose.dart';
 
 class AdviseSession extends StatefulWidget {
   const AdviseSession({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _AdviseSessionState extends State<AdviseSession> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PhysioChoosePage()));
+                        builder: (context) => const ChooseClockPage()));
               },
             ),
           ],

@@ -47,7 +47,8 @@ class _SettingPageState extends State<SettingPage> {
               children: [
                 const CircleAvatar(
                   backgroundColor: Color.fromARGB(255, 220, 220, 220),
-                  backgroundImage: AssetImage("assets/icons/person.png"),
+                  backgroundImage: NetworkImage(
+                      "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
                 ),
               ],
             ),
@@ -67,7 +68,8 @@ class _SettingPageState extends State<SettingPage> {
           //   ),
           // ),
           ProfileMenu(
-            icon: "assets/icons/person.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.svg?alt=media&token=7bef043d-fdb5-4c5b-bb2e-644ee7682345",
             text: "Thông tin của bạn",
             press: () {
               Navigator.push(
@@ -77,7 +79,8 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           ProfileMenu(
-            icon: "assets/icons/family.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffamily.svg?alt=media&token=f6f01b99-6901-48be-9a69-798ea594bd77",
             text: "Thành viên gia đình",
             press: () {
               Navigator.push(context,
@@ -85,7 +88,8 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           ProfileMenu(
-            icon: "assets/icons/history.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fhistory.svg?alt=media&token=13ed285f-0a27-4ee5-b984-bd73d5f15ac8",
             text: "Lịch sử giao dịch",
             press: () {
               Navigator.push(context,
@@ -93,7 +97,8 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           ProfileMenu(
-            icon: "assets/icons/history.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Freset.svg?alt=media&token=f574651a-977a-4eea-a07d-61fe296f5505",
             text: "Đặt lại mật khẩu",
             press: () {
               Navigator.push(
@@ -103,7 +108,8 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           ProfileMenu(
-            icon: "assets/icons/logout.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Flogout.svg?alt=media&token=99ed3d5a-ec73-4a07-ac6f-2197f26829ef",
             text: "Đăng xuất",
             press: signout,
           ),
@@ -117,7 +123,6 @@ class _SettingPageState extends State<SettingPage> {
     final auth = Provider.of<AuthBase>(context, listen: false);
     await stream.handleLogout();
     await auth.signOut(context);
-
   }
 }
 
@@ -150,7 +155,7 @@ class ProfileMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              SvgPicture.asset(
+              SvgPicture.network(
                 icon,
                 width: 30,
                 color: const Color.fromARGB(255, 46, 161, 226),

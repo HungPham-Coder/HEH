@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Physio%20choose%20page/chooseDetail.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/chooseDetail.dart';
 
 class PhysioChoosePage extends StatefulWidget {
   const PhysioChoosePage({Key? key}) : super(key: key);

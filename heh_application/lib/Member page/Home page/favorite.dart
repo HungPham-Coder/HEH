@@ -33,33 +33,12 @@ class _FavoritePageState extends State<FavoritePage> {
         child: Column(
           children: [
             DetailMenu(
-              icon: "assets/icons/backache.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbackache.png?alt=media&token=d725e1f5-c106-41f7-9ee5-ade77c464a54",
               text: "Kéo giãn cơ tứ đầu",
               press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>  ExerciseDetail()));
-              },
-            ),
-            DetailMenu(
-              icon: "assets/icons/backache.png",
-              text: "Kéo giãn cơ gập hông",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>  ExerciseDetail()));
-              },
-            ),
-            DetailMenu(
-              icon: "assets/icons/knee.png",
-              text: "Kéo giãn cơ khép hông ",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>  ExerciseDetail()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ExerciseDetail()));
               },
             ),
           ],
@@ -97,7 +76,7 @@ class DetailMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 icon,
                 width: 60,
               ),
@@ -114,8 +93,8 @@ class DetailMenu extends StatelessWidget {
                 children: <Widget>[
                   IconButton(
                       onPressed: press,
-                      icon: Image.asset(
-                        "assets/icons/magnifying_glass.png",
+                      icon: Image.network(
+                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fmagnifying_glass.png?alt=media&token=ee59d008-812e-4b5a-8871-28504e5bdc82",
                         color: Colors.black,
                       )),
                 ],

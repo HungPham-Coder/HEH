@@ -149,6 +149,8 @@ class CallAPI {
       "content-type": "application/json"
     };
     var response = await http.get(url, headers: headers);
+    print(response.body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       Iterable jsonResult = json.decode(response.body);
       List<Exercise> list = List<Exercise>.from(
