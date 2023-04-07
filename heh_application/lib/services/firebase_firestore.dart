@@ -9,7 +9,8 @@ import '../models/chat_model/user_chat.dart';
 abstract class FirebaseFirestoreBase {
   Stream<List<SignUpUser>> getAllUser();
   Future<UserChat?>? getPhysioUser({required String physioID});
-  Future<String> getImage(String imageName);
+  Future<String> getImageUrl(String imageName);
+  Future<String> getIconUrl(String icon);
 }
 
 class FirebaseFirestores extends FirebaseFirestoreBase {
@@ -41,9 +42,17 @@ class FirebaseFirestores extends FirebaseFirestoreBase {
   }
 
   @override
-  Future<String> getImage(String imageName) async {
+  Future<String> getImageUrl(String imageName) async {
     // TODO: implement getImage
-    String downloadUrl = await storage.ref('image/$imageName').getDownloadURL();
+    String downloadUrl = await storage.ref('image/Physio.png').getDownloadURL();
+    print(downloadUrl);
+    return downloadUrl;
+  }
+
+  @override
+  Future<String> getIconUrl(String icon) async {
+    // TODO: implement getIcon
+    String downloadUrl = await storage.ref('icon/$icon').getDownloadURL();
     print(downloadUrl);
     return downloadUrl;
   }

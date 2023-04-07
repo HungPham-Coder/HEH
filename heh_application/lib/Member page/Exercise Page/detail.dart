@@ -7,8 +7,8 @@ import 'package:video_player/video_player.dart';
 import '../../services/firebase_firestore.dart';
 
 class ExerciseDetail extends StatefulWidget {
-   ExerciseDetail({Key? key, this.exerciseDetail1}) : super(key: key);
-  ExerciseDetail1? exerciseDetail1;
+   ExerciseDetail({Key? key,required this.exerciseID}) : super(key: key);
+  String exerciseID;
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
 }
@@ -88,7 +88,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                       color: const Color.fromARGB(255, 46, 161, 226),
                       child:  Center(
                           child: Text(
-                        widget.exerciseDetail1!.detailName!,
+                        // widget.exerciseDetail1!.detailName!,
+                            '',
                         style: TextStyle(
                           fontSize: 23,
                           color: Colors.white,
@@ -102,7 +103,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 pinned: true,
                 expandedHeight: 200,
                 flexibleSpace: FutureBuilder<String>(
-                  future:FirebaseFirestores().getImage('lung1.png') ,
+                  future:FirebaseFirestores().getImageUrl('lung1.png') ,
                   builder: (context, snapshot)
                    {
                      if (snapshot.hasData){
@@ -135,8 +136,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                           ),
                         ),
                          Text(
-                          widget.exerciseDetail1!.description,
-                          style: TextStyle(fontSize: 16),
+                          // widget.exerciseDetail1!.description,
+                          '',
+                           style: TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 20),
                         Container(
