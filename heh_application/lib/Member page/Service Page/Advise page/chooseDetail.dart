@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/payment.dart';
+import 'package:intl/intl.dart';
 
 class ChooseDetailpage extends StatefulWidget {
   const ChooseDetailpage({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CurrentTime(),
             const SizedBox(height: 20),
             const PhysioProfile(
                 image:
@@ -46,19 +48,6 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
               name: "Slot 1",
               time: "Khung giờ: ",
               during: "10:00 AM - 11:00 AM",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PaymentPage()));
-              },
-            ),
-            PhysioChooseMenu(
-              icon:
-                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-              name: "Slot 2",
-              time: "Khung giờ: ",
-              during: "11:00 AM - 12:00 AM",
               press: () {
                 Navigator.push(
                     context,
@@ -236,6 +225,29 @@ class PhysioChooseMenu extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CurrentTime extends StatelessWidget {
+  CurrentTime({Key? key}) : super(key: key);
+  final TextEditingController _date = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      readOnly: true,
+      controller: _date,
+      onTap: () async {
+        DateTime? pickeddate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1960),
+            lastDate: DateTime(2030));
+        if (pickeddate != null) {
+          _date.text = DateFormat.yMMMMEEEEd().format(DateTime.now());
+        }
+      },
     );
   }
 }

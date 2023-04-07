@@ -85,7 +85,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     preferredSize: const Size.fromHeight(0),
                     child: Container(
                       color: const Color.fromARGB(255, 46, 161, 226),
-                      child: Center(
+                      child: const Center(
                           child: Text(
                         // widget.exerciseDetail1!.detailName!,
                         '',
@@ -114,7 +114,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                           background: Image.network(snapshot.data!),
                         );
                       }
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     })),
             SliverToBoxAdapter(
               child: Padding(
@@ -132,7 +132,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        Text(
+                        const Text(
                           // widget.exerciseDetail1!.description,
                           '',
                           style: TextStyle(fontSize: 16),

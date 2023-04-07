@@ -40,7 +40,7 @@ class _CategoryPageState extends State<CategoryPage> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Column(
           children: [
             FutureBuilder<List<Exercise>?>(
@@ -49,7 +49,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
@@ -62,15 +62,15 @@ class _CategoryPageState extends State<CategoryPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ExerciseDetail(exerciseID: snapshot.data![index].exerciseID)
-                            )
-                            );
+                                    builder: (context) => ExerciseDetail(
+                                        exerciseID:
+                                            snapshot.data![index].exerciseID)));
                           },
                         );
                       },
                     );
                   } else {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                 }),
           ],
