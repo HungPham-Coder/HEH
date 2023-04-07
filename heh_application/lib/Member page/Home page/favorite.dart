@@ -38,7 +38,7 @@ class _FavoritePageState extends State<FavoritePage> {
               text: "Kéo giãn cơ tứ đầu",
               press: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ExerciseDetail(exerciseID: '',)));
+                    MaterialPageRoute(builder: (context) => ExerciseDetail()));
               },
             ),
           ],

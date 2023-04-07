@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Video%20setting/landscape.dart';
 import 'package:heh_application/models/exercise_model/exercise_detail.dart';
+import 'package:heh_application/services/call_api.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../models/exercise_resource.dart';
 import '../../services/firebase_firestore.dart';
 
 class ExerciseDetail extends StatefulWidget {
-  ExerciseDetail({Key? key, required this.exerciseID}) : super(key: key);
-  String exerciseID;
+  ExerciseDetail({Key? key,  this.exerciseDetail, this.exerciseResource}) : super(key: key);
+  ExerciseDetail1? exerciseDetail;
+  ExerciseResource? exerciseResource;
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
 }
@@ -47,6 +50,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
     return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
   }
 
+
   @override
   void initState() {
     loadVideoPlayer();
@@ -59,8 +63,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
     _vidController.dispose();
   }
 
-  loadVideoPlayer() {
-    _vidController = VideoPlayerController.asset('assets/videos/video.mp4');
+  loadVideoPlayer() async {
+    _vidController = VideoPlayerController.network(widget.exerciseResource!.videoURL!);
     _vidController.addListener(() {
       setState(() {});
     });
@@ -69,83 +73,94 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-                toolbarHeight: 45,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [Icon(Icons.favorite_border, size: 40)],
-                ),
-                bottom: PreferredSize(
-                    preferredSize: const Size.fromHeight(0),
-                    child: Container(
-                      color: const Color.fromARGB(255, 46, 161, 226),
-                      child: Center(
-                          child: Text(
-                        // widget.exerciseDetail1!.detailName!,
-                        '',
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.white,
-                          // fontFamily: "Times New Roman",
-                        ),
+    if (widget.exerciseDetail == null){
+      return Scaffold(
+        body: Container(
+          child: Text("Khong co exercise"),
+        ),
+      );
+    }
+    else {
+
+      return Scaffold(
+          backgroundColor: Colors.white,
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                  toolbarHeight: 45,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [Icon(Icons.favorite_border, size: 40)],
+                  ),
+                  bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(0),
+                      child: Container(
+                        color: const Color.fromARGB(255, 46, 161, 226),
+                        child: Center(
+                            child: Text(
+
+                              widget.exerciseDetail!.detailName!,
+                              style: TextStyle(
+                                fontSize: 23,
+                                color: Colors.white,
+                                // fontFamily: "Times New Roman",
+                              ),
+                            )),
+                        width: double.maxFinite,
+                        padding: const EdgeInsets.only(top: 5, bottom: 10),
                       )),
-                      width: double.maxFinite,
-                      padding: const EdgeInsets.only(top: 5, bottom: 10),
-                    )),
-                backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-                pinned: true,
-                expandedHeight: 200,
-                flexibleSpace: FutureBuilder<String>(
-                    future: FirebaseFirestores().getImageUrl('lung1.png'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return FlexibleSpaceBar(
-                          //     background: Image.asset(
-                          //   "assets/images/Exer.png",
-                          //   width: double.maxFinite,
-                          //   fit: BoxFit.cover,
-                          // )
-                          background: Image.network(snapshot.data!),
-                        );
-                      }
-                      return CircularProgressIndicator();
-                    })),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(height: 10),
-                        const Center(
-                          child: Text(
-                            "Thông tin bài tập",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        Text(
-                          // widget.exerciseDetail1!.description,
-                          '',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(height: 20),
-                        Container(
-                          color: const Color.fromARGB(255, 46, 161, 226),
-                          height: MediaQuery.of(context).size.height / 2.5,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 0),
-                            child: _vidController.value.isInitialized
-                                ? Column(children: <Widget>[
+                  backgroundColor: const Color.fromARGB(255, 46, 161, 226),
+                  pinned: true,
+                  expandedHeight: 200,
+                  flexibleSpace: FutureBuilder<String>(
+                      future: FirebaseFirestores().getImageUrl(widget.exerciseResource!.imageURL!),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return FlexibleSpaceBar(
+                            //     background: Image.asset(
+                            //   "assets/images/Exer.png",
+                            //   width: double.maxFinite,
+                            //   fit: BoxFit.cover,
+                            // )
+                            background: Image.network(snapshot.data!),
+                          );
+                        }
+                        return CircularProgressIndicator();
+                      })),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const SizedBox(height: 10),
+                              const Center(
+                                child: Text(
+                                  "Thông tin bài tập",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              Text(
+                                widget.exerciseDetail!.description,
+
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(height: 20),
+                              Container(
+                                color: const Color.fromARGB(255, 46, 161, 226),
+                                height: MediaQuery.of(context).size.height / 2.5,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 0, vertical: 0),
+                                  child: _vidController.value.isInitialized
+                                      ? Column(children: <Widget>[
                                     const SizedBox(height: 10),
                                     const Text("Video hướng dẫn",
                                         style: TextStyle(
@@ -163,7 +178,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                     SizedBox(
                                       child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                         children: [
                                           IconButton(
                                             onPressed: () {
@@ -202,7 +217,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                                       _vidController,
                                                       allowScrubbing: true,
                                                       padding: const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           vertical: 0,
                                                           horizontal: 7)))),
                                           Text(
@@ -218,7 +233,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                                       builder: (context) =>
                                                           LandScapePage(
                                                               controller:
-                                                                  _vidController)));
+                                                              _vidController)));
                                             },
                                             icon: const Icon(
                                               Icons.fullscreen,
@@ -230,19 +245,21 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                       ),
                                     )
                                   ])
-                                : const Center(
+                                      : const Center(
                                     child: CircularProgressIndicator(
                                         color: Colors.white),
                                   ),
-                          ),
-                        ),
-                      ],
-                    )),
-                  ],
+                                ),
+                              ),
+                            ],
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
-        ));
+              )
+            ],
+          ));
+    }
+
   }
 }
