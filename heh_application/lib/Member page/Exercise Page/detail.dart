@@ -7,7 +7,7 @@ import 'package:video_player/video_player.dart';
 import '../../services/firebase_firestore.dart';
 
 class ExerciseDetail extends StatefulWidget {
-   ExerciseDetail({Key? key, this.exerciseDetail1}) : super(key: key);
+  ExerciseDetail({Key? key, this.exerciseDetail1}) : super(key: key);
   ExerciseDetail1? exerciseDetail1;
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
@@ -71,7 +71,6 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: Colors.white,
         body: CustomScrollView(
@@ -86,10 +85,10 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     preferredSize: const Size.fromHeight(0),
                     child: Container(
                       color: const Color.fromARGB(255, 46, 161, 226),
-                      child:  Center(
+                      child: Center(
                           child: Text(
                         widget.exerciseDetail1!.detailName!,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 23,
                           color: Colors.white,
                           // fontFamily: "Times New Roman",
@@ -102,22 +101,20 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 pinned: true,
                 expandedHeight: 200,
                 flexibleSpace: FutureBuilder<String>(
-                  future:FirebaseFirestores().getImage('lung1.png') ,
-                  builder: (context, snapshot)
-                   {
-                     if (snapshot.hasData){
-                       return FlexibleSpaceBar(
-                         //     background: Image.asset(
-                         //   "assets/images/Exer.png",
-                         //   width: double.maxFinite,
-                         //   fit: BoxFit.cover,
-                         // )
-                         background: Image.network(snapshot.data!),
-                       );
-                     }
-                    return CircularProgressIndicator();
-                  }
-                )),
+                    future: FirebaseFirestores().getImage('lung1.png'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return FlexibleSpaceBar(
+                          //     background: Image.asset(
+                          //   "assets/images/Exer.png",
+                          //   width: double.maxFinite,
+                          //   fit: BoxFit.cover,
+                          // )
+                          background: Image.network(snapshot.data!),
+                        );
+                      }
+                      return const CircularProgressIndicator();
+                    })),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -128,15 +125,15 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const SizedBox(height: 10),
-                         Center(
+                        const Center(
                           child: Text(
                             "Thông tin bài tập",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                         Text(
+                        Text(
                           widget.exerciseDetail1!.description,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 20),
                         Container(

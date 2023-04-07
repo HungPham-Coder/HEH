@@ -37,7 +37,7 @@ class _ViewExerciseState extends State<ViewExercise> {
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Column(
           children: [
             FutureBuilder<List<ExerciseDetail1>>(
@@ -46,7 +46,7 @@ class _ViewExerciseState extends State<ViewExercise> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
@@ -67,7 +67,7 @@ class _ViewExerciseState extends State<ViewExercise> {
                       },
                     );
                   } else {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                 }),
           ],
@@ -91,7 +91,7 @@ class DetailMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(
           style: ButtonStyle(
               backgroundColor:
@@ -122,8 +122,8 @@ class DetailMenu extends StatelessWidget {
                 children: <Widget>[
                   IconButton(
                       onPressed: press,
-                      icon: Image.asset(
-                        "assets/icons/magnifying_glass.png",
+                      icon: Image.network(
+                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fmagnifying_glass.png?alt=media&token=ee59d008-812e-4b5a-8871-28504e5bdc82",
                         color: Colors.black,
                       )),
                 ],

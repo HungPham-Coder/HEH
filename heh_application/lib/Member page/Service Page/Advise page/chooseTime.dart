@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ChooseClockPage extends StatefulWidget {
-  const ChooseClockPage({Key? key}) : super(key: key);
+class ChooseTimePage extends StatefulWidget {
+  const ChooseTimePage({Key? key}) : super(key: key);
 
   @override
-  State<ChooseClockPage> createState() => _ChooseClockPageState();
+  State<ChooseTimePage> createState() => _ChooseTimePageState();
 }
 
-class _ChooseClockPageState extends State<ChooseClockPage> {
+class _ChooseTimePageState extends State<ChooseTimePage> {
   final TextEditingController _date = TextEditingController();
 
   @override

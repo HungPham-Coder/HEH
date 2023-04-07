@@ -27,7 +27,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,10 +109,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
+                      Row(children: const [
+                        Text("Ngày sinh "),
+                        Text("*", style: TextStyle(color: Colors.red))
+                      ]),
                       TextField(
+                        readOnly: true,
                         controller: _date,
                         decoration: const InputDecoration(
-                          labelText: "Ngày sinh ",
+                          hintText: "Ngày sinh",
                         ),
                         onTap: () async {
                           DateTime? pickeddate = await showDatePicker(
