@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/payment.dart';
+import 'package:heh_application/models/physiotherapist.dart';
+import 'package:heh_application/models/slot.dart';
+import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
 
 class ChooseDetailpage extends StatefulWidget {
-  const ChooseDetailpage({Key? key}) : super(key: key);
-
+  ChooseDetailpage({Key? key, required this.physiotherapist}) : super(key: key);
+  Physiotherapist physiotherapist;
   @override
   State<ChooseDetailpage> createState() => _ChooseDetailpageState();
 }
@@ -27,33 +30,54 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            const PhysioProfile(
+            PhysioProfile(
                 image:
                     "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
                 phy: "Chuyên viên",
-                name: "Phạm Phú Minh Hưng",
-                specialize: "Chuyên môn: PHCN thần kinh cơ.",
-                experience:
-                    "Kinh nghiệm: Có khả năng giao tiếp, ngoại hình tốt.",
+                name: widget.physiotherapist.signUpUser.firstName!,
+                specialize: "Chuyên môn: ${widget.physiotherapist.specialize}",
+                experience: "Kinh nghiệm: ${widget.physiotherapist.skill}",
                 time: "Thời gian làm việc: 10:00 AM - 12:00 AM"),
             const SizedBox(height: 20),
             Center(
                 child: Text("Khung giờ",
                     style: Theme.of(context).textTheme.headline6)),
             const SizedBox(height: 5),
-            PhysioChooseMenu(
-              icon:
-                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-              name: "Slot 1",
-              time: "Khung giờ: ",
-              during: "10:00 AM - 11:00 AM",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PaymentPage()));
-              },
-            ),
+            FutureBuilder<List<Slot>>(
+                future: CallAPI().getallSlotByPhysiotherapistID(
+                    widget.physiotherapist.physiotherapistID),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData){
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return PhysioChooseMenu(
+                          icon:
+                          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+                          name: snapshot.data![index].slotName,
+                          time: "Khung giờ: ",
+                          timeStart:'${snapshot.data![index].timeStart}',
+                          timeEnd: '${snapshot.data![index].timeEnd}',
+                          price: snapshot.data![index].price,
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const PaymentPage()));
+                          },
+                        );
+                      },
+                    );
+                  }
+                  else {
+                    return Container(
+                      child: Text("Physio dang ban het tat ca cac slot"),
+                    );
+                  }
+
+                }),
           ],
         ),
       ),
@@ -143,17 +167,21 @@ class PhysioProfile extends StatelessWidget {
 }
 
 class PhysioChooseMenu extends StatelessWidget {
-  const PhysioChooseMenu({
+   PhysioChooseMenu({
     Key? key,
+     required this.price,
     required this.time,
-    required this.during,
+    required this.timeStart,
+    required this.timeEnd,
     required this.name,
     required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String during, icon, name, time;
+  final String icon, name, time;
   final VoidCallback? press;
+  String timeStart, timeEnd;
+  double? price;
 
   @override
   Widget build(BuildContext context) {
@@ -193,26 +221,33 @@ class PhysioChooseMenu extends StatelessWidget {
                     const SizedBox(width: 10),
                     SizedBox(
                         width: MediaQuery.of(context).size.width / 1.6,
-                        height: 50,
+
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Text(
-                                name,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
+                            Text(
+                              name,
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
-                            Row(children: [
-                              Text(
-                                time,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              Text(
-                                during,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ]),
+                            // SizedBox(
+                            //   height: 10,
+                            // ),
+                            Text(
+                              '$time : $timeStart - $timeEnd',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            Text(
+                              '$price',
+                            ),
+
+                            // Text(
+                            //   timeStart ,
+                            //   style: Theme.of(context).textTheme.bodyMedium,
+                            // ),
+                            // Text(
+                            //   timeEnd ,
+                            //   style: Theme.of(context).textTheme.bodyMedium,
+                            // ),
                           ],
                         )),
                     const Padding(
