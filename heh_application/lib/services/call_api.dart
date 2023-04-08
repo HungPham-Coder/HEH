@@ -361,6 +361,27 @@ class CallAPI {
       throw Exception('Failed to load Physiotherapist');
     }
   }
+  Future<List<Physiotherapist>> getAllActivePhysiotherapist() async {
+    var url = Uri.parse('${link}/api/Physiotherapist/GetAllActivePhysiotherapist');
+    // var url = Uri.https('localhost:7166', 'api/Physiotherapist');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<Physiotherapist> list = List<Physiotherapist>.from(
+          jsonResult.map((model) => Physiotherapist.fromMap(model)));
+      if (list == null) {
+        throw Exception('Active Physiotherapist List null');
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load Active Physiotherapist');
+    }
+  }
 
   Future<List<Schedule>> getAllSchedule() async {
     var url = Uri.parse('${link}/api/Schedule');
@@ -381,6 +402,54 @@ class CallAPI {
       }
     } else {
       throw Exception('Failed to load Schedule');
+    }
+  }
+  Future<List<Slot>> getallSlotByPhysiotherapistID(String physiotherapistID) async {
+    var url = Uri.parse('${link}/api/Schedule/getAllSlotByPhysiotherapistID/$physiotherapistID');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<Slot> list = List<Slot>.from(
+          jsonResult.map((model) => Slot.fromMap(model)));
+
+      if (list == null) {
+        throw Exception('Slot List null');
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load Slot List');
+    }
+  }
+  Future<List<Physiotherapist>> getallPhysiotherapistBySlotID(String slotID) async {
+    var url = Uri.parse('${link}/api/Schedule/getAllPhysiotherapistBySlotID/$slotID');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<Physiotherapist> list = List<Physiotherapist>.from(
+          jsonResult.map((model) => Physiotherapist.fromMap(model)));
+
+      if (list == null) {
+        throw Exception('Physiotherapist List null');
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load Physiotherapist List');
     }
   }
 

@@ -109,11 +109,11 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
                           name: "Phạm Phú Minh Hưng",
                           time: "Khung giờ: ",
                           press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ChooseDetailpage()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             const ChooseDetailpage()));
                           },
                         ),
                       ),
