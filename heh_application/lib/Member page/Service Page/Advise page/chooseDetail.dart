@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/payment.dart';
-import 'package:intl/intl.dart';
 
 class ChooseDetailpage extends StatefulWidget {
   const ChooseDetailpage({Key? key}) : super(key: key);
@@ -28,14 +27,14 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
           children: [
             const SizedBox(height: 20),
             const PhysioProfile(
-                image:
-                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                phy: "Chuyên viên",
-                name: "Phạm Phú Minh Hưng",
-                specialize: "Chuyên môn: PHCN thần kinh cơ.",
-                experience:
-                    "Kinh nghiệm: Có khả năng giao tiếp, ngoại hình tốt.",
-                time: "Thời gian làm việc: 10:00 AM - 12:00 AM"),
+              image:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+              phy: "Chuyên viên",
+              name: "Phạm Phú Minh Hưng",
+              specialize: "Chuyên môn: PHCN thần kinh cơ.",
+              experience:
+                  "Kinh nghiệm: Có khả năng giao tiếp, ngoại hình tốt.",
+            ),
             const SizedBox(height: 20),
             Center(
                 child: Text("Khung giờ",
@@ -45,8 +44,7 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
               icon:
                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
               name: "Slot 1",
-              time: "Khung giờ: ",
-              during: "10:00 AM - 11:00 AM",
+              time: "Khung giờ: 10:00 AM - 11:00 AM",
               press: () {
                 Navigator.push(
                     context,
@@ -69,10 +67,9 @@ class PhysioProfile extends StatelessWidget {
     required this.name,
     required this.specialize,
     required this.experience,
-    required this.time,
   }) : super(key: key);
 
-  final String image, specialize, experience, time, name, phy;
+  final String image, specialize, experience, name, phy;
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +127,6 @@ class PhysioProfile extends StatelessWidget {
                       Text(specialize),
                       const SizedBox(height: 20),
                       Text(experience),
-                      const SizedBox(height: 20),
-                      Text(time),
                     ],
                   ))
             ],
@@ -146,13 +141,12 @@ class PhysioChooseMenu extends StatelessWidget {
   const PhysioChooseMenu({
     Key? key,
     required this.time,
-    required this.during,
     required this.name,
     required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String during, icon, name, time;
+  final String icon, name, time;
   final VoidCallback? press;
 
   @override
@@ -197,22 +191,15 @@ class PhysioChooseMenu extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Text(
-                                name,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
+                            Text(
+                              name,
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
-                            Row(children: [
-                              Text(
-                                time,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              Text(
-                                during,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ]),
+                            const SizedBox(height: 10),
+                            Text(
+                              time,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
                           ],
                         )),
                     const Padding(

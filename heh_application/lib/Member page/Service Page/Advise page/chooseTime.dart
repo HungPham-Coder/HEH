@@ -35,46 +35,52 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
                     children: [
                       const SizedBox(height: 10),
                       CurrentTime(),
-                      const SizedBox(height: 20),
-                      relationship(),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
+                      const relationship(),
+                      const SizedBox(height: 10),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: category(),
                       ),
                       const SizedBox(height: 10),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ClockMenu(
-                            label: "Bắt đâu",
+                          Column(
+                            children: [
+                              ClockMenu(
+                                label: "Chọn",
+                                time: "Thời gian bắt đầu:",
+                              ),
+                              ClockMenu(
+                                label: "Chọn",
+                                time: "Thời gian kết thúc:",
+                              ),
+                            ],
                           ),
-                          ClockMenu(
-                            label: "Kết thúc",
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 15),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      const EdgeInsets.all(13)),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        side: const BorderSide(
+                                            color: Colors.white)),
+                                  )),
+                              onPressed: () {},
+                              child: const Text(
+                                "Tìm kiếm",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
                           ),
                         ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 15),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(13)),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    side:
-                                        const BorderSide(color: Colors.white)),
-                              )),
-                          onPressed: () {},
-                          child: const Text(
-                            "Tìm kiếm",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -102,7 +108,6 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
                               "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
                           name: "Phạm Phú Minh Hưng",
                           time: "Khung giờ: ",
-                          during: "10:00 AM - 12:00 AM",
                           press: () {
                             Navigator.push(
                                 context,
@@ -123,9 +128,10 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
 }
 
 class ClockMenu extends StatefulWidget {
-  ClockMenu({Key? key, required this.label}) : super(key: key);
+  ClockMenu({Key? key, required this.label, required this.time})
+      : super(key: key);
 
-  String label;
+  String label, time;
 
   @override
   State<ClockMenu> createState() => _ClockMenuState();
@@ -139,44 +145,53 @@ class _ClockMenuState extends State<ClockMenu> {
     final hours = time.hour.toString().padLeft(2, '0');
     final minutes = time.minute.toString().padLeft(2, '0');
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                child: Text("${hours}:${minutes}",
-                    style: const TextStyle(fontSize: 18)),
-              )),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(widget.time, style: const TextStyle(fontSize: 15)),
         ),
-        ElevatedButton(
-            child: Text(widget.label),
-            onPressed: () async {
-              TimeOfDay? newtime = await showTimePicker(
-                // builder: (context, child) {
-                //   return MediaQuery(
-                //       data: MediaQuery.of(context)
-                //           .copyWith(alwaysUse24HourFormat: false),
-                //       child: child!);
-                // },
-                context: context,
-                initialTime: time,
-                cancelText: "Hủy",
-                confirmText: "Chấp nhận",
-                helpText: "Chọn khung giờ",
-                hourLabelText: "Giờ",
-                minuteLabelText: "Phút",
-              );
-              if (newtime == null) {
-                return;
-              }
-              setState(() => time = newtime);
-            })
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    child: Text("${hours}:${minutes}",
+                        style: const TextStyle(fontSize: 18)),
+                  )),
+            ),
+            ElevatedButton(
+                child: Text(widget.label),
+                onPressed: () async {
+                  TimeOfDay? newtime = await showTimePicker(
+                    // builder: (context, child) {
+                    //   return MediaQuery(
+                    //       data: MediaQuery.of(context)
+                    //           .copyWith(alwaysUse24HourFormat: false),
+                    //       child: child!);
+                    // },
+                    context: context,
+                    initialTime: time,
+                    cancelText: "Hủy",
+                    confirmText: "Chấp nhận",
+                    helpText: "Chọn khung giờ",
+                    hourLabelText: "Giờ",
+                    minuteLabelText: "Phút",
+                  );
+                  if (newtime == null) {
+                    return;
+                  }
+                  setState(() => time = newtime);
+                })
+          ],
+        ),
       ],
     );
   }
@@ -186,13 +201,12 @@ class PhysioChooseMenu extends StatelessWidget {
   const PhysioChooseMenu({
     Key? key,
     required this.time,
-    required this.during,
     required this.name,
     required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String during, icon, name, time;
+  final String icon, name, time;
   final VoidCallback? press;
 
   @override
@@ -237,22 +251,15 @@ class PhysioChooseMenu extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Text(
-                                name,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
+                            Text(
+                              name,
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
-                            Row(children: [
-                              Text(
-                                time,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              Text(
-                                during,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ]),
+                            const SizedBox(height: 10),
+                            Text(
+                              time,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
                           ],
                         )),
                     const Padding(
@@ -349,6 +356,11 @@ class _categoryState extends State<category> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(children: const [
+          Text("Vấn đề của bạn "),
+          Text("* ", style: TextStyle(color: Colors.red))
+        ]),
+        const SizedBox(height: 5),
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -365,10 +377,12 @@ class _categoryState extends State<category> {
                 cancelText: const Text("Hủy", style: TextStyle(fontSize: 18)),
                 initialChildSize: 0.4,
                 title: const Text("Vấn đề của bạn"),
-                buttonText: const Text(
-                  "Vấn đề của bạn",
-                  style: TextStyle(color: Colors.grey, fontSize: 15),
-                ),
+                buttonText: _selectedProblems.isEmpty
+                    ? const Text(
+                        "Vấn đề của bạn",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      )
+                    : const Text(""),
                 items: _problems
                     .map((e) => MultiSelectItem<Problem?>(e, e.name))
                     .toList(),
@@ -480,7 +494,7 @@ class _relationshipState extends State<relationship> {
     "Cháu",
     "Ông nội",
     "Bà nội",
-    "ông Ngoại",
+    "Ông Ngoại",
     "Bà ngoại"
   ];
   String? selectedRelationship = "- Chọn -";
@@ -501,7 +515,7 @@ class _relationshipState extends State<relationship> {
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: 60,
+            height: 55,
             child: SizedBox(
               child: DropdownButtonFormField<String>(
                 decoration: const InputDecoration(
@@ -511,9 +525,12 @@ class _relationshipState extends State<relationship> {
                 items: _relationships
                     .map((relationship) => DropdownMenuItem<String>(
                         value: relationship,
-                        child: Text(
-                          relationship,
-                          style: const TextStyle(fontSize: 15),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            relationship,
+                            style: const TextStyle(fontSize: 15),
+                          ),
                         )))
                     .toList(),
                 onChanged: (relationship) => setState(() {

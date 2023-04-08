@@ -19,28 +19,6 @@ class ExerciseDetail extends StatefulWidget {
 
 class _ExerciseDetailState extends State<ExerciseDetail> {
   late VideoPlayerController _vidController;
-  // int _currentIndex = 0;
-
-  // void _playVideo({int index = 0, bool init = false}) {
-  //   if (index < 0 || index >= videos.length) return;
-
-  //   _vidController = VideoPlayerController.network(videos[_currentIndex].url)
-  //     ..addListener(() => setState(() {}))
-  //     ..setLooping(true)
-  //     ..initialize().then((value) => _vidController.play());
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _playVideo(init: true);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _vidController.dispose();
-  //   super.dispose();
-  // }
 
   String _videoDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
@@ -88,8 +66,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                actions: [
-                  const Padding(
+                actions: const [
+                  Padding(
                     padding: EdgeInsets.only(right: 10),
                     child: Icon(Icons.favorite_border, size: 30),
                   )

@@ -31,8 +31,8 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
               icon:
                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
               name: "Phạm Phú Minh Hưng",
-              time: "Khung giờ: ",
-              during: "10:00 AM - 12:00 AM",
+              skill:
+                  "10:00 AM - 12:00 AM10:00 AM - 12:00 AM10:00 AM - 12:00 AM10:00 AM - 12:00 AM",
               press: () {
                 Navigator.push(
                     context,
@@ -73,14 +73,13 @@ class Category extends StatelessWidget {
 class PhysioChooseMenu extends StatelessWidget {
   const PhysioChooseMenu({
     Key? key,
-    required this.time,
-    required this.during,
+    required this.skill,
     required this.name,
     required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String during, icon, name, time;
+  final String skill, icon, name;
   final VoidCallback? press;
 
   @override
@@ -121,28 +120,19 @@ class PhysioChooseMenu extends StatelessWidget {
                     const SizedBox(width: 10),
                     SizedBox(
                         width: MediaQuery.of(context).size.width / 1.6,
-                        height: 50,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
                                 name,
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
-                            ),
-                            Row(children: [
+                              const SizedBox(height: 10),
                               Text(
-                                time,
+                                skill,
                                 style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              Text(
-                                during,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ]),
-                          ],
-                        )),
+                              )
+                            ])),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Icon(Icons.arrow_forward_ios_rounded),
