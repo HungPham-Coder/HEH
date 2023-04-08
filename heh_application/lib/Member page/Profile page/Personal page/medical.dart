@@ -290,6 +290,10 @@ Widget injury({label, obscureText = false}) {
                 fontWeight: FontWeight.w400,
                 color: Colors.black87),
           ),
+          const Text(
+            " *",
+            style: TextStyle(color: Colors.red),
+          ),
         ],
       ),
       const SizedBox(height: 5),

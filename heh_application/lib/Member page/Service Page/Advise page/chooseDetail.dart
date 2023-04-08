@@ -26,7 +26,6 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CurrentTime(),
             const SizedBox(height: 20),
             const PhysioProfile(
                 image:
@@ -191,9 +190,9 @@ class PhysioChooseMenu extends StatelessWidget {
                       width: 40,
                       height: 50,
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.55,
+                        width: MediaQuery.of(context).size.width / 1.6,
                         height: 50,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,29 +224,6 @@ class PhysioChooseMenu extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CurrentTime extends StatelessWidget {
-  CurrentTime({Key? key}) : super(key: key);
-  final TextEditingController _date = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      readOnly: true,
-      controller: _date,
-      onTap: () async {
-        DateTime? pickeddate = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1960),
-            lastDate: DateTime(2030));
-        if (pickeddate != null) {
-          _date.text = DateFormat.yMMMMEEEEd().format(DateTime.now());
-        }
-      },
     );
   }
 }

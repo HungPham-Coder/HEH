@@ -129,57 +129,38 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                               .toList(),
                           listType: MultiSelectListType.CHIP,
                           searchable: true,
-                          // initialValue: [],
-
                           onConfirm: (values) {
-                            // _itemChange(values, true);
-
                             setState(() {
-                              // if (values == null) {
-                              //   values.add(Problem(name: 'abc'));
-                              //
-                              // }
-
                               _selectedProblems = values;
                               int counter = 0;
 
                               _selectedProblems.forEach((element) {
-                                if (element!.name.contains("Khác")){
-
-                                  counter ++;
-
+                                if (element!.name.contains("Khác")) {
+                                  counter++;
                                 }
-
                               });
                               if (counter > 0) {
                                 _visibility = true;
-                              }
-                              else {
+                              } else {
                                 _visibility = false;
                               }
-
                             });
                           },
                           chipDisplay: MultiSelectChipDisplay(onTap: (values) {
                             setState(
                               () {
-
                                 _itemChange(values!, false);
                                 int counter = 0;
                                 _selectedProblems.forEach((element) {
-                                  if (element!.name.contains("Khác")){
-                                    counter ++;
-
+                                  if (element!.name.contains("Khác")) {
+                                    counter++;
                                   }
-
                                 });
                                 if (counter == 0) {
                                   _visibility = false;
-                                }
-                                else {
+                                } else {
                                   _visibility = true;
                                 }
-
                               },
                             );
                           }),
@@ -208,7 +189,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () async {
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -264,16 +244,18 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () async {
-                            String problem = ''  ;
+                            String problem = '';
                             _selectedProblems.forEach((element) {
                               problem += '${element!.name},';
                             });
 
-                            String userID = await CallAPI().callRegisterAPI(widget.signUpUser);
+                            String userID = await CallAPI()
+                                .callRegisterAPI(widget.signUpUser);
                             MedicalRecord medicalRecord = MedicalRecord(
                               subProfileID: null,
                               userID: userID,
-                              categoryID: '147843e2-f691-4867-b3f6-afccf2338ceb',
+                              categoryID:
+                                  '147843e2-f691-4867-b3f6-afccf2338ceb',
                               problem: problem,
                               curing: _curing.text,
                               difficulty: _difficult.text,

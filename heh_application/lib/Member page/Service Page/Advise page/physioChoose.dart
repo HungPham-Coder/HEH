@@ -118,9 +118,9 @@ class PhysioChooseMenu extends StatelessWidget {
                       width: 40,
                       height: 50,
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.55,
+                        width: MediaQuery.of(context).size.width / 1.6,
                         height: 50,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
