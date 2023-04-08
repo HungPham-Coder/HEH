@@ -123,6 +123,7 @@ class BackMenu extends StatelessWidget {
             children: [
               Image.network(
                 icon,
+                height: 60,
                 width: 60,
               ),
               const SizedBox(

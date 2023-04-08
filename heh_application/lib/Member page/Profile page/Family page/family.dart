@@ -28,10 +28,11 @@ class _FamilyPageState extends State<FamilyPage> {
             children: [
               const SizedBox(height: 20),
               ProfileMenu(
-                icon: "assets/icons/person.svg",
+                icon:
+                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.svg?alt=media&token=7bef043d-fdb5-4c5b-bb2e-644ee7682345",
                 name: "Phạm Phú Minh Hưng",
                 relationship: "Tôi - ",
-                text: " 23 tuổi",
+                text: "23 tuổi",
                 press: () {
                   Navigator.push(
                       context,
@@ -87,7 +88,7 @@ class ProfileMenu extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SvgPicture.asset(
+              SvgPicture.network(
                 icon,
                 width: 40,
                 color: const Color.fromARGB(255, 46, 161, 226),
@@ -107,18 +108,16 @@ class ProfileMenu extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Text(
-                              relationship,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
+                          Text(
+                            relationship,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          Expanded(
-                            child: Text(
-                              text,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
+                          Text(
+                            text,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       ),

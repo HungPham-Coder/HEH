@@ -28,7 +28,8 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
         child: Column(
           children: [
             HomeMenu(
-              icon: "assets/icons/exercise.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fexercise.png?alt=media&token=f9b0b759-2f11-431e-b821-f695bd62e78c",
               text: "Danh sách bài tập",
               press: () {
                 Navigator.push(
@@ -38,7 +39,8 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
               },
             ),
             HomeMenu(
-              icon: "assets/icons/calendar.png",
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcalendar.png?alt=media&token=45426216-f7a3-449b-8a91-05582ebc1339",
               text: "Đăng ký lịch tư vấn",
               press: () {
                 Navigator.push(
@@ -83,9 +85,10 @@ class HomeMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 icon,
                 width: 60,
+                height: 60,
               ),
               const SizedBox(
                 width: 20,

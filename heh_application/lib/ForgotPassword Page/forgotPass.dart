@@ -107,6 +107,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
         const SizedBox(height: 5),
         IntlPhoneField(
+          keyboardType: TextInputType.phone,
           controller: _phoneController,
           obscureText: obscureText,
           decoration: const InputDecoration(

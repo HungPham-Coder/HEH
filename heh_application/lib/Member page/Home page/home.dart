@@ -54,29 +54,28 @@ class _HomePageState extends State<HomePage> {
                 future: CallAPI().getAllCategory(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ListView.builder (
+                    return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index)  {
+                      itemBuilder: (context, index) {
                         String iconName = "";
 
-                          iconName = "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fknee.png?alt=media&token=47fffdae-d388-4215-aff9-239de7988053";
+                        iconName =
+                            "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fknee.png?alt=media&token=47fffdae-d388-4215-aff9-239de7988053";
 
-                             return  HomeMenu(
-                              icon:
-                             iconName,
-                              text: "${snapshot.data![index].categoryName}",
-                              press: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CategoryPage(
-                                            categoryID:
-                                                snapshot.data![index].categoryID)));
-                              },
-                            );
-
+                        return HomeMenu(
+                          icon: iconName,
+                          text: "${snapshot.data![index].categoryName}",
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CategoryPage(
+                                        categoryID:
+                                            snapshot.data![index].categoryID)));
+                          },
+                        );
                       },
                     );
                   } else {
@@ -122,6 +121,7 @@ class HomeMenu extends StatelessWidget {
               Image.network(
                 icon,
                 width: 60,
+                height: 60,
               ),
               const SizedBox(
                 width: 20,

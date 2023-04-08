@@ -81,6 +81,7 @@ class BackMenu extends StatelessWidget {
               Image.asset(
                 icon,
                 width: 60,
+                height: 60,
               ),
               const SizedBox(
                 width: 20,

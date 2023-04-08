@@ -24,7 +24,7 @@ class _PhyNavigation_barState extends State<PhyNavigation_bar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: pageIndex, children: pageList),
+      body: pageList[pageIndex],
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
           fixedColor: Colors.white,

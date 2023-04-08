@@ -79,7 +79,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
     if (widget.exerciseDetail == null) {
       return Scaffold(
         body: Container(
-          child: Text("Khong co exercise"),
+          child: const Text("Khong co exercise"),
         ),
       );
     } else {
@@ -88,46 +88,24 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                  toolbarHeight: 45,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [Icon(Icons.favorite_border, size: 40)],
+                actions: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: Icon(Icons.favorite_border, size: 30),
+                  )
+                ],
+                toolbarHeight: 45,
+                title: Text(
+                  widget.exerciseDetail!.detailName!,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    // fontFamily: "Times New Roman",
                   ),
-                  bottom: PreferredSize(
-                      preferredSize: const Size.fromHeight(0),
-                      child: Container(
-                        color: const Color.fromARGB(255, 46, 161, 226),
-                        child: Center(
-                            child: Text(
-                          widget.exerciseDetail!.detailName!,
-                          style: TextStyle(
-                            fontSize: 23,
-                            color: Colors.white,
-                            // fontFamily: "Times New Roman",
-                          ),
-                        )),
-                        width: double.maxFinite,
-                        padding: const EdgeInsets.only(top: 5, bottom: 10),
-                      )),
-                  backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-                  pinned: true,
-                  expandedHeight: 200,
-                  flexibleSpace: FutureBuilder<String>(
-                      future: FirebaseFirestores()
-                          .getImageUrl(widget.exerciseResource!.imageURL!),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return FlexibleSpaceBar(
-                            //     background: Image.asset(
-                            //   "assets/images/Exer.png",
-                            //   width: double.maxFinite,
-                            //   fit: BoxFit.cover,
-                            // )
-                            background: Image.network(snapshot.data!),
-                          );
-                        }
-                        return CircularProgressIndicator();
-                      })),
+                ),
+                backgroundColor: const Color.fromARGB(255, 46, 161, 226),
+                expandedHeight: 20,
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -146,9 +124,22 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                           ),
                           Text(
                             widget.exerciseDetail!.description,
-                            style: TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: FutureBuilder<String>(
+                                  future: FirebaseFirestores().getImageUrl(
+                                      widget.exerciseResource!.imageURL!),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Image.network(snapshot.data!);
+                                    }
+                                    return const CircularProgressIndicator();
+                                  }),
+                            ),
+                          ),
                           Container(
                             color: const Color.fromARGB(255, 46, 161, 226),
                             height: MediaQuery.of(context).size.height / 2.5,
@@ -171,7 +162,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 12),
+                                      const SizedBox(height: 10),
                                       SizedBox(
                                         child: Row(
                                           crossAxisAlignment:
@@ -209,7 +200,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                                 }),
                                             Expanded(
                                                 child: SizedBox(
-                                                    height: 20,
+                                                    height: 15,
                                                     child: VideoProgressIndicator(
                                                         _vidController,
                                                         allowScrubbing: true,
@@ -218,7 +209,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                                                     .symmetric(
                                                                 vertical: 0,
                                                                 horizontal:
-                                                                    7)))),
+                                                                    5)))),
                                             Text(
                                                 _videoDuration(_vidController
                                                     .value.duration),
