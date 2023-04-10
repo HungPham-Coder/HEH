@@ -17,7 +17,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   genderGroup _genderValue = genderGroup.male;
-
+   DateTime? dob;
   final TextEditingController _date = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
@@ -127,8 +127,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               firstDate: DateTime(1960),
                               lastDate: DateTime(2030));
                           if (pickeddate != null) {
+                            print(pickeddate.day);
                             _date.text =
-                                DateFormat('yyyy-MM-dd').format(pickeddate);
+                                DateFormat('dd-MM-yyyy').format(pickeddate);
+                            dob = pickeddate;
+
                             print(_date.text);
                           }
                         },
@@ -178,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         padding: const EdgeInsets.only(top: 20),
                         child: MaterialButton(
                           height: 50,
-                          onPressed: () {
+                          onPressed: () async {
                             bool gender = false;
                             if (_genderValue.index == 0) {
                               gender = true;
@@ -191,10 +194,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 phone: _phone.text,
                                 address: _address.text,
                                 gender: gender,
-                                dob: DateTime.parse(_date.text),
+                                dob: dob,
                                 password: _password.text,
                                 role: 'Member',
                                 username: _phone.text);
+                            await CallAPI()
+                                .callRegisterAPI(signUpUser);
 
                             Navigator.push(
                               context,
