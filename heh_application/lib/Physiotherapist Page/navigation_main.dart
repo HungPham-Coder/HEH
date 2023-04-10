@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/feature.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/home.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Profile%20Page/setting.dart';
-import 'package:heh_application/Physiotherapist%20Page/messenger.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/notification.dart';
 
 // ignore: camel_case_types
 class PhyNavigation_bar extends StatefulWidget {
@@ -17,7 +19,8 @@ class _PhyNavigation_barState extends State<PhyNavigation_bar> {
   int pageIndex = 0;
   List<Widget> pageList = <Widget>[
     const PhysioHomePage(),
-    const PhysioMessenger(),
+    const FeaturePage(),
+    const NotificationPage(),
     const PhysioSettingPage(),
   ];
 
@@ -35,16 +38,14 @@ class _PhyNavigation_barState extends State<PhyNavigation_bar> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(
                 icon: Icon(Icons.home), label: "Trang chủ"),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset("assets/icons/message.svg",
-                    width: 25, height: 25),
-                activeIcon: SvgPicture.asset("assets/icons/message.svg",
-                    width: 25, height: 25, color: Colors.white),
-                label: "Tin nhắn"),
-            const BottomNavigationBarItem(
+                icon: Icon(Icons.featured_play_list), label: "Tính năng"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.notifications), label: "Thông báo"),
+            BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Cài đặt"),
           ]),
     );

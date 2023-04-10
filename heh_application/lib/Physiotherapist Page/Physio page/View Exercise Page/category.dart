@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/view.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
+import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/detail.dart';
+
+import 'package:heh_application/models/exercise_model/exercise.dart';
+import 'package:heh_application/models/exercise_model/exercise_detail.dart';
+import 'package:heh_application/models/exercise_resource.dart';
+import 'package:heh_application/services/auth.dart';
+import 'package:heh_application/services/call_api.dart';
+import 'package:provider/provider.dart';
 
 class PhysioCategoryPage extends StatefulWidget {
-  const PhysioCategoryPage({Key? key}) : super(key: key);
-
+  PhysioCategoryPage({Key? key, required this.categoryID}) : super(key: key);
+  String categoryID;
   @override
   State<PhysioCategoryPage> createState() => _PhysioCategoryPageState();
 }
@@ -11,11 +20,12 @@ class PhysioCategoryPage extends StatefulWidget {
 class _PhysioCategoryPageState extends State<PhysioCategoryPage> {
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Đau lưng",
+          "Các bài tập ",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -25,23 +35,54 @@ class _PhysioCategoryPageState extends State<PhysioCategoryPage> {
               },
               icon: const Icon(Icons.search)),
         ],
-        centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
+        physics: const ScrollPhysics(),
         child: Column(
           children: [
-            BackMenu(
-              icon: "assets/icons/backache.png",
-              text: "Bài tập linh hoạt",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PhysioViewPage()));
-              },
-            ),
+            FutureBuilder<List<Exercise>?>(
+                future: auth.getListExerciseByCategoryID(
+                    widget.categoryID, sharedResultLogin!.accessToken!),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        print(snapshot.data![index].exerciseName);
+                        return BackMenu(
+                          icon:
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbackache.png?alt=media&token=d725e1f5-c106-41f7-9ee5-ade77c464a54",
+                          text: "${snapshot.data![index].exerciseName}",
+                          press: () async {
+                            ExerciseDetail1 exerciseDetail = await CallAPI()
+                                .getExerciseDetailByExerciseID(
+                                    snapshot.data![index].exerciseID);
+                            ExerciseResource exerciseResource = await CallAPI()
+                                .getExerciseResourceByExerciseDetailID(
+                                    exerciseDetail.exerciseDetailID);
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              if (exerciseDetail != null) {
+                                return PhysioExerciseDetail1(
+                                  exerciseDetail: exerciseDetail,
+                                  exerciseResource: exerciseResource,
+                                );
+                              } else {
+                                return PhysioExerciseDetail1();
+                              }
+                            }));
+                          },
+                        );
+                      },
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                }),
           ],
         ),
       ),
@@ -78,10 +119,10 @@ class BackMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 icon,
-                width: 60,
                 height: 60,
+                width: 60,
               ),
               const SizedBox(
                 width: 20,

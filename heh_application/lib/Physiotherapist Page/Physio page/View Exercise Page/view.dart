@@ -1,21 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/detail.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/category.dart';
 
-class PhysioViewPage extends StatefulWidget {
-  const PhysioViewPage({Key? key}) : super(key: key);
+import 'package:heh_application/services/call_api.dart';
+
+import '../../../models/exercise_model/category.dart';
+
+class PhysioViewCategory extends StatefulWidget {
+  const PhysioViewCategory({Key? key}) : super(key: key);
 
   @override
-  State<PhysioViewPage> createState() => _PhysioViewPageState();
+  State<PhysioViewCategory> createState() => _PhysioViewCategoryState();
 }
 
-class _PhysioViewPageState extends State<PhysioViewPage> {
+class _PhysioViewCategoryState extends State<PhysioViewCategory> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // SignUpUser signUpUser = SignUpUser(firstName: '123',
+    //     lastName: 'abcdef',
+    //     phone: '1236548970',
+    //     password: '123456789',
+    //     email: '',
+    //     gender: false,
+    //     dob: '2023-03-27T16:56:43.443Z', username: '');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: true,
         title: const Text(
-          "Bài tập linh hoạt",
+          "Vấn đề",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -25,23 +45,43 @@ class _PhysioViewPageState extends State<PhysioViewPage> {
               },
               icon: const Icon(Icons.search)),
         ],
-        centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
+        physics: const ScrollPhysics(),
         child: Column(
           children: [
-            DetailMenu(
-              icon: "assets/icons/backache.png",
-              text: "Kéo giãn cơ tứ đầu",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PhysioExerciseDetail()));
-              },
-            ),
+            FutureBuilder<List<CategoryModel>>(
+                future: CallAPI().getAllCategory(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        String iconName = "";
+                        iconName =
+                            "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fknee.png?alt=media&token=47fffdae-d388-4215-aff9-239de7988053";
+                        return HomeMenu(
+                          icon: iconName,
+                          text: "${snapshot.data![index].categoryName}",
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PhysioCategoryPage(
+                                        categoryID:
+                                            snapshot.data![index].categoryID)));
+                          },
+                        );
+                      },
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                }),
           ],
         ),
       ),
@@ -49,8 +89,8 @@ class _PhysioViewPageState extends State<PhysioViewPage> {
   }
 }
 
-class DetailMenu extends StatelessWidget {
-  const DetailMenu({
+class HomeMenu extends StatelessWidget {
+  const HomeMenu({
     Key? key,
     required this.text,
     required this.icon,
@@ -62,8 +102,9 @@ class DetailMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: duplicate_ignore
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(
           style: ButtonStyle(
               backgroundColor:
@@ -77,29 +118,21 @@ class DetailMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 icon,
                 width: 60,
+                height: 60,
               ),
               const SizedBox(
                 width: 20,
-                height: 50,
+                height: 10,
               ),
               Expanded(
                   child: Text(
                 text,
                 style: Theme.of(context).textTheme.titleMedium,
               )),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                      onPressed: press,
-                      icon: Image.asset(
-                        "assets/icons/magnifying_glass.png",
-                        color: Colors.black,
-                      )),
-                ],
-              )
+              const Icon(Icons.arrow_forward_sharp),
             ],
           )),
     );

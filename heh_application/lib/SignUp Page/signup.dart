@@ -117,6 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         readOnly: true,
                         controller: _date,
                         decoration: const InputDecoration(
+                          hoverColor: Colors.black,
                           hintText: "Ngày sinh",
                         ),
                         onTap: () async {

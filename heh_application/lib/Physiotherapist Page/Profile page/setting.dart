@@ -43,7 +43,8 @@ class _SettingPageState extends State<SettingPage> {
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 const CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/profile.jpg"),
+                  backgroundImage: NetworkImage(
+                      "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
                 ),
               ],
             ),
@@ -51,19 +52,9 @@ class _SettingPageState extends State<SettingPage> {
           const SizedBox(height: 10),
           const Text("ABC", style: TextStyle(fontSize: 30)),
           const SizedBox(height: 20),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 90),
-          //   child: Row(
-          //     children: const <Widget>[
-          //       Text("Số dư TK: 123,456.78đ "),
-          //       Icon(
-          //         Icons.add_circle_outline_rounded,
-          //       ),
-          //     ],
-          //   ),
-          // ),
           ProfileMenu(
-            icon: "assets/icons/person.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.svg?alt=media&token=7bef043d-fdb5-4c5b-bb2e-644ee7682345",
             text: "Thông tin của bạn",
             press: () {
               Navigator.push(
@@ -72,9 +63,9 @@ class _SettingPageState extends State<SettingPage> {
                       builder: (context) => const PhysioPersonalPage()));
             },
           ),
-
           ProfileMenu(
-            icon: "assets/icons/history.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fhistory.svg?alt=media&token=13ed285f-0a27-4ee5-b984-bd73d5f15ac8",
             text: "Lịch sử giao dịch",
             press: () {
               Navigator.push(
@@ -84,7 +75,19 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           ProfileMenu(
-            icon: "assets/icons/history.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffeedback.svg?alt=media&token=247d726f-d502-4c36-bbc3-281facac98c8",
+            text: "Xem nhận xét",
+            press: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PhysioHistoryPage()));
+            },
+          ),
+          ProfileMenu(
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Freset.svg?alt=media&token=f574651a-977a-4eea-a07d-61fe296f5505",
             text: "Đặt lại mật khẩu",
             press: () {
               Navigator.push(
@@ -94,9 +97,10 @@ class _SettingPageState extends State<SettingPage> {
             },
           ),
           ProfileMenu(
-            icon: "assets/icons/logout.svg",
+            icon:
+                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Flogout.svg?alt=media&token=99ed3d5a-ec73-4a07-ac6f-2197f26829ef",
             text: "Đăng xuất",
-            press:signout,
+            press: signout,
           ),
         ],
       )),
@@ -140,7 +144,7 @@ class ProfileMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              SvgPicture.asset(
+              SvgPicture.network(
                 icon,
                 width: 30,
                 color: const Color.fromARGB(255, 46, 161, 226),

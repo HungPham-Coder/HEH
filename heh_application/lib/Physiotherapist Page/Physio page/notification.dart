@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PhysioMessenger extends StatefulWidget {
-  const PhysioMessenger({Key? key}) : super(key: key);
+class NotificationPage extends StatefulWidget {
+  const NotificationPage({Key? key}) : super(key: key);
 
   @override
-  State<PhysioMessenger> createState() => _PhysioMessengerState();
+  State<NotificationPage> createState() => _NotificationPageState();
 }
 
-class _PhysioMessengerState extends State<PhysioMessenger> {
+class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class _PhysioMessengerState extends State<PhysioMessenger> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "Tin nhắn",
+          "Thông báo",
           style: TextStyle(fontSize: 23),
         ),
         elevation: 10,

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Advise%20page/advisse.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/view.dart';
 
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/messenger.dart';
-
-class PhysioHomePage extends StatefulWidget {
-  const PhysioHomePage({Key? key}) : super(key: key);
+class FeaturePage extends StatefulWidget {
+  const FeaturePage({Key? key}) : super(key: key);
 
   @override
-  State<PhysioHomePage> createState() => _PhysioHomePageState();
+  State<FeaturePage> createState() => _FeaturePageState();
 }
 
-class _PhysioHomePageState extends State<PhysioHomePage> {
+class _FeaturePageState extends State<FeaturePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +16,7 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "Trang chủ",
+          "Tính năng",
           style: TextStyle(fontSize: 23),
         ),
         elevation: 10,
@@ -27,37 +25,26 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HomeMenu(
+            FeatureMenu(
               icon:
-                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fadvise.png?alt=media&token=73296749-85c7-415c-9287-eb044d23d6a1",
-              text: "Tư vấn một buổi",
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fexercise.png?alt=media&token=f9b0b759-2f11-431e-b821-f695bd62e78c",
+              text: "Danh sách bài tập",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const AdviseNotificationPage()));
+                        builder: (context) => const PhysioViewCategory()));
               },
             ),
-            HomeMenu(
+            FeatureMenu(
               icon:
-                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphysio.png?alt=media&token=dcc89b01-2c15-4808-87eb-4a2ecc9667a3",
-              text: "Điều trị lâu dài",
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcalendar.png?alt=media&token=45426216-f7a3-449b-8a91-05582ebc1339",
+              text: "Đăng ký lịch làm việc",
               press: () {
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
-                //         builder: (context) => const LongTermTreatment()));
-              },
-            ),
-            HomeMenu(
-              icon:
-                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcare.png?alt=media&token=0ce5dd58-bcaf-45a8-b277-05eaad8b89b8",
-              text: "Chăm sóc khách hàng",
-              press: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PhysioMessengerPage()));
+                //         builder: (context) => const PhysioCalendarPage()));
               },
             ),
           ],
@@ -67,8 +54,8 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
   }
 }
 
-class HomeMenu extends StatelessWidget {
-  const HomeMenu({
+class FeatureMenu extends StatelessWidget {
+  const FeatureMenu({
     Key? key,
     required this.text,
     required this.icon,
