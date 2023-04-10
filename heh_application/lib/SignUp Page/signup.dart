@@ -113,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         Text("Ngày sinh "),
                         Text("*", style: TextStyle(color: Colors.red))
                       ]),
-                      TextField(
+                      TextFormField(
                         readOnly: true,
                         controller: _date,
                         decoration: const InputDecoration(
@@ -128,7 +128,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               lastDate: DateTime(2030));
                           if (pickeddate != null) {
                             _date.text =
-                                DateFormat('yyyy-MM-dd').format(pickeddate);
+                                DateFormat('dd-MM-yyyy').format(pickeddate);
                             print(_date.text);
                           }
                         },
@@ -251,13 +251,13 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           obscureText: obscureText,
           controller: _firstName,
           keyboardType: TextInputType.name,
           decoration: const InputDecoration(
               hintText: 'Họ và Tên',
-              contentPadding: EdgeInsets.symmetric(vertical:  0, horizontal: 10),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
@@ -288,7 +288,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _email,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -324,7 +324,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _phone,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -360,7 +360,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _address,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -396,7 +396,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _password,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -432,7 +432,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _confirmPassword,
           obscureText: obscureText,
           decoration: const InputDecoration(
