@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Profile%20page/setting.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +16,7 @@ final TextEditingController _phone = TextEditingController();
 final TextEditingController _password = TextEditingController();
 final TextEditingController _confirmPassword = TextEditingController();
 
-enum genderGroup { male, female, others }
+enum genderGroup { male, female}
 
 class InformationPage extends StatefulWidget {
   const InformationPage({Key? key}) : super(key: key);
@@ -24,10 +25,26 @@ class InformationPage extends StatefulWidget {
   State<InformationPage> createState() => _InformationPageState();
 }
 
+
 class _InformationPageState extends State<InformationPage> {
   genderGroup _genderValue = genderGroup.male;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkGender();
+  }
+
+  void checkGender (){
+    if (sharedCurrentUser!.gender == false){
+      _genderValue = genderGroup.female;
+    }
+    }
   @override
   Widget build(BuildContext context) {
+    // String dob = DateFormat('yyyy-MM-dd').format(sharedCurrentUser!.dob!);
+    // print(dob);
     return Scaffold(
         body: SingleChildScrollView(
             child: Padding(
@@ -119,19 +136,12 @@ class _InformationPageState extends State<InformationPage> {
                         setState(() {
                           _genderValue = value!;
                         });
-                      }),
+                      },
+
+                      ),
                   const Text("Nữ"),
                   Radio(
                       value: genderGroup.female,
-                      groupValue: _genderValue,
-                      onChanged: (genderGroup? value) {
-                        setState(() {
-                          _genderValue = value!;
-                        });
-                      }),
-                  const Text("Khác"),
-                  Radio(
-                      value: genderGroup.others,
                       groupValue: _genderValue,
                       onChanged: (genderGroup? value) {
                         setState(() {
@@ -145,7 +155,10 @@ class _InformationPageState extends State<InformationPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              TextField(
+              TextFormField(
+                // initialValue: dob as String,
+                // DateTime.parse(sharedCurrentUser!.dob as String).toString(),
+                readOnly: true,
                 controller: _date,
                 decoration: const InputDecoration(
                   labelText: "Ngày sinh ",
@@ -237,6 +250,7 @@ class _InformationPageState extends State<InformationPage> {
   }
 
   Widget fullName({label, obscureText = false}) {
+
     return Column(
       children: <Widget>[
         Row(
@@ -255,11 +269,15 @@ class _InformationPageState extends State<InformationPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
+          initialValue: sharedCurrentUser!.firstName,
           obscureText: obscureText,
+
+
           // controller: _firstName,
+
           decoration: const InputDecoration(
-              hintText: 'Họ và Tên',
+              // hintText: 'Họ và Tên',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -291,7 +309,8 @@ class _InformationPageState extends State<InformationPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
+          initialValue: sharedCurrentUser!.email,
           // controller: _email,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -327,8 +346,8 @@ class _InformationPageState extends State<InformationPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
-          // controller: _phone,
+        TextFormField(
+          initialValue: sharedCurrentUser!.phone,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Số điện thoại',

@@ -10,6 +10,7 @@ import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:heh_application/services/stream_test.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../models/result_login.dart';
@@ -313,6 +314,7 @@ class _LoginPageState extends State<LoginPage> {
       for (var field in user!.providerData) {
         email = field.email;
       }
+      // DateTime? dateTime = "2023-03-27";
 
       SignUpUser signUpUser = SignUpUser(
           username: email,
@@ -322,7 +324,7 @@ class _LoginPageState extends State<LoginPage> {
           password: '123456789',
           email: email,
           gender: true,
-          dob: '2023-03-27T16:56:43.443Z',
+          // dob: DateFormat('yyyy-MM-dd').format(dateTime as DateTime),
           address: "abc",
           image: user.photoURL);
       bool checkUserExist = await auth.checkUserExistInPostgre(email);
@@ -370,7 +372,7 @@ class _LoginPageState extends State<LoginPage> {
           password: "facebook",
           email: email,
           gender: true,
-          dob: '2023-04-02T15:07:52.779Z',
+          // dob: '2023-04-02T15:07:52.779Z',
           address: "facebook",
           image: user.photoURL);
 

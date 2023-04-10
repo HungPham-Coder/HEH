@@ -129,6 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           if (pickeddate != null) {
                             _date.text =
                                 DateFormat('yyyy-MM-dd').format(pickeddate);
+                            print(_date.text);
                           }
                         },
                       ),
@@ -186,14 +187,12 @@ class _SignUpPageState extends State<SignUpPage> {
                             }
                             SignUpUser signUpUser = SignUpUser(
                                 firstName: _firstName.text,
-                                lastName: 'last name',
                                 email: _email.text,
                                 phone: _phone.text,
                                 address: _address.text,
                                 gender: gender,
-                                dob: _date.text,
+                                dob: DateTime.parse(_date.text),
                                 password: _password.text,
-                                image: 'Chua co hinh',
                                 role: 'Member',
                                 username: _phone.text);
 
@@ -255,9 +254,10 @@ class _SignUpPageState extends State<SignUpPage> {
         TextField(
           obscureText: obscureText,
           controller: _firstName,
+          keyboardType: TextInputType.name,
           decoration: const InputDecoration(
               hintText: 'Họ và Tên',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              contentPadding: EdgeInsets.symmetric(vertical:  0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),

@@ -95,7 +95,7 @@ class ProfileMenu extends StatelessWidget {
               ),
               const SizedBox(width: 20),
               SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.75,
+                  width: MediaQuery.of(context).size.width / 1.9,
                   height: 50,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

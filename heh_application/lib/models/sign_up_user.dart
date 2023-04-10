@@ -23,7 +23,7 @@ class SignUpUser {
     _image = value;
   }
 
-  final String? dob;
+  final DateTime? dob;
   final String? phone;
   final bool? gender;
   // final String? gender;
@@ -37,12 +37,12 @@ class SignUpUser {
         this.userID,
     required this.username,
     required this.firstName,
-    required this.lastName,
+     this.lastName,
     required this.phone,
     required this.password,
     required this.email,
     required this.gender,
-    required this.dob,
+     this.dob,
        // this.
   }) : _role = role, _image = image;
 
@@ -56,7 +56,7 @@ class SignUpUser {
       email: json["email"],
       firstName: json["firstName"],
       lastName: json["lastName"],
-      dob: json["dob"],
+      dob: DateTime.parse(json["dob"] as String),
       gender: json["gender"],
       phone: json["phoneNumber"],
     );
