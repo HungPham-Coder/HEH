@@ -37,7 +37,8 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
                 name: widget.physiotherapist.signUpUser.firstName!,
                 specialize: "Chuyên môn: ${widget.physiotherapist.specialize}",
                 experience: "Kinh nghiệm: ${widget.physiotherapist.skill}",
-                time: "Thời gian làm việc: 10:00 AM - 12:00 AM"),
+                // time: "Thời gian làm việc: 10:00 AM - 12:00 AM"
+            ),
             const SizedBox(height: 20),
             Center(
                 child: Text("Khung giờ",
@@ -93,10 +94,10 @@ class PhysioProfile extends StatelessWidget {
     required this.name,
     required this.specialize,
     required this.experience,
-    required this.time,
+    // required this.time,
   }) : super(key: key);
 
-  final String image, specialize, experience, time, name, phy;
+  final String image, specialize, experience,  name, phy;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +156,7 @@ class PhysioProfile extends StatelessWidget {
                       const SizedBox(height: 20),
                       Text(experience),
                       const SizedBox(height: 20),
-                      Text(time),
+                      // Text(time),
                     ],
                   ))
             ],
@@ -237,7 +238,7 @@ class PhysioChooseMenu extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             Text(
-                              '$price',
+                              '$price VND',
                             ),
 
                             // Text(

@@ -30,7 +30,7 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
               children: [
                 Container(
                   decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
+                      BoxDecoration(border: Border.all(color: Colors.black)),
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
@@ -105,7 +105,7 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: PhysioChooseMenu(
                           icon:
-                          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
                           name: "Phạm Phú Minh Hưng",
                           time: "Khung giờ: ",
                           press: () {
@@ -162,7 +162,7 @@ class _ClockMenuState extends State<ClockMenu> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
                     padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: Text("${hours}:${minutes}",
                         style: const TextStyle(fontSize: 18)),
                   )),
@@ -223,7 +223,7 @@ class PhysioChooseMenu extends StatelessWidget {
             child: TextButton(
                 style: ButtonStyle(
                     backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.white),
+                        MaterialStateProperty.all<Color>(Colors.white),
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 15)),
@@ -246,7 +246,7 @@ class PhysioChooseMenu extends StatelessWidget {
                     ),
                     const SizedBox(width: 5),
                     SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.75,
+                        width: MediaQuery.of(context).size.width / 1.65,
                         height: 50,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,15 +373,15 @@ class _categoryState extends State<category> {
               MultiSelectBottomSheetField<Problem?>(
                 selectedItemsTextStyle: const TextStyle(color: Colors.black),
                 confirmText:
-                const Text("Chấp nhận", style: TextStyle(fontSize: 18)),
+                    const Text("Chấp nhận", style: TextStyle(fontSize: 18)),
                 cancelText: const Text("Hủy", style: TextStyle(fontSize: 18)),
                 initialChildSize: 0.4,
                 title: const Text("Vấn đề của bạn"),
                 buttonText: _selectedProblems.isEmpty
                     ? const Text(
-                  "Vấn đề của bạn",
-                  style: TextStyle(color: Colors.grey, fontSize: 15),
-                )
+                        "Vấn đề của bạn",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      )
                     : const Text(""),
                 items: _problems
                     .map((e) => MultiSelectItem<Problem?>(e, e.name))
@@ -406,7 +406,7 @@ class _categoryState extends State<category> {
                 },
                 chipDisplay: MultiSelectChipDisplay(onTap: (values) {
                   setState(
-                        () {
+                    () {
                       _itemChange(values!, false);
                       int counter = 0;
                       _selectedProblems.forEach((element) {
@@ -465,7 +465,7 @@ Widget problem({label, obscureText = false}) {
               borderSide: BorderSide(color: Colors.grey),
             ),
             border:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(height: 10)
     ],
@@ -524,14 +524,14 @@ class _relationshipState extends State<relationship> {
                 value: selectedRelationship,
                 items: _relationships
                     .map((relationship) => DropdownMenuItem<String>(
-                    value: relationship,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        relationship,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                    )))
+                        value: relationship,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            relationship,
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        )))
                     .toList(),
                 onChanged: (relationship) => setState(() {
                   selectedRelationship = relationship;

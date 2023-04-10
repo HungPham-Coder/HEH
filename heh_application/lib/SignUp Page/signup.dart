@@ -185,14 +185,12 @@ class _SignUpPageState extends State<SignUpPage> {
                             }
                             SignUpUser signUpUser = SignUpUser(
                                 firstName: _firstName.text,
-                                lastName: 'last name',
                                 email: _email.text,
                                 phone: _phone.text,
                                 address: _address.text,
                                 gender: gender,
-                                dob: _date.text,
+                                dob: DateTime.parse(_date.text),
                                 password: _password.text,
-                                image: 'Chua co hinh',
                                 role: 'Member',
                                 username: _phone.text);
 
