@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomeMenu extends StatelessWidget {
-  const HomeMenu({
+  HomeMenu({
     Key? key,
     required this.text,
     required this.icon,
@@ -105,7 +105,6 @@ class HomeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: duplicate_ignore
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(

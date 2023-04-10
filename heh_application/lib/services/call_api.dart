@@ -56,8 +56,8 @@ class CallAPI {
   }
 
   Future<String> callRegisterAPI(SignUpUser signUpUser) async {
-    var url = Uri.parse('${link}/api/User/Register');
-    // var url = Uri.https('localhost:7166', 'api/User/Register');
+    // var url = Uri.parse('${link}/api/User/Register');
+    var url = Uri.https('localhost:7166', 'api/User/Register');
 
     final body = jsonEncode({
       "userName": signUpUser.phone,
@@ -168,7 +168,8 @@ class CallAPI {
 
   Future<ExerciseDetail1> getExerciseDetailByExerciseID(
       String exerciseID) async {
-    var url = Uri.parse('${link}/api/ExerciseDetail/GetByExerciseID/$exerciseID');
+    var url =
+        Uri.parse('${link}/api/ExerciseDetail/GetByExerciseID/$exerciseID');
     // var url = Uri.https('localhost:7166', 'api/ExerciseDetail/GetByExerciseID/$exerciseID');
     final headers = {
       "Accept": "application/json",
@@ -250,7 +251,8 @@ class CallAPI {
 
   Future<ExerciseResource> getExerciseResourceByExerciseDetailID(
       String exerciseID) async {
-    var url = Uri.parse('${link}/api/ExerciseResource/GetByExerciseDetailId/$exerciseID');
+    var url = Uri.parse(
+        '${link}/api/ExerciseResource/GetByExerciseDetailId/$exerciseID');
     // var url = Uri.https('localhost:7166', 'api/ExerciseDetail/GetByExerciseID/$exerciseID');
     final headers = {
       "Accept": "application/json",
@@ -307,6 +309,7 @@ class CallAPI {
       throw Exception('Failed to load MedicalRecord');
     }
   }
+
   Future<void> createMedicalRecord(MedicalRecord medicalRecord) async {
     var url = Uri.parse('${link}/api/MedicalRecord/Create');
     // var url = Uri.https('localhost:7166', 'api/User/Register');
@@ -361,8 +364,10 @@ class CallAPI {
       throw Exception('Failed to load Physiotherapist');
     }
   }
+
   Future<List<Physiotherapist>> getAllActivePhysiotherapist() async {
-    var url = Uri.parse('${link}/api/Physiotherapist/GetAllActivePhysiotherapist');
+    var url =
+        Uri.parse('${link}/api/Physiotherapist/GetAllActivePhysiotherapist');
     // var url = Uri.https('localhost:7166', 'api/Physiotherapist');
     final headers = {
       "Accept": "application/json",
@@ -404,8 +409,11 @@ class CallAPI {
       throw Exception('Failed to load Schedule');
     }
   }
-  Future<List<Slot>> getallSlotByPhysiotherapistID(String physiotherapistID) async {
-    var url = Uri.parse('${link}/api/Schedule/getAllSlotByPhysiotherapistID/$physiotherapistID');
+
+  Future<List<Slot>> getallSlotByPhysiotherapistID(
+      String physiotherapistID) async {
+    var url = Uri.parse(
+        '${link}/api/Schedule/getAllSlotByPhysiotherapistID/$physiotherapistID');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
@@ -416,8 +424,8 @@ class CallAPI {
     print(response.statusCode);
     if (response.statusCode == 200) {
       Iterable jsonResult = json.decode(response.body);
-      List<Slot> list = List<Slot>.from(
-          jsonResult.map((model) => Slot.fromMap(model)));
+      List<Slot> list =
+          List<Slot>.from(jsonResult.map((model) => Slot.fromMap(model)));
 
       if (list == null) {
         throw Exception('Slot List null');
@@ -428,8 +436,11 @@ class CallAPI {
       throw Exception('Failed to load Slot List');
     }
   }
-  Future<List<Physiotherapist>> getallPhysiotherapistBySlotID(String slotID) async {
-    var url = Uri.parse('${link}/api/Schedule/getAllPhysiotherapistBySlotID/$slotID');
+
+  Future<List<Physiotherapist>> getallPhysiotherapistBySlotID(
+      String slotID) async {
+    var url =
+        Uri.parse('${link}/api/Schedule/getAllPhysiotherapistBySlotID/$slotID');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
