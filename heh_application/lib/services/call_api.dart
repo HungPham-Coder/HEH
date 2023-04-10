@@ -59,7 +59,7 @@ class CallAPI {
     // var url = Uri.parse('${link}/api/User/Register');
     var url = Uri.https('localhost:7166', 'api/User/Register');
 
-    final body = jsonEncode({
+    final body = json.encode({
       "userName": signUpUser.phone,
       "password": signUpUser.password,
       "email": signUpUser.email,
@@ -67,7 +67,11 @@ class CallAPI {
       "lastName": signUpUser.lastName,
       "address": signUpUser.address,
       "image": signUpUser.image,
-      "dob": signUpUser.dob,
+      "dob" : {
+        "year": signUpUser.dob!.year,
+        "month": signUpUser.dob!.month,
+        "day": signUpUser.dob!.day,
+      },
       "phoneNumber": signUpUser.phone,
       "gender": signUpUser.gender,
       "bookingStatus": false,
