@@ -32,36 +32,30 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
     CallAPI().callRegisterAPI(signUpUser);
   }
 
-   static final List<Problem> _problems = [];
+  static final List<Problem> _problems = [];
   List<Problem?> _selectedProblems = [];
   static final List<CategoryModel> _listCategory = [];
   void addProblem(List<CategoryModel> list) {
-    if (_problems.isEmpty){
-
+    if (_problems.isEmpty) {
       list.forEach((category) {
-
         _problems.add(Problem(name: category.categoryName));
 
         _listCategory.add(category);
       });
-      _problems.add(Problem(name: "Khác"));
+      // _problems.add(Problem(name: "Khác"));
       // _listCategory.forEach((element) {print(element.categoryName);});
     }
-
-
-
   }
 
-  bool _visibility = false;
-  bool checkVisibility() {
-    _selectedProblems.forEach((element) {
-      if (element!.name == "Khác") {
-        _visibility = true;
-      }
-    });
-    return _visibility;
-  }
-
+  // bool _visibility = false;
+  // bool checkVisibility() {
+  //   _selectedProblems.forEach((element) {
+  //     if (element!.name == "Khác") {
+  //       _visibility = true;
+  //     }
+  //   });
+  //   return _visibility;
+  // }
 
   void _itemChange(Problem itemValue, bool isSelected) {
     setState(() {
@@ -98,7 +92,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                   Row(
                     children: const <Widget>[
                       Text(
-                        "Anh/Chị đang gặp vấn đề gì?",
+                        "Anh/Chị đang gặp tình trạng gì?",
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -124,7 +118,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                             future: CallAPI().getAllCategory(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-
                                 addProblem(snapshot.data!);
                                 return MultiSelectBottomSheetField<Problem?>(
                                   confirmText: const Text("Chấp nhận",
@@ -132,9 +125,9 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                   cancelText: const Text("Hủy",
                                       style: TextStyle(fontSize: 18)),
                                   initialChildSize: 0.4,
-                                  title: const Text("Vấn đề của bạn"),
+                                  title: const Text("Tình trạng của bạn"),
                                   buttonText: const Text(
-                                    "Vấn đề của bạn",
+                                    "Tình trạng",
                                     style: TextStyle(
                                         color: Colors.grey, fontSize: 15),
                                   ),
@@ -154,11 +147,11 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                           counter++;
                                         }
                                       });
-                                      if (counter > 0) {
-                                        _visibility = true;
-                                      } else {
-                                        _visibility = false;
-                                      }
+                                      // if (counter > 0) {
+                                      //   _visibility = true;
+                                      // } else {
+                                      //   _visibility = false;
+                                      // }
                                     });
                                   },
                                   chipDisplay:
@@ -166,35 +159,37 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                     setState(
                                       () {
                                         _itemChange(values!, false);
-                                        int counter = 0;
-                                        _selectedProblems.forEach((element) {
-                                          if (element!.name.contains("Khác")) {
-                                            counter++;
-                                          }
-                                        });
-                                        if (counter == 0) {
-                                          _visibility = false;
-                                        } else {
-                                          _visibility = true;
-                                        }
+                                        // int counter = 0;
+                                        // _selectedProblems.forEach((element) {
+                                        //   if (element!.name.contains("Khác")) {
+                                        //     counter++;
+                                        //   }
+                                        // }
+                                        // );
+                                        // if (counter == 0) {
+                                        //   _visibility = false;
+                                        // } else {
+                                        //   _visibility = true;
+                                        // }
                                       },
                                     );
                                   }),
                                 );
                               } else {
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               }
-                            })
+                            }),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  Visibility(
-                    visible: _visibility,
-                    child: problem(label: "Khác"),
-                  ),
+                  // const SizedBox(height: 20),
+                  // Visibility(
+                  //   visible: _visibility,
+                  //   child: problem(label: "Khác"),
+                  // ),
+                  const SizedBox(height: 10),
                   difficult(label: "Hoạt động khó khăn trong cuộc sống?"),
                   injury(label: "Anh/Chị đã gặp chấn thương gì?"),
                   curing(label: "Bệnh lý Anh/Chị đang điều trị kèm theo"),
@@ -238,7 +233,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () {
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -273,30 +267,30 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
 
                             String userID = await CallAPI()
                                 .callRegisterAPI(widget.signUpUser);
-                          List<String> listCategoryID = [];
+                            List<String> listCategoryID = [];
                             _selectedProblems.forEach((elementSelected) {
-                              if (elementSelected!.name != "Khác"){
+                              if (elementSelected!.name != "Khác") {
                                 _listCategory.forEach((category) {
-                                  if (elementSelected.name == category.categoryName){
+                                  if (elementSelected.name ==
+                                      category.categoryName) {
                                     listCategoryID.add(category.categoryID);
                                   }
                                 });
                               }
-
                             });
                             listCategoryID.forEach((element) async {
                               MedicalRecord medicalRecord = MedicalRecord(
                                 subProfileID: null,
                                 userID: userID,
-                                categoryID:
-                                element,
+                                categoryID: element,
                                 problem: problem,
                                 curing: _curing.text,
                                 difficulty: _difficult.text,
                                 injury: _injury.text,
                                 medicine: _medicine.text,
                               );
-                              await CallAPI().createMedicalRecord(medicalRecord);
+                              await CallAPI()
+                                  .createMedicalRecord(medicalRecord);
                             });
 
                             Navigator.push(
@@ -328,41 +322,41 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
     );
   }
 
-  Widget problem({label, obscureText = false}) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Text(
-              label,
-              style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87),
-            ),
-            const Text(
-              " *",
-              style: TextStyle(color: Colors.red),
-            ),
-          ],
-        ),
-        const SizedBox(height: 5),
-        TextFormField(
-          obscureText: obscureText,
-          // controller: _firstName,
-          decoration: const InputDecoration(
-              hintText: 'Vấn đề',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey))),
-        ),
-        const SizedBox(height: 10)
-      ],
-    );
-  }
+  // Widget problem({label, obscureText = false}) {
+  //   return Column(
+  //     children: <Widget>[
+  //       Row(
+  //         children: <Widget>[
+  //           Text(
+  //             label,
+  //             style: const TextStyle(
+  //                 fontSize: 15,
+  //                 fontWeight: FontWeight.w400,
+  //                 color: Colors.black87),
+  //           ),
+  //           const Text(
+  //             " *",
+  //             style: TextStyle(color: Colors.red),
+  //           ),
+  //         ],
+  //       ),
+  //       const SizedBox(height: 5),
+  //       TextFormField(
+  //         obscureText: obscureText,
+  //         // controller: _firstName,
+  //         decoration: const InputDecoration(
+  //             hintText: 'Vấn đề',
+  //             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+  //             enabledBorder: OutlineInputBorder(
+  //               borderSide: BorderSide(color: Colors.grey),
+  //             ),
+  //             border: OutlineInputBorder(
+  //                 borderSide: BorderSide(color: Colors.grey))),
+  //       ),
+  //       const SizedBox(height: 10)
+  //     ],
+  //   );
+  // }
 
   Widget difficult({label, obscureText = false}) {
     return Column(

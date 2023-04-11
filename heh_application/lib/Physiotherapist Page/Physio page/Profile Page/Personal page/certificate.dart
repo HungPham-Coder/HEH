@@ -22,11 +22,10 @@ class _CertificatePageState extends State<CertificatePage> {
     Problem(name: "Đau khớp gối 1"),
     Problem(name: "Đau khớp gối 2"),
     Problem(name: "Đau khớp gối 3"),
-    Problem(name: "Khác"),
   ];
   List _selectedProblems = [];
 
-  final bool _visibility = false;
+  // final bool _visibility = false;
 
   final _items = _problems
       .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
@@ -50,7 +49,7 @@ class _CertificatePageState extends State<CertificatePage> {
                   Row(
                     children: const <Widget>[
                       Text(
-                        "Anh/Chị đang gặp vấn đề gì?",
+                        "Anh/Chị đang gặp tình trạng gì?",
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -74,9 +73,9 @@ class _CertificatePageState extends State<CertificatePage> {
                       children: [
                         MultiSelectBottomSheetField(
                           initialChildSize: 0.4,
-                          title: const Text("Vấn đề của bạn"),
+                          title: const Text("Tình trạng của bạn"),
                           buttonText: const Text(
-                            "Vấn đề của bạn",
+                            "Tình trạng",
                             style: TextStyle(color: Colors.grey, fontSize: 15),
                           ),
                           items: _problems
@@ -110,10 +109,10 @@ class _CertificatePageState extends State<CertificatePage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Visibility(
-                    visible: _visibility,
-                    child: problem(label: "Khác"),
-                  ),
+                  // Visibility(
+                  //   visible: _visibility,
+                  //   child: problem(label: "Khác"),
+                  // ),
                   difficult(label: "Hoạt động khó khăn trong cuộc sống?"),
                   injury(label: "Anh/Chị đã gặp chấn thương gì?"),
                   curing(label: "Bệnh lý Anh/Chị đang điều trị kèm theo"),
@@ -219,7 +218,7 @@ Widget problem({label, obscureText = false}) {
         obscureText: obscureText,
         // controller: _firstName,
         decoration: const InputDecoration(
-            hintText: 'Vấn đề',
+            hintText: 'Tình trạng',
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),

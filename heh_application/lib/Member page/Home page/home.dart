@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
-import 'package:heh_application/Member%20page/Paid%20page/paid.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/servicePaid.dart';
 
 import '../../Welcome page/welcome_page.dart';
 
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             const Center(
               child: Text("Chào mừng đến với HEH",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
                   )),
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             const Center(
               child: Text(
                   "'Trải nghiệm của bạn cũng là trải nghiệm của chúng tôi!'",
-                  style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                  style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
             ),
             HomeMenu(
               icon:
@@ -65,8 +65,10 @@ class _HomePageState extends State<HomePage> {
                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
               text: "Dịch vụ đã đăng ký",
               press: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const PaidPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ServicePaidPage()));
               },
             ),
             HomeMenu(

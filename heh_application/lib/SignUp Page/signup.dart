@@ -18,7 +18,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   genderGroup _genderValue = genderGroup.male;
 
-   String? dob;
+  String? dob;
 
   final TextEditingController _date = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
@@ -128,12 +128,10 @@ class _SignUpPageState extends State<SignUpPage> {
                               firstDate: DateTime(1960),
                               lastDate: DateTime(2030));
                           if (pickeddate != null) {
-
                             _date.text =
                                 DateFormat('dd-MM-yyyy').format(pickeddate);
                             print(_date.text);
                             dob = DateFormat('yyyy-MM-dd').format(pickeddate);
-
 
                             print(dob);
                           }
@@ -197,15 +195,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                 phone: _phone.text,
                                 address: _address.text,
                                 gender: gender,
-                                dob:dob,
+                                dob: dob,
                                 password: _password.text,
                                 role: 'Member',
                                 username: _phone.text);
-<<<<<<< HEAD
-                            // await CallAPI().callRegisterAPI(signUpUser);
-=======
-
->>>>>>> 0994067a6223a90d3534e34a3f4e3cd002a19488
 
                             Navigator.push(
                               context,

@@ -31,13 +31,13 @@ class _ChooseDetailpageState extends State<ChooseDetailpage> {
           children: [
             const SizedBox(height: 20),
             PhysioProfile(
-                image:
-                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                phy: "Chuyên viên",
-                name: widget.physiotherapist.signUpUser.firstName!,
-                specialize: "Chuyên môn: ${widget.physiotherapist.specialize}",
-                experience: "Kinh nghiệm: ${widget.physiotherapist.skill}",
-                // time: "Thời gian làm việc: 10:00 AM - 12:00 AM"
+              image:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+              phy: "Chuyên viên",
+              name: widget.physiotherapist.signUpUser.firstName!,
+              specialize: "Chuyên môn: ${widget.physiotherapist.specialize}",
+              experience: "Kinh nghiệm: ${widget.physiotherapist.skill}",
+              // time: "Thời gian làm việc: 10:00 AM - 12:00 AM"
             ),
             const SizedBox(height: 20),
             Center(
@@ -96,8 +96,7 @@ class PhysioProfile extends StatelessWidget {
     // required this.time,
   }) : super(key: key);
 
-  final String image, specialize, experience,  name, phy;
-
+  final String image, specialize, experience, name, phy;
 
   @override
   Widget build(BuildContext context) {
@@ -239,15 +238,6 @@ class PhysioChooseMenu extends StatelessWidget {
                             Text(
                               '$price VND',
                             ),
-
-                            // Text(
-                            //   timeStart ,
-                            //   style: Theme.of(context).textTheme.bodyMedium,
-                            // ),
-                            // Text(
-                            //   timeEnd ,
-                            //   style: Theme.of(context).textTheme.bodyMedium,
-                            // ),
                           ],
                         )),
                     const Padding(
