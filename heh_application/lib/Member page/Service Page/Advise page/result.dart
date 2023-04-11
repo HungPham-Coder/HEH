@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/chooseDetail.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/payment.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/bill.dart';
 
 class TimeResultPage extends StatefulWidget {
   const TimeResultPage({Key? key}) : super(key: key);
@@ -46,7 +45,7 @@ class _TimeResultPageState extends State<TimeResultPage> {
                   time: "Khung giờ: ",
                   press: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => PaymentPage()));
+                        MaterialPageRoute(builder: (context) => BillPage()));
                   },
                 ),
               ),
