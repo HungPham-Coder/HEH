@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Profile%20page/setting.dart';
+import 'package:heh_application/models/medical_record.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+
+import '../../../models/exercise_model/category.dart';
+import '../../../services/call_api.dart';
 
 class MedicalPage extends StatefulWidget {
   const MedicalPage({Key? key}) : super(key: key);
@@ -16,23 +21,32 @@ class Problem {
 }
 
 class _MedicalPageState extends State<MedicalPage> {
+  static final List<CategoryModel> _listCategory = [];
   static final List<Problem> _problems = [
-    Problem(name: "Đau lưng"),
-    Problem(name: "Đau khớp gối"),
-    Problem(name: "Đau khớp gối 1"),
-    Problem(name: "Đau khớp gối 2"),
-    Problem(name: "Đau khớp gối 3"),
-    Problem(name: "Khác"),
   ];
   List _selectedProblems = [];
 
   bool _visibility = false;
 
-  final _items = _problems
-      .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
-      .toList();
 
-  final _multiSelectKey = GlobalKey<FormFieldState>();
+
+  void addProblem(List<CategoryModel> list) {
+    if (_problems.isEmpty){
+
+      list.forEach((category) {
+
+        _problems.add(Problem(name: category.categoryName));
+
+        _listCategory.add(category);
+      });
+      _problems.add(Problem(name: "Khác"));
+      // _listCategory.forEach((element) {print(element.categoryName);});
+    }
+
+
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,42 +84,54 @@ class _MedicalPageState extends State<MedicalPage> {
                         color: Colors.grey,
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        MultiSelectBottomSheetField(
-                          initialChildSize: 0.4,
-                          title: const Text("Vấn đề của bạn"),
-                          buttonText: const Text(
-                            "Vấn đề của bạn",
-                            style: TextStyle(color: Colors.grey, fontSize: 15),
-                          ),
-                          items: _problems
-                              .map((e) => MultiSelectItem(e, e.name))
-                              .toList(),
-                          listType: MultiSelectListType.CHIP,
-                          searchable: true,
-                          onConfirm: (values) {
-                            setState(() {
-                              print(values.elementAt(1));
 
-                              _selectedProblems = values;
-                              for (var values in _selectedProblems) {
-                                if (values == 'Khác') {
-                                  _visibility = true;
-                                }
-                              }
-                            });
-                          },
-                          chipDisplay: MultiSelectChipDisplay(
-                            onTap: (values) {
-                              setState(() {
-                                if (values.toString() == "Khác") {
-                                  _visibility = false;
-                                }
-                                _selectedProblems.remove(values);
-                              });
-                            },
-                          ),
+                     child: FutureBuilder <MedicalRecord>(
+                          future: CallAPI().getMedicalRecordByUserId(sharedCurrentUser!.userID!),
+                            builder: (context, snapshot) {
+                            if (snapshot.hasData){
+
+                            return MultiSelectBottomSheetField<Problem?>(
+                              initialChildSize: 0.4,
+                              title: const Text("Vấn đề của bạn"),
+                              buttonText: const Text(
+                                "Vấn đề của bạn",
+                                style: TextStyle(color: Colors.grey, fontSize: 15),
+                              ),
+                              items: _problems
+                                  .map((e) => MultiSelectItem(e, e.name))
+                                  .toList(),
+                              listType: MultiSelectListType.CHIP,
+                              searchable: true,
+
+                              onConfirm: (values) {
+                                setState(() {
+
+
+                                  _selectedProblems = values;
+                                  for (var values in _selectedProblems) {
+                                    if (values == 'Khác') {
+                                      _visibility = true;
+                                    }
+                                  }
+                                });
+                              },
+                              chipDisplay: MultiSelectChipDisplay(
+
+                                onTap: (values) {
+                                  setState(() {
+                                    if (values.toString() == "Khác") {
+                                      _visibility = false;
+                                    }
+                                    _selectedProblems.remove(values);
+                                  });
+                                },
+                              ),
+                            );
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                         ),
                         // _selectedProblems == null || _selectedProblems.isEmpty
                         //     ? Container(
@@ -116,8 +142,7 @@ class _MedicalPageState extends State<MedicalPage> {
                         //           style: TextStyle(color: Colors.black54),
                         //         ))
                         //     : Container(),
-                      ].toList(),
-                    ),
+
                   ),
                   const SizedBox(height: 20),
                   Visibility(
