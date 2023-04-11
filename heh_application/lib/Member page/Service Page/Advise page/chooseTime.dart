@@ -291,19 +291,10 @@ class _categoryState extends State<category> {
     Problem(name: "Đau khớp gối 1"),
     Problem(name: "Đau khớp gối 2"),
     Problem(name: "Đau khớp gối 3"),
-    Problem(name: "Khác"),
   ];
   List<Problem?> _selectedProblems = [];
 
   bool _visibility = false;
-  bool checkVisibility() {
-    _selectedProblems.forEach((element) {
-      if (element!.name == "Khác") {
-        _visibility = true;
-      }
-    });
-    return _visibility;
-  }
 
   final _items = _problems
       .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
@@ -358,45 +349,18 @@ class _categoryState extends State<category> {
                 onConfirm: (values) {
                   setState(() {
                     _selectedProblems = values;
-                    int counter = 0;
-                    _selectedProblems.forEach((element) {
-                      if (element!.name.contains("Khác")) {
-                        counter++;
-                      }
-                    });
-                    if (counter > 0) {
-                      _visibility = true;
-                    } else {
-                      _visibility = false;
-                    }
                   });
                 },
                 chipDisplay: MultiSelectChipDisplay(onTap: (values) {
                   setState(
                     () {
                       _itemChange(values!, false);
-                      int counter = 0;
-                      _selectedProblems.forEach((element) {
-                        if (element!.name.contains("Khác")) {
-                          counter++;
-                        }
-                      });
-                      if (counter == 0) {
-                        _visibility = false;
-                      } else {
-                        _visibility = true;
-                      }
                     },
                   );
                 }),
               )
             ],
           ),
-        ),
-        const SizedBox(height: 10),
-        Visibility(
-          visible: _visibility,
-          child: problem(label: "Khác"),
         ),
       ],
     );
