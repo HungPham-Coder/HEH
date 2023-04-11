@@ -201,11 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 password: _password.text,
                                 role: 'Member',
                                 username: _phone.text);
-<<<<<<< HEAD
-                            // await CallAPI().callRegisterAPI(signUpUser);
-=======
 
->>>>>>> 0994067a6223a90d3534e34a3f4e3cd002a19488
 
                             Navigator.push(
                               context,

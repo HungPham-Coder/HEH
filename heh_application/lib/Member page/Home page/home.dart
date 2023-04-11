@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             const Center(
               child: Text(
                   "'Trải nghiệm của bạn cũng là trải nghiệm của chúng tôi!'",
-                  style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                  style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
             ),
             HomeMenu(
               icon:
