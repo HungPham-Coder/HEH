@@ -336,6 +336,8 @@ class CallAPI {
       "content-type": "application/json"
     };
     var response = await http.get(url, headers: headers);
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       return MedicalRecord.fromMap(json.decode(response.body));
 
