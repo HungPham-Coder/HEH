@@ -8,9 +8,7 @@ import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/services/auth.dart';
-import 'package:heh_application/welcome_page.dart';
 import 'package:provider/provider.dart';
-
 import 'models/sign_up_user.dart';
 
 Future<void> main() async {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
+import 'package:heh_application/Member%20page/Paid%20page/paid.dart';
 
-import 'package:heh_application/services/call_api.dart';
-
-import '../../models/exercise_model/category.dart';
+import '../../Welcome page/welcome_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,14 +21,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // SignUpUser signUpUser = SignUpUser(firstName: '123',
-    //     lastName: 'abcdef',
-    //     phone: '1236548970',
-    //     password: '123456789',
-    //     email: '',
-    //     gender: false,
-    //     dob: '2023-03-27T16:56:43.443Z', username: '');
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,53 +29,55 @@ class _HomePageState extends State<HomePage> {
           "Trang chủ",
           style: TextStyle(fontSize: 23),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: MySearchDelegate());
-              },
-              icon: const Icon(Icons.search)),
-        ],
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
       body: SingleChildScrollView(
-        physics: const ScrollPhysics(),
         child: Column(
           children: [
             const SizedBox(height: 20),
-            const Center(child: Text("Bạn đang gặp vấn đề gì?")),
-            FutureBuilder<List<CategoryModel>>(
-                future: CallAPI().getAllCategory(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        String iconName = "";
-                        iconName =
-                            "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fknee.png?alt=media&token=47fffdae-d388-4215-aff9-239de7988053";
-
-                        return HomeMenu(
-                          icon: iconName,
-                          text: "${snapshot.data![index].categoryName}",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CategoryPage(
-                                        categoryID:
-                                            snapshot.data![index].categoryID)));
-                          },
-                        );
-                      },
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                }),
+            const Center(
+              child: Text("Chào mừng đến với HEH",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  )),
+            ),
+            const Center(
+              child: Text(
+                  "'Trải nghiệm của bạn cũng là trải nghiệm của chúng tôi!'",
+                  style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+            ),
+            HomeMenu(
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fexercise.png?alt=media&token=f299c936-6f81-41e5-8448-bc587873bc67",
+              text: "Bài tập trị liệu",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CategoryPage()));
+              },
+            ),
+            HomeMenu(
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
+              text: "Dịch vụ đã đăng ký",
+              press: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const PaidPage()));
+              },
+            ),
+            HomeMenu(
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
+              text: "Dịch vụ đã đăng ký",
+              press: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WelcomePage()));
+              },
+            ),
           ],
         ),
       ),
@@ -138,64 +131,5 @@ class HomeMenu extends StatelessWidget {
             ],
           )),
     );
-  }
-}
-
-class MySearchDelegate extends SearchDelegate {
-  List<String> searchResults = ['a', 'b']; //danh sach tim kiem
-  @override
-  List<Widget>? buildActions(BuildContext context) => [
-        IconButton(
-            onPressed: () {
-              if (query.isEmpty) {
-                close(context, null);
-              } else {
-                query = '';
-              }
-            },
-            icon: const Icon(Icons.clear))
-      ];
-
-  @override
-  Widget? buildLeading(BuildContext context) => IconButton(
-      onPressed: () => close(context, null),
-      icon: const Icon(Icons.arrow_back));
-
-  @override
-  Widget buildResults(BuildContext context) => Center(
-        child: Text(query, style: const TextStyle(fontSize: 64)),
-      );
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> suggestions = searchResults.where((searchResult) {
-      final result = searchResult.toLowerCase();
-      final input = query.toLowerCase();
-
-      return result.contains(input);
-    }).toList();
-
-    return ListView.builder(
-        itemCount: suggestions.length,
-        itemBuilder: (context, index) {
-          final suggestion = suggestions[index];
-
-          return ListTile(
-            title: Text(suggestion),
-            onTap: () {
-              query = suggestion;
-              showResults(context);
-            },
-          );
-        });
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

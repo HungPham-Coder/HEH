@@ -30,7 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
@@ -198,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 password: _password.text,
                                 role: 'Member',
                                 username: _phone.text);
-                            await CallAPI().callRegisterAPI(signUpUser);
+                            // await CallAPI().callRegisterAPI(signUpUser);
 
                             Navigator.push(
                               context,

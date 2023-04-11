@@ -51,13 +51,13 @@ class LandingPage extends StatelessWidget {
                   } else {
                     return Provider<FirebaseFirestoreBase>(
                       create: (context) => FirebaseFirestores(),
-                      child: PhyNavigation_bar(),
+                      child: const PhyNavigation_bar(),
                     );
                   }
                 } else {
                   print("khong data");
 
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }

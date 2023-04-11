@@ -28,7 +28,7 @@ class _FeaturePageState extends State<FeaturePage> {
             FeatureMenu(
               icon:
                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fexercise.png?alt=media&token=f9b0b759-2f11-431e-b821-f695bd62e78c",
-              text: "Danh sách bài tập",
+              text: "Bài tập trị liệu",
               press: () {
                 Navigator.push(
                     context,

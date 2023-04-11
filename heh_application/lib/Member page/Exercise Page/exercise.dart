@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Exercise%20Page/exercise.dart';
-import 'package:heh_application/models/exercise_model/category.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
+import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
+
+import 'package:heh_application/models/exercise_model/exercise.dart';
+import 'package:heh_application/models/exercise_model/exercise_detail.dart';
+import 'package:heh_application/models/exercise_resource.dart';
+import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/services/call_api.dart';
+import 'package:provider/provider.dart';
 
-class CategoryPage extends StatefulWidget {
-  const CategoryPage({Key? key}) : super(key: key);
-
+class ExercisePage extends StatefulWidget {
+  ExercisePage({Key? key, required this.categoryID}) : super(key: key);
+  String categoryID;
   @override
-  State<CategoryPage> createState() => _CategoryPageState();
+  State<ExercisePage> createState() => _ExercisePageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _ExercisePageState extends State<ExercisePage> {
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Bài tập trị liệu",
+          "Vấn đề của bạn",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -27,6 +34,7 @@ class _CategoryPageState extends State<CategoryPage> {
               },
               icon: const Icon(Icons.search)),
         ],
+        centerTitle: true,
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
       ),
@@ -34,10 +42,9 @@ class _CategoryPageState extends State<CategoryPage> {
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            const Center(child: Text("Bạn đang gặp vấn đề gì?")),
-            FutureBuilder<List<CategoryModel>>(
-                future: CallAPI().getAllCategory(),
+            FutureBuilder<List<Exercise>?>(
+                future: auth.getListExerciseByCategoryID(
+                    widget.categoryID, sharedResultLogin!.accessToken!),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
@@ -45,20 +52,29 @@ class _CategoryPageState extends State<CategoryPage> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                        String iconName = "";
-                        iconName =
-                            "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fknee.png?alt=media&token=47fffdae-d388-4215-aff9-239de7988053";
-
-                        return CategoryMenu(
-                          icon: iconName,
-                          text: "${snapshot.data![index].categoryName}",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ExercisePage(
-                                        categoryID:
-                                            snapshot.data![index].categoryID)));
+                        print(snapshot.data![index].exerciseName);
+                        return BackMenu(
+                          icon:
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbackache.png?alt=media&token=d725e1f5-c106-41f7-9ee5-ade77c464a54",
+                          text: "${snapshot.data![index].exerciseName}",
+                          press: () async {
+                            ExerciseDetail1 exerciseDetail = await CallAPI()
+                                .getExerciseDetailByExerciseID(
+                                    snapshot.data![index].exerciseID);
+                            ExerciseResource exerciseResource = await CallAPI()
+                                .getExerciseResourceByExerciseDetailID(
+                                    exerciseDetail.exerciseDetailID);
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              if (exerciseDetail != null) {
+                                return ExerciseDetail(
+                                  exerciseDetail: exerciseDetail,
+                                  exerciseResource: exerciseResource,
+                                );
+                              } else {
+                                return ExerciseDetail();
+                              }
+                            }));
                           },
                         );
                       },
@@ -74,8 +90,8 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 }
 
-class CategoryMenu extends StatelessWidget {
-  const CategoryMenu({
+class BackMenu extends StatelessWidget {
+  const BackMenu({
     Key? key,
     required this.text,
     required this.icon,
@@ -87,8 +103,9 @@ class CategoryMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: duplicate_ignore
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: TextButton(
           style: ButtonStyle(
               backgroundColor:
@@ -104,8 +121,8 @@ class CategoryMenu extends StatelessWidget {
             children: [
               Image.network(
                 icon,
-                width: 60,
                 height: 60,
+                width: 60,
               ),
               const SizedBox(
                 width: 20,
@@ -170,14 +187,5 @@ class MySearchDelegate extends SearchDelegate {
             },
           );
         });
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

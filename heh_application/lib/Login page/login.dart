@@ -44,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
           automaticallyImplyLeading: false,

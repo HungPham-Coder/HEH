@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Video%20setting/landscape.dart';
 import 'package:heh_application/models/exercise_model/exercise_detail.dart';
-import 'package:heh_application/services/call_api.dart';
-import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../models/exercise_resource.dart';

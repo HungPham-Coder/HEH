@@ -68,7 +68,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
@@ -311,7 +310,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           obscureText: obscureText,
           // controller: _firstName,
           decoration: const InputDecoration(
@@ -347,7 +346,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _difficult,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -379,7 +378,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _injury,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -415,7 +414,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _curing,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -451,7 +450,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: _medicine,
           obscureText: obscureText,
           decoration: const InputDecoration(
