@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/login.dart';
@@ -56,10 +57,10 @@ class CallAPI {
   }
 
   Future<String> callRegisterAPI(SignUpUser signUpUser) async {
-    // var url = Uri.parse('${link}/api/User/Register');
-    var url = Uri.https('localhost:7166', 'api/User/Register');
+    var url = Uri.parse('${link}/api/User/Register');
+    // var url = Uri.https('localhost:7166', 'api/User/Register');
 
-    final body = json.encode({
+    final body = jsonEncode({
       "userName": signUpUser.phone,
       "password": signUpUser.password,
       "email": signUpUser.email,
@@ -67,16 +68,26 @@ class CallAPI {
       "lastName": signUpUser.lastName,
       "address": signUpUser.address,
       "image": signUpUser.image,
-      "dob" : {
-        "year": signUpUser.dob!.year,
-        "month": signUpUser.dob!.month,
-        "day": signUpUser.dob!.day,
-      },
+      "dob" : signUpUser.dob,
       "phoneNumber": signUpUser.phone,
       "gender": signUpUser.gender,
       "bookingStatus": false,
       "banStatus": false,
     });
+    // final body = jsonEncode({
+    //   "userName": "12345645",
+    //   "password": "123456",
+    //   "email": "e1a@gmail.com",
+    //   "firstName": "e",
+    //   "lastName": "e",
+    //   "address": "string",
+    //   "image": "string",
+    //   "dob": "2023-04-03",
+    //   "phoneNumber": "08159",
+    //   "gender": true,
+    //   "bookingStatus": true,
+    //   "banStatus": false
+    // });
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -85,6 +96,7 @@ class CallAPI {
     print('${response.statusCode} register account');
 
     if (response.statusCode == 200) {
+      print(json.decode(response.body));
       return json.decode(response.body);
     } else {
       print(response.body);
@@ -121,6 +133,7 @@ class CallAPI {
 
     print('StatusCode: ${response.statusCode}');
     if (response.statusCode == 200) {
+
       return SignUpUser.fromMap(json.decode(response.body), '');
     } else {
       print("response body");
@@ -195,6 +208,7 @@ class CallAPI {
       "content-type": "application/json"
     };
     var response = await http.get(url, headers: headers);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       Iterable jsonResult = json.decode(response.body);
       List<CategoryModel> list = List<CategoryModel>.from(
@@ -314,9 +328,25 @@ class CallAPI {
     }
   }
 
+  Future<MedicalRecord> getMedicalRecordByUserId(String userId) async {
+    var url = Uri.parse('${link}/api/MedicalRecord/GetByUserId/$userId');
+    // var url = Uri.https('localhost:7166', 'api/MedicalRecord');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      return MedicalRecord.fromMap(json.decode(response.body));
+
+    } else {
+      throw Exception('Failed to load MedicalRecord');
+    }
+  }
+
   Future<void> createMedicalRecord(MedicalRecord medicalRecord) async {
     var url = Uri.parse('${link}/api/MedicalRecord/Create');
-    // var url = Uri.https('localhost:7166', 'api/User/Register');
+    // var url = Uri.https('localhost:7166', 'api/MedicalRecord/Create');
 
     final body = jsonEncode({
       "userID": medicalRecord.userID,

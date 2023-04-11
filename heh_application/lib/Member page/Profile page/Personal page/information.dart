@@ -29,6 +29,8 @@ class InformationPage extends StatefulWidget {
 class _InformationPageState extends State<InformationPage> {
   genderGroup _genderValue = genderGroup.male;
 
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -44,7 +46,9 @@ class _InformationPageState extends State<InformationPage> {
   @override
   Widget build(BuildContext context) {
     // String dob = DateFormat('yyyy-MM-dd').format(sharedCurrentUser!.dob!);
-    // print(dob);
+    DateTime tempDob = new DateFormat("yyyy-MM-dd").parse(sharedCurrentUser!.dob!);
+
+    String dob = DateFormat("dd-MM-yyyy").format(tempDob);
     return Scaffold(
         body: SingleChildScrollView(
             child: Padding(
@@ -156,10 +160,12 @@ class _InformationPageState extends State<InformationPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               TextFormField(
-                // initialValue: dob as String,
+
+
+                initialValue: dob,
                 // DateTime.parse(sharedCurrentUser!.dob as String).toString(),
                 readOnly: true,
-                controller: _date,
+                // controller: _date,
                 decoration: const InputDecoration(
                   labelText: "Ngày sinh ",
                 ),
@@ -171,6 +177,9 @@ class _InformationPageState extends State<InformationPage> {
                       lastDate: DateTime(2030));
                   if (pickeddate != null) {
                     _date.text = DateFormat('yyyy-MM-dd').format(pickeddate);
+                  }
+                  else {
+                    _date.text = sharedCurrentUser!.dob!;
                   }
                 },
               ),
