@@ -6,6 +6,7 @@ import 'package:heh_application/models/sign_up_user.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../Login page/login.dart';
+import '../models/exercise_model/category.dart';
 import '../services/call_api.dart';
 
 class Problem {
@@ -31,15 +32,25 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
     CallAPI().callRegisterAPI(signUpUser);
   }
 
-  static final List<Problem> _problems = [
-    Problem(name: "Đau lưng"),
-    Problem(name: "Đau khớp gối"),
-    Problem(name: "Đau khớp gối 1"),
-    Problem(name: "Đau khớp gối 2"),
-    Problem(name: "Đau khớp gối 3"),
-    Problem(name: "Khác"),
-  ];
+   static final List<Problem> _problems = [];
   List<Problem?> _selectedProblems = [];
+  static final List<CategoryModel> _listCategory = [];
+  void addProblem(List<CategoryModel> list) {
+    if (_problems.isEmpty){
+
+      list.forEach((category) {
+
+        _problems.add(Problem(name: category.categoryName));
+
+        _listCategory.add(category);
+      });
+      _problems.add(Problem(name: "Khác"));
+      // _listCategory.forEach((element) {print(element.categoryName);});
+    }
+
+
+
+  }
 
   bool _visibility = false;
   bool checkVisibility() {
@@ -51,9 +62,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
     return _visibility;
   }
 
-  final _items = _problems
-      .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
-      .toList();
 
   void _itemChange(Problem itemValue, bool isSelected) {
     setState(() {
@@ -113,58 +121,73 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                     ),
                     child: Column(
                       children: [
-                        MultiSelectBottomSheetField<Problem?>(
-                          confirmText: const Text("Chấp nhận",
-                              style: TextStyle(fontSize: 18)),
-                          cancelText: const Text("Hủy",
-                              style: TextStyle(fontSize: 18)),
-                          initialChildSize: 0.4,
-                          title: const Text("Vấn đề của bạn"),
-                          buttonText: const Text(
-                            "Vấn đề của bạn",
-                            style: TextStyle(color: Colors.grey, fontSize: 15),
-                          ),
-                          items: _problems
-                              .map((e) => MultiSelectItem<Problem?>(e, e.name))
-                              .toList(),
-                          listType: MultiSelectListType.CHIP,
-                          searchable: true,
-                          onConfirm: (values) {
-                            setState(() {
-                              _selectedProblems = values;
-                              int counter = 0;
+                        FutureBuilder<List<CategoryModel>>(
+                            future: CallAPI().getAllCategory(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
 
-                              _selectedProblems.forEach((element) {
-                                if (element!.name.contains("Khác")) {
-                                  counter++;
-                                }
-                              });
-                              if (counter > 0) {
-                                _visibility = true;
+                                addProblem(snapshot.data!);
+                                return MultiSelectBottomSheetField<Problem?>(
+                                  confirmText: const Text("Chấp nhận",
+                                      style: TextStyle(fontSize: 18)),
+                                  cancelText: const Text("Hủy",
+                                      style: TextStyle(fontSize: 18)),
+                                  initialChildSize: 0.4,
+                                  title: const Text("Vấn đề của bạn"),
+                                  buttonText: const Text(
+                                    "Vấn đề của bạn",
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15),
+                                  ),
+                                  items: _problems
+                                      .map((e) =>
+                                          MultiSelectItem<Problem?>(e, e.name))
+                                      .toList(),
+                                  listType: MultiSelectListType.CHIP,
+                                  searchable: true,
+                                  onConfirm: (values) {
+                                    setState(() {
+                                      _selectedProblems = values;
+                                      int counter = 0;
+
+                                      _selectedProblems.forEach((element) {
+                                        if (element!.name.contains("Khác")) {
+                                          counter++;
+                                        }
+                                      });
+                                      if (counter > 0) {
+                                        _visibility = true;
+                                      } else {
+                                        _visibility = false;
+                                      }
+                                    });
+                                  },
+                                  chipDisplay:
+                                      MultiSelectChipDisplay(onTap: (values) {
+                                    setState(
+                                      () {
+                                        _itemChange(values!, false);
+                                        int counter = 0;
+                                        _selectedProblems.forEach((element) {
+                                          if (element!.name.contains("Khác")) {
+                                            counter++;
+                                          }
+                                        });
+                                        if (counter == 0) {
+                                          _visibility = false;
+                                        } else {
+                                          _visibility = true;
+                                        }
+                                      },
+                                    );
+                                  }),
+                                );
                               } else {
-                                _visibility = false;
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
                               }
-                            });
-                          },
-                          chipDisplay: MultiSelectChipDisplay(onTap: (values) {
-                            setState(
-                              () {
-                                _itemChange(values!, false);
-                                int counter = 0;
-                                _selectedProblems.forEach((element) {
-                                  if (element!.name.contains("Khác")) {
-                                    counter++;
-                                  }
-                                });
-                                if (counter == 0) {
-                                  _visibility = false;
-                                } else {
-                                  _visibility = true;
-                                }
-                              },
-                            );
-                          }),
-                        )
+                            })
                       ],
                     ),
                   ),
@@ -216,7 +239,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                         child: MaterialButton(
                           height: 50,
                           onPressed: () {
-                            MedicalRecord medicalRecord = MedicalRecord();
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -251,18 +274,32 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
 
                             String userID = await CallAPI()
                                 .callRegisterAPI(widget.signUpUser);
-                            MedicalRecord medicalRecord = MedicalRecord(
-                              subProfileID: null,
-                              userID: userID,
-                              categoryID:
-                                  '147843e2-f691-4867-b3f6-afccf2338ceb',
-                              problem: problem,
-                              curing: _curing.text,
-                              difficulty: _difficult.text,
-                              injury: _injury.text,
-                              medicine: _medicine.text,
-                            );
-                            await CallAPI().createMedicalRecord(medicalRecord);
+                          List<String> listCategoryID = [];
+                            _selectedProblems.forEach((elementSelected) {
+                              if (elementSelected!.name != "Khác"){
+                                _listCategory.forEach((category) {
+                                  if (elementSelected.name == category.categoryName){
+                                    listCategoryID.add(category.categoryID);
+                                  }
+                                });
+                              }
+
+                            });
+                            listCategoryID.forEach((element) async {
+                              MedicalRecord medicalRecord = MedicalRecord(
+                                subProfileID: null,
+                                userID: userID,
+                                categoryID:
+                                element,
+                                problem: problem,
+                                curing: _curing.text,
+                                difficulty: _difficult.text,
+                                injury: _injury.text,
+                                medicine: _medicine.text,
+                              );
+                              await CallAPI().createMedicalRecord(medicalRecord);
+                            });
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

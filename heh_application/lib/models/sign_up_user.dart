@@ -23,7 +23,7 @@ class SignUpUser {
     _image = value;
   }
 
-  final DateTime? dob;
+  final String? dob;
   final String? phone;
   final bool? gender;
   // final String? gender;
@@ -47,6 +47,7 @@ class SignUpUser {
   }) : _role = role, _image = image;
 
   factory SignUpUser.fromMap(Map<String, dynamic> json, String? documentId) {
+
     return SignUpUser(
       userID: json["id"],
       image: json["image"],
@@ -56,7 +57,7 @@ class SignUpUser {
       email: json["email"],
       firstName: json["firstName"],
       lastName: json["lastName"],
-      dob: DateTime.parse(json["dob"] as String),
+      dob: json["dob"] ,
       gender: json["gender"],
       phone: json["phoneNumber"],
     );
