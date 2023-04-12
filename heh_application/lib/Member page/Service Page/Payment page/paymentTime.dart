@@ -4,14 +4,14 @@ import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/succ
 
 enum paymentGroup { male, female, others }
 
-class PaymentPage extends StatefulWidget {
-  const PaymentPage({Key? key}) : super(key: key);
+class PaymentTimePage extends StatefulWidget {
+  const PaymentTimePage({Key? key}) : super(key: key);
 
   @override
-  State<PaymentPage> createState() => _PaymentPageState();
+  State<PaymentTimePage> createState() => _PaymentTimePageState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _PaymentTimePageState extends State<PaymentTimePage> {
   paymentGroup _paymentValue = paymentGroup.male;
   @override
   Widget build(BuildContext context) {
@@ -165,7 +165,6 @@ class _PaymentPageState extends State<PaymentPage> {
                             side: const BorderSide(color: Colors.white)),
                       )),
                   onPressed: () {
-
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(

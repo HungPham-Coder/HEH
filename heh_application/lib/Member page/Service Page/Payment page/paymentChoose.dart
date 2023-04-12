@@ -4,14 +4,14 @@ import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/succ
 
 enum paymentGroup { momo }
 
-class PaymentPage extends StatefulWidget {
-  const PaymentPage({Key? key}) : super(key: key);
+class PaymentChoosePage extends StatefulWidget {
+  const PaymentChoosePage({Key? key}) : super(key: key);
 
   @override
-  State<PaymentPage> createState() => _PaymentPageState();
+  State<PaymentChoosePage> createState() => _PaymentChoosePageState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _PaymentChoosePageState extends State<PaymentChoosePage> {
   paymentGroup _paymentValue = paymentGroup.momo;
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  relationship()
+                                  const relationship(),
+                                  const SizedBox(height: 10),
                                 ],
                               ),
                             ),

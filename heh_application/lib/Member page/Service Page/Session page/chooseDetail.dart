@@ -66,7 +66,8 @@ class _SessonDetailPageState extends State<SessonDetailPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const PaymentPage()));
+                                    builder: (context) =>
+                                        const PaymentTimePage()));
                           },
                         );
                       },

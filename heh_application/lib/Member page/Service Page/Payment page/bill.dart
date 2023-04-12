@@ -126,7 +126,7 @@ class _BillPageState extends State<BillPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PaymentPage()));
+                              builder: (context) => const PaymentTimePage()));
                     },
                     child: const Text(
                       "Thanh toán",

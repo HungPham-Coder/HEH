@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentChoose.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/models/schedule.dart';
@@ -51,7 +52,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
@@ -67,14 +68,15 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const PaymentPage()));
+                                    builder: (context) =>
+                                        const PaymentChoosePage()));
                           },
                         );
                       },
                     );
                   } else {
                     return Container(
-                      child: Text("Physio dang ban het tat ca cac slot"),
+                      child: const Text("Physio dang ban het tat ca cac slot"),
                     );
                   }
                 }),
