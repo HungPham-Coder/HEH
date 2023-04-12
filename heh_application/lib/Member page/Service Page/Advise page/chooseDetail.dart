@@ -66,7 +66,8 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const BillChoosePage()));
+                                         BillChoosePage(physiotherapist: widget.physiotherapist,
+                                        schedule: snapshot.data![index],)));
                           },
                         );
                       },

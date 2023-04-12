@@ -147,9 +147,9 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: const [
-                    Text("Số tiền:"),
+                    Text("Số tiền:",style: TextStyle(fontSize: 15)),
                     Text("100,000 VNĐ",
-                        style: TextStyle(fontWeight: FontWeight.w600)),
+                        style: TextStyle(fontWeight: FontWeight.w600,fontSize: 17)),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -160,7 +160,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                       ),
                       padding: MaterialStateProperty.all(
                           const EdgeInsets.symmetric(
-                              horizontal: 120, vertical: 14)),
+                              horizontal: 100, vertical: 14)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
