@@ -6,6 +6,7 @@ import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:heh_application/Physiotherapist%20Page/navigation_main.dart';
 import 'package:heh_application/main.dart';
+import 'package:heh_application/models/medical_record.dart';
 import 'package:heh_application/models/result_login.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/auth.dart';
@@ -15,6 +16,7 @@ import '../services/stream_test.dart';
 
 ResultLogin? sharedResultLogin;
 SignUpUser? sharedCurrentUser;
+MedicalRecord? sharedMedicalRecord;
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);

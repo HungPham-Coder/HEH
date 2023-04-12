@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/fail.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/success.dart';
-import 'package:lottie/lottie.dart';
+// import 'package:lottie/lottie.dart';
 
 enum genderGroup { male, female, others }
 
