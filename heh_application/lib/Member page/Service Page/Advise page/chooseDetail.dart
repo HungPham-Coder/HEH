@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentChoose.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/billChoose.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/models/schedule.dart';
-import 'package:heh_application/models/slot.dart';
 import 'package:heh_application/services/call_api.dart';
-import 'package:intl/intl.dart';
 
 class ChooseDetailPage extends StatefulWidget {
   ChooseDetailPage({Key? key, required this.physiotherapist}) : super(key: key);
@@ -69,7 +66,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const PaymentChoosePage()));
+                                        const BillChoosePage()));
                           },
                         );
                       },

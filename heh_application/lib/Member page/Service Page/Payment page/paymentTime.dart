@@ -80,7 +80,7 @@ class _PaymentTimePageState extends State<PaymentTimePage> {
                                       const Text("Số tiền: "),
                                       Row(
                                         children: const [
-                                          Text("100.000",
+                                          Text("100,000",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w600)),
                                           Text(" VNĐ",

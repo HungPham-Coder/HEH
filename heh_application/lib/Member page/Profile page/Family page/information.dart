@@ -315,7 +315,8 @@ class _FamilyInformationPageState extends State<FamilyInformationPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
+          keyboardType: TextInputType.phone,
           // controller: _phone,
           obscureText: obscureText,
           decoration: const InputDecoration(

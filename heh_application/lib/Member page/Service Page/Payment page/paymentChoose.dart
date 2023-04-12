@@ -50,6 +50,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                             const Text("Chi tiết giao dịch",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(height: 10),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 10),
@@ -80,7 +81,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                       const Text("Số tiền: "),
                                       Row(
                                         children: const [
-                                          Text("100.000",
+                                          Text("100,000",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w600)),
                                           Text(" VNĐ",
@@ -98,8 +99,6 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  const relationship(),
-                                  const SizedBox(height: 10),
                                 ],
                               ),
                             ),
@@ -138,6 +137,7 @@ class _PaymentChoosePageState extends State<PaymentChoosePage> {
                   ],
                 ))),
         bottomSheet: Container(
+          color: Colors.black12,
           height: 120,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -221,73 +221,6 @@ class _chooseState extends State<choose> {
             ),
           ],
         ),
-      ],
-    );
-  }
-}
-
-class relationship extends StatefulWidget {
-  const relationship({Key? key}) : super(key: key);
-
-  @override
-  State<relationship> createState() => _relationshipState();
-}
-
-class _relationshipState extends State<relationship> {
-  final List<String> _relationships = [
-    "- Chọn -",
-    "Tôi",
-    "Cha",
-    "Mẹ",
-    "Vợ",
-    "Chồng",
-    "Con",
-    "Anh",
-    "Chị",
-    "Em",
-    "Cháu",
-    "Ông nội",
-    "Bà nội",
-    "Ông Ngoại",
-    "Bà ngoại"
-  ];
-  String? selectedRelationship = "- Chọn -";
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: const [
-            Text("Bạn muốn đặt cho ai?"),
-            Text(" *", style: TextStyle(color: Colors.red)),
-          ],
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 50,
-          child: SizedBox(
-            child: DropdownButtonFormField<String>(
-              value: selectedRelationship,
-              items: _relationships
-                  .map((relationship) => DropdownMenuItem<String>(
-                      value: relationship,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          relationship,
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      )))
-                  .toList(),
-              onChanged: (relationship) => setState(() {
-                selectedRelationship = relationship;
-              }),
-            ),
-          ),
-        )
       ],
     );
   }

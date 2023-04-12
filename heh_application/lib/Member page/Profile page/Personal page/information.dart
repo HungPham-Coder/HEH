@@ -16,7 +16,7 @@ final TextEditingController _phone = TextEditingController();
 final TextEditingController _password = TextEditingController();
 final TextEditingController _confirmPassword = TextEditingController();
 
-enum genderGroup { male, female}
+enum genderGroup { male, female }
 
 class InformationPage extends StatefulWidget {
   const InformationPage({Key? key}) : super(key: key);
@@ -25,11 +25,8 @@ class InformationPage extends StatefulWidget {
   State<InformationPage> createState() => _InformationPageState();
 }
 
-
 class _InformationPageState extends State<InformationPage> {
   genderGroup _genderValue = genderGroup.male;
-
-
 
   @override
   void initState() {
@@ -38,15 +35,17 @@ class _InformationPageState extends State<InformationPage> {
     checkGender();
   }
 
-  void checkGender (){
-    if (sharedCurrentUser!.gender == false){
+  void checkGender() {
+    if (sharedCurrentUser!.gender == false) {
       _genderValue = genderGroup.female;
     }
-    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // String dob = DateFormat('yyyy-MM-dd').format(sharedCurrentUser!.dob!);
-    DateTime tempDob = new DateFormat("yyyy-MM-dd").parse(sharedCurrentUser!.dob!);
+    DateTime tempDob =
+        new DateFormat("yyyy-MM-dd").parse(sharedCurrentUser!.dob!);
 
     String dob = DateFormat("dd-MM-yyyy").format(tempDob);
     return Scaffold(
@@ -134,15 +133,14 @@ class _InformationPageState extends State<InformationPage> {
                 children: <Widget>[
                   const Text("Nam"),
                   Radio(
-                      value: genderGroup.male,
-                      groupValue: _genderValue,
-                      onChanged: (genderGroup? value) {
-                        setState(() {
-                          _genderValue = value!;
-                        });
-                      },
-
-                      ),
+                    value: genderGroup.male,
+                    groupValue: _genderValue,
+                    onChanged: (genderGroup? value) {
+                      setState(() {
+                        _genderValue = value!;
+                      });
+                    },
+                  ),
                   const Text("Nữ"),
                   Radio(
                       value: genderGroup.female,
@@ -160,8 +158,6 @@ class _InformationPageState extends State<InformationPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               TextFormField(
-
-
                 initialValue: dob,
                 // DateTime.parse(sharedCurrentUser!.dob as String).toString(),
                 readOnly: true,
@@ -177,8 +173,7 @@ class _InformationPageState extends State<InformationPage> {
                       lastDate: DateTime(2030));
                   if (pickeddate != null) {
                     _date.text = DateFormat('yyyy-MM-dd').format(pickeddate);
-                  }
-                  else {
+                  } else {
                     _date.text = sharedCurrentUser!.dob!;
                   }
                 },
@@ -259,7 +254,6 @@ class _InformationPageState extends State<InformationPage> {
   }
 
   Widget fullName({label, obscureText = false}) {
-
     return Column(
       children: <Widget>[
         Row(
@@ -281,7 +275,6 @@ class _InformationPageState extends State<InformationPage> {
         TextFormField(
           initialValue: sharedCurrentUser!.firstName,
           obscureText: obscureText,
-
 
           // controller: _firstName,
 
@@ -357,6 +350,7 @@ class _InformationPageState extends State<InformationPage> {
         const SizedBox(height: 5),
         TextFormField(
           initialValue: sharedCurrentUser!.phone,
+          keyboardType: TextInputType.phone,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Số điện thoại',

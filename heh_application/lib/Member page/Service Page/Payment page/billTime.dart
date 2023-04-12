@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/result.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
 
-class BillPage extends StatefulWidget {
-  const BillPage({Key? key}) : super(key: key);
+class BillTimePage extends StatefulWidget {
+  const BillTimePage({Key? key}) : super(key: key);
 
   @override
-  State<BillPage> createState() => _BillPageState();
+  State<BillTimePage> createState() => _BillTimePageState();
 }
 
-class _BillPageState extends State<BillPage> {
+class _BillTimePageState extends State<BillTimePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -329,6 +329,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         const SizedBox(height: 5),
         TextFormField(
+          keyboardType: TextInputType.phone,
           controller: _phone,
           obscureText: obscureText,
           decoration: const InputDecoration(

@@ -421,7 +421,8 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 17, fontWeight: FontWeight.w400, color: Colors.black87),
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
+          keyboardType: TextInputType.phone,
           obscureText: obscureText,
           controller: phoneController,
           decoration: const InputDecoration(
