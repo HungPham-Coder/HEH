@@ -5,6 +5,7 @@ import 'package:heh_application/models/medical_record.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
+import '../Login page/landing_page.dart';
 import '../Login page/login.dart';
 import '../models/exercise_model/category.dart';
 import '../services/call_api.dart';
@@ -296,7 +297,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const LoginPage()));
+                                    builder: (context) => const LandingPage()));
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,

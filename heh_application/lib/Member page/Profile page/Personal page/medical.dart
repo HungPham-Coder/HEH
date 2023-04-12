@@ -8,8 +8,8 @@ import '../../../models/exercise_model/category.dart';
 import '../../../services/call_api.dart';
 
 class MedicalPage extends StatefulWidget {
-  const MedicalPage({Key? key}) : super(key: key);
-
+   MedicalPage({Key? key, this.medicalRecord}) : super(key: key);
+  MedicalRecord? medicalRecord;
   @override
   State<MedicalPage> createState() => _MedicalPageState();
 }
@@ -58,30 +58,15 @@ class _MedicalPageState extends State<MedicalPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: FutureBuilder <MedicalRecord>(
-            future: CallAPI().getMedicalRecordByUserId(sharedCurrentUser!.userID!),
-            builder: (context, snapshot)  {
-              // print(snapshot.data!.medicine);
-             if (snapshot.hasData){
-              return Column(
+          child:
+
+               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20),
-                  Row(
-                    children: const <Widget>[
-                      Text(
-                        "Anh/Chị đang gặp vấn đề gì?",
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87),
-                      ),
-                      Text(
-                        " *",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ],
-                  ),
+
+
+
+
                   const SizedBox(height: 5),
                   Container(
                       decoration: BoxDecoration(
@@ -92,38 +77,59 @@ class _MedicalPageState extends State<MedicalPage> {
                       ),
                       child: Visibility(
                         visible: false,
-                        child: MultiSelectBottomSheetField<Problem?>(
-                          initialChildSize: 0.4,
-                          title: const Text("Vấn đề của bạn"),
-                          buttonText: const Text(
-                            "Vấn đề của bạn",
-                            style: TextStyle(color: Colors.grey, fontSize: 15),
-                          ),
-                          items: _problems
-                              .map((e) => MultiSelectItem(e, e.name))
-                              .toList(),
-                          listType: MultiSelectListType.CHIP,
-                          searchable: true,
-                          onConfirm: (values) {
-                            setState(() {
-                              _selectedProblems = values;
-                              for (var values in _selectedProblems) {
-                                if (values == 'Khác') {
-                                  _visibility = true;
-                                }
-                              }
-                            });
-                          },
-                          chipDisplay: MultiSelectChipDisplay(
-                            onTap: (values) {
-                              setState(() {
-                                if (values.toString() == "Khác") {
-                                  _visibility = false;
-                                }
-                                _selectedProblems.remove(values);
-                              });
-                            },
-                          ),
+                        child: Column(
+
+                          children: [
+                            const SizedBox(height: 20),
+                            Row(
+                              children: const <Widget>[
+                                Text(
+                                  "Anh/Chị đang gặp vấn đề gì?",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black87),
+                                ),
+                                Text(
+                                  " *",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ],
+                            ),
+                            MultiSelectBottomSheetField<Problem?>(
+                              initialChildSize: 0.4,
+                              title: const Text("Vấn đề của bạn"),
+                              buttonText: const Text(
+                                "Vấn đề của bạn",
+                                style: TextStyle(color: Colors.grey, fontSize: 15),
+                              ),
+                              items: _problems
+                                  .map((e) => MultiSelectItem(e, e.name))
+                                  .toList(),
+                              listType: MultiSelectListType.CHIP,
+                              searchable: true,
+                              onConfirm: (values) {
+                                setState(() {
+                                  _selectedProblems = values;
+                                  for (var values in _selectedProblems) {
+                                    if (values == 'Khác') {
+                                      _visibility = true;
+                                    }
+                                  }
+                                });
+                              },
+                              chipDisplay: MultiSelectChipDisplay(
+                                onTap: (values) {
+                                  setState(() {
+                                    if (values.toString() == "Khác") {
+                                      _visibility = false;
+                                    }
+                                    _selectedProblems.remove(values);
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       )
 
@@ -141,12 +147,12 @@ class _MedicalPageState extends State<MedicalPage> {
                   const SizedBox(height: 20),
                   Visibility(
                     visible: true,
-                    child: problem(label: "Khác",problem: snapshot.data!.problem),
+                    child: problem(label: "Khác",problem: widget.medicalRecord!.problem),
                   ),
-                  difficult(label: "Hoạt động khó khăn trong cuộc sống?",dificult: snapshot.data!.difficulty),
-                  injury(label: "Anh/Chị đã gặp chấn thương gì?",injury: snapshot.data!.injury),
-                  curing(label: "Bệnh lý Anh/Chị đang điều trị kèm theo", curing: snapshot.data!.curing),
-                  medicine(label: "Thuốc đang sử dụng hiện tại",medicine: snapshot.data!.medicine),
+                  difficult(label: "Hoạt động khó khăn trong cuộc sống?",dificult: widget.medicalRecord!.difficulty),
+                  injury(label: "Anh/Chị đã gặp chấn thương gì?",injury: widget.medicalRecord!.injury),
+                  curing(label: "Bệnh lý Anh/Chị đang điều trị kèm theo", curing: widget.medicalRecord!.curing),
+                  medicine(label: "Thuốc đang sử dụng hiện tại",medicine: widget.medicalRecord!.medicine),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -216,13 +222,13 @@ class _MedicalPageState extends State<MedicalPage> {
                     ],
                   ),
                 ],
-              );
-             }
-             else {
-               return Center(child: CircularProgressIndicator(),);
-             }
-            }
-          ),
+              )
+          //    }
+          //    else {
+          //      return Center(child: CircularProgressIndicator(),);
+          //    }
+          //   }
+          // ),
         ),
       ),
     );
@@ -248,7 +254,8 @@ Widget problem({label, obscureText = false, String? problem}) {
         ],
       ),
       const SizedBox(height: 5),
-      TextField(
+      TextFormField(
+        initialValue: problem,
         obscureText: obscureText,
         // controller: _firstName,
         decoration: const InputDecoration(
@@ -284,7 +291,8 @@ Widget difficult({label, obscureText = false,String? dificult}) {
         ],
       ),
       const SizedBox(height: 5),
-      TextField(
+      TextFormField(
+        initialValue: dificult,
         // controller: _email,
         obscureText: obscureText,
         decoration: const InputDecoration(
@@ -320,7 +328,8 @@ Widget injury({label, obscureText = false, String? injury}) {
         ],
       ),
       const SizedBox(height: 5),
-      TextField(
+      TextFormField(
+        initialValue: injury,
         // controller: _phone,
         obscureText: obscureText,
         decoration: const InputDecoration(
@@ -356,7 +365,8 @@ Widget curing({label, obscureText = false,String? curing}) {
         ],
       ),
       const SizedBox(height: 5),
-      TextField(
+      TextFormField(
+        initialValue: curing,
         // controller: _password,
         obscureText: obscureText,
         decoration: const InputDecoration(
@@ -392,7 +402,8 @@ Widget medicine({label, obscureText = false, String? medicine}) {
         ],
       ),
       const SizedBox(height: 5),
-      TextField(
+      TextFormField(
+        initialValue: medicine,
         // controller: _confirmPassword,
         obscureText: obscureText,
         decoration: const InputDecoration(

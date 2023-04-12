@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Home%20page/favorite.dart';
 import 'package:heh_application/Member%20page/Home%20page/home.dart';
 import 'package:heh_application/Member%20page/Profile%20page/setting.dart';
 import 'package:heh_application/Member%20page/Service%20Page/service.dart';
+import 'package:heh_application/models/medical_record.dart';
+import 'package:heh_application/services/call_api.dart';
 
 import '../models/sign_up_user.dart';
 
@@ -49,7 +52,15 @@ class _Navigation_BarState extends State<Navigation_Bar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pageList[pageIndex],
+      body: FutureBuilder<MedicalRecord>(
+        future: CallAPI().getMedicalRecordByUserId(sharedCurrentUser!.userID!),
+        builder: (context, snapshot) {
+          if (snapshot.hasData){
+            sharedMedicalRecord = snapshot.data;
+          }
+          return pageList[pageIndex];
+        }
+      ),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
           fixedColor: Colors.white,
