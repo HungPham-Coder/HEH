@@ -24,18 +24,18 @@ class _AdviseDetailPageState extends State<AdviseDetailPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(15)),
                 child: Column(children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height / 11,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"))),
+                  const SizedBox(height: 10),
+                  const CircleAvatar(
+                    maxRadius: 50,
+                    backgroundColor: Color.fromARGB(255, 220, 220, 220),
+                    backgroundImage: NetworkImage(
+                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
                   ),
                   Padding(
                     padding:

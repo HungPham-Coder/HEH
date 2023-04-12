@@ -17,6 +17,17 @@ class ExerciseDetail extends StatefulWidget {
 
 class _ExerciseDetailState extends State<ExerciseDetail> {
   late VideoPlayerController _vidController;
+  bool isFavorited = false;
+
+  void toggleFavorited() {
+    setState(() {
+      if (isFavorited) {
+        isFavorited = false;
+      } else {
+        isFavorited = true;
+      }
+    });
+  }
 
   String _videoDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
@@ -64,11 +75,17 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                actions: const [
+                actions: [
                   Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Icon(Icons.favorite_border, size: 30),
-                  )
+                      padding: EdgeInsets.only(right: 10),
+                      child: IconButton(
+                        onPressed: toggleFavorited,
+                        icon: (isFavorited
+                            ? Image.network(
+                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffavorite_white.png?alt=media&token=cec3cd01-e1a7-4a98-b891-b64d3f2b48a1")
+                            : Image.network(
+                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffavorited.png?alt=media&token=43a91ace-f9c8-40dc-a0b1-9fdadbaa00a9")),
+                      ))
                 ],
                 toolbarHeight: 45,
                 title: Text(

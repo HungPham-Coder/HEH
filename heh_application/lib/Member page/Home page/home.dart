@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/servicePaid.dart';
+import 'package:heh_application/Member%20page/Home%20page/Paid%20page/servicePaid.dart';
 
 import '../../Welcome page/welcome_page.dart';
 

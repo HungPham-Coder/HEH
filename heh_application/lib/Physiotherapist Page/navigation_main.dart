@@ -45,7 +45,10 @@ class _PhyNavigation_barState extends State<PhyNavigation_bar> {
                 icon: Icon(Icons.featured_play_list), label: "Tính năng"),
             BottomNavigationBarItem(
                 icon: Stack(children: const [
-                  Badge(label: Text("1"), child: Icon(Icons.notifications))
+                  Badge(
+                    child: Icon(Icons.notifications),
+                    smallSize: 7,
+                  )
                 ]),
                 label: "Thông báo"),
             const BottomNavigationBarItem(

@@ -271,8 +271,6 @@ class _categoryState extends State<category> {
   ];
   List<Problem?> _selectedProblems = [];
 
-  bool _visibility = false;
-
   final _items = _problems
       .map((problem) => MultiSelectItem<Problem>(problem, problem.name))
       .toList();

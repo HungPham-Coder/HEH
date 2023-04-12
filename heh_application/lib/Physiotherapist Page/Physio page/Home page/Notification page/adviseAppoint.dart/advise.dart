@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/appointment/adviseAppoint.dart/adviseDetail.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Notification%20page/adviseAppoint.dart/adviseDetail.dart';
 
 class AdviseAppointmentPage extends StatefulWidget {
   const AdviseAppointmentPage({Key? key}) : super(key: key);

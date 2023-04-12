@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heh_application/Member%20page/Profile%20page/changePass.dart';
-import 'package:heh_application/Member%20page/history.dart';
+import 'package:heh_application/Member%20page/Profile%20page/history.dart';
 import 'package:heh_application/services/stream_test.dart';
 import 'package:provider/provider.dart';
 

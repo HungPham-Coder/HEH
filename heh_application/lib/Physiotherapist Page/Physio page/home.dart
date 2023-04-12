@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/appointment/appointment.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Notification%20page/appointment.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/messenger.dart';
 
 class PhysioHomePage extends StatefulWidget {
@@ -28,8 +28,19 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
           children: [
             HomeMenu(
               icon:
-                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fadvise.png?alt=media&token=73296749-85c7-415c-9287-eb044d23d6a1",
-              text: "Lịch hẹn của người dùng",
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fadvisor.png?alt=media&token=dae71db1-2f53-404e-92de-46838ceff9c6",
+              text: "Tham gia buổi tư vấn",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AppointmentPage()));
+              },
+            ),
+            HomeMenu(
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fplan.png?alt=media&token=2356eeaa-f224-4b1f-ad5f-f0cb34f2e922",
+              text: "Tham gia buổi điều trị",
               press: () {
                 Navigator.push(
                     context,

@@ -41,12 +41,12 @@ class _SessionChoosepPageState extends State<SessionChoosepPage> {
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
-                              const Category(category: ""),
+                              // const Category(category: ""),
                               PhysioChooseMenu(
                                 icon:
                                     "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                                name:
-                                    snapshot.data![index].signUpUser!.firstName!,
+                                name: snapshot
+                                    .data![index].signUpUser!.firstName!,
                                 skill:
                                     'Kỹ năng: ${snapshot.data![index].skill!}',
                                 press: () {
