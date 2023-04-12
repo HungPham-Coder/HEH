@@ -23,24 +23,10 @@ class SignUpFamilyPage extends StatefulWidget {
 class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
   genderGroup _genderValue = genderGroup.male;
 
-  final List<String> _relationships = [
-    "- Chọn -",
-    "Cha",
-    "Mẹ",
-    "Vợ",
-    "Chồng",
-    "Con",
-    "Anh",
-    "Chị",
-    "Em",
-    "Cháu",
-    "Ông nội",
-    "Bà nội",
-    "ông Ngoại",
-    "Bà ngoại"
-  ];
+  final List<String> _relationships =["- Chọn -",];
 
-  String? selectedRelationship = "- Chọn -";
+
+  String selectedRelationship = "- Chọn -";
 
   final TextEditingController _date = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
@@ -156,23 +142,41 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
                   width: MediaQuery.of(context).size.width,
                   height: 60,
                   // child: SizedBox(
-                  child: DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 1, color: Colors.grey))),
-                    value: selectedRelationship,
-                    items: _relationships
-                        .map((relationship) => DropdownMenuItem<String>(
-                            value: relationship,
-                            child: Text(
-                              relationship,
-                              style: const TextStyle(fontSize: 15),
-                            )))
-                        .toList(),
-                    onChanged: (relationship) => setState(() {
-                      selectedRelationship = relationship;
-                    }),
+                  child: FutureBuilder<List<Relationship>>(
+                    future: CallAPI().getAllRelationship(),
+                    builder: (context, snapshot)  {
+                      if (snapshot.hasData){
+                        if (_relationships.length == 1){
+                          snapshot.data!.forEach((element) {
+                            String field = "${element.relationName}";
+                            _relationships.add(field);
+                          });
+                          print("Co data");
+                        }
+                        return DropdownButtonFormField<String>(
+                          decoration: const InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                          value: selectedRelationship,
+                          items: _relationships
+                              .map((relationship) => DropdownMenuItem<String>(
+                              value: relationship,
+                              child: Text(
+                                relationship,
+                                style: const TextStyle(fontSize: 15),
+                              )))
+                              .toList(),
+                          onChanged: (relationship) => setState(() {
+                            selectedRelationship = relationship!;
+                          }),
+                        );
+                      }
+                      else {
+                        return Center(child: CircularProgressIndicator(),);
+                      }
+
+                    }
                   )
 
                   // ),
