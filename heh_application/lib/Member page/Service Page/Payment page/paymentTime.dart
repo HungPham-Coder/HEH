@@ -158,13 +158,14 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       padding: MaterialStateProperty.all(
                           const EdgeInsets.symmetric(
-                              horizontal: 120, vertical: 14)),
+                              horizontal: 100, vertical: 14)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                             side: const BorderSide(color: Colors.white)),
                       )),
                   onPressed: () {
+
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(

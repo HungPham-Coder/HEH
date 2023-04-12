@@ -8,16 +8,16 @@ class Slot {
 
   String timeStart;
   String timeEnd;
-  String? description;
-  double? price;
+  bool available;
 
   Slot(
       {required this.slotID,
       required this.timeStart,
       required this.timeEnd,
-      this.description,
-      required this.price,
-      required this.slotName});
+
+      required this.slotName,
+      required this.available
+      });
 
   factory Slot.fromMap(Map<String, dynamic> json) {
     return Slot(
@@ -25,7 +25,7 @@ class Slot {
         slotName: json['slotName'],
         timeStart: json['timeStart'],
         timeEnd: json['timeEnd'],
-        price: double.parse(json['price'].toString()),
-        description: json['description']);
+        available: json['available'],
+    );
   }
 }
