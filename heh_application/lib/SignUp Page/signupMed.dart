@@ -33,7 +33,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
     CallAPI().callRegisterAPI(signUpUser);
   }
 
-  static final List<Problem> _problems = [];
+  List<Problem> _problems = [];
   List<Problem?> _selectedProblems = [];
   static final List<CategoryModel> _listCategory = [];
   void addProblem(List<CategoryModel> list) {
@@ -262,9 +262,21 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                           height: 50,
                           onPressed: () async {
                             String problem = '';
-                            _selectedProblems.forEach((element) {
-                              problem += '${element!.name},';
-                            });
+                            if (_selectedProblems.length > 1) {
+                              _selectedProblems.forEach((element) {
+                                if (element != _selectedProblems.last) {
+                                  problem += '${element!.name}, ';
+                                } else {
+                                  problem += '${element!.name} ';
+                                }
+                              });
+                              print("ABBC");
+                            } else {
+                              _selectedProblems.forEach((element) {
+                                problem = '${element!.name}';
+                              });
+                              print("ABBC");
+                            }
 
                             String userID = await CallAPI()
                                 .callRegisterAPI(widget.signUpUser);

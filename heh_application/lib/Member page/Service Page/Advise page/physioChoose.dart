@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/chooseDetail.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/services/call_api.dart';
@@ -32,35 +33,40 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                 future: CallAPI().getAllActivePhysiotherapist(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Category(category: "ABBC"),
-                              PhysioChooseMenu(
-                                icon:
-                                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                                name:
-                                    snapshot.data![index].signUpUser.firstName!,
-                                skill:
-                                    'Kỹ năng: ${snapshot.data![index].skill!}',
-                                press: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ChooseDetailPage(
-                                                physiotherapist:
-                                                    snapshot.data![index],
-                                              )));
-                                },
-                              ),
-                            ],
-                          );
-                        });
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Category(category: sharedMedicalRecord!.problem!),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  PhysioChooseMenu(
+                                    icon:
+                                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+                                    name: snapshot
+                                        .data![index].signUpUser.firstName!,
+                                    skill:
+                                        'Kỹ năng: ${snapshot.data![index].skill!}',
+                                    press: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChooseDetailPage(
+                                                    physiotherapist:
+                                                        snapshot.data![index],
+                                                  )));
+                                    },
+                                  ),
+                                ],
+                              );
+                            }),
+                      ],
+                    );
                   } else {
                     return const Center(
                       child: Text(

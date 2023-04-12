@@ -108,9 +108,9 @@ class PhysioProfile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
@@ -127,20 +127,22 @@ class PhysioProfile extends StatelessWidget {
                           ],
                         )),
                   ),
-                  const SizedBox(width: 10),
-                  Column(
-                    children: [
-                      Text(
-                        phy,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                      Text(name,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          )),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      children: [
+                        Text(
+                          phy,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                        Text(name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            )),
+                      ],
+                    ),
                   ),
                 ],
               ),
