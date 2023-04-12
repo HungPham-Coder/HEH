@@ -28,7 +28,6 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            const Category(category: "Đau lưng"),
             FutureBuilder<List<Physiotherapist>>(
                 future: CallAPI().getAllActivePhysiotherapist(),
                 builder: (context, snapshot) {
@@ -38,26 +37,35 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
-                          return PhysioChooseMenu(
-                            icon:
-                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                            name: snapshot.data![index].signUpUser.firstName!,
-                            skill: 'Kỹ năng: ${snapshot.data![index].skill!}',
-                            press: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChooseDetailpage(
-                                            physiotherapist:
-                                                snapshot.data![index],
-                                          )));
-                            },
+                          return Column(
+                            children: [
+                              Category(category: "ABBC"),
+                              PhysioChooseMenu(
+                                icon:
+                                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+                                name:
+                                    snapshot.data![index].signUpUser.firstName!,
+                                skill:
+                                    'Kỹ năng: ${snapshot.data![index].skill!}',
+                                press: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChooseDetailPage(
+                                                physiotherapist:
+                                                    snapshot.data![index],
+                                              )));
+                                },
+                              ),
+                            ],
                           );
                         });
                   } else {
-                    return Container(
+                    return const Center(
                       child: Text(
-                        "Khong co physio nao dang ranh",
+                        "Không có Chuyên Viên nào đang rảnh!",
+                        style: TextStyle(fontSize: 15),
                       ),
                     );
                   }

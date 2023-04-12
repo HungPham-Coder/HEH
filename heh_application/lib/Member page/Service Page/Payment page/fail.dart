@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:lottie/lottie.dart';
 
 class FailPage extends StatefulWidget {
@@ -72,10 +73,10 @@ class _FailPageState extends State<FailPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FailPage()));
+                          builder: (context) => Navigation_Bar()));
                 },
                 child: const Text(
-                  "Thanh toán",
+                  "Trở về trang chủ",
                   style: TextStyle(fontSize: 16),
                 ),
               ),
