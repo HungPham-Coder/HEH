@@ -164,7 +164,7 @@ class _FamilyInformationPageState extends State<FamilyInformationPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FamilyPage()));
+                                builder: (context) =>  FamilyPage()));
                       },
                       color: Colors.grey[400],
                       elevation: 0,
@@ -200,7 +200,7 @@ class _FamilyInformationPageState extends State<FamilyInformationPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FamilyPage()));
+                                builder: (context) =>  FamilyPage()));
                       },
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,

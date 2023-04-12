@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Personal%20page/personal.dart';
 import 'package:heh_application/Member%20page/Profile%20page/changePass.dart';
 import 'package:heh_application/Member%20page/history.dart';
+import 'package:heh_application/models/sub_profile.dart';
+import 'package:heh_application/services/call_api.dart';
 
 import 'package:heh_application/services/stream_test.dart';
 
@@ -82,9 +85,10 @@ class _SettingPageState extends State<SettingPage> {
             icon:
                 "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffamily.svg?alt=media&token=f6f01b99-6901-48be-9a69-798ea594bd77",
             text: "Thành viên gia đình",
-            press: () {
+            press: () async {
+              List<SubProfile>? listSubProfile = await CallAPI().getallSubProfileByUserId(sharedCurrentUser!.userID!);
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const FamilyPage()));
+                  MaterialPageRoute(builder: (context) =>  FamilyPage(listSubProfile: listSubProfile,)));
             },
           ),
           ProfileMenu(

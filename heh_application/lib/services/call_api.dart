@@ -12,6 +12,7 @@ import 'package:heh_application/models/exercise_resource.dart';
 import 'package:heh_application/models/login_user.dart';
 import 'package:heh_application/models/medical_record.dart';
 import 'package:heh_application/models/physiotherapist.dart';
+import 'package:heh_application/models/relationship.dart';
 import 'package:heh_application/models/result_login.dart';
 import 'package:heh_application/models/schedule.dart';
 import 'package:heh_application/models/sign_up_user.dart';
@@ -74,20 +75,6 @@ class CallAPI {
       "bookingStatus": false,
       "banStatus": false,
     });
-    // final body = jsonEncode({
-    //   "userName": "12345645",
-    //   "password": "123456",
-    //   "email": "e1a@gmail.com",
-    //   "firstName": "e",
-    //   "lastName": "e",
-    //   "address": "string",
-    //   "image": "string",
-    //   "dob": "2023-04-03",
-    //   "phoneNumber": "08159",
-    //   "gender": true,
-    //   "bookingStatus": true,
-    //   "banStatus": false
-    // });
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
@@ -543,6 +530,99 @@ class CallAPI {
       throw Exception('Failed to load SubProfile');
     }
   }
+  Future<SubProfile> AddSubProfile(SubProfile subProfile) async {
+    var url = Uri.parse('${link}/api/SubProfile/Create');
+    // var url = Uri.https('localhost:7166', 'api/User/Register');
+
+    final body = jsonEncode({
+      "userID": subProfile.userID,
+      "relationId":subProfile.relationID,
+      "subName":subProfile.subName
+    });
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.post(url, body: body, headers: headers);
+    print('${response.statusCode} add subProfile');
+
+    if (response.statusCode == 200) {
+      return SubProfile.fromMap(json.decode(response.body));
+    } else {
+      print(response.body);
+
+      throw Exception("failed to add subprofile");
+    }
+  }
+
+  Future<List<SubProfile>?> getallSubProfileByUserId(
+      String userId) async {
+    var url = Uri.parse(
+        '${link}/api/SubProfile/GetByUserId/$userId');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<SubProfile> list =
+      List<SubProfile>.from(jsonResult.map((model) => SubProfile.fromMap(model)));
+
+      if (list == null) {
+        print("List SubProfile Null");
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load SubProfile List');
+    }
+  }
+
+  Future<Relationship> getRelationByRelationName(
+      String relationName) async {
+    var url =
+    Uri.parse('${link}/api/Relationship/GetByRelationName/$relationName');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      return Relationship.fromMap(json.decode(response.body));
+    } else {
+      throw Exception(response.body);
+    }
+  }
+
+  Future<List<Relationship>> getAllRelationship() async {
+    var url = Uri.parse('${link}/api/Relationship');
+    // var url = Uri.https('localhost:7166', 'api/TypeOfSlot');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    print(response.statusCode);
+    print("Relationship");
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<Relationship> list = List<Relationship>.from(
+          jsonResult.map((model) => Relationship.fromMap(model)));
+      if (list == null) {
+        throw Exception('Relationship List null');
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load Relationship');
+    }
+  }
+
 
   Future<List<TypeOfSlot>> getAllTypeOfSlot() async {
     var url = Uri.parse('${link}/api/TypeOfSlot');

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/main.dart';
 import 'package:heh_application/models/medical_record.dart';
+import 'package:heh_application/models/relationship.dart';
 import 'package:heh_application/models/sign_up_user.dart';
+import 'package:heh_application/models/sub_profile.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../Login page/landing_page.dart';
@@ -291,9 +293,24 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                 });
                               }
                             });
+
+
+                            Relationship relationship = await CallAPI()
+                                .getRelationByRelationName("Tôi");
+
+                            SubProfile subProfile = SubProfile(
+                                userID: userID,
+                                relationID: relationship.relationId,
+                                subName: widget.signUpUser.firstName!);
+
+
+                            SubProfile subProfile1 =
+                                await CallAPI().AddSubProfile(subProfile);
+
+
                             listCategoryID.forEach((element) async {
                               MedicalRecord medicalRecord = MedicalRecord(
-                                subProfileID: null,
+                                subProfileID: subProfile1.profileID,
                                 userID: userID,
                                 categoryID: element,
                                 problem: problem,
@@ -305,7 +322,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                               await CallAPI()
                                   .createMedicalRecord(medicalRecord);
                             });
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
