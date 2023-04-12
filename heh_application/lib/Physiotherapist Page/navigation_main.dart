@@ -38,14 +38,17 @@ class _PhyNavigation_barState extends State<PhyNavigation_bar> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
+          items: <BottomNavigationBarItem>[
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.home), label: "Trang chủ"),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.featured_play_list), label: "Tính năng"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications), label: "Thông báo"),
-            BottomNavigationBarItem(
+                icon: Stack(children: const [
+                  Badge(label: Text("1"), child: Icon(Icons.notifications))
+                ]),
+                label: "Thông báo"),
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Cài đặt"),
           ]),
     );

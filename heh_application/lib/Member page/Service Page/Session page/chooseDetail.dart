@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/payment.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/models/slot.dart';
 import 'package:heh_application/services/call_api.dart';

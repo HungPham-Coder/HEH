@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/fail.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/success.dart';
 // import 'package:lottie/lottie.dart';
 
-enum genderGroup { male, female, others }
+enum paymentGroup { male, female, others }
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  genderGroup _genderValue = genderGroup.male;
+  paymentGroup _paymentValue = paymentGroup.male;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,16 +195,16 @@ class choose extends StatefulWidget {
 }
 
 class _chooseState extends State<choose> {
-  genderGroup _genderValue = genderGroup.male;
+  paymentGroup _genderValue = paymentGroup.male;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Radio(
-            value: genderGroup.female,
+            value: paymentGroup.female,
             groupValue: _genderValue,
-            onChanged: (genderGroup? value) {
+            onChanged: (paymentGroup? value) {
               setState(() {
                 _genderValue = value!;
               });

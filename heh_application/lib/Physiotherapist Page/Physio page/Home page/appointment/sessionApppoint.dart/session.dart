@@ -1,61 +1,16 @@
 import 'package:flutter/material.dart';
 
-class AdviseNotificationPage extends StatefulWidget {
-  const AdviseNotificationPage({Key? key}) : super(key: key);
+class SessionAppointmentPage extends StatefulWidget {
+  const SessionAppointmentPage({Key? key}) : super(key: key);
 
   @override
-  State<AdviseNotificationPage> createState() => _AdviseNotificationPageState();
+  State<SessionAppointmentPage> createState() => _SessionAppointmentPageState();
 }
 
-class _AdviseNotificationPageState extends State<AdviseNotificationPage> {
+class _SessionAppointmentPageState extends State<SessionAppointmentPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          "Tư vấn một buổi",
-          style: TextStyle(fontSize: 23),
-        ),
-        elevation: 10,
-        backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-      ),
-      body: SingleChildScrollView(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 20),
-              const Center(
-                child: Text("Lịch hẹn của người dùng",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: AdviseChooseMenu(
-                  icon:
-                      "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbooking.png?alt=media&token=aa78656d-2651-42a4-810e-07c273cdfe5a",
-                  name: "Phạm Phú Minh Hưng",
-                  time: "Khung giờ: ",
-                  press: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => dialog(
-                              text: "Bạn có lịch hẹn",
-                            ));
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
-      )),
-    );
+    return const Placeholder();
   }
 }
 

@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/result.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
 
-class BillPage extends StatefulWidget {
-  const BillPage({Key? key}) : super(key: key);
+class AdviseDetailPage extends StatefulWidget {
+  const AdviseDetailPage({Key? key}) : super(key: key);
 
   @override
-  State<BillPage> createState() => _BillPageState();
+  State<AdviseDetailPage> createState() => _AdviseDetailPageState();
 }
 
-class _BillPageState extends State<BillPage> {
+class _AdviseDetailPageState extends State<AdviseDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Xác nhận",
-          style: TextStyle(fontSize: 23),
+          "Xem chi tiết người đặt",
         ),
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),
@@ -33,13 +30,12 @@ class _BillPageState extends State<BillPage> {
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(15)),
                 child: Column(children: [
-                  const SizedBox(height: 10),
                   Container(
                     height: MediaQuery.of(context).size.height / 11,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: NetworkImage(
-                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2Fwelcome3.png?alt=media&token=0fbdd14a-2e64-4ed5-87ab-2733d6180051"))),
+                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"))),
                   ),
                   Padding(
                     padding:
@@ -47,16 +43,11 @@ class _BillPageState extends State<BillPage> {
                     child: Column(
                       children: [
                         const Center(
-                            child: Text("Xác nhận hóa đơn",
+                            child: Text("Thông tin",
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500))),
                         const SizedBox(height: 20),
-                        information(name: "ID:", info: "347238947239847"),
-                        padding(),
-                        information(
-                            name: "Tên chuyên viên:", info: "Nguyễn Văn A"),
-                        padding(),
                         information(
                             name: "Tên người đặt:", info: "Nguyễn Văn B"),
                         padding(),
@@ -66,13 +57,11 @@ class _BillPageState extends State<BillPage> {
                         padding(),
                         information(name: "Buổi điều trị:", info: "Buổi ABC"),
                         padding(),
-                        information(name: "Ngày điều trị:", info: "04-11-2023"),
+                        information(name: "Ngày điều trị:", info: "08-11-2023"),
                         padding(),
                         information(name: "Thời gian bắt đầu:", info: "11:30"),
                         padding(),
                         information(name: "Thời gian kết thúc:", info: "12:30"),
-                        padding(),
-                        information(name: "Số tiền:", info: "100.000 VNĐ"),
                         const SizedBox(height: 10),
                       ],
                     ),
@@ -102,7 +91,7 @@ class _BillPageState extends State<BillPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const TimeResultPage()));
+                              builder: (context) => const AdviseDetailPage()));
                     },
                     child: const Text(
                       "Trở lại",
@@ -126,7 +115,7 @@ class _BillPageState extends State<BillPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PaymentPage()));
+                              builder: (context) => const AdviseDetailPage()));
                     },
                     child: const Text(
                       "Thanh toán",
