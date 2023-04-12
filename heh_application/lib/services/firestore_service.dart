@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 
 class FirestoreService {
   final _firebaseFirestore = FirebaseFirestore.instance;
-  final _cloudStorage = FirebaseStorage.instance;
+  // final _cloudStorage = FirebaseStorage.instance;
   FirestoreService._();
   //singleton
   static final instance = FirestoreService._();

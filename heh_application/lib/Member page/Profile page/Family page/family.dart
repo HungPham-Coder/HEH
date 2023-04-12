@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Family%20page/personalFam.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Family%20page/signup.dart';
+import 'package:intl/intl.dart';
+
+import '../../../models/sub_profile.dart';
 
 class FamilyPage extends StatefulWidget {
-  const FamilyPage({Key? key}) : super(key: key);
-
+   FamilyPage({Key? key, this.listSubProfile}) : super(key: key);
+  List<SubProfile>? listSubProfile;
   @override
   State<FamilyPage> createState() => _FamilyPageState();
 }
@@ -24,21 +27,31 @@ class _FamilyPageState extends State<FamilyPage> {
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
         ),
         body: SingleChildScrollView(
+          physics: ScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(height: 20),
-              ProfileMenu(
-                icon:
-                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.svg?alt=media&token=7bef043d-fdb5-4c5b-bb2e-644ee7682345",
-                name: "Phạm Phú Minh Hưng",
-                relationship: "Tôi - ",
-                text: "23 tuổi",
-                press: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FamilyPersonalPage()));
-                },
+              ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: widget.listSubProfile!.length,
+                  itemBuilder: (context, index) {
+                  DateTime tempDate = new DateFormat("yyyy-MM-dd").parse(widget.listSubProfile![index].signUpUser!.dob!);
+                  int age = DateTime.now().year - tempDate.year ;
+                  return ProfileMenu(
+                    icon:
+                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.svg?alt=media&token=7bef043d-fdb5-4c5b-bb2e-644ee7682345",
+                    name: "${widget.listSubProfile![index].signUpUser!.firstName}",
+                    relationship: "${widget.listSubProfile![index].relationship!.relationName} - ",
+                    text: "$age tuổi",
+                    press: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FamilyPersonalPage()));
+                    },
+                  );
+                }
               ),
             ],
           ),
