@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:lottie/lottie.dart';
 
 class SuccessPage extends StatefulWidget {
@@ -62,7 +63,7 @@ class _SuccessPageState extends State<SuccessPage> {
                     ),
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15)),
+                            horizontal: 100, vertical: 15)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -72,10 +73,10 @@ class _SuccessPageState extends State<SuccessPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SuccessPage()));
+                          builder: (context) => Navigation_Bar()));
                 },
                 child: const Text(
-                  "Thanh toán",
+                  "Trở về trang chủ",
                   style: TextStyle(fontSize: 16),
                 ),
               ),

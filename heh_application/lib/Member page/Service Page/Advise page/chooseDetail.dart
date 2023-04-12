@@ -5,14 +5,14 @@ import 'package:heh_application/models/slot.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
 
-class ChooseDetailpage extends StatefulWidget {
-  ChooseDetailpage({Key? key, required this.physiotherapist}) : super(key: key);
+class ChooseDetailPage extends StatefulWidget {
+  ChooseDetailPage({Key? key, required this.physiotherapist}) : super(key: key);
   Physiotherapist physiotherapist;
   @override
-  State<ChooseDetailpage> createState() => _ChooseDetailpageState();
+  State<ChooseDetailPage> createState() => _ChooseDetailPageState();
 }
 
-class _ChooseDetailpageState extends State<ChooseDetailpage> {
+class _ChooseDetailPageState extends State<ChooseDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

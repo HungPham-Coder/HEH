@@ -143,12 +143,9 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
                         ],
                       ),
                       const SizedBox(height: 5),
-                      TextField(
-                        decoration: const InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.grey))),
+                      TextFormField(
                         controller: _date,
+                        readOnly: true,
                         onTap: () async {
                           DateTime? pickeddate = await showDatePicker(
                               context: context,

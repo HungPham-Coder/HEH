@@ -47,12 +47,12 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
                                 const category(),
                                 const SizedBox(height: 20),
                                 chooseDate(),
+                                const SizedBox(height: 20),
+                                const chooseSlot(),
+                                const SizedBox(height: 10),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          const chooseTime(),
-                          const SizedBox(height: 10),
                         ],
                       ),
                     ),
@@ -134,29 +134,6 @@ class _ClockMenuState extends State<ClockMenu> {
                 ],
               ),
             ),
-            ElevatedButton(
-                child: Text(widget.label),
-                onPressed: () async {
-                  TimeOfDay? newtime = await showTimePicker(
-                    // builder: (context, child) {
-                    //   return MediaQuery(
-                    //       data: MediaQuery.of(context)
-                    //           .copyWith(alwaysUse24HourFormat: false),
-                    //       child: child!);
-                    // },
-                    context: context,
-                    initialTime: time,
-                    cancelText: "Hủy",
-                    confirmText: "Chấp nhận",
-                    helpText: "Chọn khung giờ",
-                    hourLabelText: "Giờ",
-                    minuteLabelText: "Phút",
-                  );
-                  if (newtime == null) {
-                    return;
-                  }
-                  setState(() => time = newtime);
-                })
           ],
         ),
       ],
@@ -436,6 +413,83 @@ class _relationshipState extends State<relationship> {
         Row(
           children: const [
             Text("Bạn muốn đặt cho ai?"),
+            Text(" *", style: TextStyle(color: Colors.red)),
+          ],
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          child: SizedBox(
+            child: DropdownButtonFormField<String>(
+              value: selectedRelationship,
+              items: _relationships
+                  .map((relationship) => DropdownMenuItem<String>(
+                      value: relationship,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          relationship,
+                          style: const TextStyle(fontSize: 13),
+                        ),
+                      )))
+                  .toList(),
+              onChanged: (relationship) => setState(() {
+                selectedRelationship = relationship;
+              }),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class chooseSlot extends StatefulWidget {
+  const chooseSlot({Key? key}) : super(key: key);
+
+  @override
+  State<chooseSlot> createState() => _chooseSlotState();
+}
+
+class _chooseSlotState extends State<chooseSlot> {
+  final List<String> _relationships = [
+    "- Chọn khung giờ -",
+    "00:00 - 01:00",
+    "01:00 - 02:00",
+    "02:00 - 03:00",
+    "03:00 - 04:00",
+    "04:00 - 05:00",
+    "05:00 - 06:00",
+    "06:00 - 07:00",
+    "07:00 - 08:00",
+    "08:00 - 09:00",
+    "09:00 - 10:00",
+    "10:00 - 11:00",
+    "11:00 - 12:00",
+    "12:00 - 13:00",
+    "13:00 - 14:00",
+    "14:00 - 15:00",
+    "15:00 - 16:00",
+    "16:00 - 17:00",
+    "17:00 - 18:00",
+    "18:00 - 19:00",
+    "19:00 - 20:00",
+    "20:00 - 21:00",
+    "21:00 - 22:00",
+    "22:00 - 23:00",
+    "23:00 - 00:00",
+  ];
+  String? selectedRelationship = "- Chọn khung giờ -";
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: const [
+            Text("Bạn muốn đặt khung giờ nào?"),
             Text(" *", style: TextStyle(color: Colors.red)),
           ],
         ),
