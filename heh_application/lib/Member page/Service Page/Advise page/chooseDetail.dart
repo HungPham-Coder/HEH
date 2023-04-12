@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/payment.dart';
 import 'package:heh_application/models/physiotherapist.dart';
+import 'package:heh_application/models/schedule.dart';
 import 'package:heh_application/models/slot.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
@@ -34,7 +35,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
               image:
                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
               phy: "Chuyên viên",
-              name: widget.physiotherapist.signUpUser.firstName!,
+              name: widget.physiotherapist.signUpUser!.lastName!,
               specialize: "Chuyên môn: ${widget.physiotherapist.specialize}",
               experience: "Kinh nghiệm: ${widget.physiotherapist.skill}",
               // time: "Thời gian làm việc: 10:00 AM - 12:00 AM"
@@ -44,7 +45,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                 child: Text("Khung giờ",
                     style: Theme.of(context).textTheme.headline6)),
             const SizedBox(height: 5),
-            FutureBuilder<List<Slot>>(
+            FutureBuilder<List<Schedule>?>(
                 future: CallAPI().getallSlotByPhysiotherapistID(
                     widget.physiotherapist.physiotherapistID),
                 builder: (context, snapshot) {
@@ -57,11 +58,11 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                         return PhysioChooseMenu(
                           icon:
                               "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                          name: snapshot.data![index].slotName,
+                          name: widget.physiotherapist.signUpUser!.lastName!,
                           time: "Khung giờ: ",
-                          timeStart: '${snapshot.data![index].timeStart}',
-                          timeEnd: '${snapshot.data![index].timeEnd}',
-                          price: snapshot.data![index].price,
+                          timeStart: '${snapshot.data![index].slot.timeStart}',
+                          timeEnd: '${snapshot.data![index].slot.timeEnd}',
+                          price: snapshot.data![index].typeOfSlot.price,
                           press: () {
                             Navigator.push(
                                 context,
@@ -183,7 +184,7 @@ class PhysioChooseMenu extends StatelessWidget {
   final String icon, name, time;
   final VoidCallback? press;
   String timeStart, timeEnd;
-  double? price;
+  int? price;
 
   @override
   Widget build(BuildContext context) {

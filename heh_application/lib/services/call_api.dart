@@ -446,7 +446,7 @@ class CallAPI {
     }
   }
 
-  Future<List<Slot>> getallSlotByPhysiotherapistID(
+  Future<List<Schedule>?> getallSlotByPhysiotherapistID(
       String physiotherapistID) async {
     var url = Uri.parse(
         '${link}/api/Schedule/getAllSlotByPhysiotherapistID/$physiotherapistID');
@@ -460,16 +460,16 @@ class CallAPI {
     print(response.statusCode);
     if (response.statusCode == 200) {
       Iterable jsonResult = json.decode(response.body);
-      List<Slot> list =
-          List<Slot>.from(jsonResult.map((model) => Slot.fromMap(model)));
+      List<Schedule> list =
+          List<Schedule>.from(jsonResult.map((model) => Schedule.fromMap(model)));
 
       if (list == null) {
-        throw Exception('Slot List null');
+        print("List Schedule Null");
       } else {
         return list;
       }
     } else {
-      throw Exception('Failed to load Slot List');
+      throw Exception('Failed to load Schedule List');
     }
   }
 

@@ -63,7 +63,7 @@ class _FailPageState extends State<FailPage> {
                     ),
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15)),
+                            horizontal: 100, vertical: 15)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
