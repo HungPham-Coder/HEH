@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Family%20page/signupMed.dart';
 import 'package:heh_application/SignUp%20Page/signupMed.dart';
 import 'package:heh_application/main.dart';
+import 'package:heh_application/models/relationship.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
@@ -38,15 +39,13 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
     "ông Ngoại",
     "Bà ngoại"
   ];
+
   String? selectedRelationship = "- Chọn -";
 
   final TextEditingController _date = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
-  final TextEditingController _lastName = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _phone = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _confirmPassword = TextEditingController();
 
   Future<void> signUp(SignUpUser signUpUser) async {
     await CallAPI().callRegisterAPI(signUpUser);
@@ -71,133 +70,113 @@ class _SignUpFamilyPageState extends State<SignUpFamilyPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Hãy tham gia cùng chúng tôi!",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                  ),
-                ],
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Hãy tham gia cùng chúng tôi!",
+                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
               ),
               const SizedBox(
                 height: 20,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  fullName(label: "Họ và Tên"),
-                  email(label: "Email"),
-                  phone(label: "Số điện thoại"),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: const <Widget>[
-                          Text(
-                            "Giới tính ",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          Text(
-                            "*",
-                            style: TextStyle(fontSize: 15, color: Colors.red),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          const Text("Nam"),
-                          Radio(
-                              value: genderGroup.male,
-                              groupValue: _genderValue,
-                              onChanged: (genderGroup? value) {
-                                setState(() {
-                                  _genderValue = value!;
-                                });
-                              }),
-                          const Text("Nữ"),
-                          Radio(
-                              value: genderGroup.female,
-                              groupValue: _genderValue,
-                              onChanged: (genderGroup? value) {
-                                setState(() {
-                                  _genderValue = value!;
-                                });
-                              }),
-                        ],
-                      ),
-                    ],
+              fullName(label: "Họ và Tên"),
+              email(label: "Email"),
+              phone(label: "Số điện thoại"),
+              Row(
+                children: const <Widget>[
+                  Text(
+                    "Giới tính ",
+                    style: TextStyle(fontSize: 15),
                   ),
-                  const SizedBox(height: 10),
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        children: const [
-                          Text("Ngày sinh"),
-                          Text(" *", style: TextStyle(color: Colors.red)),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      TextFormField(
-                        controller: _date,
-                        readOnly: true,
-                        onTap: () async {
-                          DateTime? pickeddate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1960),
-                              lastDate: DateTime(2030));
-                          if (pickeddate != null) {
-                            _date.text =
-                                DateFormat('yyyy-MM-dd').format(pickeddate);
-                          }
-                        },
-                      ),
-                    ],
+                  Text(
+                    "*",
+                    style: TextStyle(fontSize: 15, color: Colors.red),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: const [
-                      Text("Mối quan hệ"),
-                      Text(" *", style: TextStyle(color: Colors.red)),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60,
-                    child: SizedBox(
-                      child: DropdownButtonFormField<String>(
-                        decoration: const InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.grey))),
-                        value: selectedRelationship,
-                        items: _relationships
-                            .map((relationship) => DropdownMenuItem<String>(
-                                value: relationship,
-                                child: Text(
-                                  relationship,
-                                  style: const TextStyle(fontSize: 15),
-                                )))
-                            .toList(),
-                        onChanged: (relationship) => setState(() {
-                          selectedRelationship = relationship;
-                        }),
-                      ),
-                    ),
-                  )
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  const Text("Nam"),
+                  Radio(
+                      value: genderGroup.male,
+                      groupValue: _genderValue,
+                      onChanged: (genderGroup? value) {
+                        setState(() {
+                          _genderValue = value!;
+                        });
+                      }),
+                  const Text("Nữ"),
+                  Radio(
+                      value: genderGroup.female,
+                      groupValue: _genderValue,
+                      onChanged: (genderGroup? value) {
+                        setState(() {
+                          _genderValue = value!;
+                        });
+                      }),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: const [
+                  Text("Ngày sinh"),
+                  Text(" *", style: TextStyle(color: Colors.red)),
+                ],
+              ),
+              const SizedBox(height: 5),
+              TextFormField(
+                controller: _date,
+                readOnly: true,
+                onTap: () async {
+                  DateTime? pickeddate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1960),
+                      lastDate: DateTime(2030));
+                  if (pickeddate != null) {
+                    _date.text = DateFormat('yyyy-MM-dd').format(pickeddate);
+                  }
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: const [
+                  Text("Mối quan hệ"),
+                  Text(" *", style: TextStyle(color: Colors.red)),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  // child: SizedBox(
+                  child: DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1, color: Colors.grey))),
+                    value: selectedRelationship,
+                    items: _relationships
+                        .map((relationship) => DropdownMenuItem<String>(
+                            value: relationship,
+                            child: Text(
+                              relationship,
+                              style: const TextStyle(fontSize: 15),
+                            )))
+                        .toList(),
+                    onChanged: (relationship) => setState(() {
+                      selectedRelationship = relationship;
+                    }),
+                  )
+
+                  // ),
+                  ),
               Row(
                 children: [
                   Container(
