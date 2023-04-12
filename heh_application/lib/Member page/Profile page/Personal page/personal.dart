@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Family%20page/medical.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Personal%20page/information.dart';
 import 'package:heh_application/Member%20page/Profile%20page/Personal%20page/medical.dart';
+import 'package:heh_application/models/medical_record.dart';
+import 'package:heh_application/services/call_api.dart';
 
 
 class PersonalPage extends StatefulWidget {
@@ -38,10 +41,12 @@ class _PersonalPageState extends State<PersonalPage> {
               elevation: 10,
               backgroundColor: const Color.fromARGB(255, 46, 161, 226),
             ),
-            body:
-             const TabBarView(children: [InformationPage(), MedicalPage()])),
+            body: TabBarView(children: [InformationPage(), MedicalPage(medicalRecord: sharedMedicalRecord,)]),
+
+
 
       ),
+    )
     );
   }
 }
