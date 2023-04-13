@@ -21,84 +21,68 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
     "- Chọn -",
   ];
 
-<<<<<<< HEAD
-  String selectedRelationship = "- Chọn -";
-  SubProfile? subProfile;
-=======
   String selectedSubName = "- Chọn -";
-  SubProfile? subProfile ;
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
+  SubProfile? subProfile;
 
   Widget relationship() {
-    return Column(
-      children: [
-        Row(
-          children: const [
-            Text("Bạn muốn đặt cho ai?"),
-            Text(" *", style: TextStyle(color: Colors.red)),
-          ],
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 40,
-          child: FutureBuilder<List<SubProfile>?>(
-              future: CallAPI()
-                  .getallSubProfileByUserId(sharedCurrentUser!.userID!),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (_relationships.length == 1) {
-                    snapshot.data!.forEach((element) {
-                      String field = "${element.signUpUser!.firstName}";
-                      _relationships.add(field);
-                    });
-                    print("Co data");
-                  }
-
-                  return DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-<<<<<<< HEAD
-                                BorderSide(width: 1, color: Colors.grey))),
-                    value: selectedRelationship,
-=======
-                            BorderSide(width: 1, color: Colors.grey))),
-                    value: selectedSubName,
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
-                    items: _relationships
-                        .map((relationship) => DropdownMenuItem<String>(
-                            value: relationship,
-                            child: Text(
-                              relationship,
-                              style: const TextStyle(fontSize: 15),
-                            )))
-                        .toList(),
-                    onChanged: (subName) => setState(() {
+    return SizedBox(
+      height: 60,
+      child: Column(
+        children: [
+          Row(
+            children: const [
+              Text("Bạn muốn đặt cho ai?"),
+              Text(" *", style: TextStyle(color: Colors.red)),
+            ],
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            child: FutureBuilder<List<SubProfile>?>(
+                future: CallAPI()
+                    .getallSubProfileByUserId(sharedCurrentUser!.userID!),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (_relationships.length == 1) {
                       snapshot.data!.forEach((element) {
-<<<<<<< HEAD
-                        if (selectedRelationship ==
-                            element.relationship!.relationName) {
-=======
-                        if (subName == element.subName){
-
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
-                          subProfile = element;
-
-                        }
+                        String field = "${element.signUpUser!.firstName}";
+                        _relationships.add(field);
                       });
-                      selectedSubName = subName!;
+                      print("Co data");
+                    }
 
-                    }),
-                  );
-
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }),
-        ),
-      ],
+                    return DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      value: selectedSubName,
+                      items: _relationships
+                          .map((relationship) => DropdownMenuItem<String>(
+                              value: relationship,
+                              child: Text(
+                                relationship,
+                                style: const TextStyle(fontSize: 15),
+                              )))
+                          .toList(),
+                      onChanged: (subName) => setState(() {
+                        snapshot.data!.forEach((element) {
+                          if (subName == element.subName) {
+                            subProfile = element;
+                          }
+                        });
+                        selectedSubName = subName!;
+                      }),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+          ),
+        ],
+      ),
     );
   }
 
@@ -156,7 +140,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                   context: context,
                                   builder: (BuildContext context) =>
                                       AlertDialog(
-                                    title: Text("Chọn người được tư vấn"),
+                                    title: const Text("Chọn người được tư vấn"),
                                     content: relationship(),
                                     actions: [
                                       TextButton(
@@ -166,17 +150,16 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-<<<<<<< HEAD
-                                          if (selectedRelationship ==
-                                              "- Chọn -") {
+                                          if (selectedSubName == "- Chọn -") {
                                             Navigator.pop(context, 'Ok');
                                           } else {
+                                            print(DateTime.now());
                                             BookingSchedule bookingSchedule =
                                                 BookingSchedule(
                                                     userID: sharedCurrentUser!
                                                         .userID!,
                                                     subProfileID:
-                                                        subProfile!.profileID!,
+                                                        '${subProfile!.profileID}',
                                                     scheduleID: snapshot
                                                         .data![index]
                                                         .scheduleID,
@@ -184,24 +167,11 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                                             "yyyy-MM-dd")
                                                         .format(DateTime.now()),
                                                     timeBooking: DateFormat(
-                                                            "HH:mm:ss")
+                                                            "yyyy-MM-ddTHH:mm:ss")
                                                         .format(
                                                             DateTime.now()));
                                             await CallAPI().addBookingSchedule(
                                                 bookingSchedule);
-=======
-                                          if (selectedSubName == "- Chọn -" ){
-                                            Navigator.pop(context, 'Ok');
-                                          }
-                                          else{
-                                            print(DateTime.now());
-                                            BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!,
-                                                subProfileID: '${subProfile!.profileID}',
-                                                scheduleID: snapshot.data![index].scheduleID,
-                                                dateBooking: DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                                                timeBooking: DateFormat("yyyy-MM-ddTHH:mm:ss").format(DateTime.now()));
-                                            await CallAPI().addBookingSchedule(bookingSchedule);
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(

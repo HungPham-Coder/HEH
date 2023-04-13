@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/category.dart';
 import 'package:heh_application/Member%20page/Home%20page/Paid%20page/servicePaid.dart';
+import 'package:heh_application/Member%20page/Home%20page/Video%20call%20page/VideoCall.dart';
 
 import '../../Welcome page/welcome_page.dart';
 
@@ -74,10 +75,19 @@ class _HomePageState extends State<HomePage> {
             HomeMenu(
               icon:
                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
-              text: "Dịch vụ đã đăng ký",
+              text: "Welcome page",
               press: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => WelcomePage()));
+              },
+            ),
+            HomeMenu(
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
+              text: "video call",
+              press: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => VideoCallPage()));
               },
             ),
           ],
