@@ -669,13 +669,13 @@ class CallAPI {
     }
   }
 
-  Future<String> addBookingSchedule(BookingSchedule bookingSchedule) async {
+  Future<bool> addBookingSchedule(BookingSchedule bookingSchedule) async {
     var url = Uri.parse('${link}/api/BookingSchedule/Create');
     // var url = Uri.https('localhost:7166', 'api/User/Register');
 
     final body = jsonEncode({
       "userID": bookingSchedule.userID,
-      "subProfileID": bookingSchedule.subProfileID,
+      "profileID": bookingSchedule.subProfileID,
       "scheduleID": bookingSchedule.scheduleID,
       "dateBooking": bookingSchedule.dateBooking,
       "timeBooking": bookingSchedule.timeBooking,
@@ -690,11 +690,11 @@ class CallAPI {
     print(response.statusCode);
     if (response.statusCode == 200) {
       print(json.decode(response.body));
-      return json.decode(response.body);
+      return true;
     } else {
       print(response.body);
 
-      return '';
+      return false;
     }
   }
 
