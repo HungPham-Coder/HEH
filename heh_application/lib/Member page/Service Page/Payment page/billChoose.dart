@@ -3,6 +3,7 @@ import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/result.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentChoose.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
+import 'package:heh_application/models/booking_detail.dart';
 import 'package:heh_application/models/booking_schedule.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/models/schedule.dart';
@@ -11,10 +12,15 @@ import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
 
 class BillChoosePage extends StatefulWidget {
-    BillChoosePage({Key? key,required this.physiotherapist, required this.schedule, required this.bookingSchedule}) : super(key: key);
+  BillChoosePage(
+      {Key? key,
+      required this.physiotherapist,
+      required this.schedule,
+      required this.bookingSchedule})
+      : super(key: key);
   Physiotherapist physiotherapist;
   Schedule schedule;
-  BookingSchedule bookingSchedule;
+  BookingSchedule? bookingSchedule;
   @override
   State<BillChoosePage> createState() => _BillChoosePageState();
 }
@@ -23,25 +29,27 @@ class _BillChoosePageState extends State<BillChoosePage> {
   String? day;
   String? timeStart;
   String? timeEnd;
-  void formatDateAndTime (){
-    DateTime tempDate = new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
-     day = DateFormat("dd-MM-yyyy").format(tempDate);
-    DateTime tempTimeStart = new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
+  void formatDateAndTime() {
+    DateTime tempDate =
+        new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
+    day = DateFormat("dd-MM-yyyy").format(tempDate);
+    DateTime tempTimeStart =
+        new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
     timeStart = DateFormat("hh:mm").format(tempTimeStart);
-    DateTime tempTimeEnd = new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeEnd);
+    DateTime tempTimeEnd =
+        new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeEnd);
     timeEnd = DateFormat("hh:mm").format(tempTimeEnd);
   }
+
   @override
   void initState() {
     // TODO: implement initState
     formatDateAndTime();
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -82,24 +90,32 @@ class _BillChoosePageState extends State<BillChoosePage> {
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500))),
                         const SizedBox(height: 20),
-                        information(name: "ID:", info: widget.schedule.scheduleID),
+                        information(
+                            name: "ID:", info: widget.schedule.scheduleID),
                         padding(),
                         information(
-                            name: "Tên chuyên viên:", info: widget.physiotherapist.signUpUser!.lastName!),
+                            name: "Tên chuyên viên:",
+                            info: widget.physiotherapist.signUpUser!.lastName!),
                         padding(),
                         information(
-                            name: "Tên người đặt:", info: sharedCurrentUser!.firstName!),
+                            name: "Tên người đặt:",
+                            info: sharedCurrentUser!.firstName!),
                         padding(),
                         const SizedBox(height: 15),
-                        information(name: "Buổi điều trị:", info: widget.schedule.slot.slotName),
+                        information(
+                            name: "Buổi điều trị:",
+                            info: widget.schedule.slot.slotName),
                         padding(),
                         information(name: "Ngày điều trị:", info: day),
                         padding(),
-                        information(name: "Thời gian bắt đầu:", info:timeStart),
+                        information(
+                            name: "Thời gian bắt đầu:", info: timeStart),
                         padding(),
                         information(name: "Thời gian kết thúc:", info: timeEnd),
                         padding(),
-                        information(name: "Số tiền:", info: '${widget.schedule.typeOfSlot.price} VND'),
+                        information(
+                            name: "Số tiền:",
+                            info: '${widget.schedule.typeOfSlot.price} VND'),
                         const SizedBox(height: 10),
                       ],
                     ),
@@ -150,14 +166,17 @@ class _BillChoosePageState extends State<BillChoosePage> {
                               side: const BorderSide(color: Colors.white)),
                         )),
                     onPressed: () async {
-                      // String dateBooking
-                      // BookingSchedule bookingSchedule = BookingSchedule(
-                      //     userID: sharedCurrentUser.userID,
-                      //     subProfileID: subProfileID,
-                      //     scheduleID: widget.schedule.scheduleID,
-                      //     dateBooking: dateBooking, timeBooking: timeBooking)
-                      // await CallAPI().addBookingSchedule(bookingSchedule);
-                      Navigator.push(
+                      BookingDetail bookingDetail = BookingDetail(
+                          scheduleID: widget.schedule.scheduleID,
+                          bookingScheduleID:
+                              widget.bookingSchedule!.bookingScheduleID!,
+                          status: true);
+                     bool addBookingDetail = await CallAPI().addBookingDetail(bookingDetail);
+                     if (addBookingDetail) {
+
+                     }
+
+                     Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const PaymentChoosePage()));
@@ -205,4 +224,3 @@ Widget padding() {
     ),
   );
 }
-

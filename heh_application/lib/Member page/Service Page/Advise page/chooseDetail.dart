@@ -21,13 +21,10 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
     "- Chọn -",
   ];
 
-<<<<<<< HEAD
-  String selectedRelationship = "- Chọn -";
-  SubProfile? subProfile;
-=======
+
   String selectedSubName = "- Chọn -";
   SubProfile? subProfile ;
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
+
 
   Widget relationship() {
     return Column(
@@ -58,13 +55,10 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                     decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide:
-<<<<<<< HEAD
-                                BorderSide(width: 1, color: Colors.grey))),
-                    value: selectedRelationship,
-=======
+
                             BorderSide(width: 1, color: Colors.grey))),
                     value: selectedSubName,
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
+
                     items: _relationships
                         .map((relationship) => DropdownMenuItem<String>(
                             value: relationship,
@@ -75,13 +69,10 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                         .toList(),
                     onChanged: (subName) => setState(() {
                       snapshot.data!.forEach((element) {
-<<<<<<< HEAD
-                        if (selectedRelationship ==
-                            element.relationship!.relationName) {
-=======
+
                         if (subName == element.subName){
 
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
+
                           subProfile = element;
 
                         }
@@ -166,30 +157,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-<<<<<<< HEAD
-                                          if (selectedRelationship ==
-                                              "- Chọn -") {
-                                            Navigator.pop(context, 'Ok');
-                                          } else {
-                                            BookingSchedule bookingSchedule =
-                                                BookingSchedule(
-                                                    userID: sharedCurrentUser!
-                                                        .userID!,
-                                                    subProfileID:
-                                                        subProfile!.profileID!,
-                                                    scheduleID: snapshot
-                                                        .data![index]
-                                                        .scheduleID,
-                                                    dateBooking: DateFormat(
-                                                            "yyyy-MM-dd")
-                                                        .format(DateTime.now()),
-                                                    timeBooking: DateFormat(
-                                                            "HH:mm:ss")
-                                                        .format(
-                                                            DateTime.now()));
-                                            await CallAPI().addBookingSchedule(
-                                                bookingSchedule);
-=======
+
                                           if (selectedSubName == "- Chọn -" ){
                                             Navigator.pop(context, 'Ok');
                                           }
@@ -200,8 +168,8 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                                 scheduleID: snapshot.data![index].scheduleID,
                                                 dateBooking: DateFormat("yyyy-MM-dd").format(DateTime.now()),
                                                 timeBooking: DateFormat("yyyy-MM-ddTHH:mm:ss").format(DateTime.now()));
-                                            await CallAPI().addBookingSchedule(bookingSchedule);
->>>>>>> f16677f5b1f0f5dd167ef092ac1997601c70f722
+                                           BookingSchedule? bookingScheduleAdd =  await CallAPI().addBookingSchedule(bookingSchedule);
+                                           print('${bookingScheduleAdd!.bookingScheduleID} booking schedule id add');
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -212,7 +180,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                                           schedule: snapshot
                                                               .data![index],
                                                           bookingSchedule:
-                                                              bookingSchedule,
+                                                              bookingScheduleAdd,
                                                         )));
                                           }
                                         },

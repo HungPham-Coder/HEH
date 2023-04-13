@@ -28,17 +28,32 @@ class BookingSchedule {
 });
 
   factory BookingSchedule.fromMap (Map<String,dynamic> json){
-    return BookingSchedule(
-      bookingScheduleID: json['bookingScheduleID'],
+    if(json['user'] == null || json['subProfile'] == null || json['schedule'] == null ){
+      return BookingSchedule(
+        bookingScheduleID: json['bookingScheduleID'],
+        userID: json['userID'],
+        subProfileID: json['profileID'],
+        scheduleID: json['scheduleID'],
+        dateBooking: json['dateBooking'],
+        timeBooking: json['timeBooking'],
+        status: json['status'],
+      );
+    }
+    else {
+      return BookingSchedule(
+        bookingScheduleID: json['bookingScheduleID'],
         userID: json['userID'],
         signUpUser: SignUpUser.fromMap(json['user'], ''),
-        subProfileID: json['subProfileID'],
+        subProfileID: json['profileID'],
         subProfile: SubProfile.fromMap(json['subProfile']),
         scheduleID: json['scheduleID'],
         schedule: Schedule.fromMap(json['schedule']),
         dateBooking: json['dateBooking'],
         timeBooking: json['timeBooking'],
-      status: json['status'],
-    );
+        status: json['status'],
+      );
+    }
+
+
   }
 }

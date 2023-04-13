@@ -1,25 +1,28 @@
+import 'package:heh_application/models/booking_schedule.dart';
+import 'package:heh_application/models/schedule.dart';
+
 class BookingDetail {
-  String userID;
-  String profileID;
-  String slotID;
-  DateTime timeBooking;
-  double price;
+  String? bookingDetailID;
+  String scheduleID;
+  Schedule? schedule;
+  String bookingScheduleID;
+  BookingSchedule? bookingSchedule;
   bool status;
 
   BookingDetail(
-      {required this.userID,
-      required this.profileID,
-      required this.slotID,
-      required this.timeBooking,
-      required this.price,
+      { this.bookingDetailID,
+      required this.scheduleID,
+       this.schedule,
+      required this.bookingScheduleID,
+       this.bookingSchedule,
       required this.status});
   factory BookingDetail.fromMap(Map<String, dynamic> json) {
     return BookingDetail(
-        userID: json['userID'],
-        profileID: json['profileID'],
-        slotID: json['slotID'],
-        timeBooking: json['timeBooking'],
-        price: json['price'],
-        status: json['price']);
+        bookingDetailID: json['bookingDetailID'],
+        scheduleID: json['scheduleID'],
+        schedule:Schedule.fromMap(json['schedule']) ,
+        bookingScheduleID: json['bookingScheduleID'],
+        bookingSchedule:BookingSchedule.fromMap(json['bookingSchedule']) ,
+        status: json['status']);
   }
 }

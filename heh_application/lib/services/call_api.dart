@@ -669,7 +669,7 @@ class CallAPI {
     }
   }
 
-  Future<bool> addBookingSchedule(BookingSchedule bookingSchedule) async {
+  Future<BookingSchedule?> addBookingSchedule(BookingSchedule bookingSchedule) async {
     var url = Uri.parse('${link}/api/BookingSchedule/Create');
     // var url = Uri.https('localhost:7166', 'api/User/Register');
 
@@ -687,6 +687,32 @@ class CallAPI {
     };
     var response = await http.post(url, body: body, headers: headers);
     print('${response.statusCode} bookingschedule');
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(json.decode(response.body));
+      return BookingSchedule.fromMap(json.decode(response.body));
+    } else {
+      print(response.body);
+
+      return null;
+    }
+  }
+
+  Future<bool> addBookingDetail(BookingDetail bookingDetail) async {
+    var url = Uri.parse('${link}/api/BookingDetail/Create');
+    // var url = Uri.https('localhost:7166', 'api/User/Register');
+
+    final body = jsonEncode({
+      "scheduleID": bookingDetail.scheduleID,
+      "bookingScheduleID": bookingDetail.bookingScheduleID,
+      "status": true,
+    });
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.post(url, body: body, headers: headers);
+    print('${response.statusCode} bookingdetail');
     print(response.statusCode);
     if (response.statusCode == 200) {
       print(json.decode(response.body));
