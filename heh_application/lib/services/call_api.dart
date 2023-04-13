@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/models/booking_detail.dart';
+import 'package:heh_application/models/booking_schedule.dart';
 import 'package:heh_application/models/exercise_model/category.dart';
 import 'package:heh_application/models/exercise_model/exercise.dart';
 import 'package:heh_application/models/exercise_model/exercise_detail.dart';
@@ -667,4 +668,34 @@ class CallAPI {
       throw Exception('Failed to load UserExercise');
     }
   }
+
+  Future<String> addBookingSchedule(BookingSchedule bookingSchedule) async {
+    var url = Uri.parse('${link}/api/BookingSchedule/Create');
+    // var url = Uri.https('localhost:7166', 'api/User/Register');
+
+    final body = jsonEncode({
+      "userID": bookingSchedule.userID,
+      "subProfileID": bookingSchedule.subProfileID,
+      "scheduleID": bookingSchedule.scheduleID,
+      "dateBooking": bookingSchedule.dateBooking,
+      "timeBooking": bookingSchedule.timeBooking,
+      "status": true
+    });
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.post(url, body: body, headers: headers);
+    print('${response.statusCode} bookingschedule');
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(json.decode(response.body));
+      return json.decode(response.body);
+    } else {
+      print(response.body);
+
+      return '';
+    }
+  }
+
 }

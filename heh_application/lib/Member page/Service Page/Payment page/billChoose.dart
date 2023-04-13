@@ -3,6 +3,7 @@ import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/result.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentChoose.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
+import 'package:heh_application/models/booking_schedule.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/models/schedule.dart';
 import 'package:heh_application/models/sub_profile.dart';
@@ -22,7 +23,7 @@ class _BillChoosePageState extends State<BillChoosePage> {
   String? timeStart;
   String? timeEnd;
   void formatDateAndTime (){
-    DateTime tempDate = new DateFormat("yyyy-MM-dd").parse(widget.schedule.day);
+    DateTime tempDate = new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
      day = DateFormat("dd-MM-yyyy").format(tempDate);
     DateTime tempTimeStart = new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
     timeStart = DateFormat("hh:mm").format(tempTimeStart);
@@ -88,7 +89,6 @@ class _BillChoosePageState extends State<BillChoosePage> {
                         information(
                             name: "Tên người đặt:", info: sharedCurrentUser!.firstName!),
                         padding(),
-                        const relationship(),
                         const SizedBox(height: 15),
                         information(name: "Buổi điều trị:", info: widget.schedule.slot.slotName),
                         padding(),
@@ -98,7 +98,7 @@ class _BillChoosePageState extends State<BillChoosePage> {
                         padding(),
                         information(name: "Thời gian kết thúc:", info: timeEnd),
                         padding(),
-                        information(name: "Số tiền:", info: "100.000 VNĐ"),
+                        information(name: "Số tiền:", info: '${widget.schedule.typeOfSlot.price} VND'),
                         const SizedBox(height: 10),
                       ],
                     ),
@@ -148,7 +148,14 @@ class _BillChoosePageState extends State<BillChoosePage> {
                               borderRadius: BorderRadius.circular(15),
                               side: const BorderSide(color: Colors.white)),
                         )),
-                    onPressed: () {
+                    onPressed: () async {
+                      // String dateBooking
+                      // BookingSchedule bookingSchedule = BookingSchedule(
+                      //     userID: sharedCurrentUser.userID,
+                      //     subProfileID: subProfileID,
+                      //     scheduleID: widget.schedule.scheduleID,
+                      //     dateBooking: dateBooking, timeBooking: timeBooking)
+                      // await CallAPI().addBookingSchedule(bookingSchedule);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -198,72 +205,3 @@ Widget padding() {
   );
 }
 
-class relationship extends StatefulWidget {
-  const relationship({Key? key}) : super(key: key);
-
-  @override
-  State<relationship> createState() => _relationshipState();
-}
-
-class _relationshipState extends State<relationship> {
- final List<String> _relationships =["- Chọn -",];
-
-
-   String selectedRelationship = "- Chọn -";
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: const [
-            Text("Bạn muốn đặt cho ai?"),
-            Text(" *", style: TextStyle(color: Colors.red)),
-          ],
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 40,
-          child: FutureBuilder<List<SubProfile>?>(
-              future: CallAPI()
-                  .getallSubProfileByUserId(sharedCurrentUser!.userID!),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (_relationships.length == 1){
-                    snapshot.data!.forEach((element) {
-                      String field = "${element.signUpUser!.firstName}";
-                      _relationships.add(field);
-                    });
-                    print("Co data");
-                  }
-
-
-
-                  return DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(width: 1, color: Colors.grey))),
-                    value: selectedRelationship,
-                    items: _relationships
-                        .map((relationship) => DropdownMenuItem<String>(
-                        value: relationship,
-                        child: Text(
-                          relationship,
-                          style: const TextStyle(fontSize: 15),
-                        )))
-                        .toList(),
-                    onChanged: (relationship) => setState(() {
-                      selectedRelationship = relationship!;
-                    }),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }),
-        ),
-      ],
-    );
-  }
-}

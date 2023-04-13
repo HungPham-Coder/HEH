@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/billChoose.dart';
+import 'package:heh_application/models/booking_schedule.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/models/schedule.dart';
 import 'package:heh_application/services/call_api.dart';
+
+import '../../../models/sub_profile.dart';
 
 class ChooseDetailPage extends StatefulWidget {
   ChooseDetailPage({Key? key, required this.physiotherapist}) : super(key: key);
@@ -12,6 +16,68 @@ class ChooseDetailPage extends StatefulWidget {
 }
 
 class _ChooseDetailPageState extends State<ChooseDetailPage> {
+  final List<String> _relationships =["- Chọn -",];
+
+
+  String selectedRelationship = "- Chọn -";
+
+
+  Widget relationship() {
+    return Column(
+      children: [
+        Row(
+          children: const [
+            Text("Bạn muốn đặt cho ai?"),
+            Text(" *", style: TextStyle(color: Colors.red)),
+          ],
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 40,
+          child: FutureBuilder<List<SubProfile>?>(
+              future: CallAPI()
+                  .getallSubProfileByUserId(sharedCurrentUser!.userID!),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (_relationships.length == 1){
+                    snapshot.data!.forEach((element) {
+                      String field = "${element.signUpUser!.firstName}";
+                      _relationships.add(field);
+                    });
+                    print("Co data");
+                  }
+
+
+
+                  return DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(width: 1, color: Colors.grey))),
+                    value: selectedRelationship,
+                    items: _relationships
+                        .map((relationship) => DropdownMenuItem<String>(
+                        value: relationship,
+                        child: Text(
+                          relationship,
+                          style: const TextStyle(fontSize: 15),
+                        )))
+                        .toList(),
+                    onChanged: (relationship) => setState(() {
+                      selectedRelationship = relationship!;
+                    }),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,22 +120,50 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return PhysioChooseMenu(
-                          icon:
-                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                          name: widget.physiotherapist.signUpUser!.lastName!,
-                          time: "Khung giờ: ",
-                          timeStart: '${snapshot.data![index].slot.timeStart}',
-                          timeEnd: '${snapshot.data![index].slot.timeEnd}',
-                          price: snapshot.data![index].typeOfSlot.price,
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                         BillChoosePage(physiotherapist: widget.physiotherapist,
-                                        schedule: snapshot.data![index],)));
-                          },
-                        );
+                            icon:
+                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+                            name: widget.physiotherapist.signUpUser!.lastName!,
+                            time: "Khung giờ: ",
+                            timeStart:
+                                '${snapshot.data![index].slot.timeStart}',
+                            timeEnd: '${snapshot.data![index].slot.timeEnd}',
+                            price: snapshot.data![index].typeOfSlot.price,
+                            press: () => showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    content:  relationship(),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Hủy bỏ'),
+                                        child: const Text('Hủy bỏ'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          if (selectedRelationship == "- Chọn -" ){
+                                            Navigator.pop(context, 'Ok');
+                                          }
+                                          else{
+                                            await CallAPI().
+                                            BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!, subProfileID: subProfileID, scheduleID: scheduleID, dateBooking: dateBooking, timeBooking: timeBooking)
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BillChoosePage(physiotherapist: widget.physiotherapist,
+                                                          schedule: snapshot.data![index],)));
+                                          }
+
+                                        },
+                                        child: const Text('Ok'),
+                                      )
+                                    ],
+                                  ),
+                                )
+
+
+                            );
                       },
                     );
                   } else {
@@ -255,3 +349,8 @@ class PhysioChooseMenu extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
