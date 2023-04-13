@@ -48,8 +48,8 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
                                 const SizedBox(height: 20),
                                 chooseDate(),
                                 const SizedBox(height: 20),
-                                const chooseSlot(),
-                                const SizedBox(height: 10),
+                                // const chooseSlot(),
+                                // const SizedBox(height: 10),
                               ],
                             ),
                           ),
@@ -218,35 +218,6 @@ class PhysioChooseMenu extends StatelessWidget {
     );
   }
 }
-
-// class CurrentTime extends StatelessWidget {
-//   CurrentTime({Key? key}) : super(key: key);
-
-//   final TextEditingController _date = TextEditingController();
-
-//   String getCurrentDate() {
-//     var date = DateTime.now().toString();
-
-//     var dateParse = DateTime.parse(date);
-
-//     var formattedDate =
-//         "Ngày ${dateParse.day} Tháng ${dateParse.month} Năm ${dateParse.year}";
-//     return formattedDate.toString();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 20),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.start,
-//         children: <Widget>[
-//           Text(getCurrentDate(), style: const TextStyle(fontSize: 20))
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class Problem {
   final String name;
