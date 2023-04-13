@@ -11,7 +11,7 @@ class Schedule {
   TypeOfSlot typeOfSlot;
   String description;
   bool physioBookingStatus;
-  String day;
+
   Schedule(
       {required this.scheduleID,
       required this.slotID,
@@ -22,7 +22,7 @@ class Schedule {
         required this.typeOfSlot,
         required this.description,
         required this.physioBookingStatus,
-        required this.day
+
       });
   factory Schedule.fromMap(Map<String, dynamic> json) {
     return Schedule(
@@ -35,7 +35,7 @@ class Schedule {
         typeOfSlot: TypeOfSlot.fromMap(json['typeOfSlot']),
         description: json['description'],
       physioBookingStatus: json['physioBookingStatus'],
-      day: json['day']
+
     );
 
   }
