@@ -17,11 +17,12 @@ class ChooseDetailPage extends StatefulWidget {
 }
 
 class _ChooseDetailPageState extends State<ChooseDetailPage> {
-  final List<String> _relationships =["- Chọn -",];
-
+  final List<String> _relationships = [
+    "- Chọn -",
+  ];
 
   String selectedRelationship = "- Chọn -";
-  SubProfile? subProfile ;
+  SubProfile? subProfile;
 
   Widget relationship() {
     return Column(
@@ -40,7 +41,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                   .getallSubProfileByUserId(sharedCurrentUser!.userID!),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  if (_relationships.length == 1){
+                  if (_relationships.length == 1) {
                     snapshot.data!.forEach((element) {
                       String field = "${element.signUpUser!.firstName}";
                       _relationships.add(field);
@@ -48,26 +49,25 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                     print("Co data");
                   }
 
-
-
                   return DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide:
-                            BorderSide(width: 1, color: Colors.grey))),
+                                BorderSide(width: 1, color: Colors.grey))),
                     value: selectedRelationship,
                     items: _relationships
                         .map((relationship) => DropdownMenuItem<String>(
-                        value: relationship,
-                        child: Text(
-                          relationship,
-                          style: const TextStyle(fontSize: 15),
-                        )))
+                            value: relationship,
+                            child: Text(
+                              relationship,
+                              style: const TextStyle(fontSize: 15),
+                            )))
                         .toList(),
                     onChanged: (relationship) => setState(() {
                       selectedRelationship = relationship!;
                       snapshot.data!.forEach((element) {
-                        if (selectedRelationship == element.relationship!.relationName){
+                        if (selectedRelationship ==
+                            element.relationship!.relationName) {
                           subProfile = element;
                         }
                       });
@@ -138,7 +138,8 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                   context: context,
                                   builder: (BuildContext context) =>
                                       AlertDialog(
-                                    content:  relationship(),
+                                    title: Text("Chọn người được tư vấn"),
+                                    content: relationship(),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
@@ -147,33 +148,47 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-                                          if (selectedRelationship == "- Chọn -" ){
+                                          if (selectedRelationship ==
+                                              "- Chọn -") {
                                             Navigator.pop(context, 'Ok');
-                                          }
-                                          else{
-                                            BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!,
-                                                subProfileID: subProfile!.profileID!,
-                                                scheduleID: snapshot.data![index].scheduleID,
-                                                dateBooking: DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                                                timeBooking: DateFormat("HH:mm:ss").format(DateTime.now()));
-                                            await CallAPI().addBookingSchedule(bookingSchedule);
+                                          } else {
+                                            BookingSchedule bookingSchedule =
+                                                BookingSchedule(
+                                                    userID: sharedCurrentUser!
+                                                        .userID!,
+                                                    subProfileID:
+                                                        subProfile!.profileID!,
+                                                    scheduleID: snapshot
+                                                        .data![index]
+                                                        .scheduleID,
+                                                    dateBooking: DateFormat(
+                                                            "yyyy-MM-dd")
+                                                        .format(DateTime.now()),
+                                                    timeBooking: DateFormat(
+                                                            "HH:mm:ss")
+                                                        .format(
+                                                            DateTime.now()));
+                                            await CallAPI().addBookingSchedule(
+                                                bookingSchedule);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        BillChoosePage(physiotherapist: widget.physiotherapist,
-                                                          schedule: snapshot.data![index],bookingSchedule: bookingSchedule,)));
+                                                        BillChoosePage(
+                                                          physiotherapist: widget
+                                                              .physiotherapist,
+                                                          schedule: snapshot
+                                                              .data![index],
+                                                          bookingSchedule:
+                                                              bookingSchedule,
+                                                        )));
                                           }
-
                                         },
                                         child: const Text('Ok'),
                                       )
                                     ],
                                   ),
-                                )
-
-
-                            );
+                                ));
                       },
                     );
                   } else {
@@ -211,14 +226,15 @@ class PhysioProfile extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 60),
                     child: SizedBox(
                         height: 100,
                         width: 100,
@@ -233,7 +249,7 @@ class PhysioProfile extends StatelessWidget {
                         )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
                     child: Column(
                       children: [
                         Text(
@@ -252,19 +268,20 @@ class PhysioProfile extends StatelessWidget {
                 ],
               ),
               Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20),
-                      Text(specialize),
-                      const SizedBox(height: 20),
-                      Text(experience),
-                      const SizedBox(height: 20),
-                      // Text(time),
-                    ],
-                  ))
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 20),
+                    Text(specialize),
+                    const SizedBox(height: 20),
+                    Text(experience),
+                    const SizedBox(height: 20),
+                    // Text(time),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -359,8 +376,3 @@ class PhysioChooseMenu extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
