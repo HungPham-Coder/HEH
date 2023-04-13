@@ -23,73 +23,68 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
 
 
   String selectedSubName = "- Chọn -";
-  SubProfile? subProfile ;
-
+  SubProfile? subProfile;
 
   Widget relationship() {
-    return Column(
-      children: [
-        Row(
-          children: const [
-            Text("Bạn muốn đặt cho ai?"),
-            Text(" *", style: TextStyle(color: Colors.red)),
-          ],
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 40,
-          child: FutureBuilder<List<SubProfile>?>(
-              future: CallAPI()
-                  .getallSubProfileByUserId(sharedCurrentUser!.userID!),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (_relationships.length == 1) {
-                    snapshot.data!.forEach((element) {
-                      String field = "${element.signUpUser!.firstName}";
-                      _relationships.add(field);
-                    });
-                    print("Co data");
-                  }
-
-                  return DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-
-                            BorderSide(width: 1, color: Colors.grey))),
-                    value: selectedSubName,
-
-                    items: _relationships
-                        .map((relationship) => DropdownMenuItem<String>(
-                            value: relationship,
-                            child: Text(
-                              relationship,
-                              style: const TextStyle(fontSize: 15),
-                            )))
-                        .toList(),
-                    onChanged: (subName) => setState(() {
+    return SizedBox(
+      height: 60,
+      child: Column(
+        children: [
+          Row(
+            children: const [
+              Text("Bạn muốn đặt cho ai?"),
+              Text(" *", style: TextStyle(color: Colors.red)),
+            ],
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            child: FutureBuilder<List<SubProfile>?>(
+                future: CallAPI()
+                    .getallSubProfileByUserId(sharedCurrentUser!.userID!),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (_relationships.length == 1) {
                       snapshot.data!.forEach((element) {
+                        String field = "${element.signUpUser!.firstName}";
+                        _relationships.add(field);
 
-                        if (subName == element.subName){
-
-
-                          subProfile = element;
-
-                        }
                       });
-                      selectedSubName = subName!;
+                      print("Co data");
+                    }
 
-                    }),
-                  );
-
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }),
-        ),
-      ],
+                    return DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      value: selectedSubName,
+                      items: _relationships
+                          .map((relationship) => DropdownMenuItem<String>(
+                              value: relationship,
+                              child: Text(
+                                relationship,
+                                style: const TextStyle(fontSize: 15),
+                              )))
+                          .toList(),
+                      onChanged: (subName) => setState(() {
+                        snapshot.data!.forEach((element) {
+                          if (subName == element.subName) {
+                            subProfile = element;
+                          }
+                        });
+                        selectedSubName = subName!;
+                      }),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+          ),
+        ],
+      ),
     );
   }
 
@@ -147,7 +142,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                   context: context,
                                   builder: (BuildContext context) =>
                                       AlertDialog(
-                                    title: Text("Chọn người được tư vấn"),
+                                    title: const Text("Chọn người được tư vấn"),
                                     content: relationship(),
                                     actions: [
                                       TextButton(
@@ -157,7 +152,6 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-
                                           if (selectedSubName == "- Chọn -" ){
                                             Navigator.pop(context, 'Ok');
                                           }
@@ -170,6 +164,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                                 timeBooking: DateFormat("yyyy-MM-ddTHH:mm:ss").format(DateTime.now()));
                                            BookingSchedule? bookingScheduleAdd =  await CallAPI().addBookingSchedule(bookingSchedule);
                                            print('${bookingScheduleAdd!.bookingScheduleID} booking schedule id add');
+
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
