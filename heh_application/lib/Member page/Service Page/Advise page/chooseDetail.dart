@@ -5,6 +5,7 @@ import 'package:heh_application/models/booking_schedule.dart';
 import 'package:heh_application/models/physiotherapist.dart';
 import 'package:heh_application/models/schedule.dart';
 import 'package:heh_application/services/call_api.dart';
+import 'package:intl/intl.dart';
 
 import '../../../models/sub_profile.dart';
 
@@ -20,7 +21,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
 
 
   String selectedRelationship = "- Chọn -";
-
+  SubProfile? subProfile ;
 
   Widget relationship() {
     return Column(
@@ -65,6 +66,11 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                         .toList(),
                     onChanged: (relationship) => setState(() {
                       selectedRelationship = relationship!;
+                      snapshot.data!.forEach((element) {
+                        if (selectedRelationship == element.relationship!.relationName){
+                          subProfile = element;
+                        }
+                      });
                     }),
                   );
                 } else {
@@ -145,14 +151,18 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                             Navigator.pop(context, 'Ok');
                                           }
                                           else{
-                                            await CallAPI().
-                                            BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!, subProfileID: subProfileID, scheduleID: scheduleID, dateBooking: dateBooking, timeBooking: timeBooking)
+                                            BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!,
+                                                subProfileID: subProfile!.profileID!,
+                                                scheduleID: snapshot.data![index].scheduleID,
+                                                dateBooking: DateFormat("yyyy-MM-dd").format(DateTime.now()),
+                                                timeBooking: DateFormat("HH:mm:ss").format(DateTime.now()));
+                                            await CallAPI().addBookingSchedule(bookingSchedule);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         BillChoosePage(physiotherapist: widget.physiotherapist,
-                                                          schedule: snapshot.data![index],)));
+                                                          schedule: snapshot.data![index],bookingSchedule: bookingSchedule,)));
                                           }
 
                                         },

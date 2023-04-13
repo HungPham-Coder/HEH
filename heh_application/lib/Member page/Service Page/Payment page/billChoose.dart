@@ -11,9 +11,10 @@ import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
 
 class BillChoosePage extends StatefulWidget {
-    BillChoosePage({Key? key,required this.physiotherapist, required this.schedule}) : super(key: key);
+    BillChoosePage({Key? key,required this.physiotherapist, required this.schedule, required this.bookingSchedule}) : super(key: key);
   Physiotherapist physiotherapist;
   Schedule schedule;
+  BookingSchedule bookingSchedule;
   @override
   State<BillChoosePage> createState() => _BillChoosePageState();
 }
