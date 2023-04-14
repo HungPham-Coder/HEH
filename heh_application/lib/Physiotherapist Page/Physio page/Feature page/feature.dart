@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/view.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Exercise%20page/view.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Register%20slot%20page/register.dart';
 
 class FeaturePage extends StatefulWidget {
   const FeaturePage({Key? key}) : super(key: key);
@@ -41,10 +42,10 @@ class _FeaturePageState extends State<FeaturePage> {
                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcalendar.png?alt=media&token=45426216-f7a3-449b-8a91-05582ebc1339",
               text: "Đăng ký lịch làm việc",
               press: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const PhysioCalendarPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PhysioRegisterSlotPage()));
               },
             ),
           ],

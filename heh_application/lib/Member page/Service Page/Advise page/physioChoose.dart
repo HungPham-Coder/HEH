@@ -33,9 +33,10 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                 future: CallAPI().getAllActivePhysiotherapist(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<Physiotherapist> listPhysio= []  ;
+                    List<Physiotherapist> listPhysio = [];
                     snapshot.data!.forEach((element) {
-                      if (sharedMedicalRecord!.problem!.contains(element.skill!)){
+                      if (sharedMedicalRecord!.problem!
+                          .contains(element.skill!)) {
                         listPhysio.add(element);
                       }
                     });
@@ -52,13 +53,17 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                                 return Column(
                                   children: [
                                     PhysioChooseMenu(
-                                      icon:
-                                      listPhysio[index].signUpUser!.gender == true ?
-                                      "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622"
-                                      : "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2FPhysio.png?alt=media&token=30d7e2dc-5a5b-4637-bda5-7cc798b6104e",
-                                      name: listPhysio[index].signUpUser!.firstName!,
+                                      icon: listPhysio[index]
+                                                  .signUpUser!
+                                                  .gender ==
+                                              true
+                                          ? "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622"
+                                          : "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2FPhysio.png?alt=media&token=30d7e2dc-5a5b-4637-bda5-7cc798b6104e",
+                                      name: listPhysio[index]
+                                          .signUpUser!
+                                          .firstName!,
                                       skill:
-                                      'Kỹ năng: ${listPhysio[index].skill!}',
+                                          'Kỹ năng: ${listPhysio[index].skill!}',
                                       press: () {
                                         Navigator.push(
                                             context,
@@ -66,7 +71,7 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                                                 builder: (context) =>
                                                     ChooseDetailPage(
                                                       physiotherapist:
-                                                      listPhysio[index],
+                                                          listPhysio[index],
                                                     )));
                                       },
                                     ),
@@ -75,8 +80,7 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                               }),
                         ],
                       );
-                    }
-                    else {
+                    } else {
                       return const Center(
                         child: Text(
                           "Không có Chuyên Viên nào đang rảnh!",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Notification%20page/appointment.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Advise%20page/appointment.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Session%20Page/session.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/messenger.dart';
 
 class PhysioHomePage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _PhysioHomePageState extends State<PhysioHomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const AppointmentPage()));
+                        builder: (context) => const SessionPage()));
               },
             ),
             HomeMenu(

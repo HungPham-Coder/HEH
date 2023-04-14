@@ -70,7 +70,7 @@ class CallAPI {
       "lastName": signUpUser.lastName,
       "address": signUpUser.address,
       "image": signUpUser.image,
-      "dob" : signUpUser.dob,
+      "dob": signUpUser.dob,
       "phoneNumber": signUpUser.phone,
       "gender": signUpUser.gender,
       "bookingStatus": false,
@@ -121,7 +121,6 @@ class CallAPI {
 
     print('StatusCode: ${response.statusCode}');
     if (response.statusCode == 200) {
-
       return SignUpUser.fromMap(json.decode(response.body), '');
     } else {
       print("response body");
@@ -328,7 +327,6 @@ class CallAPI {
     print(response.body);
     if (response.statusCode == 200) {
       return MedicalRecord.fromMap(json.decode(response.body));
-
     } else {
       throw Exception('Failed to load MedicalRecord');
     }
@@ -448,8 +446,8 @@ class CallAPI {
     print(response.statusCode);
     if (response.statusCode == 200) {
       Iterable jsonResult = json.decode(response.body);
-      List<Schedule> list =
-          List<Schedule>.from(jsonResult.map((model) => Schedule.fromMap(model)));
+      List<Schedule> list = List<Schedule>.from(
+          jsonResult.map((model) => Schedule.fromMap(model)));
 
       if (list == null) {
         print("List Schedule Null");
@@ -531,14 +529,15 @@ class CallAPI {
       throw Exception('Failed to load SubProfile');
     }
   }
+
   Future<SubProfile> AddSubProfile(SubProfile subProfile) async {
     var url = Uri.parse('${link}/api/SubProfile/Create');
     // var url = Uri.https('localhost:7166', 'api/User/Register');
 
     final body = jsonEncode({
       "userID": subProfile.userID,
-      "relationId":subProfile.relationID,
-      "subName":subProfile.subName
+      "relationId": subProfile.relationID,
+      "subName": subProfile.subName
     });
     final headers = {
       "Accept": "application/json",
@@ -556,10 +555,8 @@ class CallAPI {
     }
   }
 
-  Future<List<SubProfile>?> getallSubProfileByUserId(
-      String userId) async {
-    var url = Uri.parse(
-        '${link}/api/SubProfile/GetByUserId/$userId');
+  Future<List<SubProfile>?> getallSubProfileByUserId(String userId) async {
+    var url = Uri.parse('${link}/api/SubProfile/GetByUserId/$userId');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
@@ -570,8 +567,8 @@ class CallAPI {
     print(response.statusCode);
     if (response.statusCode == 200) {
       Iterable jsonResult = json.decode(response.body);
-      List<SubProfile> list =
-      List<SubProfile>.from(jsonResult.map((model) => SubProfile.fromMap(model)));
+      List<SubProfile> list = List<SubProfile>.from(
+          jsonResult.map((model) => SubProfile.fromMap(model)));
 
       if (list == null) {
         print("List SubProfile Null");
@@ -583,10 +580,9 @@ class CallAPI {
     }
   }
 
-  Future<Relationship> getRelationByRelationName(
-      String relationName) async {
+  Future<Relationship> getRelationByRelationName(String relationName) async {
     var url =
-    Uri.parse('${link}/api/Relationship/GetByRelationName/$relationName');
+        Uri.parse('${link}/api/Relationship/GetByRelationName/$relationName');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
@@ -623,7 +619,6 @@ class CallAPI {
       throw Exception('Failed to load Relationship');
     }
   }
-
 
   Future<List<TypeOfSlot>> getAllTypeOfSlot() async {
     var url = Uri.parse('${link}/api/TypeOfSlot');
@@ -669,7 +664,8 @@ class CallAPI {
     }
   }
 
-  Future<BookingSchedule?> addBookingSchedule(BookingSchedule bookingSchedule) async {
+  Future<BookingSchedule?> addBookingSchedule(
+      BookingSchedule bookingSchedule) async {
     var url = Uri.parse('${link}/api/BookingSchedule/Create');
     // var url = Uri.https('localhost:7166', 'api/User/Register');
 
@@ -723,5 +719,4 @@ class CallAPI {
       return false;
     }
   }
-
 }

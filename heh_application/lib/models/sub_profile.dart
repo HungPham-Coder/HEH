@@ -10,23 +10,31 @@ class SubProfile {
 
   String subName;
 
-  SubProfile(
-      { this.profileID,
-
-      this.userID,
-      this.signUpUser,
-      required this.relationID,
-       this.relationship,
-        required this.subName,
-      });
+  SubProfile({
+    this.profileID,
+    this.userID,
+    this.signUpUser,
+    required this.relationID,
+    this.relationship,
+    required this.subName,
+  });
   factory SubProfile.fromMap(Map<String, dynamic> json) {
-    return SubProfile(
-      profileID: json['profileID'],
-      userID: json['userID'],
-      signUpUser:SignUpUser.fromMap(json['user'],'') ,
-      relationID: json['relationId'],
-      relationship:Relationship.fromMap( json['relationship']),
-      subName: json['subName'],
-    );
+    if (json['user'] == null && json['relationship'] == null) {
+      return SubProfile(
+        profileID: json['profileID'],
+        userID: json['userID'],
+        relationID: json['relationId'],
+        subName: json['subName'],
+      );
+    } else {
+      return SubProfile(
+        profileID: json['profileID'],
+        userID: json['userID'],
+        signUpUser: SignUpUser.fromMap(json['user'], ''),
+        relationID: json['relationId'],
+        relationship: Relationship.fromMap(json['relationship']),
+        subName: json['subName'],
+      );
+    }
   }
 }

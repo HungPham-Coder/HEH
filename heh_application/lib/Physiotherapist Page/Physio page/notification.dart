@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Notification%20page/adviseAppoint.dart/advise.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Home%20page/Notification%20page/sessionApppoint.dart/session.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Notification%20page/adviseAppoint.dart/advise.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Notification%20page/sessionApppoint.dart/session.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _NotificationPageState extends State<NotificationPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          "Tư vấn một buổi",
+          "Thông báo",
         ),
         elevation: 10,
         backgroundColor: const Color.fromARGB(255, 46, 161, 226),

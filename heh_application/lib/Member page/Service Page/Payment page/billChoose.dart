@@ -3,6 +3,7 @@ import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/result.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentChoose.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
+import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/success.dart';
 import 'package:heh_application/models/booking_detail.dart';
 import 'package:heh_application/models/booking_schedule.dart';
 import 'package:heh_application/models/physiotherapist.dart';
@@ -171,15 +172,14 @@ class _BillChoosePageState extends State<BillChoosePage> {
                           bookingScheduleID:
                               widget.bookingSchedule!.bookingScheduleID!,
                           status: true);
-                     bool addBookingDetail = await CallAPI().addBookingDetail(bookingDetail);
-                     if (addBookingDetail) {
+                      bool addBookingDetail =
+                          await CallAPI().addBookingDetail(bookingDetail);
+                      if (addBookingDetail) {}
 
-                     }
-
-                     Navigator.push(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PaymentChoosePage()));
+                              builder: (context) => const SuccessPage()));
                     },
                     child: const Text(
                       "Thanh toán",

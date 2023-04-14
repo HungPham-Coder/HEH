@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:heh_application/Physiotherapist%20Page/Profile%20page/changePass.dart';
-import 'package:heh_application/Physiotherapist%20Page/history.dart';
+import 'package:heh_application/Member%20page/Profile%20page/changePass.dart';
+import 'package:heh_application/Member%20page/Profile%20page/history.dart';
+import 'package:heh_application/Physiotherapist%20Page/Profile%20page/Personal%20page/personal.dart';
+import 'package:heh_application/Physiotherapist%20Page/Profile%20page/history.dart';
+import 'package:heh_application/services/stream_test.dart';
 import 'package:provider/provider.dart';
-
 import '../../services/auth.dart';
-import '../../services/stream_test.dart';
-import 'personal.dart';
 
-class SettingPage extends StatefulWidget {
-  const SettingPage({Key? key}) : super(key: key);
+class PhysioSettingPage extends StatefulWidget {
+  const PhysioSettingPage({Key? key}) : super(key: key);
 
   @override
-  State<SettingPage> createState() => _SettingPageState();
+  State<PhysioSettingPage> createState() => _PhysioSettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class _PhysioSettingPageState extends State<PhysioSettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +43,7 @@ class _SettingPageState extends State<SettingPage> {
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 const CircleAvatar(
+                  backgroundColor: Color.fromARGB(255, 220, 220, 220),
                   backgroundImage: NetworkImage(
                       "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
                 ),
@@ -50,8 +51,6 @@ class _SettingPageState extends State<SettingPage> {
             ),
           ),
           const SizedBox(height: 10),
-          const Text("ABC", style: TextStyle(fontSize: 30)),
-          const SizedBox(height: 20),
           ProfileMenu(
             icon:
                 "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.svg?alt=media&token=7bef043d-fdb5-4c5b-bb2e-644ee7682345",
@@ -76,24 +75,13 @@ class _SettingPageState extends State<SettingPage> {
           ),
           ProfileMenu(
             icon:
-                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffeedback.svg?alt=media&token=247d726f-d502-4c36-bbc3-281facac98c8",
-            text: "Xem nhận xét",
-            press: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PhysioHistoryPage()));
-            },
-          ),
-          ProfileMenu(
-            icon:
                 "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Freset.svg?alt=media&token=f574651a-977a-4eea-a07d-61fe296f5505",
             text: "Đặt lại mật khẩu",
             press: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const PhysioChangePass()));
+                      builder: (context) => const ChangePassword()));
             },
           ),
           ProfileMenu(

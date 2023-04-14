@@ -21,13 +21,12 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
     "- Chọn -",
   ];
 
-
   String selectedSubName = "- Chọn -";
   SubProfile? subProfile;
 
   Widget relationship() {
     return SizedBox(
-      height: 60,
+      height: 70,
       child: Column(
         children: [
           Row(
@@ -36,6 +35,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
               Text(" *", style: TextStyle(color: Colors.red)),
             ],
           ),
+          SizedBox(height: 5),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 40,
@@ -48,7 +48,6 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                       snapshot.data!.forEach((element) {
                         String field = "${element.signUpUser!.firstName}";
                         _relationships.add(field);
-
                       });
                       print("Co data");
                     }
@@ -152,18 +151,33 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-                                          if (selectedSubName == "- Chọn -" ){
+                                          if (selectedSubName == "- Chọn -") {
                                             Navigator.pop(context, 'Ok');
-                                          }
-                                          else{
+                                          } else {
                                             print(DateTime.now());
-                                            BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!,
-                                                subProfileID: '${subProfile!.profileID}',
-                                                scheduleID: snapshot.data![index].scheduleID,
-                                                dateBooking: DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                                                timeBooking: DateFormat("yyyy-MM-ddTHH:mm:ss").format(DateTime.now()));
-                                           BookingSchedule? bookingScheduleAdd =  await CallAPI().addBookingSchedule(bookingSchedule);
-                                           print('${bookingScheduleAdd!.bookingScheduleID} booking schedule id add');
+                                            BookingSchedule bookingSchedule =
+                                                BookingSchedule(
+                                                    userID: sharedCurrentUser!
+                                                        .userID!,
+                                                    subProfileID:
+                                                        '${subProfile!.profileID}',
+                                                    scheduleID: snapshot
+                                                        .data![index]
+                                                        .scheduleID,
+                                                    dateBooking: DateFormat(
+                                                            "yyyy-MM-dd")
+                                                        .format(DateTime.now()),
+                                                    timeBooking: DateFormat(
+                                                            "yyyy-MM-ddTHH:mm:ss")
+                                                        .format(
+                                                            DateTime.now()));
+                                            BookingSchedule?
+                                                bookingScheduleAdd =
+                                                await CallAPI()
+                                                    .addBookingSchedule(
+                                                        bookingSchedule);
+                                            print(
+                                                '${bookingScheduleAdd!.bookingScheduleID} booking schedule id add');
 
                                             Navigator.push(
                                                 context,
@@ -188,7 +202,11 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                     );
                   } else {
                     return Container(
-                      child: const Text("Physio dang ban het tat ca cac slot"),
+                      child: const Center(
+                          child: Text(
+                        "Physio dang ban het tat ca cac slot",
+                        style: TextStyle(fontSize: 16),
+                      )),
                     );
                   }
                 }),
@@ -329,7 +347,7 @@ class PhysioChooseMenu extends StatelessWidget {
                     )),
                 onPressed: press,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.network(

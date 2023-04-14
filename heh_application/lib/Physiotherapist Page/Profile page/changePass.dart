@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PhysioChangePass extends StatefulWidget {
-  const PhysioChangePass({Key? key}) : super(key: key);
+class ChangePassword extends StatefulWidget {
+  const ChangePassword({Key? key}) : super(key: key);
 
   @override
-  State<PhysioChangePass> createState() => _PhysioChangePassState();
+  State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _PhysioChangePassState extends State<PhysioChangePass> {
+class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

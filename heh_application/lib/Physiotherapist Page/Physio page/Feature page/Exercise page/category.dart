@@ -1,41 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/category.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
+import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Exercise%20page/detail.dart';
 
+import 'package:heh_application/models/exercise_model/exercise.dart';
+import 'package:heh_application/models/exercise_model/exercise_detail.dart';
+import 'package:heh_application/models/exercise_resource.dart';
+import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/services/call_api.dart';
+import 'package:provider/provider.dart';
 
-import '../../../models/exercise_model/category.dart';
-
-class PhysioViewCategory extends StatefulWidget {
-  const PhysioViewCategory({Key? key}) : super(key: key);
-
+class PhysioCategoryPage extends StatefulWidget {
+  PhysioCategoryPage({Key? key, required this.categoryID}) : super(key: key);
+  String categoryID;
   @override
-  State<PhysioViewCategory> createState() => _PhysioViewCategoryState();
+  State<PhysioCategoryPage> createState() => _PhysioCategoryPageState();
 }
 
-class _PhysioViewCategoryState extends State<PhysioViewCategory> {
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
-
+class _PhysioCategoryPageState extends State<PhysioCategoryPage> {
   @override
   Widget build(BuildContext context) {
-    // SignUpUser signUpUser = SignUpUser(firstName: '123',
-    //     lastName: 'abcdef',
-    //     phone: '1236548970',
-    //     password: '123456789',
-    //     email: '',
-    //     gender: false,
-    //     dob: '2023-03-27T16:56:43.443Z', username: '');
-
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        automaticallyImplyLeading: true,
         title: const Text(
-          "Vấn đề",
+          "Các bài tập ",
           style: TextStyle(fontSize: 23),
         ),
         actions: [
@@ -52,8 +42,9 @@ class _PhysioViewCategoryState extends State<PhysioViewCategory> {
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            FutureBuilder<List<CategoryModel>>(
-                future: CallAPI().getAllCategory(),
+            FutureBuilder<List<Exercise>?>(
+                future: auth.getListExerciseByCategoryID(
+                    widget.categoryID, sharedResultLogin!.accessToken!),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
@@ -61,19 +52,29 @@ class _PhysioViewCategoryState extends State<PhysioViewCategory> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                        String iconName = "";
-                        iconName =
-                            "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fknee.png?alt=media&token=47fffdae-d388-4215-aff9-239de7988053";
-                        return HomeMenu(
-                          icon: iconName,
-                          text: "${snapshot.data![index].categoryName}",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PhysioCategoryPage(
-                                        categoryID:
-                                            snapshot.data![index].categoryID)));
+                        print(snapshot.data![index].exerciseName);
+                        return BackMenu(
+                          icon:
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fbackache.png?alt=media&token=d725e1f5-c106-41f7-9ee5-ade77c464a54",
+                          text: "${snapshot.data![index].exerciseName}",
+                          press: () async {
+                            ExerciseDetail1 exerciseDetail = await CallAPI()
+                                .getExerciseDetailByExerciseID(
+                                    snapshot.data![index].exerciseID);
+                            ExerciseResource exerciseResource = await CallAPI()
+                                .getExerciseResourceByExerciseDetailID(
+                                    exerciseDetail.exerciseDetailID);
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              if (exerciseDetail != null) {
+                                return PhysioExerciseDetail1(
+                                  exerciseDetail: exerciseDetail,
+                                  exerciseResource: exerciseResource,
+                                );
+                              } else {
+                                return PhysioExerciseDetail1();
+                              }
+                            }));
                           },
                         );
                       },
@@ -89,8 +90,8 @@ class _PhysioViewCategoryState extends State<PhysioViewCategory> {
   }
 }
 
-class HomeMenu extends StatelessWidget {
-  const HomeMenu({
+class BackMenu extends StatelessWidget {
+  const BackMenu({
     Key? key,
     required this.text,
     required this.icon,
@@ -104,7 +105,7 @@ class HomeMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     // ignore: duplicate_ignore
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: TextButton(
           style: ButtonStyle(
               backgroundColor:
@@ -120,8 +121,8 @@ class HomeMenu extends StatelessWidget {
             children: [
               Image.network(
                 icon,
-                width: 60,
                 height: 60,
+                width: 60,
               ),
               const SizedBox(
                 width: 20,

@@ -105,7 +105,6 @@ class _InformationPageState extends State<InformationPage> {
                     ),
                   ),
                 ),
-                const Text("ABC", style: TextStyle(fontSize: 30)),
                 const SizedBox(height: 20),
               ],
             ),
@@ -172,7 +171,7 @@ class _InformationPageState extends State<InformationPage> {
                       firstDate: DateTime(1960),
                       lastDate: DateTime(2030));
                   if (pickeddate != null) {
-                    _date.text = DateFormat('yyyy-MM-dd').format(pickeddate);
+                    _date.text = DateFormat('dd-MM-yyyy').format(pickeddate);
                   } else {
                     _date.text = sharedCurrentUser!.dob!;
                   }

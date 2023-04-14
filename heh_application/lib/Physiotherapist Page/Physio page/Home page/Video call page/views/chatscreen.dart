@@ -18,11 +18,12 @@ class _ChatScreenState extends State<ChatScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: true,
           actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios_new)),
             IconButton(
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => VideoCallScreen(),
+                      builder: (context) => const VideoCallScreen(),
                     )),
-                icon: const Icon(Icons.video_call)),
+                icon: const Icon(Icons.video_call))
           ],
           title: const Text(
             "Tin nhắn",

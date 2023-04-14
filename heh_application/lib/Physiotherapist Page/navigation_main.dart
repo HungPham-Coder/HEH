@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/feature.dart';
 
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/View%20Exercise%20Page/feature.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/home.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Profile%20Page/setting.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/notification.dart';
+import 'package:heh_application/Physiotherapist%20Page/Profile%20page/setting.dart';
 
 // ignore: camel_case_types
 class PhyNavigation_bar extends StatefulWidget {

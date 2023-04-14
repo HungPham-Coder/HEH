@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Notification%20page/sessionApppoint.dart/sessionDetail.dart';
 
 class SessionAppointmentPage extends StatefulWidget {
   const SessionAppointmentPage({Key? key}) : super(key: key);
@@ -10,12 +11,39 @@ class SessionAppointmentPage extends StatefulWidget {
 class _SessionAppointmentPageState extends State<SessionAppointmentPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const Text(
+            "Danh sách người đặt",
+          ),
+          elevation: 10,
+          backgroundColor: const Color.fromARGB(255, 46, 161, 226),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              SessionMenu(
+                icon:
+                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
+                name: "Nguyễn Văn A",
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SessionDetailPage()));
+                },
+                time: "Khung giờ đặt: 11:00 - 12:00",
+              ),
+            ],
+          ),
+        ));
   }
 }
 
-class AdviseChooseMenu extends StatelessWidget {
-  const AdviseChooseMenu({
+class SessionMenu extends StatelessWidget {
+  const SessionMenu({
     Key? key,
     required this.time,
     required this.name,

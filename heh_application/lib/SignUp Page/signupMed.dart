@@ -294,7 +294,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                               }
                             });
 
-
                             Relationship relationship = await CallAPI()
                                 .getRelationByRelationName("Tôi");
 
@@ -303,10 +302,8 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                 relationID: relationship.relationId,
                                 subName: widget.signUpUser.firstName!);
 
-
                             SubProfile subProfile1 =
                                 await CallAPI().AddSubProfile(subProfile);
-
 
                             listCategoryID.forEach((element) async {
                               MedicalRecord medicalRecord = MedicalRecord(

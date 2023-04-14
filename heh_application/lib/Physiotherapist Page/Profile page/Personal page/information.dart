@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Profile%20page/setting.dart';
-import 'package:heh_application/Physiotherapist%20Page/navigation_main.dart';
 import 'package:intl/intl.dart';
 
 final TextEditingController _date = TextEditingController();
@@ -12,7 +12,7 @@ final TextEditingController _phone = TextEditingController();
 final TextEditingController _password = TextEditingController();
 final TextEditingController _confirmPassword = TextEditingController();
 
-enum genderGroup { male, female, others }
+enum genderGroup { male, female }
 
 class PhysioInformationPage extends StatefulWidget {
   const PhysioInformationPage({Key? key}) : super(key: key);
@@ -23,8 +23,27 @@ class PhysioInformationPage extends StatefulWidget {
 
 class _PhysioInformationPageState extends State<PhysioInformationPage> {
   genderGroup _genderValue = genderGroup.male;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkGender();
+  }
+
+  void checkGender() {
+    if (sharedCurrentUser!.gender == false) {
+      _genderValue = genderGroup.female;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // String dob = DateFormat('yyyy-MM-dd').format(sharedCurrentUser!.dob!);
+    DateTime tempDob =
+        new DateFormat("yyyy-MM-dd").parse(sharedCurrentUser!.dob!);
+
+    String dob = DateFormat("dd-MM-yyyy").format(tempDob);
     return Scaffold(
         body: SingleChildScrollView(
             child: Padding(
@@ -45,8 +64,8 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                       children: [
                         const CircleAvatar(
                           backgroundColor: Color.fromARGB(255, 220, 220, 220),
-                          backgroundImage:
-                              AssetImage("assets/icons/person.png"),
+                          backgroundImage: NetworkImage(
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
                         ),
                         Positioned(
                           right: -12,
@@ -71,8 +90,8 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                                                   255, 46, 161, 226))),
                                     )),
                                 onPressed: () async {},
-                                child: SvgPicture.asset(
-                                  "assets/icons/camera.svg",
+                                child: SvgPicture.network(
+                                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcamera.svg?alt=media&token=afa6a202-304e-45af-8df5-870126316135",
                                   width: 20,
                                   height: 20,
                                 )),
@@ -110,25 +129,17 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                 children: <Widget>[
                   const Text("Nam"),
                   Radio(
-                      value: genderGroup.male,
-                      groupValue: _genderValue,
-                      onChanged: (genderGroup? value) {
-                        setState(() {
-                          _genderValue = value!;
-                        });
-                      }),
+                    value: genderGroup.male,
+                    groupValue: _genderValue,
+                    onChanged: (genderGroup? value) {
+                      setState(() {
+                        _genderValue = value!;
+                      });
+                    },
+                  ),
                   const Text("Nữ"),
                   Radio(
                       value: genderGroup.female,
-                      groupValue: _genderValue,
-                      onChanged: (genderGroup? value) {
-                        setState(() {
-                          _genderValue = value!;
-                        });
-                      }),
-                  const Text("Khác"),
-                  Radio(
-                      value: genderGroup.others,
                       groupValue: _genderValue,
                       onChanged: (genderGroup? value) {
                         setState(() {
@@ -142,8 +153,11 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              TextField(
-                controller: _date,
+              TextFormField(
+                initialValue: dob,
+                // DateTime.parse(sharedCurrentUser!.dob as String).toString(),
+                readOnly: true,
+                // controller: _date,
                 decoration: const InputDecoration(
                   labelText: "Ngày sinh ",
                 ),
@@ -154,7 +168,9 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                       firstDate: DateTime(1960),
                       lastDate: DateTime(2030));
                   if (pickeddate != null) {
-                    _date.text = DateFormat('yyyy-MM-dd').format(pickeddate);
+                    _date.text = DateFormat('dd-MM-yyyy').format(pickeddate);
+                  } else {
+                    _date.text = sharedCurrentUser!.dob!;
                   }
                 },
               ),
@@ -166,15 +182,14 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(top: 20),
                     child: MaterialButton(
                       height: 50,
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const PhyNavigation_bar()));
+                                builder: (context) => const SettingPage()));
                       },
                       color: Colors.grey[400],
                       elevation: 0,
@@ -194,7 +209,7 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(top: 20),
                     child: MaterialButton(
                       height: 50,
                       onPressed: () {
@@ -210,8 +225,7 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const PhyNavigation_bar()));
+                                builder: (context) => const SettingPage()));
                       },
                       color: const Color.fromARGB(255, 46, 161, 226),
                       elevation: 0,
@@ -254,11 +268,14 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
+          initialValue: sharedCurrentUser!.firstName,
           obscureText: obscureText,
+
           // controller: _firstName,
+
           decoration: const InputDecoration(
-              hintText: 'Họ và Tên',
+              // hintText: 'Họ và Tên',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -290,7 +307,8 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
+          initialValue: sharedCurrentUser!.email,
           // controller: _email,
           obscureText: obscureText,
           decoration: const InputDecoration(
@@ -326,8 +344,9 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextField(
-          // controller: _phone,
+        TextFormField(
+          initialValue: sharedCurrentUser!.phone,
+          keyboardType: TextInputType.phone,
           obscureText: obscureText,
           decoration: const InputDecoration(
               hintText: 'Số điện thoại',
