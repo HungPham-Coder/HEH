@@ -18,12 +18,15 @@ class SubProfile {
     this.relationship,
     required this.subName,
   });
+
   factory SubProfile.fromMap(Map<String, dynamic> json) {
-    if (json['user'] == null && json['relationship'] == null) {
+    if (json['user'] == null && json['relationship']) {
       return SubProfile(
         profileID: json['profileID'],
         userID: json['userID'],
+        signUpUser: SignUpUser.fromMap(json['user'], ''),
         relationID: json['relationId'],
+        relationship: Relationship.fromMap(json['relationship']),
         subName: json['subName'],
       );
     } else {

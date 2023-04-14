@@ -10,7 +10,13 @@ class Schedule {
   String typeOfSlotID;
   TypeOfSlot typeOfSlot;
   String description;
-  bool physioBookingStatus;
+  bool _physioBookingStatus;
+
+  bool get physioBookingStatus => _physioBookingStatus;
+
+  set physioBookingStatus(bool value) {
+    _physioBookingStatus = value;
+  }
 
   Schedule(
       {required this.scheduleID,
@@ -21,9 +27,9 @@ class Schedule {
         required this.typeOfSlotID,
         required this.typeOfSlot,
         required this.description,
-        required this.physioBookingStatus,
+        required bool physioBookingStatus,
 
-      });
+      }) : _physioBookingStatus = physioBookingStatus;
   factory Schedule.fromMap(Map<String, dynamic> json) {
     return Schedule(
         scheduleID: json['scheduleID'],

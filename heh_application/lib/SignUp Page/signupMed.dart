@@ -284,14 +284,13 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                 .callRegisterAPI(widget.signUpUser);
                             List<String> listCategoryID = [];
                             _selectedProblems.forEach((elementSelected) {
-                              if (elementSelected!.name != "Khác") {
                                 _listCategory.forEach((category) {
-                                  if (elementSelected.name ==
+                                  if (elementSelected!.name ==
                                       category.categoryName) {
                                     listCategoryID.add(category.categoryID);
                                   }
                                 });
-                              }
+
                             });
 
                             Relationship relationship = await CallAPI()
