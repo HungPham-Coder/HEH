@@ -124,68 +124,76 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                     widget.physiotherapist.physiotherapistID),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return PhysioChooseMenu(
-                            icon:
-                                "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                            name: widget.physiotherapist.signUpUser!.lastName!,
-                            time: "Khung giờ: ",
-                            timeStart:
-                                '${snapshot.data![index].slot.timeStart}',
-                            timeEnd: '${snapshot.data![index].slot.timeEnd}',
-                            price: snapshot.data![index].typeOfSlot.price,
-                            press: () => showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text("Chọn người được tư vấn"),
-                                    content: relationship(),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'Hủy bỏ'),
-                                        child: const Text('Hủy bỏ'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          if (selectedSubName == "- Chọn -" ){
-                                            Navigator.pop(context, 'Ok');
-                                          }
-                                          else{
-                                            print(DateTime.now());
-                                            BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!,
-                                                subProfileID: '${subProfile!.profileID}',
-                                                scheduleID: snapshot.data![index].scheduleID,
-                                                dateBooking: DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                                                timeBooking: DateFormat("yyyy-MM-ddTHH:mm:ss").format(DateTime.now()));
-                                           BookingSchedule? bookingScheduleAdd =  await CallAPI().addBookingSchedule(bookingSchedule);
-                                           print('${bookingScheduleAdd!.bookingScheduleID} booking schedule id add');
+                    if (snapshot.data!.length > 0){
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return PhysioChooseMenu(
+                              icon:
+                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+                              name: widget.physiotherapist.signUpUser!.lastName!,
+                              time: "Khung giờ: ",
+                              timeStart:
+                              '${snapshot.data![index].slot.timeStart}',
+                              timeEnd: '${snapshot.data![index].slot.timeEnd}',
+                              price: snapshot.data![index].typeOfSlot.price,
+                              press: () => showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                      title: const Text("Chọn người được tư vấn"),
+                                      content: relationship(),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'Hủy bỏ'),
+                                          child: const Text('Hủy bỏ'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async {
+                                            if (selectedSubName == "- Chọn -" ){
+                                              Navigator.pop(context, 'Ok');
+                                            }
+                                            else{
+                                              print(DateTime.now());
+                                              BookingSchedule bookingSchedule = BookingSchedule(userID: sharedCurrentUser!.userID!,
+                                                  subProfileID: '${subProfile!.profileID}',
+                                                  scheduleID: snapshot.data![index].scheduleID,
+                                                  dateBooking: DateFormat("yyyy-MM-dd").format(DateTime.now()),
+                                                  timeBooking: DateFormat("yyyy-MM-ddTHH:mm:ss").format(DateTime.now()));
+                                              BookingSchedule? bookingScheduleAdd =  await CallAPI().addBookingSchedule(bookingSchedule);
+                                              print('${bookingScheduleAdd!.bookingScheduleID} booking schedule id add');
 
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        BillChoosePage(
-                                                          physiotherapist: widget
-                                                              .physiotherapist,
-                                                          schedule: snapshot
-                                                              .data![index],
-                                                          bookingSchedule:
-                                                              bookingScheduleAdd,
-                                                        )));
-                                          }
-                                        },
-                                        child: const Text('Ok'),
-                                      )
-                                    ],
-                                  ),
-                                ));
-                      },
-                    );
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          BillChoosePage(
+                                                            physiotherapist: widget
+                                                                .physiotherapist,
+                                                            schedule: snapshot
+                                                                .data![index],
+                                                            bookingSchedule:
+                                                            bookingScheduleAdd,
+                                                          )));
+                                            }
+                                          },
+                                          child: const Text('Ok'),
+                                        )
+                                      ],
+                                    ),
+                              ));
+                        },
+                      );
+                    }
+                    else {
+                      return Container(
+                        child: const Text("Physio dang ban het tat ca cac slot"),
+                      );
+                    }
+
                   } else {
                     return Container(
                       child: const Text("Physio dang ban het tat ca cac slot"),

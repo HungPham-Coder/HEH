@@ -13,11 +13,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   final AgoraClient client = AgoraClient(
       agoraConnectionData: AgoraConnectionData(
           appId: "1405b81aefdb475a94c00cc139ed7450",
-          channelName: "video",
-          uid: 0,
-          username: "abc",
+          channelName: "abc",
+
           tempToken:
-              "007eJxTYEi6Ly6vaPJ6+9xGwxM5xneUa9M09jJk/9A+dF21auttu+cKDIYmBqZJFoaJqWkpSSbmpomWJskGBsnJhsaWqSnmJqYGl6+YpzQEMjJ4evxnYWSAQBCflaEsMyU1n4EBAFQTH/U="));
+              "007eJxTYPhr+3iZN9cnJxl79+v/l+yfd8pKWPsx3/SHrqu52u8UiPMrMBiaGJgmWRgmpqalJJmYmyZamiQbGCQnGxpbpqaYm5gaBD81T2kIZGQoVTrNxMgAgSA+M0NiUjIDAwAjfx5g"));
 
   @override
   void initState() {

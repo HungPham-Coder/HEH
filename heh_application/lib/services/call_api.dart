@@ -434,6 +434,30 @@ class CallAPI {
     }
   }
 
+  Future<void> updateScheduleWithPhysioBookingStatus(Schedule schedule) async {
+    var url = Uri.parse('${link}/api/Schedule');
+    // var url = Uri.https('localhost:7166', 'api/Schedule');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    final body = jsonEncode({
+      "scheduleID": schedule.scheduleID,
+      "slotID":schedule.slotID,
+      "physiotherapistID": schedule.physiotherapistID,
+      "typeOfSlotID" : schedule.typeOfSlotID,
+      "description" :schedule.description,
+      "physioBookingStatus": schedule.physioBookingStatus,
+    });
+    var response = await http.put(url, headers: headers,body: body);
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print(response.body);
+      throw Exception('Failed to load Schedule');
+    }
+  }
+
   Future<List<Schedule>?> getallSlotByPhysiotherapistID(
       String physiotherapistID) async {
     var url = Uri.parse(

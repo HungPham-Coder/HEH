@@ -173,7 +173,8 @@ class _BillChoosePageState extends State<BillChoosePage> {
                           status: true);
                      bool addBookingDetail = await CallAPI().addBookingDetail(bookingDetail);
                      if (addBookingDetail) {
-
+                       widget.schedule.physioBookingStatus = true;
+                       await CallAPI().updateScheduleWithPhysioBookingStatus(widget.schedule);
                      }
 
                      Navigator.push(
