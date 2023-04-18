@@ -38,7 +38,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
 
   List<Problem> _problems = [];
   List<Problem?> _selectedProblems = [];
-  static final List<CategoryModel> _listCategory = [];
+  final List<CategoryModel> _listCategory = [];
   void addProblem(List<CategoryModel> list) {
     if (_problems.isEmpty) {
       list.forEach((category) {
@@ -304,11 +304,18 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                               injury: _injury.text,
                               medicine: _medicine.text,
                             );
-                            MedicalRecord? medical =  await CallAPI().createMedicalRecord(medicalRecord);
+                            MedicalRecord? medical = await CallAPI()
+                                .createMedicalRecord(medicalRecord);
                             //Create problem
-                            _listCategory.forEach((element) async {
-                              Problem1 problem1 = Problem1( categoryID: element.categoryID, medicalRecordID:medical!.medicalRecordID! );
-                              await CallAPI().addProblem(problem1);
+                            _selectedProblems.forEach((elementSelected) {
+                              _listCategory.forEach((element) async {
+                                if (elementSelected!.name == element.categoryName){
+                                  Problem1 problem1 = Problem1(
+                                      categoryID: element.categoryID,
+                                      medicalRecordID: medical!.medicalRecordID!);
+                                  await CallAPI().addProblem(problem1);
+                                }
+                              });
                             });
                             Navigator.push(
                                 context,

@@ -21,13 +21,11 @@ class SubProfile {
       this.dob});
 
   factory SubProfile.fromMap(Map<String, dynamic> json) {
-    if (json['user'] == null || json['relationship']) {
+    if (json['user'] == null || json['relationship'] == null) {
       return SubProfile(
           profileID: json['profileID'],
           userID: json['userID'],
-          signUpUser: SignUpUser.fromMap(json['user'], ''),
           relationID: json['relationId'],
-          relationship: Relationship.fromMap(json['relationship']),
           subName: json['subName'],
           dob: json['dateOfBirth']);
     } else {

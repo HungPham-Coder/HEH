@@ -15,12 +15,22 @@ class Problem1 {
     this.medicalRecord,
   });
   factory Problem1.FromMap(Map<String, dynamic> json) {
-    return Problem1(
-        problemID: json['problemID'],
-        categoryID: json['categoryID'],
-        categoryModel: CategoryModel.fromMap(json['Category']),
-        medicalRecordID: json['medicalRecordID'],
-        medicalRecord: MedicalRecord.fromMap(json['MedicalRecord'])
-    );
+    if (json['Category'] == null ||json['MedicalRecord'] == null ){
+      return Problem1(
+          problemID: json['problemID'],
+          categoryID: json['categoryID'],
+          medicalRecordID: json['medicalRecordID'],
+      );
+    }
+    else {
+      return Problem1(
+          problemID: json['problemID'],
+          categoryID: json['categoryID'],
+          categoryModel: CategoryModel.fromMap(json['Category']),
+          medicalRecordID: json['medicalRecordID'],
+          medicalRecord: MedicalRecord.fromMap(json['MedicalRecord'])
+      );
+    }
+
   }
 }

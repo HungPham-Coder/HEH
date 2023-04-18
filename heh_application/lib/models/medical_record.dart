@@ -21,15 +21,30 @@ class MedicalRecord {
       this.medicine});
 
   factory MedicalRecord.fromMap(Map<String, dynamic> json) {
-    return MedicalRecord(
-      medicalRecordID: json['medicalRecordID'],
-      subProfileID: json['subProfileID'],
-      subProfile: SubProfile.fromMap(json['subProfile']),
-      problem: json['problem'],
-      difficulty: json['difficult'],
-      injury: json['injury'],
-      curing: json['curing'],
-      medicine: json['medicine'],
-    );
+    if (json['subProfile'] == null) {
+      return MedicalRecord(
+        medicalRecordID: json['medicalRecordID'],
+        subProfileID: json['subProfileID'],
+        problem: json['problem'],
+        difficulty: json['difficult'],
+        injury: json['injury'],
+        curing: json['curing'],
+        medicine: json['medicine'],
+      );
+
+    }
+    else {
+      return MedicalRecord(
+        medicalRecordID: json['medicalRecordID'],
+        subProfileID: json['subProfileID'],
+        subProfile: SubProfile.fromMap(json['subProfile']),
+        problem: json['problem'],
+        difficulty: json['difficult'],
+        injury: json['injury'],
+        curing: json['curing'],
+        medicine: json['medicine'],
+      );
+    }
+
   }
 }
