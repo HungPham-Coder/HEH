@@ -261,8 +261,6 @@ class Auth implements AuthBase {
     }
 
     Role? role = await _callAPI.getUserRole(signUpUser!.userID!);
-    signUpUser.role = role!.name;
-    print("auth ${signUpUser.role}");
     print("auth ${signUpUser.firstName}");
     return signUpUser;
   }
