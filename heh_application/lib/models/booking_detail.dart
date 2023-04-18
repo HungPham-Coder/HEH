@@ -3,26 +3,23 @@ import 'package:heh_application/models/schedule.dart';
 
 class BookingDetail {
   String? bookingDetailID;
-  String scheduleID;
-  Schedule? schedule;
   String bookingScheduleID;
   BookingSchedule? bookingSchedule;
+  String? videoCallRoom;
   bool status;
 
   BookingDetail(
       { this.bookingDetailID,
-      required this.scheduleID,
-       this.schedule,
       required this.bookingScheduleID,
        this.bookingSchedule,
+        this.videoCallRoom,
       required this.status});
   factory BookingDetail.fromMap(Map<String, dynamic> json) {
     return BookingDetail(
         bookingDetailID: json['bookingDetailID'],
-        scheduleID: json['scheduleID'],
-        schedule:Schedule.fromMap(json['schedule']) ,
         bookingScheduleID: json['bookingScheduleID'],
         bookingSchedule:BookingSchedule.fromMap(json['bookingSchedule']) ,
+        videoCallRoom: json['videoCallRoom'],
         status: json['status']);
   }
 }

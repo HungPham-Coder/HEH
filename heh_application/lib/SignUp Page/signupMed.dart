@@ -10,6 +10,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../Login page/landing_page.dart';
 import '../Login page/login.dart';
 import '../models/exercise_model/category.dart';
+import '../models/problem.dart';
 import '../services/call_api.dart';
 
 class Problem {
@@ -264,6 +265,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                           height: 50,
                           onPressed: () async {
                             String problem = '';
+                            //get all problem
                             if (_selectedProblems.length > 1) {
                               _selectedProblems.forEach((element) {
                                 if (element != _selectedProblems.last) {
@@ -279,23 +281,13 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                               });
                               print("ABBC");
                             }
-
+                            //Create user
                             String userID = await CallAPI()
                                 .callRegisterAPI(widget.signUpUser);
-                            List<String> listCategoryID = [];
-                            _selectedProblems.forEach((elementSelected) {
-                                _listCategory.forEach((category) {
-                                  if (elementSelected!.name ==
-                                      category.categoryName) {
-                                    listCategoryID.add(category.categoryID);
-                                  }
-                                });
-
-                            });
 
                             Relationship relationship = await CallAPI()
                                 .getRelationByRelationName("Tôi");
-
+                            //Create subProfile
                             SubProfile subProfile = SubProfile(
                                 userID: userID,
                                 relationID: relationship.relationId,
@@ -303,20 +295,20 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
 
                             SubProfile subProfile1 =
                                 await CallAPI().AddSubProfile(subProfile);
-
-                            listCategoryID.forEach((element) async {
-                              MedicalRecord medicalRecord = MedicalRecord(
-                                subProfileID: subProfile1.profileID,
-                                userID: userID,
-                                categoryID: element,
-                                problem: problem,
-                                curing: _curing.text,
-                                difficulty: _difficult.text,
-                                injury: _injury.text,
-                                medicine: _medicine.text,
-                              );
-                              await CallAPI()
-                                  .createMedicalRecord(medicalRecord);
+                            //Create medical record
+                            MedicalRecord medicalRecord = MedicalRecord(
+                              subProfileID: subProfile1.profileID!,
+                              problem: problem,
+                              curing: _curing.text,
+                              difficulty: _difficult.text,
+                              injury: _injury.text,
+                              medicine: _medicine.text,
+                            );
+                            MedicalRecord? medical =  await CallAPI().createMedicalRecord(medicalRecord);
+                            //Create problem
+                            _listCategory.forEach((element) async {
+                              Problem1 problem1 = Problem1( categoryID: element.categoryID, medicalRecordID:medical!.medicalRecordID! );
+                              await CallAPI().addProblem(problem1);
                             });
                             Navigator.push(
                                 context,

@@ -315,7 +315,7 @@ class _LoginPageState extends State<LoginPage> {
       // DateTime? dateTime = "2023-03-27";
 
       SignUpUser signUpUser = SignUpUser(
-          username: email,
+
           firstName: user.displayName,
           lastName: 'lastName',
           phone: '1234567890',
@@ -363,7 +363,7 @@ class _LoginPageState extends State<LoginPage> {
       print(email);
       bool checkUserExistInPostgre = await auth.checkUserExistInPostgre(email);
       SignUpUser signUpUser = SignUpUser(
-          username: email,
+
           firstName: user.displayName,
           lastName: "facebook",
           phone: "123456",

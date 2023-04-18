@@ -198,15 +198,14 @@ class _SignUpPageState extends State<SignUpPage> {
                               gender = false;
                             }
                             SignUpUser signUpUser = SignUpUser(
-                                firstName: _firstName.text,
-                                email: _email.text,
-                                phone: _phone.text,
-                                address: _address.text,
-                                gender: gender,
-                                dob: dob,
-                                password: _password.text,
-                                role: 'Member',
-                                username: _phone.text);
+                              firstName: _firstName.text,
+                              email: _email.text,
+                              phone: _phone.text,
+                              address: _address.text,
+                              gender: gender,
+                              dob: dob,
+                              password: _password.text,
+                            );
 
                             Navigator.push(
                               context,

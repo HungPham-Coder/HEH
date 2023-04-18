@@ -23,8 +23,10 @@ import 'package:heh_application/models/type_of_slot.dart';
 import 'package:heh_application/models/user_exercise.dart';
 import 'package:http/http.dart' as http;
 
+import '../Member page/Profile page/Family page/medical.dart';
 import '../Member page/navigation_main.dart';
 import '../models/feedback.dart';
+import '../models/problem.dart';
 import '../models/role.dart';
 
 class CallAPI {
@@ -332,13 +334,11 @@ class CallAPI {
     }
   }
 
-  Future<void> createMedicalRecord(MedicalRecord medicalRecord) async {
+  Future<MedicalRecord?> createMedicalRecord(MedicalRecord medicalRecord) async {
     var url = Uri.parse('${link}/api/MedicalRecord/Create');
     // var url = Uri.https('localhost:7166', 'api/MedicalRecord/Create');
 
     final body = jsonEncode({
-      "userID": medicalRecord.userID,
-      "categoryID": medicalRecord.categoryID,
       "subProfileID": medicalRecord.subProfileID,
       "problem": medicalRecord.problem,
       "difficult": medicalRecord.difficulty,
@@ -355,12 +355,12 @@ class CallAPI {
     print(response.statusCode);
 
     if (response.statusCode == 200) {
-      print(response.body);
-      print('medical');
+      print('medical add');
       print(response.statusCode);
+      return MedicalRecord.fromMap(json.decode(response.body));
+
     } else {
-      print(response.body);
-      print('medical');
+      print('medical add');
       print(response.statusCode);
     }
   }
@@ -723,8 +723,8 @@ class CallAPI {
     // var url = Uri.https('localhost:7166', 'api/User/Register');
 
     final body = jsonEncode({
-      "scheduleID": bookingDetail.scheduleID,
       "bookingScheduleID": bookingDetail.bookingScheduleID,
+      "videoCallRoom":bookingDetail.videoCallRoom,
       "status": true,
     });
     final headers = {
@@ -743,4 +743,28 @@ class CallAPI {
       return false;
     }
   }
+
+
+  Future<Problem1?> addProblem (Problem1 problem) async{
+    var url = Uri.parse('${link}/api/Problem/Create');
+    // var url = Uri.https('localhost:7166', 'api/User/Register');
+
+    final body = jsonEncode({
+      "categoryID": problem.categoryID,
+      "medicalRecordID":problem.medicalRecordID,
+    });
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.post(url, body: body, headers: headers);
+    print('${response.statusCode} problem add');
+    if (response.statusCode == 200) {
+      return Problem1.FromMap(json.decode(response.body));
+    } else {
+      print(response.body);
+    }
+  }
+
+
 }
