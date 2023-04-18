@@ -1,8 +1,9 @@
+import 'package:heh_application/models/sub_profile.dart';
+
 class MedicalRecord {
   String? medicalRecordID;
-  String? userID;
-  String? categoryID;
-  String? subProfileID;
+  String subProfileID;
+  SubProfile? subProfile;
   String? problem;
   String? difficulty;
   String? injury;
@@ -11,9 +12,8 @@ class MedicalRecord {
 
   MedicalRecord(
       {this.medicalRecordID,
-      this.userID,
-      this.categoryID,
-      this.subProfileID,
+      required this.subProfileID,
+      this.subProfile,
       this.problem,
       this.difficulty,
       this.injury,
@@ -23,9 +23,8 @@ class MedicalRecord {
   factory MedicalRecord.fromMap(Map<String, dynamic> json) {
     return MedicalRecord(
       medicalRecordID: json['medicalRecordID'],
-      categoryID: json['categoryID'],
-      userID: json['userID'],
       subProfileID: json['subProfileID'],
+      subProfile: SubProfile.fromMap(json['subProfile']),
       problem: json['problem'],
       difficulty: json['difficult'],
       injury: json['injury'],

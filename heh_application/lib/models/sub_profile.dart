@@ -10,34 +10,38 @@ class SubProfile {
 
   String subName;
 
-  SubProfile({
-    this.profileID,
-    this.userID,
-    this.signUpUser,
-    required this.relationID,
-    this.relationship,
-    required this.subName,
-  });
+  String? dob;
+  SubProfile(
+      {this.profileID,
+      this.userID,
+      this.signUpUser,
+      required this.relationID,
+      this.relationship,
+      required this.subName,
+      this.dob});
+
 
   factory SubProfile.fromMap(Map<String, dynamic> json) {
     if (json['user'] == null && json['relationship']) {
       return SubProfile(
-        profileID: json['profileID'],
-        userID: json['userID'],
-        signUpUser: SignUpUser.fromMap(json['user'], ''),
-        relationID: json['relationId'],
-        relationship: Relationship.fromMap(json['relationship']),
-        subName: json['subName'],
-      );
+
+          profileID: json['profileID'],
+          userID: json['userID'],
+          signUpUser: SignUpUser.fromMap(json['user'], ''),
+          relationID: json['relationId'],
+          relationship: Relationship.fromMap(json['relationship']),
+          subName: json['subName'],
+          dob: json['dateOfBirth']);
     } else {
       return SubProfile(
-        profileID: json['profileID'],
-        userID: json['userID'],
-        signUpUser: SignUpUser.fromMap(json['user'], ''),
-        relationID: json['relationId'],
-        relationship: Relationship.fromMap(json['relationship']),
-        subName: json['subName'],
-      );
+          profileID: json['profileID'],
+          userID: json['userID'],
+          signUpUser: SignUpUser.fromMap(json['user'], ''),
+          relationID: json['relationId'],
+          relationship: Relationship.fromMap(json['relationship']),
+          subName: json['subName'],
+          dob: json['dateOfBirth']);
+
     }
   }
 }

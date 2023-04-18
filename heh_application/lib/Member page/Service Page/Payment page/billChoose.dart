@@ -168,7 +168,6 @@ class _BillChoosePageState extends State<BillChoosePage> {
                         )),
                     onPressed: () async {
                       BookingDetail bookingDetail = BookingDetail(
-                          scheduleID: widget.schedule.scheduleID,
                           bookingScheduleID:
                               widget.bookingSchedule!.bookingScheduleID!,
                           status: true);

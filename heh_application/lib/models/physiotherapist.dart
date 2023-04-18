@@ -4,6 +4,7 @@ class Physiotherapist {
   String physiotherapistID;
   String? skill;
   String? specialize;
+  String? userID;
   SignUpUser? signUpUser;
   int scheduleStatus;
 
@@ -15,7 +16,7 @@ class Physiotherapist {
       this.specialize,
 
       required this.scheduleStatus,
-
+         this.userID,
        this.signUpUser
       });
   factory Physiotherapist.fromMap(Map<String, dynamic> json) {
@@ -29,6 +30,7 @@ class Physiotherapist {
     else {
       return Physiotherapist(
           physiotherapistID: json['physiotherapistID'],
+          userID: json['userID'],
           signUpUser: SignUpUser.fromMap(json['user'], ''),
           scheduleStatus: json['scheduleStatus'],
           skill: json['skill'],
