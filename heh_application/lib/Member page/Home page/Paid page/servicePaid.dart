@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Home%20page/Video%20call%20page/VideoCall.dart';
+
+import 'package:heh_application/Video%20call%20page/VideoCall.dart';
 
 class ServicePaidPage extends StatefulWidget {
   const ServicePaidPage({Key? key}) : super(key: key);
@@ -209,10 +210,8 @@ class _buttonState extends State<button> {
                       side: const BorderSide(color: Colors.white)),
                 )),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VideoCallPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => VideoCallPage()));
             },
             child: const Text(
               "Tham gia",

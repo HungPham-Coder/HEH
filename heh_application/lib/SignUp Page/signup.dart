@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:heh_application/SignUp%20Page/signupMed.dart';
 import 'package:heh_application/main.dart';
@@ -19,6 +20,13 @@ class _SignUpPageState extends State<SignUpPage> {
   genderGroup _genderValue = genderGroup.male;
 
   String? dob;
+
+  var isObscure;
+  @override
+  void initState() {
+    super.initState();
+    isObscure = false;
+  }
 
   final TextEditingController _date = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
@@ -292,18 +300,25 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextFormField(
-          controller: _email,
-          obscureText: obscureText,
-          decoration: const InputDecoration(
-              hintText: 'Email',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey))),
-        ),
+        Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: TextFormField(
+                controller: _email,
+                obscureText: obscureText,
+                decoration: const InputDecoration(
+                    hintText: 'Email',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey))),
+                validator: (email) {
+                  email != null && !EmailValidator.validate(email)
+                      ? "Nhập đúng email"
+                      : null;
+                })),
         const SizedBox(height: 10)
       ],
     );
@@ -340,6 +355,13 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey))),
+          validator: (value) {
+            if (value != null || value!.length > 11) {
+              return "Số điện thoại không được nhiều hơn 10 số";
+            } else {
+              return null;
+            }
+          },
         ),
         const SizedBox(height: 10)
       ],
@@ -404,13 +426,23 @@ class _SignUpPageState extends State<SignUpPage> {
         TextFormField(
           controller: _password,
           obscureText: obscureText,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
+                  icon: Icon(isObscure
+                      ? Icons.remove_red_eye_outlined
+                      : Icons.remove_red_eye_sharp)),
               hintText: 'Mật khẩu',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 15)
@@ -454,3 +486,145 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
+
+// class password extends StatefulWidget {
+//   password(
+//       {Key? key,
+//       required this.label,
+//       required TextEditingController controller})
+//       : super(key: key);
+
+//   String label;
+//   bool obscureText = false;
+//   final TextEditingController controller = TextEditingController();
+
+//   @override
+//   State<password> createState() => _passwordState();
+// }
+
+// class _passwordState extends State<password> {
+//   var isObscure;
+//   @override
+//   void initState() {
+//     super.initState();
+//     isObscure = false;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: <Widget>[
+//         Row(
+//           children: <Widget>[
+//             Text(
+//               widget.label,
+//               style: const TextStyle(
+//                   fontSize: 15,
+//                   fontWeight: FontWeight.w400,
+//                   color: Colors.black87),
+//             ),
+//             const Text(
+//               " *",
+//               style: TextStyle(color: Colors.red),
+//             ),
+//           ],
+//         ),
+//         const SizedBox(height: 5),
+//         TextFormField(
+//           controller: widget.controller,
+//           obscureText: isObscure,
+//           decoration: InputDecoration(
+//               suffixIcon: IconButton(
+//                   onPressed: () {
+//                     setState(() {
+//                       isObscure = !isObscure;
+//                     });
+//                   },
+//                   icon: Icon(isObscure
+//                       ? Icons.remove_red_eye_outlined
+//                       : Icons.remove_red_eye_sharp)),
+//               hintText: 'Mật khẩu',
+//               contentPadding:
+//                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+//               enabledBorder: const OutlineInputBorder(
+//                 borderSide: BorderSide(color: Colors.grey),
+//               ),
+//               border: const OutlineInputBorder(
+//                   borderSide: BorderSide(color: Colors.grey))),
+//         ),
+//         const SizedBox(height: 15)
+//       ],
+//     );
+//   }
+// }
+
+// class confirmPassword extends StatefulWidget {
+//   confirmPassword(
+//       {Key? key,
+//       required this.label,
+//       required TextEditingController controller})
+//       : super(key: key);
+
+//   String label;
+//   bool obscureText = false;
+//   final TextEditingController controller = TextEditingController();
+
+//   @override
+//   State<confirmPassword> createState() => _confirmPasswordState();
+// }
+
+// class _confirmPasswordState extends State<confirmPassword> {
+//   var isObscure;
+//   @override
+//   void initState() {
+//     super.initState();
+//     isObscure = false;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: <Widget>[
+//         Row(
+//           children: <Widget>[
+//             Text(
+//               widget.label,
+//               style: const TextStyle(
+//                   fontSize: 15,
+//                   fontWeight: FontWeight.w400,
+//                   color: Colors.black87),
+//             ),
+//             const Text(
+//               " *",
+//               style: TextStyle(color: Colors.red),
+//             ),
+//           ],
+//         ),
+//         const SizedBox(height: 5),
+//         TextFormField(
+//           controller: widget.controller,
+//           obscureText: isObscure,
+//           decoration: InputDecoration(
+//               suffixIcon: IconButton(
+//                   onPressed: () {
+//                     setState(() {
+//                       isObscure = !isObscure;
+//                     });
+//                   },
+//                   icon: Icon(isObscure
+//                       ? Icons.remove_red_eye_outlined
+//                       : Icons.remove_red_eye_sharp)),
+//               hintText: 'Xác thực',
+//               contentPadding:
+//                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+//               enabledBorder: const OutlineInputBorder(
+//                 borderSide: BorderSide(color: Colors.grey),
+//               ),
+//               border: const OutlineInputBorder(
+//                   borderSide: BorderSide(color: Colors.grey))),
+//         ),
+//         const SizedBox(height: 15)
+//       ],
+//     );
+//   }
+// }

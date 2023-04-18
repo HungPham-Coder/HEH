@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Home%20page/Video%20call%20page/views/videoscreen.dart';
-import 'package:heh_application/Member%20page/Home%20page/Video%20call%20page/widgets/messageBubble.dart';
-import 'package:heh_application/Member%20page/Home%20page/Video%20call%20page/widgets/message_text.dart';
+import 'package:heh_application/Video%20call%20page/views/videoscreen.dart';
+import 'package:heh_application/Video%20call%20page/widgets/messageBubble.dart';
+import 'package:heh_application/Video%20call%20page/widgets/message_text.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -14,38 +14,38 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios_new)),
-            IconButton(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const VideoCallScreen(),
-                    )),
-                icon: const Icon(Icons.video_call))
-          ],
-          title: const Text(
-            "Tin nhắn",
-            style: TextStyle(fontSize: 23, color: Colors.white),
-          ),
-          elevation: 10,
-          backgroundColor: const Color.fromARGB(255, 46, 161, 226),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => VideoCallScreen(),
+                  )),
+              icon: const Icon(Icons.video_call)),
+        ],
+        title: const Text(
+          "Tin nhắn",
+          style: TextStyle(fontSize: 23, color: Colors.white),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: ListView.separated(
-                  reverse: true,
-                  padding: const EdgeInsets.only(bottom: 16),
-                  itemBuilder: (context, index) => messages[index],
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 16),
-                  itemCount: messages.length),
-            ),
-            const MessageText(),
-          ],
-        ));
+        elevation: 10,
+        backgroundColor: const Color.fromARGB(255, 46, 161, 226),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+                reverse: true,
+                padding: const EdgeInsets.only(bottom: 16),
+                itemBuilder: (context, index) => messages[index],
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16),
+                itemCount: messages.length),
+          ),
+          const MessageText(),
+        ],
+      ),
+    );
   }
 }
 

@@ -441,13 +441,13 @@ class CallAPI {
     };
     final body = jsonEncode({
       "scheduleID": schedule.scheduleID,
-      "slotID":schedule.slotID,
+      "slotID": schedule.slotID,
       "physiotherapistID": schedule.physiotherapistID,
-      "typeOfSlotID" : schedule.typeOfSlotID,
-      "description" :schedule.description,
+      "typeOfSlotID": schedule.typeOfSlotID,
+      "description": schedule.description,
       "physioBookingStatus": schedule.physioBookingStatus,
     });
-    var response = await http.put(url, headers: headers,body: body);
+    var response = await http.put(url, headers: headers, body: body);
     if (response.statusCode == 200) {
       print(response.body);
     } else {

@@ -79,10 +79,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           children: <Widget>[
                             inputPhone(
-                                label: "Số điện thoại",
-                                phoneController: phoneController),
+                                label: "", phoneController: phoneController),
                             inputPassword(
-                                label: "Mật khẩu",
+                                label: "",
                                 obscureText: true,
                                 passwordController: passwordController)
                           ],
@@ -426,7 +425,8 @@ class _LoginPageState extends State<LoginPage> {
           obscureText: obscureText,
           controller: phoneController,
           decoration: const InputDecoration(
-              hintText: 'Số điện thoại',
+              label: Text("Số điện thoại"),
+              // hintText: 'Số điện thoại',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -456,7 +456,8 @@ class _LoginPageState extends State<LoginPage> {
           controller: passwordController,
           obscureText: obscureText,
           decoration: const InputDecoration(
-              hintText: 'Mật khẩu',
+              label: Text("Mật khẩu"),
+              // hintText: 'Mật khẩu',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
