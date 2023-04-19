@@ -52,15 +52,7 @@ class _Navigation_BarState extends State<Navigation_Bar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<MedicalRecord>(
-          future:
-              CallAPI().getMedicalRecordByUserId(sharedCurrentUser!.userID!),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              sharedMedicalRecord = snapshot.data;
-            }
-            return pageList[pageIndex];
-          }),
+      body: pageList[pageIndex],
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
           fixedColor: Colors.white,

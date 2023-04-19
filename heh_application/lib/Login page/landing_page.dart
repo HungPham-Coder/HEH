@@ -44,7 +44,7 @@ class LandingPage extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   sharedCurrentUser = snapshot.data;
-                  if (sharedCurrentUser!.role == "Member") {
+                  if (sharedCurrentUser!.role!.name == "Member") {
                     return Provider<FirebaseFirestoreBase>(
                       create: (context) => FirebaseFirestores(),
                       child: Navigation_Bar(),
