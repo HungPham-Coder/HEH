@@ -23,6 +23,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var isObscure;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -79,10 +81,12 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           children: <Widget>[
                             inputPhone(
-                                label: "", phoneController: phoneController),
-                            inputPassword(
+                                obscureText: false,
                                 label: "",
-                                obscureText: true,
+                                phoneController: phoneController),
+                            inputPassword(
+                                // obscureText: true,
+
                                 passwordController: passwordController)
                           ],
                         ),
@@ -315,7 +319,6 @@ class _LoginPageState extends State<LoginPage> {
       // DateTime? dateTime = "2023-03-27";
 
       SignUpUser signUpUser = SignUpUser(
-
           firstName: user.displayName,
           lastName: 'lastName',
           phone: '1234567890',
@@ -363,7 +366,6 @@ class _LoginPageState extends State<LoginPage> {
       print(email);
       bool checkUserExistInPostgre = await auth.checkUserExistInPostgre(email);
       SignUpUser signUpUser = SignUpUser(
-
           firstName: user.displayName,
           lastName: "facebook",
           phone: "123456",
@@ -409,7 +411,7 @@ class _LoginPageState extends State<LoginPage> {
 //create text field
   Widget inputPhone(
       {label,
-      obscureText = false,
+      obscureText = true,
       required TextEditingController phoneController}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -440,29 +442,31 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget inputPassword(
-      {label,
-      obscureText = false,
-      required TextEditingController passwordController}) {
+      {isObscure = true, required TextEditingController passwordController}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          label,
-          style: const TextStyle(
-              fontSize: 17, fontWeight: FontWeight.w400, color: Colors.black87),
-        ),
         const SizedBox(height: 5),
         TextField(
           controller: passwordController,
-          obscureText: obscureText,
-          decoration: const InputDecoration(
-              label: Text("Mật khẩu"),
-              // hintText: 'Mật khẩu',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
+          obscureText: isObscure,
+          decoration: InputDecoration(
+              label: const Text("Mật khẩu"),
+              hintText: 'Mật khẩu',
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
+                  icon: Icon(
+                      isObscure ? Icons.visibility_off : Icons.visibility)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 0)
@@ -470,3 +474,54 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+// class inputPassword extends StatefulWidget {
+//   inputPassword({Key? key, required TextEditingController passwordController})
+//       : super(key: key);
+
+//   bool obscureText = false;
+//   final TextEditingController passwordController = TextEditingController();
+
+//   @override
+//   State<inputPassword> createState() => _inputPasswordState();
+// }
+
+// class _inputPasswordState extends State<inputPassword> {
+//   var isObscure;
+//   @override
+//   void initState() {
+//     super.initState();
+//     isObscure = false;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: <Widget>[
+//         const SizedBox(height: 5),
+//         TextFormField(
+//           controller: widget.passwordController,
+//           obscureText: isObscure,
+//           decoration: InputDecoration(
+//               suffixIcon: IconButton(
+//                   onPressed: () {
+//                     setState(() {
+//                       isObscure = !isObscure;
+//                     });
+//                   },
+//                   icon: Icon(
+//                       isObscure ? Icons.visibility_off : Icons.visibility)),
+//               hintText: 'Mật khẩu',
+//               contentPadding:
+//                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+//               enabledBorder: const OutlineInputBorder(
+//                 borderSide: BorderSide(color: Colors.grey),
+//               ),
+//               border: const OutlineInputBorder(
+//                   borderSide: BorderSide(color: Colors.grey))),
+//         ),
+//         const SizedBox(height: 15)
+//       ],
+//     );
+//   }
+// }

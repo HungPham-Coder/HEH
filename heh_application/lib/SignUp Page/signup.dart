@@ -150,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(
                     height: 15,
                   ),
-                  password(label: "Mật khẩu", obscureText: true),
+                  password(label: "Mật khẩu", isObscure: true),
                   confirmPassword(
                       label: "Xác thực lại mật khẩu", obscureText: true),
                 ],
@@ -403,7 +403,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget password({label, obscureText = false}) {
+  Widget password({label, isObscure = false}) {
     return Column(
       children: <Widget>[
         Row(
@@ -424,7 +424,7 @@ class _SignUpPageState extends State<SignUpPage> {
         const SizedBox(height: 5),
         TextFormField(
           controller: _password,
-          obscureText: obscureText,
+          obscureText: isObscure,
           decoration: InputDecoration(
               suffixIcon: IconButton(
                   onPressed: () {
@@ -432,9 +432,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       isObscure = !isObscure;
                     });
                   },
-                  icon: Icon(isObscure
-                      ? Icons.remove_red_eye_outlined
-                      : Icons.remove_red_eye_sharp)),
+                  icon: Icon(
+                      isObscure ? Icons.visibility : Icons.visibility_off)),
               hintText: 'Mật khẩu',
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
