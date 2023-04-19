@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Advise%20page/result.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/fail.dart';
+
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/paymentTime.dart';
 
 class BillTimePage extends StatefulWidget {
@@ -127,7 +127,7 @@ class _BillTimePageState extends State<BillTimePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const FailPage()));
+                              builder: (context) => const PaymentTimePage()));
                     },
                     child: const Text(
                       "Thanh toán",

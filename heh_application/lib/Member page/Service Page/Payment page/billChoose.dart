@@ -182,7 +182,7 @@ class _BillChoosePageState extends State<BillChoosePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SuccessPage()));
+                              builder: (context) => const PaymentTimePage()));
                     },
                     child: const Text(
                       "Thanh toán",
