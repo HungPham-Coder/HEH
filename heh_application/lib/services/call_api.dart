@@ -317,15 +317,15 @@ class CallAPI {
     }
   }
 
-  Future<MedicalRecord> getMedicalRecordByUserId(String userId) async {
-    var url = Uri.parse('${link}/api/MedicalRecord/GetByUserId/$userId');
+  Future<MedicalRecord> getMedicalRecordBySubProfileID(String subProfileID) async {
+    var url = Uri.parse('${link}/api/MedicalRecord/GetBySubProfileID/$subProfileID');
     // var url = Uri.https('localhost:7166', 'api/MedicalRecord');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
     };
     var response = await http.get(url, headers: headers);
-    print(response.statusCode);
+    print('${response.statusCode} get medical by subprofileid');
     print(response.body);
     if (response.statusCode == 200) {
       return MedicalRecord.fromMap(json.decode(response.body));
