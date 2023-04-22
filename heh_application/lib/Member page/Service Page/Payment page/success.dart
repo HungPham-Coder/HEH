@@ -70,10 +70,7 @@ class _SuccessPageState extends State<SuccessPage> {
                           side: const BorderSide(color: Colors.white)),
                     )),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Navigation_Bar()));
+                  Navigator.popUntil(context, ModalRoute.withName('/landing'));
                 },
                 child: const Text(
                   "Trở về trang chủ",

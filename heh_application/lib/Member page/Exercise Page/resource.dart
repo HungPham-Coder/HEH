@@ -10,7 +10,7 @@ class ExerciseResources extends StatefulWidget {
   ExerciseResources({Key? key, this.exerciseDetail, this.exerciseResource})
       : super(key: key);
   ExerciseDetail1? exerciseDetail;
-  ExerciseResource? exerciseResource;
+  List<ExerciseResource>? exerciseResource;
   @override
   State<ExerciseResources> createState() => _ExerciseResourcesState();
 }
@@ -39,23 +39,26 @@ class _ExerciseResourcesState extends State<ExerciseResources> {
     _vidController.dispose();
   }
 
-  loadVideoPlayer() async {
-    _vidController =
-        VideoPlayerController.network(widget.exerciseResource!.videoURL!);
-    _vidController.addListener(() {
-      setState(() {});
+  loadVideoPlayer() {
+    widget.exerciseResource!.forEach((element) {
+      _vidController =
+          VideoPlayerController.network(element.videoURL!);
+      _vidController.addListener(() {
+        setState(() {});
+      });
+      _vidController.initialize().then((value) {
+        setState(() {});
+      });
     });
-    _vidController.initialize().then((value) {
-      setState(() {});
-    });
+
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.exerciseDetail == null) {
+    if (widget.exerciseDetail == null || widget.exerciseResource == null) {
       return Scaffold(
         body: Container(
-          child: const Text("Khong co exercise"),
+          child: const Text("Khong co exercise cụ thể nào"),
         ),
       );
     } else {
@@ -102,18 +105,16 @@ class _ExerciseResourcesState extends State<ExerciseResources> {
                             widget.exerciseDetail!.description,
                             style: const TextStyle(fontSize: 16),
                           ),
-                          SizedBox(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: FutureBuilder<String>(
-                                  future: FirebaseFirestores().getImageUrl(
-                                      widget.exerciseResource!.imageURL!),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return Image.network(snapshot.data!);
-                                    }
-                                    return const CircularProgressIndicator();
-                                  }),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: widget.exerciseResource!.length,
+                            itemBuilder:(context, index) =>  SizedBox(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                child: Image.network(widget.exerciseResource![index].imageURL!)
+
+                              ),
                             ),
                           ),
                           Container(
@@ -123,94 +124,98 @@ class _ExerciseResourcesState extends State<ExerciseResources> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 0, vertical: 0),
                               child: _vidController.value.isInitialized
-                                  ? Column(children: <Widget>[
-                                      const SizedBox(height: 10),
-                                      const Text("Video hướng dẫn",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.white)),
-                                      const SizedBox(height: 10),
-                                      Stack(
-                                        children: [
-                                          SizedBox(
-                                            height: 200,
-                                            child: VideoPlayer(_vidController),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      SizedBox(
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                  ? Column(
+                                      children: <Widget>[
+                                        const SizedBox(height: 10),
+                                        const Text("Video hướng dẫn",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white)),
+                                        const SizedBox(height: 10),
+                                        Stack(
                                           children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                if (_vidController
-                                                    .value.isPlaying) {
-                                                  _vidController.pause();
-                                                } else {
-                                                  _vidController.play();
-                                                }
-                                              },
-                                              icon: Icon(
-                                                _vidController.value.isPlaying
-                                                    ? Icons.pause
-                                                    : Icons.play_arrow,
-                                                size: 30,
-                                              ),
-                                              color: Colors.white,
-                                            ),
-                                            ValueListenableBuilder(
-                                                valueListenable: _vidController,
-                                                builder: (context,
-                                                    VideoPlayerValue value,
-                                                    child) {
-                                                  return Text(
-                                                    _videoDuration(
-                                                        value.position),
-                                                    style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 16),
-                                                  );
-                                                }),
-                                            Expanded(
-                                                child: SizedBox(
-                                                    height: 15,
-                                                    child: VideoProgressIndicator(
-                                                        _vidController,
-                                                        allowScrubbing: true,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                vertical: 0,
-                                                                horizontal:
-                                                                    5)))),
-                                            Text(
-                                                _videoDuration(_vidController
-                                                    .value.duration),
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16)),
-                                            IconButton(
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            LandScapePage(
-                                                                controller:
-                                                                    _vidController)));
-                                              },
-                                              icon: const Icon(
-                                                Icons.fullscreen,
-                                                color: Colors.white,
-                                                size: 30,
-                                              ),
+                                            SizedBox(
+                                              height: 200,
+                                              child:
+                                                  VideoPlayer(_vidController),
                                             ),
                                           ],
                                         ),
-                                      )
-                                    ])
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  if (_vidController
+                                                      .value.isPlaying) {
+                                                    _vidController.pause();
+                                                  } else {
+                                                    _vidController.play();
+                                                  }
+                                                },
+                                                icon: Icon(
+                                                  _vidController.value.isPlaying
+                                                      ? Icons.pause
+                                                      : Icons.play_arrow,
+                                                  size: 30,
+                                                ),
+                                                color: Colors.white,
+                                              ),
+                                              ValueListenableBuilder(
+                                                  valueListenable:
+                                                      _vidController,
+                                                  builder: (context,
+                                                      VideoPlayerValue value,
+                                                      child) {
+                                                    return Text(
+                                                      _videoDuration(
+                                                          value.position),
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16),
+                                                    );
+                                                  }),
+                                              Expanded(
+                                                  child: SizedBox(
+                                                      height: 15,
+                                                      child: VideoProgressIndicator(
+                                                          _vidController,
+                                                          allowScrubbing: true,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 0,
+                                                                  horizontal:
+                                                                      5)))),
+                                              Text(
+                                                  _videoDuration(_vidController
+                                                      .value.duration),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16)),
+                                              IconButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              LandScapePage(
+                                                                  controller:
+                                                                      _vidController)));
+                                                },
+                                                icon: const Icon(
+                                                  Icons.fullscreen,
+                                                  color: Colors.white,
+                                                  size: 30,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   : const Center(
                                       child: CircularProgressIndicator(
                                           color: Colors.white),

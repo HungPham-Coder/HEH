@@ -182,7 +182,7 @@ class PhysioChooseMenu extends StatelessWidget {
   final String icon, name, time;
   final VoidCallback? press;
   String timeStart, timeEnd;
-  int? price;
+  double price;
 
   @override
   Widget build(BuildContext context) {
