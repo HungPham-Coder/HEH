@@ -1,6 +1,6 @@
 class TypeOfSlot {
   String typeOfSlotID;
-  int price;
+  double price;
   String typeName;
 
   TypeOfSlot(

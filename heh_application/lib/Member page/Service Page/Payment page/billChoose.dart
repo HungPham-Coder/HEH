@@ -35,11 +35,14 @@ class _BillChoosePageState extends State<BillChoosePage> {
         new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
     day = DateFormat("dd-MM-yyyy").format(tempDate);
     DateTime tempTimeStart =
-        new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
-    timeStart = DateFormat("hh:mm").format(tempTimeStart);
+        new DateFormat("yyyy-MM-ddTHH:mm:ss").parse(widget.schedule.slot.timeStart);
+    timeStart = DateFormat("HH:mm").format(tempTimeStart);
+
     DateTime tempTimeEnd =
-        new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeEnd);
-    timeEnd = DateFormat("hh:mm").format(tempTimeEnd);
+        new DateFormat("yyyy-MM-ddTHH:mm:ss").parse(widget.schedule.slot.timeEnd);
+    timeEnd = DateFormat("HH:mm").format(tempTimeEnd);
+    print(timeStart);
+    print(timeEnd);
   }
 
   @override

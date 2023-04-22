@@ -50,9 +50,8 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: listPhysio.length,
                               itemBuilder: (context, index) {
-                                return Column(
-                                  children: [
-                                    PhysioChooseMenu(
+
+                                 return   PhysioChooseMenu(
                                       icon: listPhysio[index]
                                                   .signUpUser!
                                                   .gender ==
@@ -74,9 +73,8 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                                                           listPhysio[index],
                                                     )));
                                       },
-                                    ),
-                                  ],
-                                );
+                                    );
+
                               }),
                         ],
                       );

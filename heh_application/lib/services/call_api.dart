@@ -148,7 +148,7 @@ class CallAPI {
   }
 
   Future<List<Exercise>> getListExerciseByCategoryID(String categoryId) async {
-    var url = Uri.parse('${link}/api/Exercise/GetByCategoryID/$categoryId');
+    var url = Uri.parse('${link}/api/Exercise/GetByCategoryId/$categoryId');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
@@ -163,16 +163,16 @@ class CallAPI {
           jsonResult.map((model) => Exercise.fromMap(model)));
 
       if (list == null) {
-        throw Exception('Exercise Detail List null');
+        throw Exception('Exercise  List null');
       } else {
         return list;
       }
     } else {
-      throw Exception('Failed to load exercise detail list');
+      throw Exception('Failed to load exercise  list');
     }
   }
 
-  Future<ExerciseDetail1> getExerciseDetailByExerciseID(
+  Future<List<ExerciseDetail1>> getExerciseDetailByExerciseID(
       String exerciseID) async {
     var url =
         Uri.parse('${link}/api/ExerciseDetail/GetByExerciseID/$exerciseID');
@@ -183,9 +183,18 @@ class CallAPI {
     };
     var response = await http.get(url, headers: headers);
     if (response.statusCode == 200) {
-      return ExerciseDetail1.fromMap(json.decode(response.body));
+      Iterable jsonResult = json.decode(response.body);
+      List<ExerciseDetail1> list = List<ExerciseDetail1>.from(
+        jsonResult.map((model) => ExerciseDetail1.fromMap(model))
+      );
+      if (list  == null){
+        throw Exception('Exercise Detail List null');
+      }
+      else {
+        return list;
+      }
     } else {
-      throw Exception('Failed to load exercise detail ');
+      throw Exception('Failed to load exercise detail list');
     }
   }
 
@@ -256,7 +265,7 @@ class CallAPI {
     }
   }
 
-  Future<ExerciseResource> getExerciseResourceByExerciseDetailID(
+  Future<List<ExerciseResource>> getExerciseResourceByExerciseDetailID(
       String exerciseID) async {
     var url = Uri.parse(
         '${link}/api/ExerciseResource/GetByExerciseDetailId/$exerciseID');
@@ -267,7 +276,14 @@ class CallAPI {
     };
     var response = await http.get(url, headers: headers);
     if (response.statusCode == 200) {
-      return ExerciseResource.fromMap(json.decode(response.body));
+      Iterable jsonResult = json.decode(response.body);
+      List<ExerciseResource> list = List<ExerciseResource>.from(
+          jsonResult.map((model) => ExerciseResource.fromMap(model)));
+      if (list == null) {
+        throw Exception('ExerciseResource List null');
+      } else {
+        return list;
+      }
     } else {
       throw Exception('Failed to load exercise resource ');
     }
@@ -317,16 +333,14 @@ class CallAPI {
     }
   }
 
-  Future<MedicalRecord> getMedicalRecordBySubProfileID(String subProfileID) async {
-    var url = Uri.parse('${link}/api/MedicalRecord/GetBySubProfileID/$subProfileID');
+  Future<MedicalRecord?> getMedicalRecordByUserIDAndRelationName(String userID) async {
+    var url = Uri.parse('${link}/api/MedicalRecord/GetByRelationNameAndUserID?relationName=Tôi&userID=$userID');
     // var url = Uri.https('localhost:7166', 'api/MedicalRecord');
     final headers = {
       "Accept": "application/json",
       "content-type": "application/json"
     };
     var response = await http.get(url, headers: headers);
-    print('${response.statusCode} get medical by subprofileid');
-    print(response.body);
     if (response.statusCode == 200) {
       return MedicalRecord.fromMap(json.decode(response.body));
     } else {
@@ -580,7 +594,34 @@ class CallAPI {
   }
 
   Future<List<SubProfile>?> getallSubProfileByUserId(String userId) async {
+
     var url = Uri.parse('${link}/api/SubProfile/GetByUserId/$userId');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<SubProfile> list = List<SubProfile>.from(
+          jsonResult.map((model) => SubProfile.fromMap(model)));
+
+      if (list == null) {
+        print("List SubProfile Null");
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load SubProfile List');
+    }
+  }
+
+  Future<List<SubProfile>?> getallSubProfileByUserIdAndSlotID(String userId, String slotID) async {
+
+    var url = Uri.parse('${link}/api/SubProfile/GetByUserIdAndSlotID?userId=$userId&slotID=$slotID');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",

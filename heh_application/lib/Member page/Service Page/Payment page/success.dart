@@ -73,18 +73,40 @@ class _SuccessPageState extends State<SuccessPage> {
                   ),
                 )),
           ),
-          bottomSheet: SizedBox(
-            height: 100,
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [returnHome()],
+
+      bottomSheet: SizedBox(
+        height: 100,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: const MaterialStatePropertyAll<Color>(
+                      Color.fromARGB(255, 46, 161, 226),
+                    ),
+                    padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 100, vertical: 15)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          side: const BorderSide(color: Colors.white)),
+                    )),
+                onPressed: () {
+                  Navigator.popUntil(context, ModalRoute.withName('/landing'));
+                },
+                child: const Text(
+                  "Trở về trang chủ",
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
-            ),
+            ],
+
           ),
-        ));
+        ))));
   }
 }
 
