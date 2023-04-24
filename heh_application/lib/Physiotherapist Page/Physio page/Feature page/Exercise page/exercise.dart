@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
 import 'package:heh_application/common_widget/menu_listview.dart';
+import 'package:heh_application/common_widget/search_delegate.dart';
 import 'package:heh_application/models/exercise_model/exercise.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:provider/provider.dart';
 
-import '../../common_widget/search_delegate.dart';
+
 
 class ExercisePage extends StatefulWidget {
   ExercisePage({Key? key, required this.categoryID}) : super(key: key);
@@ -65,9 +66,11 @@ class _ExercisePageState extends State<ExercisePage> {
                             //         exerciseDetail.exerciseDetailID);
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return ExerciseDetail(
-                                exerciseID: snapshot.data![index].exerciseID,
-                              );
+
+                                return ExerciseDetail(
+                                  exerciseID: snapshot.data![index].exerciseID,
+                                );
+
                             }));
                           },
                         );

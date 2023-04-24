@@ -24,7 +24,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
   String selectedSubName = "- Chọn -";
   SubProfile? subProfile;
 
-  Widget relationship() {
+  Widget relationship(String slotID) {
     return SizedBox(
       height: 70,
       child: Column(
@@ -41,12 +41,12 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
             height: 40,
             child: FutureBuilder<List<SubProfile>?>(
                 future: CallAPI()
-                    .getallSubProfileByUserId(sharedCurrentUser!.userID!),
+                    .getallSubProfileByUserIdAndSlotID(sharedCurrentUser!.userID!,slotID),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     if (_relationships.length == 1) {
                       snapshot.data!.forEach((element) {
-                        String field = "${element.signUpUser!.firstName}";
+                        String field = "${element.subName}";
                         _relationships.add(field);
                       });
                       print("Co data");
@@ -129,6 +129,10 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
+                          DateTime tempStart =  new DateFormat("yyyy-MM-ddThh:mm:ss").parse(snapshot.data![index].slot.timeStart);
+                          String start = DateFormat("HH:mm").format(tempStart);
+                          DateTime tempEnd =  new DateFormat("yyyy-MM-ddThh:mm:ss").parse(snapshot.data![index].slot.timeEnd);
+                          String end = DateFormat("HH:mm").format(tempEnd);
                           return PhysioChooseMenu(
                               icon:
                                   "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
@@ -136,8 +140,8 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                   widget.physiotherapist.signUpUser!.lastName!,
                               time: "Khung giờ: ",
                               timeStart:
-                                  '${snapshot.data![index].slot.timeStart}',
-                              timeEnd: '${snapshot.data![index].slot.timeEnd}',
+                                  '$start',
+                              timeEnd: '$end',
                               price: snapshot.data![index].typeOfSlot.price,
                               press: () => showDialog<String>(
                                     context: context,
@@ -145,7 +149,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                         AlertDialog(
                                       title:
                                           const Text("Chọn người được tư vấn"),
-                                      content: relationship(),
+                                      content: relationship(snapshot.data![index].slotID),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
@@ -158,7 +162,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                                                 "- Chọn -") {
                                               Navigator.pop(context, 'Ok');
                                             } else {
-                                              print(DateTime.now());
+
                                               BookingSchedule bookingSchedule =
                                                   BookingSchedule(
                                                       userID:
@@ -330,7 +334,7 @@ class PhysioChooseMenu extends StatelessWidget {
   final String icon, name, time;
   final VoidCallback? press;
   String timeStart, timeEnd;
-  int? price;
+  double price;
 
   @override
   Widget build(BuildContext context) {

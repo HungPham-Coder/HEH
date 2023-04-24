@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Exercise%20page/view.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Exercise%20page/category.dart';
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Register%20slot%20page/register.dart';
 
 class FeaturePage extends StatefulWidget {
@@ -34,7 +34,7 @@ class _FeaturePageState extends State<FeaturePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PhysioViewCategory()));
+                        builder: (context) => const CategoryPage()));
               },
             ),
             FeatureMenu(
