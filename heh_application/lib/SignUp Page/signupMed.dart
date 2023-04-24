@@ -309,10 +309,12 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                             //Create problem
                             _selectedProblems.forEach((elementSelected) {
                               _listCategory.forEach((element) async {
-                                if (elementSelected!.name == element.categoryName){
+                                if (elementSelected!.name ==
+                                    element.categoryName) {
                                   Problem1 problem1 = Problem1(
                                       categoryID: element.categoryID,
-                                      medicalRecordID: medical!.medicalRecordID!);
+                                      medicalRecordID:
+                                          medical!.medicalRecordID!);
                                   await CallAPI().addProblem(problem1);
                                 }
                               });
