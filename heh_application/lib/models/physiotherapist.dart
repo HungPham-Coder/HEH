@@ -8,34 +8,28 @@ class Physiotherapist {
   SignUpUser? signUpUser;
   int scheduleStatus;
 
-
-
   Physiotherapist(
       {required this.physiotherapistID,
       this.skill,
       this.specialize,
-
       required this.scheduleStatus,
-         this.userID,
-       this.signUpUser
-      });
+      this.userID,
+      this.signUpUser});
   factory Physiotherapist.fromMap(Map<String, dynamic> json) {
-    if (json['user'] == null){
+    if (json['user'] == null) {
       return Physiotherapist(
           physiotherapistID: json['physiotherapistID'],
           scheduleStatus: json['scheduleStatus'],
           skill: json['skill'],
-          specialize:  json['specialize']);
-    }
-    else {
+          specialize: json['specialize']);
+    } else {
       return Physiotherapist(
           physiotherapistID: json['physiotherapistID'],
           userID: json['userID'],
           signUpUser: SignUpUser.fromMap(json['user'], ''),
           scheduleStatus: json['scheduleStatus'],
           skill: json['skill'],
-          specialize:  json['specialize']);
+          specialize: json['specialize']);
     }
-
   }
 }

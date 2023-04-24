@@ -10,8 +10,7 @@ bool isTokenExpiring = false;
 String serverUrl = "https://agora-token-server-i5zg.onrender.com";
 String appID = "1405b81aefdb475a94c00cc139ed7450";
 String token = "";
-int? physioUID;
-String channelName = "ABC";
+String channelName = "e24ebf37-be99-40ab-b8a6-dfcbee7a4755";
 
 class VideoCallScreen extends StatefulWidget {
   const VideoCallScreen({Key? key}) : super(key: key);

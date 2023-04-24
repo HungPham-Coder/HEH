@@ -24,7 +24,6 @@ class _MedicalPageState extends State<MedicalPage> {
   static final List<CategoryModel> _listCategory = [];
   static final List<Problem> _problems = [];
   List _selectedProblems = [];
-
   bool _visibility = false;
 
   //

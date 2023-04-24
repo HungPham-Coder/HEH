@@ -5,10 +5,6 @@ import 'package:heh_application/common_widget/search_delegate.dart';
 import 'package:heh_application/models/exercise_model/category.dart';
 import 'package:heh_application/services/call_api.dart';
 
-
-
-
-
 class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
 
@@ -40,8 +36,6 @@ class _CategoryPageState extends State<CategoryPage> {
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            const Center(child: Text("Bạn đang gặp vấn đề gì?")),
             FutureBuilder<List<CategoryModel>>(
                 future: CallAPI().getAllCategory(),
                 builder: (context, snapshot) {
@@ -51,7 +45,6 @@ class _CategoryPageState extends State<CategoryPage> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-
                         return MenuListView(
                           icon: snapshot.data![index].iconUrl!,
                           text: "${snapshot.data![index].categoryName}",
@@ -76,6 +69,3 @@ class _CategoryPageState extends State<CategoryPage> {
     );
   }
 }
-
-
-

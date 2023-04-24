@@ -30,7 +30,7 @@ abstract class AuthBase {
   Future<bool> checkUserExistInPostgre(String email);
   Future<void> checkUserExistInFirebase(SignUpUser signUpUser);
   Future<SignUpUser> getCurrentUser(ResultLogin resultLogin);
-  Future<void> signInAnonymously ();
+  Future<void> signInAnonymously();
   // User? get currenUser;
   // Stream<ResultLogin> get userLoginStream;
   // Stream<SignUpUser> get userSignUpStream;
@@ -60,7 +60,6 @@ class Auth implements AuthBase {
 
   final _firebaseAuth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
-
 
   @override
   Future<User> signInWithGoogle() async {

@@ -34,12 +34,12 @@ class _BillChoosePageState extends State<BillChoosePage> {
     DateTime tempDate =
         new DateFormat("yyyy-MM-dd").parse(widget.schedule.slot.timeStart);
     day = DateFormat("dd-MM-yyyy").format(tempDate);
-    DateTime tempTimeStart =
-        new DateFormat("yyyy-MM-ddTHH:mm:ss").parse(widget.schedule.slot.timeStart);
+    DateTime tempTimeStart = new DateFormat("yyyy-MM-ddTHH:mm:ss")
+        .parse(widget.schedule.slot.timeStart);
     timeStart = DateFormat("HH:mm").format(tempTimeStart);
 
-    DateTime tempTimeEnd =
-        new DateFormat("yyyy-MM-ddTHH:mm:ss").parse(widget.schedule.slot.timeEnd);
+    DateTime tempTimeEnd = new DateFormat("yyyy-MM-ddTHH:mm:ss")
+        .parse(widget.schedule.slot.timeEnd);
     timeEnd = DateFormat("HH:mm").format(tempTimeEnd);
     print(timeStart);
     print(timeEnd);
@@ -87,6 +87,7 @@ class _BillChoosePageState extends State<BillChoosePage> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Center(
                             child: Text("Xác nhận hóa đơn",
@@ -95,30 +96,31 @@ class _BillChoosePageState extends State<BillChoosePage> {
                                     fontWeight: FontWeight.w500))),
                         const SizedBox(height: 20),
                         information(
-                            name: "ID:", info: widget.schedule.scheduleID),
+                            name: "ID: ", info: widget.schedule.scheduleID),
                         padding(),
                         information(
-                            name: "Tên chuyên viên:",
+                            name: "Tên chuyên viên: ",
                             info: widget.physiotherapist.signUpUser!.lastName!),
                         padding(),
                         information(
-                            name: "Tên người đặt:",
+                            name: "Tên người đặt: ",
                             info: sharedCurrentUser!.firstName!),
                         padding(),
                         const SizedBox(height: 15),
                         information(
-                            name: "Buổi điều trị:",
+                            name: "Buổi điều trị: ",
                             info: widget.schedule.slot.slotName),
                         padding(),
-                        information(name: "Ngày điều trị:", info: day),
+                        information(name: "Ngày điều trị: ", info: day),
                         padding(),
                         information(
-                            name: "Thời gian bắt đầu:", info: timeStart),
-                        padding(),
-                        information(name: "Thời gian kết thúc:", info: timeEnd),
+                            name: "Thời gian bắt đầu: ", info: timeStart),
                         padding(),
                         information(
-                            name: "Số tiền:",
+                            name: "Thời gian kết thúc: ", info: timeEnd),
+                        padding(),
+                        information(
+                            name: "Số tiền: ",
                             info: '${widget.schedule.typeOfSlot.price} VND'),
                         const SizedBox(height: 10),
                       ],
@@ -210,8 +212,7 @@ class information extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      Wrap(
         children: [
           Text(name!),
           Text(info!, style: const TextStyle(fontWeight: FontWeight.w600)),

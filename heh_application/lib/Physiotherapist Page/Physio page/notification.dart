@@ -93,7 +93,8 @@ class AppointmentMenu extends StatelessWidget {
             children: [
               Badge(
                 isLabelVisible: true,
-                textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                textStyle:
+                    const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 label: Text(count),
                 alignment: AlignmentDirectional.lerp(
                     AlignmentDirectional.topStart,

@@ -1,9 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:heh_application/Login%20page/login.dart';
-import 'package:heh_application/SignUp%20Page/signup.dart';
 import 'package:heh_application/models/booking_detail.dart';
 import 'package:heh_application/models/booking_schedule.dart';
 import 'package:heh_application/models/exercise_model/category.dart';
@@ -23,8 +18,6 @@ import 'package:heh_application/models/type_of_slot.dart';
 import 'package:heh_application/models/user_exercise.dart';
 import 'package:http/http.dart' as http;
 
-import '../Member page/Profile page/Family page/medical.dart';
-import '../Member page/navigation_main.dart';
 import '../models/feedback.dart';
 import '../models/problem.dart';
 import '../models/role.dart';
@@ -91,7 +84,7 @@ class CallAPI {
     } else {
       print(response.body);
 
-      return '';
+      return response.body;
     }
   }
 
@@ -185,12 +178,10 @@ class CallAPI {
     if (response.statusCode == 200) {
       Iterable jsonResult = json.decode(response.body);
       List<ExerciseDetail1> list = List<ExerciseDetail1>.from(
-        jsonResult.map((model) => ExerciseDetail1.fromMap(model))
-      );
-      if (list  == null){
+          jsonResult.map((model) => ExerciseDetail1.fromMap(model)));
+      if (list == null) {
         throw Exception('Exercise Detail List null');
-      }
-      else {
+      } else {
         return list;
       }
     } else {
@@ -333,8 +324,10 @@ class CallAPI {
     }
   }
 
-  Future<MedicalRecord?> getMedicalRecordByUserIDAndRelationName(String userID) async {
-    var url = Uri.parse('${link}/api/MedicalRecord/GetByRelationNameAndUserID?relationName=Tôi&userID=$userID');
+  Future<MedicalRecord?> getMedicalRecordByUserIDAndRelationName(
+      String userID) async {
+    var url = Uri.parse(
+        '${link}/api/MedicalRecord/GetByRelationNameAndUserID?relationName=Tôi&userID=$userID');
     // var url = Uri.https('localhost:7166', 'api/MedicalRecord');
     final headers = {
       "Accept": "application/json",
@@ -348,7 +341,8 @@ class CallAPI {
     }
   }
 
-  Future<MedicalRecord?> createMedicalRecord(MedicalRecord medicalRecord) async {
+  Future<MedicalRecord?> createMedicalRecord(
+      MedicalRecord medicalRecord) async {
     var url = Uri.parse('${link}/api/MedicalRecord/Create');
     // var url = Uri.https('localhost:7166', 'api/MedicalRecord/Create');
 
@@ -372,7 +366,6 @@ class CallAPI {
       print('medical add');
       print(response.statusCode);
       return MedicalRecord.fromMap(json.decode(response.body));
-
     } else {
       print('medical add');
       print(response.statusCode);
@@ -393,6 +386,28 @@ class CallAPI {
           jsonResult.map((model) => Physiotherapist.fromMap(model)));
       if (list == null) {
         throw Exception('Physiotherapist List null');
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load Physiotherapist');
+    }
+  }
+
+  Future<List<Physiotherapist>> getPhysiotherapistByID() async {
+    var url = Uri.parse('${link}/api/Physiotherapist');
+    // var url = Uri.https('localhost:7166', 'api/Physiotherapist');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<Physiotherapist> list = List<Physiotherapist>.from(
+          jsonResult.map((model) => Physiotherapist.fromMap(model)));
+      if (list == null) {
+        throw Exception('Physiotherapist id null');
       } else {
         return list;
       }
@@ -594,7 +609,6 @@ class CallAPI {
   }
 
   Future<List<SubProfile>?> getallSubProfileByUserId(String userId) async {
-
     var url = Uri.parse('${link}/api/SubProfile/GetByUserId/$userId');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
@@ -619,9 +633,10 @@ class CallAPI {
     }
   }
 
-  Future<List<SubProfile>?> getallSubProfileByUserIdAndSlotID(String userId, String slotID) async {
-
-    var url = Uri.parse('${link}/api/SubProfile/GetByUserIdAndSlotID?userId=$userId&slotID=$slotID');
+  Future<List<SubProfile>?> getallSubProfileByUserIdAndSlotID(
+      String userId, String slotID) async {
+    var url = Uri.parse(
+        '${link}/api/SubProfile/GetByUserIdAndSlotID?userId=$userId&slotID=$slotID');
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
@@ -765,7 +780,7 @@ class CallAPI {
 
     final body = jsonEncode({
       "bookingScheduleID": bookingDetail.bookingScheduleID,
-      "videoCallRoom":bookingDetail.videoCallRoom,
+      "videoCallRoom": bookingDetail.videoCallRoom,
       "status": true,
     });
     final headers = {
@@ -785,14 +800,13 @@ class CallAPI {
     }
   }
 
-
-  Future<Problem1?> addProblem (Problem1 problem) async{
+  Future<Problem1?> addProblem(Problem1 problem) async {
     var url = Uri.parse('${link}/api/Problem/Create');
     // var url = Uri.https('localhost:7166', 'api/User/Register');
 
     final body = jsonEncode({
       "categoryID": problem.categoryID,
-      "medicalRecordID":problem.medicalRecordID,
+      "medicalRecordID": problem.medicalRecordID,
     });
     final headers = {
       "Accept": "application/json",
@@ -806,6 +820,4 @@ class CallAPI {
       print(response.body);
     }
   }
-
-
 }

@@ -34,16 +34,16 @@ class _HomePageState extends State<HomePage> {
 
   AlertDialog _buildExitDialog(BuildContext context) {
     return AlertDialog(
-      title: const Text('Thoát ứng dụng'),
-      content: const Text('Ban có muốn thoát khỏi ứng dụng?'),
+      title: const Text('Đăng xuất?'),
+      content: const Text('Ban có muốn đăng xuất?'),
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text('Không'),
+          child: const Text('Không'),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: Text('Có'),
+          child: const Text('Có'),
         ),
       ],
     );
@@ -111,15 +111,6 @@ class _HomePageState extends State<HomePage> {
                 //   press: () {
                 //     Navigator.push(context,
                 //         MaterialPageRoute(builder: (context) => WelcomePage()));
-                //   },
-                // ),
-                // HomeMenu(
-                //   icon:
-                //       "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
-                //   text: "video call",
-                //   press: () {
-                //     Navigator.push(context,
-                //         MaterialPageRoute(builder: (context) => VideoCallPage()));
                 //   },
                 // ),
               ],

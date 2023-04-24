@@ -5,18 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:heh_application/Physiotherapist%20Page/navigation_main.dart';
-import 'package:heh_application/main.dart';
 import 'package:heh_application/models/medical_record.dart';
 import 'package:heh_application/models/result_login.dart';
 import 'package:heh_application/models/sign_up_user.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/services/firebase_firestore.dart';
 import 'package:provider/provider.dart';
+import '../models/physiotherapist.dart';
 import '../services/stream_test.dart';
 
 ResultLogin? sharedResultLogin;
 SignUpUser? sharedCurrentUser;
 MedicalRecord? sharedMedicalRecord;
+Physiotherapist? sharedPhysiotherapist;
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -36,7 +37,6 @@ class LandingPage extends StatelessWidget {
           return const LoginPage();
         } else {
           sharedResultLogin = snapshot.data;
-
           Future<SignUpUser> futureCurrentUser =
               auth.getCurrentUser(sharedResultLogin!);
           return FutureBuilder<SignUpUser>(
@@ -49,11 +49,13 @@ class LandingPage extends StatelessWidget {
                       create: (context) => FirebaseFirestores(),
                       child: Navigation_Bar(),
                     );
-                  } else {
+                  } else if (sharedCurrentUser!.role!.name == "Member") {
                     return Provider<FirebaseFirestoreBase>(
                       create: (context) => FirebaseFirestores(),
                       child: const PhyNavigation_bar(),
                     );
+                  } else {
+                    return const LoginPage();
                   }
                 } else {
                   print("khong data");

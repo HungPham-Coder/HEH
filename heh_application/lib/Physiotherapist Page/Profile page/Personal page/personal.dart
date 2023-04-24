@@ -37,8 +37,10 @@ class _PhysioPersonalPageState extends State<PhysioPersonalPage> {
           elevation: 10,
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
         ),
-        body: TabBarView(
-            children: [PhysioInformationPage(), PhysioCertificatePage()]),
+        body: TabBarView(children: [
+          const PhysioInformationPage(),
+          PhysioCertificatePage(physiotherapist: sharedPhysiotherapist)
+        ]),
       ),
     ));
   }

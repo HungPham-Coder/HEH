@@ -48,13 +48,10 @@ class _CategoryPageState extends State<CategoryPage> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-
                         return MenuListView(
                           icon: snapshot.data![index].iconUrl!,
                           text: "${snapshot.data![index].categoryName}",
                           press: () {
-
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -75,6 +72,3 @@ class _CategoryPageState extends State<CategoryPage> {
     );
   }
 }
-
-
-

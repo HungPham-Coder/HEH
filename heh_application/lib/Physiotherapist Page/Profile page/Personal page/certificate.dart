@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Profile%20page/setting.dart';
-import 'package:heh_application/models/medical_record.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
-import '../../../models/exercise_model/category.dart';
+import 'package:heh_application/models/physiotherapist.dart';
+
+import '../../../models/physiotherapist.dart';
 
 class PhysioCertificatePage extends StatefulWidget {
-  PhysioCertificatePage({Key? key}) : super(key: key);
-
+  PhysioCertificatePage({Key? key, this.physiotherapist}) : super(key: key);
+  Physiotherapist? physiotherapist;
   @override
   State<PhysioCertificatePage> createState() => _PhysioCertificatePageState();
 }
@@ -31,11 +31,11 @@ class _PhysioCertificatePageState extends State<PhysioCertificatePage> {
                 Column(
                   children: [
                     specialize(
-                        label: "Hoạt động khó khăn trong cuộc sống?",
-                        specialize: ""),
+                        label: "Chuyên môn của chuyên viên.",
+                        specialize: widget.physiotherapist!.specialize),
                     skill(
-                        label: "Anh/Chị đã gặp chấn thương gì?",
-                        skill: ""),
+                        label: "Kỹ năng của chuyên viên?",
+                        skill: widget.physiotherapist!.skill),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

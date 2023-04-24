@@ -168,7 +168,7 @@ class _InformationPageState extends State<InformationPage> {
                   DateTime? pickeddate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(1960),
+                      firstDate: DateTime(1900),
                       lastDate: DateTime(2030));
                   if (pickeddate != null) {
                     _date.text = DateFormat('dd-MM-yyyy').format(pickeddate);
