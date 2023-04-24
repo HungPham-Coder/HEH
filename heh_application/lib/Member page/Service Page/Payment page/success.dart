@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heh_application/Login%20page/landing_page.dart';
 import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:lottie/lottie.dart';
 
@@ -106,12 +107,13 @@ class returnHome extends StatelessWidget {
                 side: const BorderSide(color: Colors.white)),
           )),
       onPressed: () {
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (BuildContext context) {
-          return Navigation_Bar();
-        }), (r) {
-          return false;
-        });
+        // Navigator.pushAndRemoveUntil(context,
+        //     MaterialPageRoute(builder: (BuildContext context) {
+        //   return const LandingPage();
+        // }), (r) {
+        //   return false;
+        // });
+        Navigator.pop(context);
       },
       child: const Text(
         "Trở về trang chủ",

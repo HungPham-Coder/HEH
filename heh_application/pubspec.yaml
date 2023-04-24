@@ -38,33 +38,35 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
-  intl_phone_field:
+  intl_phone_field: ^3.1.0
   flutter_svg: ^2.0.2
   firebase_core: ^2.7.0
   firebase_auth: ^4.2.5
   google_sign_in: ^6.0.2
-  cloud_firestore:
-  firebase_storage:
+  cloud_firestore: ^4.5.2
+  firebase_storage: ^11.1.1
   flutter_login_facebook: ^1.7.0
   provider: ^6.0.5
   http: ^0.13.5
   video_player: ^2.6.0
   syncfusion_flutter_calendar: ^21.1.35
   multi_select_flutter: ^4.1.3
-  image_picker: ^0.8.7+1
-  fluttertoast:
+  image_picker: ^0.8.7+3
+  fluttertoast: ^8.2.1
   agora_rtc_engine: ^6.1.0
   lottie: ^2.3.2
   videosdk: ^1.0.13
   agora_uikit: ^1.3.1
   email_validator: '^2.1.16'
+  agora_chat_sdk: ^1.1.0+1
 
 
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
-    
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -86,6 +88,7 @@ flutter:
 
   assets:
     - assets/ca/
+   
 
   # To add assets to your application, add an assets section, like this:
   # assets:

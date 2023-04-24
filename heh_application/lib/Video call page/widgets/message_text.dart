@@ -8,6 +8,7 @@ class MessageText extends StatefulWidget {
 }
 
 class _MessageTextState extends State<MessageText> {
+  String? _messageContent;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -15,10 +16,16 @@ class _MessageTextState extends State<MessageText> {
       textAlignVertical: TextAlignVertical.center,
       textCapitalization: TextCapitalization.sentences,
       textInputAction: TextInputAction.send,
+      onChanged: (value) => _messageContent = value,
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          suffixIcon:
+              const IconButton(onPressed: _sendMessage, icon: Icon(Icons.send)),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           hintText: "Nhắn tin"),
     ));
   }
 }
+
+void _sendMessage() async {}

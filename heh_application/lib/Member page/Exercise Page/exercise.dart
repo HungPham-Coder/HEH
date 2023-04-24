@@ -68,11 +68,12 @@ class _ExercisePageState extends State<ExercisePage> {
                                 MaterialPageRoute(builder: (context) {
                               if (exerciseDetail != null) {
                                 return ExerciseDetail(
-                                  exerciseDetail: exerciseDetail,
-                                  exerciseResource: exerciseResource,
+                                  exerciseID: '',
                                 );
                               } else {
-                                return ExerciseDetail();
+                                return ExerciseDetail(
+                                  exerciseID: '',
+                                );
                               }
                             }));
                           },

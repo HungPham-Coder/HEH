@@ -7,11 +7,9 @@ import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 int tokenRole = 1;
 int tokenExpireTime = 45;
 bool isTokenExpiring = false;
-final channelTextController = TextEditingController();
 String serverUrl = "https://agora-token-server-i5zg.onrender.com";
 String appID = "1405b81aefdb475a94c00cc139ed7450";
 String token = "";
-final users = <int>[];
 int? physioUID;
 String channelName = "ABC";
 
@@ -39,17 +37,12 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
   @override
   void dispose() {
-    // users.clear();
-    // engine.leaveChannel();
+    engine.leaveChannel();
     super.dispose();
   }
 
   Future<void> initAgora() async {
     await client.initialize();
-    // await [Permission.microphone, Permission.camera].request();
-    // await engine.enableVideo();
-    // await engine
-    //     .setChannelProfile(ChannelProfileType.channelProfileCommunication1v1);
   }
 
   @override
@@ -120,7 +113,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         channelId: channelName,
         // info: "",
         uid: 1,
-        options: ChannelMediaOptions(),
+        options: const ChannelMediaOptions(),
       );
     }
   }

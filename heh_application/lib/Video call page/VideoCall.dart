@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Video%20call%20page/views/chatscreen.dart';
 
 class VideoCallPage extends StatefulWidget {
-  VideoCallPage({Key? key}) : super(key: key);
+  const VideoCallPage({Key? key}) : super(key: key);
 
   @override
   State<VideoCallPage> createState() => _VideoCallPageState();

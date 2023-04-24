@@ -21,11 +21,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String? dob;
 
-  var isObscure;
+  bool isObscure = false;
+  bool isObscure1 = false;
   @override
   void initState() {
     super.initState();
-    isObscure = false;
+    isObscure = true;
+    isObscure1 = true;
   }
 
   final TextEditingController _date = TextEditingController();
@@ -150,9 +152,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(
                     height: 15,
                   ),
-                  password(label: "Mật khẩu", isObscure: true),
-                  confirmPassword(
-                      label: "Xác thực lại mật khẩu", obscureText: true),
+                  password(label: "Mật khẩu"),
+                  confirmPassword(label: "Xác thực lại mật khẩu"),
                 ],
               ),
               Row(
@@ -403,7 +404,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget password({label, isObscure = false}) {
+  Widget password({label}) {
     return Column(
       children: <Widget>[
         Row(
@@ -433,7 +434,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     });
                   },
                   icon: Icon(
-                      isObscure ? Icons.visibility : Icons.visibility_off)),
+                      isObscure ? Icons.visibility_off : Icons.visibility)),
               hintText: 'Mật khẩu',
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -448,7 +449,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget confirmPassword({label, obscureText = false}) {
+  Widget confirmPassword({label}) {
     return Column(
       children: <Widget>[
         Row(
@@ -469,14 +470,23 @@ class _SignUpPageState extends State<SignUpPage> {
         const SizedBox(height: 5),
         TextFormField(
           controller: _confirmPassword,
-          obscureText: obscureText,
-          decoration: const InputDecoration(
-              hintText: 'Xác thực lại mật khẩu',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
+          obscureText: isObscure1,
+          decoration: InputDecoration(
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isObscure1 = !isObscure1;
+                    });
+                  },
+                  icon: Icon(
+                      isObscure1 ? Icons.visibility_off : Icons.visibility)),
+              hintText: 'Mật khẩu xác thực',
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey))),
         ),
         const SizedBox(height: 0)
@@ -484,145 +494,3 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-
-// class password extends StatefulWidget {
-//   password(
-//       {Key? key,
-//       required this.label,
-//       required TextEditingController controller})
-//       : super(key: key);
-
-//   String label;
-//   bool obscureText = false;
-//   final TextEditingController controller = TextEditingController();
-
-//   @override
-//   State<password> createState() => _passwordState();
-// }
-
-// class _passwordState extends State<password> {
-//   var isObscure;
-//   @override
-//   void initState() {
-//     super.initState();
-//     isObscure = false;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: <Widget>[
-//         Row(
-//           children: <Widget>[
-//             Text(
-//               widget.label,
-//               style: const TextStyle(
-//                   fontSize: 15,
-//                   fontWeight: FontWeight.w400,
-//                   color: Colors.black87),
-//             ),
-//             const Text(
-//               " *",
-//               style: TextStyle(color: Colors.red),
-//             ),
-//           ],
-//         ),
-//         const SizedBox(height: 5),
-//         TextFormField(
-//           controller: widget.controller,
-//           obscureText: isObscure,
-//           decoration: InputDecoration(
-//               suffixIcon: IconButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       isObscure = !isObscure;
-//                     });
-//                   },
-//                   icon: Icon(isObscure
-//                       ? Icons.remove_red_eye_outlined
-//                       : Icons.remove_red_eye_sharp)),
-//               hintText: 'Mật khẩu',
-//               contentPadding:
-//                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//               enabledBorder: const OutlineInputBorder(
-//                 borderSide: BorderSide(color: Colors.grey),
-//               ),
-//               border: const OutlineInputBorder(
-//                   borderSide: BorderSide(color: Colors.grey))),
-//         ),
-//         const SizedBox(height: 15)
-//       ],
-//     );
-//   }
-// }
-
-// class confirmPassword extends StatefulWidget {
-//   confirmPassword(
-//       {Key? key,
-//       required this.label,
-//       required TextEditingController controller})
-//       : super(key: key);
-
-//   String label;
-//   bool obscureText = false;
-//   final TextEditingController controller = TextEditingController();
-
-//   @override
-//   State<confirmPassword> createState() => _confirmPasswordState();
-// }
-
-// class _confirmPasswordState extends State<confirmPassword> {
-//   var isObscure;
-//   @override
-//   void initState() {
-//     super.initState();
-//     isObscure = false;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: <Widget>[
-//         Row(
-//           children: <Widget>[
-//             Text(
-//               widget.label,
-//               style: const TextStyle(
-//                   fontSize: 15,
-//                   fontWeight: FontWeight.w400,
-//                   color: Colors.black87),
-//             ),
-//             const Text(
-//               " *",
-//               style: TextStyle(color: Colors.red),
-//             ),
-//           ],
-//         ),
-//         const SizedBox(height: 5),
-//         TextFormField(
-//           controller: widget.controller,
-//           obscureText: isObscure,
-//           decoration: InputDecoration(
-//               suffixIcon: IconButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       isObscure = !isObscure;
-//                     });
-//                   },
-//                   icon: Icon(isObscure
-//                       ? Icons.remove_red_eye_outlined
-//                       : Icons.remove_red_eye_sharp)),
-//               hintText: 'Xác thực',
-//               contentPadding:
-//                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//               enabledBorder: const OutlineInputBorder(
-//                 borderSide: BorderSide(color: Colors.grey),
-//               ),
-//               border: const OutlineInputBorder(
-//                   borderSide: BorderSide(color: Colors.grey))),
-//         ),
-//         const SizedBox(height: 15)
-//       ],
-//     );
-//   }
-// }
