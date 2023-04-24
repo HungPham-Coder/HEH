@@ -23,17 +23,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var isObscure;
+  bool isObscure = false;
+  bool _submitted = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    isObscure = true;
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     phoneController.dispose();
     passwordController.dispose();
@@ -41,6 +41,22 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  String? get _errorText {
+    final text = passwordController.value.text;
+    if (text.isEmpty) {
+      return 'Can\'t be empty';
+    }
+    if (text.length < 4) {
+      return 'Too short';
+    }
+    return null;
+  }
+
+  void _submit() {
+    setState(() => _submitted = true);
+    if (_errorText == null) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +101,6 @@ class _LoginPageState extends State<LoginPage> {
                                 label: "",
                                 phoneController: phoneController),
                             inputPassword(
-                                // obscureText: true,
-
                                 passwordController: passwordController)
                           ],
                         ),
@@ -441,18 +455,19 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget inputPassword(
-      {isObscure = true, required TextEditingController passwordController}) {
+  Widget inputPassword({required TextEditingController passwordController}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
           controller: passwordController,
+          validator: (value) {
+            value == 0 ? 'Password cannot be blank' : null;
+          },
           obscureText: isObscure,
           decoration: InputDecoration(
               label: const Text("Mật khẩu"),
-              hintText: 'Mật khẩu',
               suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {
@@ -474,54 +489,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-// class inputPassword extends StatefulWidget {
-//   inputPassword({Key? key, required TextEditingController passwordController})
-//       : super(key: key);
-
-//   bool obscureText = false;
-//   final TextEditingController passwordController = TextEditingController();
-
-//   @override
-//   State<inputPassword> createState() => _inputPasswordState();
-// }
-
-// class _inputPasswordState extends State<inputPassword> {
-//   var isObscure;
-//   @override
-//   void initState() {
-//     super.initState();
-//     isObscure = false;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: <Widget>[
-//         const SizedBox(height: 5),
-//         TextFormField(
-//           controller: widget.passwordController,
-//           obscureText: isObscure,
-//           decoration: InputDecoration(
-//               suffixIcon: IconButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       isObscure = !isObscure;
-//                     });
-//                   },
-//                   icon: Icon(
-//                       isObscure ? Icons.visibility_off : Icons.visibility)),
-//               hintText: 'Mật khẩu',
-//               contentPadding:
-//                   const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//               enabledBorder: const OutlineInputBorder(
-//                 borderSide: BorderSide(color: Colors.grey),
-//               ),
-//               border: const OutlineInputBorder(
-//                   borderSide: BorderSide(color: Colors.grey))),
-//         ),
-//         const SizedBox(height: 15)
-//       ],
-//     );
-//   }
-// }
