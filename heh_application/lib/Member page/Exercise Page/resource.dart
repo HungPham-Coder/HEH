@@ -54,17 +54,9 @@ class _ExerciseResourcesState extends State<ExerciseResources> {
     });
   }
 
-  void initPlayer() async {
-    widget.exerciseResource!.forEach((element) {
-      _vidController = VideoPlayerController.network(element.videoURL!);
-      _vidController.addListener(() {
-        setState(() {});
-      });
-      _vidController.initialize().then((value) {
-        setState(() {});
-      });
-    });
-  }
+  // void initPlayer() async {
+
+  //   _vidController = VideoPlayerController.network(element.videoURL!;
 
   @override
   Widget build(BuildContext context) {
