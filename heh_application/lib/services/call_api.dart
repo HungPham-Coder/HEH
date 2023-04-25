@@ -45,9 +45,6 @@ class CallAPI {
         "Content-Type": "application/json",
         "Authorization": "Bearer ${result["access_token"]}",
       };
-      var response1 = await http
-          .get(url, headers: headers)
-          .then((value) => print(value.body));
 
       return ResultLogin.fromMap(result);
     }

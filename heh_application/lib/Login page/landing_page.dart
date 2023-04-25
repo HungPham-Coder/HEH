@@ -34,7 +34,12 @@ class LandingPage extends StatelessWidget {
         // final SignUpUser? user = snapshot.data;
 
         if (snapshot.data == null || snapshot.data!.userID == 'signout') {
+
           return  LoginPage(msg: msg,);
+
+        }
+        else if (snapshot.data!.role!.name == "Admin" || snapshot.data!.role!.name == "Staff"){
+          return LandingPage(msg: 'Account của bạn không có quyền truy cập vào app',);
         }
 
         else {
@@ -51,15 +56,11 @@ class LandingPage extends StatelessWidget {
                       create: (context) => FirebaseFirestores(),
                       child: Navigation_Bar(),
                     );
-                  } else if (sharedCurrentUser!.role!.name ==
-                      "Physiotherapist") {
+                  } else  {
                     return Provider<FirebaseFirestoreBase>(
                       create: (context) => FirebaseFirestores(),
                       child: const PhyNavigation_bar(),
                     );
-                  } else {
-
-                    return LandingPage(msg: 'Account của bạn không có quyền truy cập vào app',);
                   }
                 } else {
                   print("khong data");
