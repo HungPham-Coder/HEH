@@ -233,6 +233,27 @@ class CallAPI {
       throw Exception('Failed to load BookingDetail');
     }
   }
+  Future<List<BookingDetail>> getAllBookingDetailByUserID(String userID) async {
+    var url = Uri.parse('${link}/api/BookingDetail/GetByUserId?userID=$userID');
+    // var url = Uri.https('localhost:7166', 'api/BookingDetail');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<BookingDetail> list = List<BookingDetail>.from(
+          jsonResult.map((model) => BookingDetail.fromMap(model)));
+      if (list == null) {
+        throw Exception('BookingDetail List null');
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load BookingDetail');
+    }
+  }
 
   Future<List<ExerciseResource>> getAllExerciseResource() async {
     var url = Uri.parse('${link}/api/ExerciseResource');

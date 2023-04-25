@@ -16,8 +16,8 @@ import 'package:provider/provider.dart';
 import '../models/result_login.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
+   LoginPage({Key? key, this.msg}) : super(key: key);
+  String? msg;
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -96,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Column(
                           children: <Widget>[
+                            Text(widget.msg == null ? '' : widget.msg!),
                             inputPhone(
                                 obscureText: false,
                                 label: "",

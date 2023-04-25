@@ -322,7 +322,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const LandingPage()));
+                                    builder: (context) =>  LandingPage()));
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,

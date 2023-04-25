@@ -114,7 +114,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const LandingPage();
+                        return  LandingPage();
                       },settings: RouteSettings(
                             name: "/landing",
                           ),));
