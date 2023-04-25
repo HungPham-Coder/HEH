@@ -148,10 +148,7 @@ class _BillChoosePageState extends State<BillChoosePage> {
                               side: const BorderSide(color: Colors.white)),
                         )),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TimeResultPage()));
+                      Navigator.of(context).pop();
                     },
                     child: const Text(
                       "Trở lại",

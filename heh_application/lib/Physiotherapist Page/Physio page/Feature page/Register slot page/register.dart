@@ -10,61 +10,9 @@ class PhysioRegisterSlotPage extends StatefulWidget {
 
 class _PhysioRegisterSlotPageState extends State<PhysioRegisterSlotPage> {
   bool check = true;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          "Đăng ký thời gian làm việc ",
-          style: TextStyle(fontSize: 20),
-        ),
-        elevation: 10,
-        backgroundColor: const Color.fromARGB(255, 46, 161, 226),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            chooseTime(),
-            const button(),
-            const SizedBox(height: 10),
-            if (check == true)
-              Visibility(
-                  child: Column(
-                children: [
-                  const Text("Danh sách thời gian làm việc",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-                  RegisterMenu(
-                    icon:
-                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
-                    name: "Slot 1",
-                    time: "Khung giờ: 11:00 - 12:00",
-                    amount: "Số lượng đăng ký: 50",
-                    press: () {
-                      Navigator.push(
-                          context,
-                          DialogRoute(
-                              context: context,
-                              builder: (context) => dialog(text: "")));
-                    },
-                  ),
-                ],
-              )),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class chooseTime extends StatelessWidget {
-  chooseTime({Key? key}) : super(key: key);
-
   final TextEditingController _date = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
+  Widget Time (){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
@@ -103,18 +51,8 @@ class chooseTime extends StatelessWidget {
       ),
     );
   }
-}
 
-class button extends StatefulWidget {
-  const button({Key? key}) : super(key: key);
-
-  @override
-  State<button> createState() => _buttonState();
-}
-
-class _buttonState extends State<button> {
-  @override
-  Widget build(BuildContext context) {
+  Widget button (){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -128,14 +66,66 @@ class _buttonState extends State<button> {
                     borderRadius: BorderRadius.circular(15),
                     side: const BorderSide(color: Colors.white)),
               )),
-          onPressed: () {},
+          onPressed: () {
+
+          },
           child: const Text("Tìm kiếm",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
         ),
       ],
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text(
+          "Đăng ký thời gian làm việc ",
+          style: TextStyle(fontSize: 20),
+        ),
+        elevation: 10,
+        backgroundColor: const Color.fromARGB(255, 46, 161, 226),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Time(),
+             button(),
+            const SizedBox(height: 10),
+            if (check == true)
+              Visibility(
+                visible: check,
+                  child: Column(
+                children: [
+                  const Text("Danh sách thời gian làm việc",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
+                  RegisterMenu(
+                    icon:
+                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
+                    name: "Slot 1",
+                    time: "Khung giờ: 11:00 - 12:00",
+                    amount: "Số lượng đăng ký: 50",
+                    press: () {
+                      Navigator.push(
+                          context,
+                          DialogRoute(
+                              context: context,
+                              builder: (context) => dialog(text: "")));
+                    },
+                  ),
+                ],
+              )),
+          ],
+        ),
+      ),
+    );
+  }
 }
+
+
 
 class RegisterMenu extends StatelessWidget {
   const RegisterMenu({
