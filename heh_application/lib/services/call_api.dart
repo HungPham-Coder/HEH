@@ -524,6 +524,48 @@ class CallAPI {
     }
   }
 
+  Future<List<Slot>?> getallSlotByDate(
+      String date) async {
+    var url = Uri.parse(
+        '${link}/api/Slot/GetByDate/$date');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      Iterable jsonResult = json.decode(response.body);
+      List<Slot> list = List<Slot>.from(
+          jsonResult.map((model) => Slot.fromMap(model)));
+
+      if (list == null) {
+        print("List Schedule Null");
+      } else {
+        return list;
+      }
+    } else {
+      throw Exception('Failed to load Schedule List');
+    }
+  }
+
+
+  Future<int> getNumberOfPhysioRegisterOnSlot(
+      String slotID) async {
+    var url = Uri.parse(
+        '${link}/api/Schedule/GetNumberOfPhysioRegister/$slotID');
+    // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
+    final headers = {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    };
+    var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load number of physio register on slot');
+    }
+  }
   Future<List<Schedule>> getallPhysiotherapistBySlotTimeAndSkill(
       String timeStart, String timeEnd, String skill) async {
     var url = Uri.parse(
