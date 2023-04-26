@@ -15,21 +15,11 @@ class BookingDetail {
         this.videoCallRoom,
       required this.status});
   factory BookingDetail.fromMap(Map<String, dynamic> json) {
-    if (json['bookingSchedule'] == null ){
-      return BookingDetail(
-          bookingDetailID: json['bookingDetailID'],
-          bookingScheduleID: json['bookingScheduleID'],
-          videoCallRoom: json['videoCallRoom'],
-          status: json['status']);
-    }
-    else {
-      return BookingDetail(
-          bookingDetailID: json['bookingDetailID'],
-          bookingScheduleID: json['bookingScheduleID'],
-          bookingSchedule:BookingSchedule.fromMap(json['bookingSchedule']) ,
-          videoCallRoom: json['videoCallRoom'],
-          status: json['status']);
-    }
-
+    return BookingDetail(
+        bookingDetailID: json['bookingDetailID'],
+        bookingScheduleID: json['bookingScheduleID'],
+        bookingSchedule:BookingSchedule.fromMap(json['bookingSchedule']) ,
+        videoCallRoom: json['videoCallRoom'],
+        status: json['status']);
   }
 }

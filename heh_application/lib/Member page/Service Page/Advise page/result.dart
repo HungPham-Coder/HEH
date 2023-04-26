@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Login%20page/landing_page.dart';
-import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/billChoose.dart';
 import 'package:heh_application/Member%20page/Service%20Page/Payment%20page/billTime.dart';
-import 'package:heh_application/models/booking_schedule.dart';
-import 'package:heh_application/models/schedule.dart';
-import 'package:heh_application/models/sub_profile.dart';
-import 'package:heh_application/services/call_api.dart';
-import 'package:intl/intl.dart';
 
 class TimeResultPage extends StatefulWidget {
-  TimeResultPage(
-      {Key? key,
-      required this.timeStart,
-      required this.timeEnd,
-      required this.problem,
-      required this.subProfile})
-      : super(key: key);
-  String timeStart;
-  String timeEnd;
-  String problem;
-  SubProfile subProfile;
+  const TimeResultPage({Key? key}) : super(key: key);
+
   @override
   State<TimeResultPage> createState() => _TimeResultPageState();
 }
@@ -38,61 +22,30 @@ class _TimeResultPageState extends State<TimeResultPage> {
           backgroundColor: const Color.fromARGB(255, 46, 161, 226),
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                CurrentTime(),
-                FutureBuilder<List<Schedule>>(
-                    future: CallAPI().getallPhysiotherapistBySlotTimeAndSkill(
-                        widget.timeStart, widget.timeEnd, widget.problem),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: snapshot.data!.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              DateTime dateStart = new DateFormat("yyyy-MM-ddTHH:mm:ss").parse(snapshot.data![index].slot.timeStart);
-                              String startStr = DateFormat("HH:mm").format(dateStart);
-                              DateTime dateEnd = new DateFormat("yyyy-MM-ddTHH:mm:ss").parse(snapshot.data![index].slot.timeEnd);
-                              String endStr = DateFormat("HH:mm").format(dateEnd);
-                              return PhysioChooseMenu(
-                                icon:
-                                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
-                                name:
-                                    "${snapshot.data![index].physiotherapist.signUpUser!.firstName}",
-                                time: "Khung giờ: $startStr - $endStr",
-                                press: () async {
-                                  String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
-                                  String time = DateFormat("HH:mm:ss").format(DateTime.now());
-                                  BookingSchedule bookingSchedule = BookingSchedule(
-                                      userID: sharedCurrentUser!.userID!,
-                                      subProfileID: widget.subProfile.profileID!,
-                                      scheduleID: snapshot.data![index].scheduleID,
-                                      dateBooking: date,
-                                      timeBooking: time);
-
-                                 BookingSchedule? bookingScheduleAdd = await CallAPI().addBookingSchedule(bookingSchedule);
-
-
-                                 Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                               BillChoosePage(physiotherapist: snapshot.data![index].physiotherapist, schedule: snapshot.data![index], bookingSchedule: bookingScheduleAdd)));
-                                },
-                              );
-                            });
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    }),
-              ],
-            ),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    CurrentTime(),
+                    PhysioChooseMenu(
+                      icon:
+                          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622",
+                      name: "Phạm Phú Minh Hưng",
+                      time: "Khung giờ: 6:00 - 7:00",
+                      press: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BillTimePage()));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ));
   }

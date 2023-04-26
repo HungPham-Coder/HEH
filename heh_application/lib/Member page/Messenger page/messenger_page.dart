@@ -382,7 +382,7 @@ class _MessengerPageState extends State<MessengerPage> {
     } else {
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) =>  LoginPage(),
+          builder: (context) => const LoginPage(),
         ),
         (Route<dynamic> route) => false,
       );

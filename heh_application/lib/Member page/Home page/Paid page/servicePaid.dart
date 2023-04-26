@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Login%20page/landing_page.dart';
 
 import 'package:heh_application/Video%20call%20page/VideoCall.dart';
-import 'package:heh_application/models/booking_detail.dart';
-import 'package:heh_application/services/call_api.dart';
-import 'package:intl/intl.dart';
 
 class ServicePaidPage extends StatefulWidget {
   const ServicePaidPage({Key? key}) : super(key: key);
@@ -34,58 +30,20 @@ class _ServicePaidPageState extends State<ServicePaidPage> {
             const Center(
               child: Text("Danh sách các lịch bạn đã đặt."),
             ),
-            FutureBuilder<List<BookingDetail>>(
-                future: CallAPI()
-                    .getAllBookingDetailByUserID(sharedCurrentUser!.userID!),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        DateTime tempDate = new DateFormat("yyyy-MM-dd").parse(
-                            snapshot.data![index].bookingSchedule!.schedule!
-                                .slot.timeStart);
-                        String day = DateFormat("dd-MM-yyyy").format(tempDate);
-                        DateTime tempStart =
-                            new DateFormat("yyyy-MM-ddTHH:mm:ss").parse(snapshot
-                                .data![index]
-                                .bookingSchedule!
-                                .schedule!
-                                .slot
-                                .timeStart);
-                        String start = DateFormat("HH:mm").format(tempStart);
-                        DateTime tempEnd = new DateFormat("yyyy-MM-ddTHH:mm:ss")
-                            .parse(snapshot.data![index].bookingSchedule!
-                                .schedule!.slot.timeEnd);
-                        String end = DateFormat("HH:mm").format(tempEnd);
-                        return ServicePaid(
-                          icon:
-                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fappointment.png?alt=media&token=647e3ff8-d708-4b77-b1e2-64444de5dad0",
-                          name:
-                              "${snapshot.data![index].bookingSchedule!.schedule!.typeOfSlot.typeName}",
-                          date: "$day",
-                          time: "$start - $end",
-                          bookedFor:
-                              "${snapshot.data![index].bookingSchedule!.subProfile!.relationship!.relationName}",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ServicePaidPage()));
-                          },
-                        );
-                      },
-                    );
-                  } else {
-                    return Center(
-                      child: Text(
-                          'Hiện tại bạn đang chưa đăng ký bất kỳ lịch nào'),
-                    );
-                  }
-                }),
+            ServicePaid(
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fappointment.png?alt=media&token=647e3ff8-d708-4b77-b1e2-64444de5dad0",
+              name: "Tư vấn một buổi",
+              date: "04-11-2023",
+              time: "11:00 - 12:00",
+              bookedFor: "Tôi",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ServicePaidPage()));
+              },
+            ),
           ],
         ),
       )),

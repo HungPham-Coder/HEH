@@ -100,7 +100,10 @@ class _BillTimePageState extends State<BillTimePage> {
                               side: const BorderSide(color: Colors.white)),
                         )),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TimeResultPage()));
                     },
                     child: const Text(
                       "Trở lại",

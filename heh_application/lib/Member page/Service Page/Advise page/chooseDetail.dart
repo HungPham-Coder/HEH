@@ -26,7 +26,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
 
   Widget relationship(String slotID) {
     return SizedBox(
-      height: 100,
+      height: 70,
       child: Column(
         children: [
           Row(
@@ -38,7 +38,7 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
           SizedBox(height: 5),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: 70,
+            height: 40,
             child: FutureBuilder<List<SubProfile>?>(
                 future: CallAPI()
                     .getallSubProfileByUserIdAndSlotID(sharedCurrentUser!.userID!,slotID),
@@ -51,40 +51,30 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                       });
                       print("Co data");
                     }
-                    if (_relationships.length <= 1){
-                      return Column(
-                        children: [
-                          SizedBox(height: 10),
-                          Text("Hiện tại khung giờ này bạn đã đặt hết cho người thân của bạn rồi"),
-                        ],
-                      );
-                    }
-                    else {
-                      return DropdownButtonFormField<String>(
-                        decoration: const InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(width: 1, color: Colors.grey))),
-                        value: selectedSubName,
-                        items: _relationships
-                            .map((relationship) => DropdownMenuItem<String>(
-                            value: relationship,
-                            child: Text(
-                              relationship,
-                              style: const TextStyle(fontSize: 15),
-                            )))
-                            .toList(),
-                        onChanged: (subName) => setState(() {
-                          snapshot.data!.forEach((element) {
-                            if (subName == element.subName) {
-                              subProfile = element;
-                            }
-                          });
-                          selectedSubName = subName!;
-                        }),
-                      );
-                    }
 
+                    return DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      value: selectedSubName,
+                      items: _relationships
+                          .map((relationship) => DropdownMenuItem<String>(
+                              value: relationship,
+                              child: Text(
+                                relationship,
+                                style: const TextStyle(fontSize: 15),
+                              )))
+                          .toList(),
+                      onChanged: (subName) => setState(() {
+                        snapshot.data!.forEach((element) {
+                          if (subName == element.subName) {
+                            subProfile = element;
+                          }
+                        });
+                        selectedSubName = subName!;
+                      }),
+                    );
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -222,11 +212,8 @@ class _ChooseDetailPageState extends State<ChooseDetailPage> {
                       );
                     } else {
                       return Container(
-                        child: const Center(
-                            child: Text(
-                              "Physio dang ban het tat ca cac slot",
-                              style: TextStyle(fontSize: 16),
-                            )),
+                        child:
+                            const Text("Physio dang ban het tat ca cac slot"),
                       );
                     }
                   } else {

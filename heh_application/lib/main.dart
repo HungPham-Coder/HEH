@@ -113,16 +113,12 @@ class _WelcomePageState extends State<WelcomePage> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return LandingPage();
-                            },
-                            settings: RouteSettings(
-                              name: "/landing",
-                            ),
-                          ));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const LandingPage();
+                      },settings: RouteSettings(
+                            name: "/landing",
+                          ),));
                     },
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Colors.black),
