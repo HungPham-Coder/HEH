@@ -3,6 +3,8 @@ import 'package:heh_application/models/slot.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../common_widget/dialog.dart';
+
 class PhysioRegisterSlotPage extends StatefulWidget {
   const PhysioRegisterSlotPage({Key? key}) : super(key: key);
 
@@ -20,24 +22,15 @@ class _PhysioRegisterSlotPageState extends State<PhysioRegisterSlotPage> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: const [
-              Text("Chọn thời gian làm việc"),
-              Text(
-                " *",
-                style: TextStyle(color: Colors.red),
-              )
-            ],
-          ),
-          // SizedBox(height: 5),
           TextFormField(
             // initialValue: dob,
             // DateTime.parse(sharedCurrentUser!.dob as String).toString(),
             readOnly: true,
             controller: _date,
             decoration: const InputDecoration(
-              labelText: "Chọn ngày",
+              labelText: "Chọn thời gian làm việc",
             ),
             onTap: () async {
               DateTime? pickeddate = await showDatePicker(
@@ -78,8 +71,7 @@ class _PhysioRegisterSlotPageState extends State<PhysioRegisterSlotPage> {
                 setState(() {
                   check = true;
                 });
-              }
-              else {
+              } else {
                 setState(() {
                   check = false;
                 });
@@ -97,12 +89,11 @@ class _PhysioRegisterSlotPageState extends State<PhysioRegisterSlotPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Đăng ký thời gian làm việc ",
+          "Đăng ký lịch làm việc",
           style: TextStyle(fontSize: 20),
         ),
         elevation: 10,
@@ -114,77 +105,98 @@ class _PhysioRegisterSlotPageState extends State<PhysioRegisterSlotPage> {
             Time(),
             button(),
             const SizedBox(height: 10),
-           check == false && _date.text != "" && slotList!.length == 0
-            ? Center(child: Text("Khong co slot nao"),)
-            :
-            (_date.text != "" && slotList != null)?
+            check == false && _date.text != "" && slotList!.length == 0
+                ? Container(
+                    height: MediaQuery.of(context).size.height / 4,
+                    alignment: Alignment.bottomCenter,
+                    child: const Text(
+                      "Hiện tại không có slot để đăng ký.",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  )
+                : (_date.text != "" && slotList != null)
+                    ? Visibility(
+                        visible: check,
+                        child: Column(
+                          children: [
+                            const Text("Danh sách thời gian làm việc",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 16)),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: slotList!.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  DateTime startTime =
+                                      new DateFormat('yyyy-MM-ddTHH:mm:ss')
+                                          .parse(slotList![index].timeStart);
+                                  String start =
+                                      DateFormat('HH:mm').format(startTime);
+                                  DateTime endTime =
+                                      new DateFormat('yyyy-MM-ddTHH:mm:ss')
+                                          .parse(slotList![index].timeEnd);
+                                  String end =
+                                      DateFormat('HH:mm').format(endTime);
 
-              Visibility(
-                  visible: check,
-                  child: Column(
-                    children: [
-                      const Text("Danh sách thời gian làm việc",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 16)),
-
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: slotList!.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            DateTime startTime = new DateFormat('yyyy-MM-ddTHH:mm:ss').parse(slotList![index].timeStart);
-                            String start = DateFormat('HH:mm').format(startTime);
-                            DateTime endTime = new DateFormat('yyyy-MM-ddTHH:mm:ss').parse(slotList![index].timeEnd);
-                            String end = DateFormat('HH:mm').format(endTime);
-
-                            return FutureBuilder(
-                                future: CallAPI().getNumberOfPhysioRegisterOnSlot(slotList![index].slotID),
-                                builder: (context, snapshot)  {
-                                  if (snapshot.hasData){
-                                    if (slotList![index].available == true) {
-                                      return RegisterMenu(
-                                        icon:
-                                        "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
-                                        name: "${slotList![index].slotName}",
-                                        time: "Khung giờ: $start - $end",
-                                        amount: "Số lượng đăng ký: ${snapshot.data}",
-                                        press: () {
-                                          Navigator.push(
-                                              context,
-                                              DialogRoute(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      dialog(text: "abc")));
-                                        },
-                                      );
-                                    }
-                                    else {
-                                      return RegisterMenu(
-                                          icon:
-                                          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
-                                          name: "${slotList![index].slotName}: Slot này đã đạt giới hạn số lượng chuyên viên đăng ký ",
-                                          time: "Khung giờ: $start - $end",
-                                          amount: "Số lượng đăng ký: ${snapshot.data}",
-                                          press: null
-                                      );
-                                    }
-                                  }
-                                  else {
-                                    return Center(child: CircularProgressIndicator(),);
-                                  }
-
-                                }
-                            );
-                            // }
-
-
-                          })
-                    ],
-                  )):
-                Container()
-
-
-      ],
+                                  return FutureBuilder(
+                                      future: CallAPI()
+                                          .getNumberOfPhysioRegisterOnSlot(
+                                              slotList![index].slotID),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          if (slotList![index].available ==
+                                              true) {
+                                            return RegisterMenu(
+                                              icon:
+                                                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
+                                              name:
+                                                  "${slotList![index].slotName}",
+                                              time: "Khung giờ: $start - $end",
+                                              full: "",
+                                              choose: false,
+                                              amount:
+                                                  "Số lượng đăng ký: ${snapshot.data}",
+                                              press: () {
+                                                Navigator.push(
+                                                    context,
+                                                    DialogRoute(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            dialog(
+                                                              text:
+                                                                  "Chọn thời gian làm việc",
+                                                              des:
+                                                                  "Yêu cầu của bạn đến quản lý",
+                                                            )));
+                                              },
+                                            );
+                                          } else {
+                                            return RegisterMenu(
+                                                icon:
+                                                    "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fregisterd.png?alt=media&token=0b0eba33-ef11-44b4-a943-5b5b9b936cfe",
+                                                name:
+                                                    "${slotList![index].slotName}",
+                                                full:
+                                                    "Slot này đầy. Vui lòng chọn slot khác.",
+                                                choose: true,
+                                                time:
+                                                    "Khung giờ: $start - $end",
+                                                amount:
+                                                    "Số lượng đăng ký: ${snapshot.data}",
+                                                press: null);
+                                          }
+                                        } else {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+                                      });
+                                  // }
+                                })
+                          ],
+                        ))
+                    : Container()
+          ],
         ),
       ),
     );
@@ -192,17 +204,20 @@ class _PhysioRegisterSlotPageState extends State<PhysioRegisterSlotPage> {
 }
 
 class RegisterMenu extends StatelessWidget {
-  const RegisterMenu({
+  RegisterMenu({
     Key? key,
     required this.name,
     required this.time,
     required this.amount,
     required this.icon,
     required this.press,
+    required this.full,
+    required this.choose,
   }) : super(key: key);
 
-  final String icon, name, time, amount;
+  final String icon, name, time, amount, full;
   final VoidCallback? press;
+  bool choose;
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +231,6 @@ class RegisterMenu extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: TextButton(
-
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
@@ -242,15 +256,15 @@ class RegisterMenu extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.65,
+                        width: MediaQuery.of(context).size.width / 1.6,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              name,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            const SizedBox(height: 5),
+                            Text(name,
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black)),
                             Text(
                               time,
                               style: Theme.of(context).textTheme.bodyMedium,
@@ -259,6 +273,17 @@ class RegisterMenu extends StatelessWidget {
                               amount,
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
+                            const SizedBox(height: 5),
+                            Visibility(
+                              visible: choose,
+                              child: Text(
+                                full,
+                                style: const TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            )
                           ],
                         )),
                     const Padding(
@@ -270,36 +295,6 @@ class RegisterMenu extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class dialog extends StatelessWidget {
-  dialog({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Bạn muốn đăng ký?'),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('Hủy'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: const Text('Đồng ý'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
     );
   }
 }

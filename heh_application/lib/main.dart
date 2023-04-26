@@ -106,7 +106,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         image: NetworkImage(
                             "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2Fwelcome2.png?alt=media&token=e26f1d4f-e548-406c-aa71-65c099663f85"))),
               ),
-              Column(
+              Column( 
                 children: <Widget>[
                   MaterialButton(
                     minWidth: double.infinity,

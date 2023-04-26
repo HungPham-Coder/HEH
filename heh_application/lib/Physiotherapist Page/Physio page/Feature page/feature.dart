@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Register%20slot%20page/register.dart';
+import 'package:heh_application/Physiotherapist%20Page/Physio%20page/Feature%20page/Schedule%20page/schedullt.dart';
 
 class FeaturePage extends StatefulWidget {
   const FeaturePage({Key? key}) : super(key: key);
@@ -39,13 +40,24 @@ class _FeaturePageState extends State<FeaturePage> {
             ),
             FeatureMenu(
               icon:
-                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcalendar.png?alt=media&token=45426216-f7a3-449b-8a91-05582ebc1339",
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcalendar1.png?alt=media&token=0c80092a-d7d8-4f16-97cc-afa766361770",
               text: "Đăng ký lịch làm việc",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const PhysioRegisterSlotPage()));
+              },
+            ),
+            FeatureMenu(
+              icon:
+                  "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fcalendar.png?alt=media&token=45426216-f7a3-449b-8a91-05582ebc1339",
+              text: "Khung giờ đã đăng ký.",
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SchedulePage()));
               },
             ),
           ],

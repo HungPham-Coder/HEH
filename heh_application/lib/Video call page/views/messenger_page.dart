@@ -380,7 +380,7 @@ class _MessengerScreenPageState extends State<MessengerScreenPage> {
     } else {
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => const LoginPage(),
+          builder: (context) => LoginPage(),
         ),
         (Route<dynamic> route) => false,
       );
