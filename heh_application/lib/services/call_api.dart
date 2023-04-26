@@ -506,10 +506,17 @@ class CallAPI {
     }
   }
 
+<<<<<<< HEAD
   Future<List<Physiotherapist>> getallPhysiotherapistBySlotID(
       String slotID) async {
     var url =
         Uri.parse('${link}/api/Schedule/getAllPhysiotherapistBySlotID/$slotID');
+=======
+  Future<List<Schedule>> getallPhysiotherapistBySlotTimeAndSkill(
+      String timeStart, String timeEnd, String skill) async {
+    var url = Uri.parse(
+        '${link}/api/Schedule/getAllPhysiotherapistBySlotTimeAndSkill?timeStart=$timeStart&timeEnd=$timeEnd&skill=$skill');
+>>>>>>> parent of 9ed1054 (fix register slot)
     // var url = Uri.https('localhost:7166', 'api/Exercise/GetByCategoryID/$categoryId');
     final headers = {
       "Accept": "application/json",
