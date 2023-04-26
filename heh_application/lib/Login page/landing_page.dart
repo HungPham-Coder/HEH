@@ -22,8 +22,8 @@ Physiotherapist? sharedPhysiotherapist;
 ExerciseResource? sharedExerciseResource;
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({Key? key}) : super(key: key);
-
+  LandingPage({Key? key, this.msg}) : super(key: key);
+  String? msg;
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
@@ -36,8 +36,14 @@ class LandingPage extends StatelessWidget {
         // final SignUpUser? user = snapshot.data;
 
         if (snapshot.data == null || snapshot.data!.userID == 'signout') {
-          print(context);
-          return const LoginPage();
+          return LoginPage(
+            msg: msg,
+          );
+        } else if (snapshot.data!.role!.name == "Admin" ||
+            snapshot.data!.role!.name == "Staff") {
+          return LandingPage(
+            msg: 'Account của bạn không có quyền truy cập vào app',
+          );
         } else {
           sharedResultLogin = snapshot.data;
           Future<SignUpUser> futureCurrentUser =
@@ -52,14 +58,11 @@ class LandingPage extends StatelessWidget {
                       create: (context) => FirebaseFirestores(),
                       child: Navigation_Bar(),
                     );
-                  } else if (sharedCurrentUser!.role!.name ==
-                      "Physiotherapist") {
+                  } else {
                     return Provider<FirebaseFirestoreBase>(
                       create: (context) => FirebaseFirestores(),
                       child: const PhyNavigation_bar(),
                     );
-                  } else {
-                    return const LoginPage();
                   }
                 } else {
                   print("khong data");

@@ -144,18 +144,6 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                   onConfirm: (values) {
                                     setState(() {
                                       _selectedProblems = values;
-                                      int counter = 0;
-
-                                      _selectedProblems.forEach((element) {
-                                        if (element!.name.contains("Khác")) {
-                                          counter++;
-                                        }
-                                      });
-                                      // if (counter > 0) {
-                                      //   _visibility = true;
-                                      // } else {
-                                      //   _visibility = false;
-                                      // }
                                     });
                                   },
                                   chipDisplay:
@@ -163,18 +151,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                                     setState(
                                       () {
                                         _itemChange(values!, false);
-                                        // int counter = 0;
-                                        // _selectedProblems.forEach((element) {
-                                        //   if (element!.name.contains("Khác")) {
-                                        //     counter++;
-                                        //   }
-                                        // }
-                                        // );
-                                        // if (counter == 0) {
-                                        //   _visibility = false;
-                                        // } else {
-                                        //   _visibility = true;
-                                        // }
+
                                       },
                                     );
                                   }),
@@ -322,7 +299,7 @@ class _SignUpMedicalPageState extends State<SignUpMedicalPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const LandingPage()));
+                                    builder: (context) =>  LandingPage()));
                           },
                           color: const Color.fromARGB(255, 46, 161, 226),
                           elevation: 0,
