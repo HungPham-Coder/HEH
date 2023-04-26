@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:heh_application/Login%20page/login.dart';
 import 'package:heh_application/Member%20page/navigation_main.dart';
 import 'package:heh_application/Physiotherapist%20Page/navigation_main.dart';
+import 'package:heh_application/models/exercise_resource.dart';
 import 'package:heh_application/models/medical_record.dart';
 import 'package:heh_application/models/result_login.dart';
 import 'package:heh_application/models/sign_up_user.dart';
@@ -18,6 +19,7 @@ ResultLogin? sharedResultLogin;
 SignUpUser? sharedCurrentUser;
 MedicalRecord? sharedMedicalRecord;
 Physiotherapist? sharedPhysiotherapist;
+ExerciseResource? sharedExerciseResource;
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -34,6 +36,7 @@ class LandingPage extends StatelessWidget {
         // final SignUpUser? user = snapshot.data;
 
         if (snapshot.data == null || snapshot.data!.userID == 'signout') {
+          print(context);
           return const LoginPage();
         } else {
           sharedResultLogin = snapshot.data;
@@ -49,7 +52,8 @@ class LandingPage extends StatelessWidget {
                       create: (context) => FirebaseFirestores(),
                       child: Navigation_Bar(),
                     );
-                  } else if (sharedCurrentUser!.role!.name == "Member") {
+                  } else if (sharedCurrentUser!.role!.name ==
+                      "Physiotherapist") {
                     return Provider<FirebaseFirestoreBase>(
                       create: (context) => FirebaseFirestores(),
                       child: const PhyNavigation_bar(),

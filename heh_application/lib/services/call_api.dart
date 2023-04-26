@@ -257,9 +257,9 @@ class CallAPI {
   }
 
   Future<List<ExerciseResource>> getExerciseResourceByExerciseDetailID(
-      String exerciseID) async {
+      String detailID) async {
     var url = Uri.parse(
-        '${link}/api/ExerciseResource/GetByExerciseDetailId/$exerciseID');
+        '${link}/api/ExerciseResource/GetByExerciseDetailId/$detailID');
     // var url = Uri.https('localhost:7166', 'api/ExerciseDetail/GetByExerciseID/$exerciseID');
     final headers = {
       "Accept": "application/json",
@@ -394,8 +394,9 @@ class CallAPI {
     }
   }
 
-  Future<List<Physiotherapist>> getPhysiotherapistByID() async {
-    var url = Uri.parse('${link}/api/Physiotherapist');
+  Future<Physiotherapist> getPhysiotherapistByUserID(String id) async {
+    var url = Uri.parse(
+        '${link}/api/Physiotherapist/GetPhysiotherapistByUserID?userID=$id');
     // var url = Uri.https('localhost:7166', 'api/Physiotherapist');
     final headers = {
       "Accept": "application/json",
@@ -403,14 +404,7 @@ class CallAPI {
     };
     var response = await http.get(url, headers: headers);
     if (response.statusCode == 200) {
-      Iterable jsonResult = json.decode(response.body);
-      List<Physiotherapist> list = List<Physiotherapist>.from(
-          jsonResult.map((model) => Physiotherapist.fromMap(model)));
-      if (list == null) {
-        throw Exception('Physiotherapist id null');
-      } else {
-        return list;
-      }
+      return Physiotherapist.fromMap(json.decode(response.body));
     } else {
       throw Exception('Failed to load Physiotherapist');
     }

@@ -210,8 +210,10 @@ class _buttonState extends State<button> {
                       side: const BorderSide(color: Colors.white)),
                 )),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => VideoCallPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const VideoCallPage()));
             },
             child: const Text(
               "Tham gia",

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:heh_application/Member%20page/Exercise%20Page/resource.dart';
+
 import 'package:heh_application/common_widget/menu_listview.dart';
 import 'package:heh_application/models/exercise_model/exercise_detail.dart';
 import 'package:heh_application/models/exercise_resource.dart';
 import 'package:heh_application/services/auth.dart';
 import 'package:heh_application/services/call_api.dart';
 import 'package:provider/provider.dart';
+
 import '../../common_widget/search_delegate.dart';
 
 class ExerciseDetail extends StatefulWidget {
@@ -69,11 +71,14 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                 MaterialPageRoute(builder: (context) {
                               if (exerciseDetailList != null) {
                                 return ExerciseResources(
-                                  exerciseDetail: snapshot.data![index],
-                                  exerciseResource: exerciseResource,
+                                  detailID: widget.exerciseID!,
+                                  // exerciseDetail: snapshot.data![index],
+                                  // exerciseResource: exerciseResource,
                                 );
                               } else {
-                                return ExerciseResources();
+                                return ExerciseResources(
+                                  detailID: widget.exerciseID!,
+                                );
                               }
                             }));
                           },

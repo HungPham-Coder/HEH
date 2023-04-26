@@ -6,6 +6,7 @@ import 'package:heh_application/Physiotherapist%20Page/Profile%20page/Personal%2
 import 'package:heh_application/Physiotherapist%20Page/Profile%20page/history.dart';
 import 'package:heh_application/services/stream_test.dart';
 import 'package:provider/provider.dart';
+import '../../Login page/landing_page.dart';
 import '../../services/auth.dart';
 
 class PhysioSettingPage extends StatefulWidget {
@@ -42,15 +43,16 @@ class _PhysioSettingPageState extends State<PhysioSettingPage> {
               fit: StackFit.expand,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                const CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 220, 220, 220),
-                  backgroundImage: NetworkImage(
-                      "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
-                ),
+                CircleAvatar(
+                    backgroundColor: Color.fromARGB(255, 220, 220, 220),
+                    backgroundImage:
+                        NetworkImage(sharedCurrentUser!.image.toString()))
               ],
             ),
           ),
           const SizedBox(height: 10),
+          Text(sharedCurrentUser!.firstName.toString(),
+              style: const TextStyle(fontSize: 30)),
           ProfileMenu(
             icon:
                 "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.svg?alt=media&token=7bef043d-fdb5-4c5b-bb2e-644ee7682345",

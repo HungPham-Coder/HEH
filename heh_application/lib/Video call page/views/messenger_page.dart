@@ -10,14 +10,14 @@ import 'package:heh_application/services/chat_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
+import 'package:heh_application/Video%20call%20page/views/videoscreen.dart';
 import '../../common_widget/chat_image.dart';
 import '../../common_widget/message_bubble.dart';
 import '../../models/chat_model/chat_messages.dart';
 import '../../models/chat_model/message_type.dart';
 
-class MessengerPage extends StatefulWidget {
-  const MessengerPage(
+class MessengerScreenPage extends StatefulWidget {
+  const MessengerScreenPage(
       {Key? key,
       required this.oponentID,
       required this.oponentAvartar,
@@ -31,10 +31,10 @@ class MessengerPage extends StatefulWidget {
   final String? userAvatar;
   final String currentUserID;
   @override
-  State<MessengerPage> createState() => _MessengerPageState();
+  State<MessengerScreenPage> createState() => _MessengerScreenPageState();
 }
 
-class _MessengerPageState extends State<MessengerPage> {
+class _MessengerScreenPageState extends State<MessengerScreenPage> {
   String groupChatID = '';
   int _limit = 20;
   final int _limitIncrement = 20;
@@ -338,20 +338,18 @@ class _MessengerPageState extends State<MessengerPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          // actions: [
-          //   Row(
-          //     children: [
-          //       IconButton(
-          //         onPressed: () {},
-          //         icon: const Icon(Icons.call),
-          //       ),
-          //       IconButton(
-          //         onPressed: () {},
-          //         icon: const Icon(Icons.video_call),
-          //       )
-          //     ],
-          //   )
-          // ],
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => VideoCallScreen(),
+                  )),
+                  icon: const Icon(Icons.video_call),
+                )
+              ],
+            )
+          ],
           title: const Text(
             "Chăm sóc khách hàng",
             style: TextStyle(fontSize: 18),

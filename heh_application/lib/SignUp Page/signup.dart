@@ -20,6 +20,8 @@ class _SignUpPageState extends State<SignUpPage> {
   genderGroup _genderValue = genderGroup.male;
 
   String? dob;
+  DateTime today = DateTime.now();
+  late int age;
 
   bool isObscure = false;
   bool isObscure1 = false;
@@ -124,28 +126,41 @@ class _SignUpPageState extends State<SignUpPage> {
                         Text("Ngày sinh "),
                         Text("*", style: TextStyle(color: Colors.red))
                       ]),
-                      TextFormField(
-                        readOnly: true,
-                        controller: _date,
-                        decoration: const InputDecoration(
-                          hoverColor: Colors.black,
-                          hintText: "Ngày sinh",
+                      Form(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: TextFormField(
+                          readOnly: true,
+                          controller: _date,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Không được để trống ngày sinh!";
+                            } else if (age < 18) {
+                              return "Tuổi phải trên 18.";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: const InputDecoration(
+                            hoverColor: Colors.black,
+                            hintText: "Ngày sinh",
+                          ),
+                          onTap: () async {
+                            DateTime? pickeddate = await showDatePicker(
+                                context: context,
+                                initialDate: today,
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime(2030));
+                            if (pickeddate != null) {
+                              _date.text =
+                                  DateFormat('dd-MM-yyyy').format(pickeddate);
+                              // print(_date.text);
+                              dob = DateFormat('yyyy-MM-dd').format(pickeddate);
+                              age = today.year - pickeddate.year;
+                              print(age);
+                              // print(dob);
+                            }
+                          },
                         ),
-                        onTap: () async {
-                          DateTime? pickeddate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1900),
-                              lastDate: DateTime(2030));
-                          if (pickeddate != null) {
-                            _date.text =
-                                DateFormat('dd-MM-yyyy').format(pickeddate);
-                            print(_date.text);
-                            dob = DateFormat('yyyy-MM-dd').format(pickeddate);
-
-                            print(dob);
-                          }
-                        },
                       ),
                     ],
                   ),
@@ -245,6 +260,8 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget fullName({label, obscureText = false}) {
+    String patttern = "'[\x5F]+|[a-z]|[0-9]";
+    RegExp regExp = new RegExp(patttern);
     return Column(
       children: <Widget>[
         Row(
@@ -263,18 +280,29 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextFormField(
-          obscureText: obscureText,
-          controller: _firstName,
-          keyboardType: TextInputType.name,
-          decoration: const InputDecoration(
-              hintText: 'Họ và Tên',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey))),
+        Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: TextFormField(
+            keyboardType: TextInputType.name,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Hãy nhập Họ và Tên của bạn.";
+              } else if (!regExp.hasMatch(value)) {
+                return "Hãy nhập đúng tên";
+              }
+            },
+            obscureText: obscureText,
+            controller: _firstName,
+            decoration: const InputDecoration(
+                hintText: 'Họ và Tên',
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey))),
+          ),
         ),
         const SizedBox(height: 10)
       ],
@@ -305,6 +333,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: TextFormField(
                 controller: _email,
                 obscureText: obscureText,
+                keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                     hintText: 'Email',
                     contentPadding:
@@ -315,9 +344,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey))),
                 validator: (email) {
-                  email != null && !EmailValidator.validate(email)
-                      ? "Nhập đúng email"
-                      : null;
+                  if (email != null && !EmailValidator.validate(email)) {
+                    return "Nhập đúng email";
+                  } else if (email!.isEmpty) {
+                    return "Vui lòng nhập email!";
+                  } else {
+                    return null;
+                  }
                 })),
         const SizedBox(height: 10)
       ],
@@ -343,25 +376,31 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
         const SizedBox(height: 5),
-        TextFormField(
-          keyboardType: TextInputType.phone,
-          controller: _phone,
-          obscureText: obscureText,
-          decoration: const InputDecoration(
-              hintText: 'Số điện thoại',
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey))),
-          validator: (value) {
-            if (value != null || value!.length > 11) {
-              return "Số điện thoại không được nhiều hơn 10 số";
-            } else {
-              return null;
-            }
-          },
+        Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: TextFormField(
+            keyboardType: TextInputType.phone,
+            controller: _phone,
+            obscureText: obscureText,
+            decoration: const InputDecoration(
+                hintText: 'Số điện thoại',
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey))),
+            validator: (value) {
+              if (value != null && value.length > 10) {
+                return "Số điện thoại không được nhiều hơn 10 chữ số";
+              } else if (value!.isEmpty) {
+                return "Không được để trống";
+              } else {
+                return null;
+              }
+            },
+          ),
         ),
         const SizedBox(height: 10)
       ],
@@ -390,6 +429,7 @@ class _SignUpPageState extends State<SignUpPage> {
         TextFormField(
           controller: _address,
           obscureText: obscureText,
+          keyboardType: TextInputType.streetAddress,
           decoration: const InputDecoration(
               hintText: 'Địa chỉ',
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),

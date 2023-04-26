@@ -50,31 +50,25 @@ class _PhysioChoosePageState extends State<PhysioChoosePage> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: listPhysio.length,
                               itemBuilder: (context, index) {
-
-                                 return   PhysioChooseMenu(
-                                      icon: listPhysio[index]
-                                                  .signUpUser!
-                                                  .gender ==
-                                              true
-                                          ? "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622"
-                                          : "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2FPhysio.png?alt=media&token=30d7e2dc-5a5b-4637-bda5-7cc798b6104e",
-                                      name: listPhysio[index]
-                                          .signUpUser!
-                                          .firstName!,
-                                      skill:
-                                          'Kỹ năng: ${listPhysio[index].skill!}',
-                                      press: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ChooseDetailPage(
-                                                      physiotherapist:
-                                                          listPhysio[index],
-                                                    )));
-                                      },
-                                    );
-
+                                return PhysioChooseMenu(
+                                  icon: listPhysio[index].signUpUser!.gender ==
+                                          true
+                                      ? "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fphy.png?alt=media&token=bac867bc-190c-4523-83ba-86fccc649622"
+                                      : "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2FPhysio.png?alt=media&token=30d7e2dc-5a5b-4637-bda5-7cc798b6104e",
+                                  name:
+                                      listPhysio[index].signUpUser!.firstName!,
+                                  skill: 'Kỹ năng: ${listPhysio[index].skill!}',
+                                  press: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChooseDetailPage(
+                                                  physiotherapist:
+                                                      listPhysio[index],
+                                                )));
+                                  },
+                                );
                               }),
                         ],
                       );

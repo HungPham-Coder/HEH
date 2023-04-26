@@ -60,7 +60,7 @@ dependencies:
   email_validator: '^2.1.16'
   agora_chat_sdk: ^1.1.0+1
   chewie: ^1.4.0
-
+  email_otp: ^2.0.1
 
 dev_dependencies:
 

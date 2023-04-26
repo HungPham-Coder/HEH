@@ -25,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    _initSDK();
+
     // _addChatListener();
   }
 
@@ -74,49 +74,41 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-
-  void _initSDK() async {
-    ChatOptions options = ChatOptions(
-      appKey: AgoraChatConfig.appKey,
-      isAutoDownloadThumbnail: false,
-      autoLogin: true,
-    );
-    await ChatClient.getInstance.init(options);
-    // Notify the SDK that the UI is ready. After the following method is executed, callbacks within `ChatRoomEventHandler`, ` ChatContactEventHandler`, and `ChatGroupEventHandler` can be triggered.
-    await ChatClient.getInstance.startCallback();
-  }
 }
 
-const messages = <MessageBubble>[];
-// const messages = <MessageBubble>[
-//   MessageBubble(
-//       profileImageUrl:
-//           "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
-//       message: "ABCSASD",
-//       date: "11:30 13/04/2023"),
-//   MessageBubble(message: "ABCSASD12", date: "12:30 13/04/2023"),
-//   MessageBubble(message: "ABCSASD34", date: "13:30 13/04/2023"),
-//   MessageBubble(
-//       profileImageUrl:
-//           "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
-//       message: "ABCSASD56",
-//       date: "14:30 13/04/2023"),
-//   MessageBubble(message: "ABCSASD", date: "11:30 13/04/2023"),
-//   MessageBubble(
-//       profileImageUrl:
-//           "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
-//       message: "ABCSASD12",
-//       date: "12:30 13/04/2023"),
-//   MessageBubble(message: "ABCSASD34", date: "13:30 13/04/2023"),
-//   MessageBubble(
-//       profileImageUrl:
-//           "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
-//       message: "ABCSASD56",
-//       date: "14:30 13/04/2023"),
-//   MessageBubble(message: "ABCSASD", date: "11:30 13/04/2023"),
-//   MessageBubble(
-//       profileImageUrl:
-//           "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
-//       message: "ABCSASD12",
-//       date: "12:30 13/04/2023"),
-// ];
+// const messages = <MessageBubble>[];
+const messages = <MessageBubble>[
+  MessageBubble(
+      profileImageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
+      message: "A",
+      date: "11:30 13/04/2023"),
+  MessageBubble(
+      message:
+          "ABCSASD12ABCSASD12ABCSASD12ABCSASD12ABCSASD12ABCSASD12ABCSASD12ABCSASD12ABCSASD12ABCSASD12ABCSASD12 ",
+      date: "12:30 13/04/2023"),
+  MessageBubble(message: "ABCSASD34", date: "13:30 13/04/2023"),
+  MessageBubble(
+      profileImageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
+      message: "ABCSASD56",
+      date: "14:30 13/04/2023"),
+  MessageBubble(message: "ABCSASD", date: "11:30 13/04/2023"),
+  MessageBubble(
+      profileImageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
+      message: "ABCSASD12",
+      date: "12:30 13/04/2023"),
+  MessageBubble(message: "ABCSASD34", date: "13:30 13/04/2023"),
+  MessageBubble(
+      profileImageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
+      message: "ABCSASD56",
+      date: "14:30 13/04/2023"),
+  MessageBubble(message: "ABCSASD", date: "11:30 13/04/2023"),
+  MessageBubble(
+      profileImageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19",
+      message: "ABCSASD12",
+      date: "12:30 13/04/2023"),
+];

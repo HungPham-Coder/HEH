@@ -66,10 +66,9 @@ class _InformationPageState extends State<InformationPage> {
                       clipBehavior: Clip.none,
                       fit: StackFit.expand,
                       children: [
-                        const CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 220, 220, 220),
-                          backgroundImage: NetworkImage(
-                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
+                        CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(sharedCurrentUser!.image.toString()),
                         ),
                         Positioned(
                           right: -12,

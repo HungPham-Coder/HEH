@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heh_application/Member%20page/Exercise%20Page/detail.dart';
+
 import 'package:heh_application/Member%20page/Exercise%20Page/resource.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -41,7 +41,9 @@ class _FavoritePageState extends State<FavoritePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ExerciseResources()));
+                        builder: (context) => ExerciseResources(
+                              detailID: "",
+                            )));
               },
             ),
           ],

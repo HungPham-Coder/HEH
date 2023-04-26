@@ -6,10 +6,8 @@ import 'package:heh_application/Member%20page/Profile%20page/changePass.dart';
 
 import 'package:heh_application/Member%20page/Profile%20page/history.dart';
 
-
 import 'package:heh_application/models/sub_profile.dart';
 import 'package:heh_application/services/call_api.dart';
-
 
 import 'package:heh_application/services/stream_test.dart';
 
@@ -52,16 +50,16 @@ class _SettingPageState extends State<SettingPage> {
               fit: StackFit.expand,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                const CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 220, 220, 220),
-                  backgroundImage: NetworkImage(
-                      "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
+                CircleAvatar(
+                  backgroundImage:
+                      NetworkImage(sharedCurrentUser!.image.toString()),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 10),
-          const Text("ABC", style: TextStyle(fontSize: 30)),
+          Text(sharedCurrentUser!.firstName.toString(),
+              style: const TextStyle(fontSize: 30)),
           const SizedBox(height: 20),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 90),
@@ -90,9 +88,14 @@ class _SettingPageState extends State<SettingPage> {
                 "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Ffamily.svg?alt=media&token=f6f01b99-6901-48be-9a69-798ea594bd77",
             text: "Thành viên gia đình",
             press: () async {
-              List<SubProfile>? listSubProfile = await CallAPI().getallSubProfileByUserId(sharedCurrentUser!.userID!);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>  FamilyPage(listSubProfile: listSubProfile,)));
+              List<SubProfile>? listSubProfile = await CallAPI()
+                  .getallSubProfileByUserId(sharedCurrentUser!.userID!);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FamilyPage(
+                            listSubProfile: listSubProfile,
+                          )));
             },
           ),
           ProfileMenu(

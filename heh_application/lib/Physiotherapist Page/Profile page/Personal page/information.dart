@@ -61,11 +61,10 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                       clipBehavior: Clip.none,
                       fit: StackFit.expand,
                       children: [
-                        const CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 220, 220, 220),
-                          backgroundImage: NetworkImage(
-                              "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/icon%2Fperson.png?alt=media&token=c5c521dc-2f27-4fb9-ba76-b0241c2dfe19"),
-                        ),
+                        CircleAvatar(
+                            backgroundColor: Color.fromARGB(255, 220, 220, 220),
+                            backgroundImage: NetworkImage(
+                                sharedCurrentUser!.image.toString())),
                         Positioned(
                           right: -12,
                           bottom: 0,
@@ -100,7 +99,6 @@ class _PhysioInformationPageState extends State<PhysioInformationPage> {
                     ),
                   ),
                 ),
-                const Text("ABC", style: TextStyle(fontSize: 30)),
                 const SizedBox(height: 20),
               ],
             ),
