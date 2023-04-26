@@ -30,8 +30,8 @@ android {
     compileSdkVersion flutter.compileSdkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
     kotlinOptions {
@@ -76,10 +76,12 @@ dependencies {
 
 android{
     ndkVersion "23.1.7779620"
+    compileSdkVersion 33
     lintOptions {
         disable 'InvalidPackage'
         checkReleaseBuilds false //<- add this line
     }
+    buildToolsVersion "33.0.0"
 
     buildTypes {
 

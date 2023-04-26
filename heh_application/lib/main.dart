@@ -19,14 +19,15 @@ Future<void> main() async {
   SecurityContext.defaultContext
       .setTrustedCertificatesBytes(data.buffer.asUint8List());
   await Firebase.initializeApp();
-  runApp(Provider<AuthBase>(
-    create: (context) => Auth(),
-    child: const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: WelcomePage(),
-    ),
-  ));
+  // runApp(Provider<AuthBase>(
+  // create: (context) => Auth(),
+  child:
+  const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: WelcomePage(),
+  );
 }
+//JavaVersion.VERSION_1_8
 
 // class MyHttpOverrides extends HttpOverrides {
 //   @override
@@ -106,18 +107,22 @@ class _WelcomePageState extends State<WelcomePage> {
                         image: NetworkImage(
                             "https://firebasestorage.googleapis.com/v0/b/healthcaresystem-98b8d.appspot.com/o/image%2Fwelcome2.png?alt=media&token=e26f1d4f-e548-406c-aa71-65c099663f85"))),
               ),
-              Column( 
+              Column(
                 children: <Widget>[
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return  LandingPage();
-                      },settings: RouteSettings(
-                            name: "/landing",
-                          ),));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return LandingPage();
+                            },
+                            settings: RouteSettings(
+                              name: "/landing",
+                            ),
+                          ));
                     },
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Colors.black),

@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_webrtc
   iris_event
   permission_handler_windows
+  videosdk
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
